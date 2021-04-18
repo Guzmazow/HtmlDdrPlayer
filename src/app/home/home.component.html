@@ -1,0 +1,42 @@
+<mat-drawer-container fullscreen>
+
+  <mat-drawer #start mode="side" style="width: 200px;">
+    <button mat-flat-button style="width: 100%;">Basic</button>
+    <mat-divider></mat-divider>
+    <button mat-flat-button style="width: 100%;">Basic 1</button>
+    <mat-divider></mat-divider>
+    <button mat-flat-button style="width: 100%;">Basic 2</button>
+    <mat-divider></mat-divider>
+    <button mat-flat-button style="width: 100%;">Basic 3</button>
+    <mat-divider></mat-divider>
+    <button mat-flat-button style="width: 100%;">Basic 4</button>
+  </mat-drawer>
+
+  <mat-toolbar color="primary">
+    <button mat-icon-button (click)="start.toggle()">
+      <mat-icon>menu</mat-icon>
+    </button>
+    <span>SimParser HOME</span>
+    <span class="example-spacer"></span>
+    <button mat-icon-button>
+      <mat-icon>favorite</mat-icon>
+    </button>
+    <button mat-icon-button>
+      <mat-icon>share</mat-icon>
+    </button>
+  </mat-toolbar>
+
+  <div>
+    <mat-card>
+      <section><button mat-raised-button (click)="downloadSim()">Start</button></section>
+    </mat-card>
+    <mat-divider></mat-divider>
+    <mat-card>
+      <img id="noteskin" style="display: none;" src="/assets/Noteskins/Outfox/_arrow 1x8 (doubleres).png"/>
+      <canvas id="canvas"></canvas>
+    </mat-card>
+    <mat-divider></mat-divider>
+    <router-outlet></router-outlet>
+  </div>
+
+</mat-drawer-container>

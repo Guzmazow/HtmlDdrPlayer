@@ -1,0 +1,16 @@
+{
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"type": "npm",
+			"script": "ng serve",
+			"problemMatcher": [],
+			"label": "npm: ng serve",
+			"detail": "ng serve",
+			"group": {
+				"kind": "build",
+				"isDefault": true
+			}
+		}
+	]
+}
