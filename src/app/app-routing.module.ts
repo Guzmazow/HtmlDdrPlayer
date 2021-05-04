@@ -1,9 +1,16 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { HomeComponent } from './home/home.component';
+import { DdrPlayerComponent } from './ddr-player/ddr-player.component';
 
 const routes: Routes = [
-  { path: '', component: HomeComponent }
+  {
+    path: '', component: HomeComponent, children: [
+      {
+        path: 'ddr-player', component: DdrPlayerComponent
+      }
+    ]
+  }
 ];
 
 @NgModule({

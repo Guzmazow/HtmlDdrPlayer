@@ -1,15 +1,15 @@
 <mat-drawer-container fullscreen>
 
-  <mat-drawer #start mode="side" style="width: 200px;">
-    <button mat-flat-button style="width: 100%;">Basic</button>
+  <mat-drawer id="home-drawer" #start mode="side">
+    <button mat-flat-button (click)="start.close()" [routerLink]="['/ddr-player']">Player</button>
     <mat-divider></mat-divider>
-    <button mat-flat-button style="width: 100%;">Basic 1</button>
+    <button mat-flat-button (click)="start.close()">Basic 1</button>
     <mat-divider></mat-divider>
-    <button mat-flat-button style="width: 100%;">Basic 2</button>
+    <button mat-flat-button (click)="start.close()">Basic 2</button>
     <mat-divider></mat-divider>
-    <button mat-flat-button style="width: 100%;">Basic 3</button>
+    <button mat-flat-button (click)="start.close()">Basic 3</button>
     <mat-divider></mat-divider>
-    <button mat-flat-button style="width: 100%;">Basic 4</button>
+    <button mat-flat-button (click)="start.close()">Basic 4</button>
   </mat-drawer>
 
   <mat-toolbar color="primary">
@@ -27,15 +27,6 @@
   </mat-toolbar>
 
   <div>
-    <mat-card>
-      <section><button mat-raised-button (click)="downloadSim()">Start</button></section>
-    </mat-card>
-    <mat-divider></mat-divider>
-    <mat-card>
-      <img id="noteskin" style="display: none;" src="/assets/Noteskins/Outfox/_arrow 1x8 (doubleres).png"/>
-      <canvas id="canvas"></canvas>
-    </mat-card>
-    <mat-divider></mat-divider>
     <router-outlet></router-outlet>
   </div>
 

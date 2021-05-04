@@ -13,12 +13,20 @@ import {MatToolbarModule} from '@angular/material/toolbar';
 import {MatSidenavModule} from '@angular/material/sidenav';
 import {MatCardModule} from '@angular/material/card';
 import { HttpClientModule } from '@angular/common/http';
+import { MatExpansionModule }from '@angular/material/expansion';
+
+import { DdrPlayerComponent } from './ddr-player/ddr-player.component';
+import { NoteLaneComponent } from './ddr-player/note-lane/note-lane.component';
+import { JudgementComponent } from './ddr-player/judgement/judgement.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
-    HomeComponent
+    HomeComponent,
+    DdrPlayerComponent,
+    NoteLaneComponent,
+    JudgementComponent
   ],
   imports: [
     BrowserModule,
@@ -30,7 +38,8 @@ import { HttpClientModule } from '@angular/common/http';
     MatButtonModule,
     MatToolbarModule,
     MatSidenavModule,
-    MatCardModule
+    MatCardModule,
+    MatExpansionModule
   ],
   providers: [ ],
   bootstrap: [AppComponent]
