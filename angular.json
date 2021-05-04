@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "SimParser2": {
+    "HtmlDdrPlayer": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:application": {
@@ -17,7 +17,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/SimParser2",
+            "outputPath": "dist/HtmlDdrPlayer",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
@@ -66,18 +66,18 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "SimParser2:build"
+            "browserTarget": "HtmlDdrPlayer:build"
           },
           "configurations": {
             "production": {
-              "browserTarget": "SimParser2:build:production"
+              "browserTarget": "HtmlDdrPlayer:build:production"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "SimParser2:build"
+            "browserTarget": "HtmlDdrPlayer:build"
           }
         },
         "test": {
@@ -115,16 +115,16 @@
           "builder": "@angular-devkit/build-angular:protractor",
           "options": {
             "protractorConfig": "e2e/protractor.conf.js",
-            "devServerTarget": "SimParser2:serve"
+            "devServerTarget": "HtmlDdrPlayer:serve"
           },
           "configurations": {
             "production": {
-              "devServerTarget": "SimParser2:serve:production"
+              "devServerTarget": "HtmlDdrPlayer:serve:production"
             }
           }
         }
       }
     }
   },
-  "defaultProject": "SimParser2"
+  "defaultProject": "HtmlDdrPlayer"
 }

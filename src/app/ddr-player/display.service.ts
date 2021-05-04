@@ -4,6 +4,7 @@ import { NoteManager } from './models/note-manager';
 import { DisplayContext } from './models/display-context';
 import { Media } from './models/media';
 import { ParsingService } from './parsing.service';
+import { MediaService } from './media.service';
 
 @Injectable({
   providedIn: 'root'
@@ -12,7 +13,7 @@ export class DisplayService {
 
   displayContext!: DisplayContext;
 
-  constructor(private parsingService: ParsingService) {
+  constructor(private parsingService: ParsingService, private mediaService: MediaService) {
 
   }
 
@@ -25,7 +26,7 @@ export class DisplayService {
       <HTMLCanvasElement>document.getElementById("receptor-canvas"),
       <HTMLCanvasElement>document.getElementById("judgement-canvas"),
       this.parsingService.fullParse,
-      new Media()
+      this.mediaService.media
     )
   }
 

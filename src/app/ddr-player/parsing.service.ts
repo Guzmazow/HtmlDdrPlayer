@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, EventEmitter } from '@angular/core';
 import { PartialParse } from './models/partial-parse';
 import { Note } from './models/note';
 import { FullParse } from './models/full-parse';
@@ -10,13 +10,16 @@ import { HttpClient } from '@angular/common/http';
 })
 export class ParsingService {
 
-
+  smFileLocation: string = "";
   partialParse!: PartialParse;
   fullParse!: FullParse;
+
+  loadedSim: EventEmitter<void> = new EventEmitter();
 
   constructor(private http: HttpClient) { }
 
   loadSim(url: string) {
+    this.smFileLocation = url;
     this.http
       .get(url, { responseType: "text" })
       .subscribe(response => this.getPartialParse(response));
@@ -27,10 +30,11 @@ export class ParsingService {
     let partialParse: PartialParse = new PartialParse();
     partialParse.metaData = this.getTopMetaDataAsStrings(fileContents);
     partialParse.modes = this.getModesInfoAsStrings(fileContents);
-    this.partialParse = partialParse;    
+    this.partialParse = partialParse;
 
     let selectedMode: number = 1;//parseInt((<HTMLInputElement>document.getElementById("mode-select")).value);
     this.getFullModeSpecificParse(1);
+    this.loadedSim.emit();
     console.log('Parsed', this.fullParse);
   }
 

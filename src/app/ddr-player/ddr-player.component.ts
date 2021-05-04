@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { DisplayService } from './display.service';
 import { ParsingService } from './parsing.service';
+import { MediaService } from './media.service';
 
 @Component({
   selector: 'app-ddr-player',
@@ -16,10 +17,14 @@ export class DdrPlayerComponent implements OnInit {
   constructor(
     private http: HttpClient, 
     private displayService: DisplayService,
-    private parsingService: ParsingService
+    private parsingService: ParsingService,
+    private mediaService: MediaService,
   ) { }
 
   ngOnInit(): void {
+    this.parsingService.loadedSim.subscribe(()=>{
+      this.mediaService.loadAudio();
+    })
     this.parsingService.loadSim('/assets/Songs/Sneakman/Sneakman.sm');
   }
 
@@ -30,6 +35,7 @@ export class DdrPlayerComponent implements OnInit {
   // }
 
   play(){
+    this.mediaService.media.audio.play();
     this.displayService.prepareDisplayContext();
     this.displayService.load();
     this.startedPlaying = true;

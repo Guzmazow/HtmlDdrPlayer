@@ -4,8 +4,4 @@ export class Media {
     constructor(){
 
     }
-
-    loadAudio(url: string){
-
-    }
 }

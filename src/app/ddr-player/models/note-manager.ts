@@ -12,7 +12,7 @@ export class NoteManager {
 
     constructor(displayContext: DisplayContext) {
         this.displayContext = displayContext;        
-        this.currentTime = displayContext.fullParse.offset;
+        this.currentTime = displayContext.fullParse.offset + 10;
         this.secondsPerPixel = 0.0010;
 
         requestAnimationFrame(this.tick.bind(this));
@@ -78,10 +78,7 @@ export class NoteManager {
     }
 
     clear() {
-        let ctx = this.displayContext.noteLaneCanvas.getContext("2d");
-        if(ctx == null)
-            throw 'ctx must not be null';
-        ctx.clearRect(0, 0, this.displayContext.noteLaneCanvas.width, this.displayContext.noteLaneCanvas.height);
+        this.displayContext.noteLaneCanvasCtx.clearRect(0, 0, this.displayContext.noteLaneCanvas.width, this.displayContext.noteLaneCanvas.height);
     }
 
     getLeastTime(currentTime: number) {
