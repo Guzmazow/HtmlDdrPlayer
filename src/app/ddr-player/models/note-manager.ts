@@ -53,9 +53,9 @@ export class NoteManager {
     }
 
     drawNote(note: Note, trackNumber: number, numTracks: number, currentTime: number) {
-        let x = this.getNoteX(trackNumber, numTracks);
+        let x = this.getNoteX(trackNumber);
         let y = this.getNoteY(note.time, currentTime);
-        new NoteDisplay(x, y, note.type, trackNumber % 4).draw(this.displayContext.noteLaneCanvasCtx);
+        new NoteDisplay(x, y, note.type, trackNumber % 4).draw(this.displayContext);
     }
 
     //TODO: properly indicate when there are NO notes to draw
@@ -89,9 +89,8 @@ export class NoteManager {
         return leastTime + this.displayContext.noteLaneCanvas.height * this.secondsPerPixel;
     }
 
-    getNoteX(trackNumber: number, numTracks: number) {
-        let noteTrackSize = this.displayContext.noteLaneCanvas.width / (numTracks + (numTracks + 1) / 2);
-        return (0.10 + trackNumber * 1.10) * noteTrackSize;
+    getNoteX(trackNumber: number) {
+        return  this.displayContext.displayOptions.noteSpacingSize + trackNumber * this.displayContext.displayOptions.trackSize;
     }
 
     getNoteY(noteTime: number, currentTime: number) {
@@ -145,9 +144,9 @@ export class NoteManager {
     }
 
     drawConnector(startNote: Note, endNote: Note, trackNumber: number, numTracks: number, currentTime: number) {
-        let x = this.getNoteX(trackNumber, numTracks);
+        let x = this.getNoteX(trackNumber);
         let startY = this.getNoteY(startNote.time, currentTime);
         let endY = this.getNoteY(endNote.time, currentTime);
-        new HoldConnector(x, startY, endY).draw(this.displayContext.noteLaneCanvasCtx);
+        new HoldConnector(x, startY, endY).draw(this.displayContext);
     }
 }

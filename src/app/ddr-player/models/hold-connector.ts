@@ -1,3 +1,5 @@
+import { DisplayContext } from './display-context';
+
 export class HoldConnector {
     x: number;
     startY: number;
@@ -9,9 +11,11 @@ export class HoldConnector {
         this.endY = endY;
     }
 
-    draw(ctx: CanvasRenderingContext2D) {
+    draw(dCtx: DisplayContext) {
+        let ctx = dCtx.noteLaneCanvasCtx;
         ctx.save();
-        ctx.fillRect(this.x + 10, this.startY, 20, this.endY - this.startY);
+        ctx.fillStyle = "black"
+        ctx.fillRect(this.x + dCtx.displayOptions.noteSize * 0.25, this.startY, dCtx.displayOptions.noteSize * 0.5, this.endY - this.startY);
         ctx.restore();
     }
 }

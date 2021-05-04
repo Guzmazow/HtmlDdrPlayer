@@ -8,6 +8,7 @@ export enum NoteType {
 }
 
 export enum Direction {
+    NONE = -1,
     LEFT = 0,
     DOWN = 1,
     UP = 2,

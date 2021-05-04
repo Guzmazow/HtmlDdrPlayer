@@ -101,7 +101,6 @@ export class ParsingService {
     let stops: { stopDuration: number; beat: number }[] = this.parseStops(this.partialParse.metaData.get("STOPS") || '');
     let timesBeatsAndLines: { time: number; beat: number; lineInfo: string }[] = this.getTimeInfoByLine(cleanedBeatsAndLines, offset, bpms, stops);
 
-    fullParse.metaData = this.partialParse.metaData;
     fullParse.bpms = bpms;
     fullParse.offset = offset;
     fullParse.stops = stops;

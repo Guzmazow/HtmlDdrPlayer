@@ -23,7 +23,7 @@ export class DdrPlayerComponent implements OnInit {
 
   ngOnInit(): void {
     this.parsingService.loadedSim.subscribe(()=>{
-      this.mediaService.loadAudio();
+      this.mediaService.prepareMedia();
     })
     this.parsingService.loadSim('/assets/Songs/Sneakman/Sneakman.sm');
   }
