@@ -21,6 +21,8 @@ export class NoteDisplay {
         
         ctx.save();
         ctx.fillStyle = "black";
+        let halfNoteSize = dCtx.displayOptions.noteSize * 0.5;
+        let ninthNoteSize = dCtx.displayOptions.noteSize * 0.9;
         switch (this.noteType) {
             case NoteType.NORMAL:
                 //ctx.fillRect(this.x, this.y, 40, 40);
@@ -31,7 +33,7 @@ export class NoteDisplay {
                 ctx.font = `${dCtx.displayOptions.noteSize}px Arial`;
                 ctx.textAlign = "center";
                 ctx.fillStyle = "white";
-                ctx.fillText("v", this.x + dCtx.displayOptions.noteSize * 0.5, this.y + dCtx.displayOptions.noteSize * 0.9, dCtx.displayOptions.noteSize);
+                ctx.fillText("H", this.x + halfNoteSize, this.y + ninthNoteSize, dCtx.displayOptions.noteSize);
                 break;
             case NoteType.TAIL:
                 ctx.strokeRect(this.x, this.y, dCtx.displayOptions.noteSize, dCtx.displayOptions.noteSize);
@@ -41,23 +43,23 @@ export class NoteDisplay {
                 ctx.font = `${dCtx.displayOptions.noteSize}px Arial`;
                 ctx.textAlign = "center";
                 ctx.fillStyle = "white";
-                ctx.fillText("x", this.x + dCtx.displayOptions.noteSize * 0.5, this.y + dCtx.displayOptions.noteSize * 0.9, dCtx.displayOptions.noteSize);
+                ctx.fillText("R", this.x + halfNoteSize, this.y + ninthNoteSize, dCtx.displayOptions.noteSize);
                 break;
             case NoteType.MINE:
                 ctx.beginPath();
-                ctx.arc(this.x + dCtx.displayOptions.noteSize * 0.5, this.y + dCtx.displayOptions.noteSize * 0.5, dCtx.displayOptions.noteSize * 0.5, 0, 2 * Math.PI);
+                ctx.arc(this.x + halfNoteSize, this.y + halfNoteSize, halfNoteSize, 0, 2 * Math.PI);
                 ctx.fill();
                 // ctx.fillRect(this.x, this.y, 40, 40);
                 ctx.font = `${dCtx.displayOptions.noteSize}px Arial`;
                 ctx.textAlign = "center";
                 ctx.fillStyle = "white";
-                ctx.fillText("X", this.x + dCtx.displayOptions.noteSize * 0.5, this.y + dCtx.displayOptions.noteSize * 0.9, dCtx.displayOptions.noteSize);
+                ctx.fillText("M", this.x + halfNoteSize, this.y + ninthNoteSize, dCtx.displayOptions.noteSize);
                 break;
             default:
                 ctx.strokeRect(this.x, this.y, dCtx.displayOptions.noteSize, dCtx.displayOptions.noteSize);
                 ctx.font = `${dCtx.displayOptions.noteSize}px Arial`;
                 ctx.textAlign = "center";
-                ctx.fillText("?", this.x + dCtx.displayOptions.noteSize * 0.5, this.y + dCtx.displayOptions.noteSize * 0.9, dCtx.displayOptions.noteSize);
+                ctx.fillText("?", this.x + halfNoteSize, this.y + ninthNoteSize, dCtx.displayOptions.noteSize);
                 break;
         }
         ctx.restore();

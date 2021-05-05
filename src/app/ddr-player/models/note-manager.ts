@@ -7,22 +7,8 @@ import { HoldConnector } from './hold-connector';
 export class NoteManager {
     displayContext: DisplayContext;
 
-    secondsPerPixel: number;
-    currentTime: number;
-
     constructor(displayContext: DisplayContext) {
-        this.displayContext = displayContext;        
-        this.currentTime = displayContext.fullParse.offset + 10;
-        this.secondsPerPixel = 0.0010;
-
-        requestAnimationFrame(this.tick.bind(this));
-    }
-
-    tick() {
-        //let timeChange = e.deltaY * this.secondsPerPixel;
-        this.currentTime += 0.01;//timeChange;
-        this.draw();
-        requestAnimationFrame(this.tick.bind(this));
+        this.displayContext = displayContext;
     }
 
     draw() {
@@ -31,8 +17,8 @@ export class NoteManager {
     }
 
     drawNotesAndConnectors() {
-        let leastTime = this.getLeastTime(this.currentTime);
-        let greatestTime = this.getGreatestTime(leastTime);
+        let leastTime = this.displayContext.currentTime;
+        let greatestTime = leastTime + this.displayContext.noteLaneCanvas.height * this.displayContext.displayOptions.secondsPerPixel;
         this.drawAllConnectors(leastTime, greatestTime);
         this.drawAllNotes(leastTime, greatestTime);
     }
@@ -40,21 +26,21 @@ export class NoteManager {
     drawAllNotes(leastTime: number, greatestTime: number) {
         for (let i = 0; i < this.displayContext.fullParse.tracks.length; i++) {
             this.drawNotesInTrack(leastTime, greatestTime, this.displayContext.fullParse.tracks[i], i,
-                this.displayContext.fullParse.tracks.length, this.currentTime);
+                this.displayContext.fullParse.tracks.length);
         }
     }
 
     drawNotesInTrack(leastTime: number, greatestTime: number, track: Note[], trackNumber: number,
-        numTracks: number, currentTime: number) {
+        numTracks: number) {
         let bounds = this.getFirstAndLastNotes(leastTime, greatestTime, track);
         for (let i = bounds.start; i <= bounds.stop; i++) {
-            this.drawNote(track[i], trackNumber, numTracks, currentTime);
+            this.drawNote(track[i], trackNumber, numTracks);
         }
     }
 
-    drawNote(note: Note, trackNumber: number, numTracks: number, currentTime: number) {
+    drawNote(note: Note, trackNumber: number, numTracks: number) {
         let x = this.getNoteX(trackNumber);
-        let y = this.getNoteY(note.time, currentTime);
+        let y = this.getNoteY(note.time);
         new NoteDisplay(x, y, note.type, trackNumber % 4).draw(this.displayContext);
     }
 
@@ -81,32 +67,24 @@ export class NoteManager {
         this.displayContext.noteLaneCanvasCtx.clearRect(0, 0, this.displayContext.noteLaneCanvas.width, this.displayContext.noteLaneCanvas.height);
     }
 
-    getLeastTime(currentTime: number) {
-        return currentTime;
-    }
-
-    getGreatestTime(leastTime: number) {
-        return leastTime + this.displayContext.noteLaneCanvas.height * this.secondsPerPixel;
-    }
-
     getNoteX(trackNumber: number) {
         return  this.displayContext.displayOptions.noteSpacingSize + trackNumber * this.displayContext.displayOptions.trackSize;
     }
 
-    getNoteY(noteTime: number, currentTime: number) {
-        let timeDistance = noteTime - currentTime;
-        return timeDistance / this.secondsPerPixel;
+    getNoteY(noteTime: number) {
+        let timeDistance = noteTime - this.displayContext.currentTime;
+        return timeDistance / this.displayContext.displayOptions.secondsPerPixel;
     }
 
     drawAllConnectors(leastTime: number, greatestTime: number) {
         for (let i = 0; i < this.displayContext.fullParse.tracks.length; i++) {
             this.drawConnectorsInTrack(leastTime, greatestTime, this.displayContext.fullParse.tracks[i], i,
-                this.displayContext.fullParse.tracks.length, this.currentTime);
+                this.displayContext.fullParse.tracks.length);
         }
     }
 
     drawConnectorsInTrack(leastTime: number, greatestTime: number, track: Note[], trackNumber: number,
-        numTracks: number, currentTime: number) {
+        numTracks: number) {
         let noteStack: Note[] = [];
         for (let i = 0; i < track.length; i++) {
             let currentNote: Note = track[i];
@@ -123,7 +101,7 @@ export class NoteManager {
                     let startNote = noteStack.pop();
                     let endNote = currentNote;
                     if (startNote != undefined && endNote != undefined) {
-                        this.drawConnector(startNote, endNote, trackNumber, numTracks, currentTime);
+                        this.drawConnector(startNote, endNote, trackNumber, numTracks);
                     }
                 }
             } else {
@@ -136,17 +114,17 @@ export class NoteManager {
                     let startNote = noteStack.pop();
                     let endNote = currentNote;
                     if (startNote != undefined && endNote != undefined) {
-                        this.drawConnector(startNote, endNote, trackNumber, numTracks, currentTime);
+                        this.drawConnector(startNote, endNote, trackNumber, numTracks);
                     }
                 }
             }
         }
     }
 
-    drawConnector(startNote: Note, endNote: Note, trackNumber: number, numTracks: number, currentTime: number) {
+    drawConnector(startNote: Note, endNote: Note, trackNumber: number, numTracks: number) {
         let x = this.getNoteX(trackNumber);
-        let startY = this.getNoteY(startNote.time, currentTime);
-        let endY = this.getNoteY(endNote.time, currentTime);
-        new HoldConnector(x, startY, endY).draw(this.displayContext);
+        let startY = this.getNoteY(startNote.time);
+        let endY = this.getNoteY(endNote.time);
+        new HoldConnector(x, startY, endY, startNote).draw(this.displayContext);
     }
 }

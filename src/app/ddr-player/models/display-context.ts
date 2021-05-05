@@ -4,6 +4,7 @@ import { i18nMetaToJSDoc } from '@angular/compiler/src/render3/view/i18n/meta';
 import { PartialParse } from './partial-parse';
 import { DisplayService } from '../display.service';
 import { DisplayOptions } from './display-options';
+import { NoteManager } from './note-manager';
 
 export class DisplayContext {
     noteLaneCanvas: HTMLCanvasElement;
@@ -18,6 +19,10 @@ export class DisplayContext {
     fullParse: FullParse;
     media: Media;
     displayOptions: DisplayOptions;
+
+    noteManager!: NoteManager;
+
+    currentTime: number;
 
     constructor(
         noteLaneCanvas: HTMLCanvasElement,
@@ -42,6 +47,7 @@ export class DisplayContext {
 
         this.partialParse = partialParse;
         this.fullParse = fullParse;
+        this.currentTime = fullParse.offset;
         this.media = media;
         this.displayOptions = displayOptions;
     }

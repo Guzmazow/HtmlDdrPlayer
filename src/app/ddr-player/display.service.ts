@@ -18,8 +18,8 @@ export class DisplayService {
 
   }
 
-  prepareDisplayContext(){
-    if(!this.parsingService.fullParse)
+  prepareDisplayContext() {
+    if (!this.parsingService.fullParse)
       throw 'parsingService.fullParse is required'
 
     this.displayContext = new DisplayContext(
@@ -29,16 +29,25 @@ export class DisplayService {
       this.parsingService.partialParse,
       this.parsingService.fullParse,
       this.mediaService.media,
-      new DisplayOptions(800, this.parsingService.fullParse.tracks.length)
+      new DisplayOptions(800, this.parsingService.fullParse.tracks.length, 0.001)
     )
   }
 
-  load(){
+  load() {
     this.displayContext.noteLaneCanvas.height = screen.height;
     this.displayContext.noteLaneCanvas.width = this.displayContext.displayOptions.noteLaneWidth;
     this.displayContext.receptorCanvas.height = screen.height;
     this.displayContext.receptorCanvas.width = this.displayContext.displayOptions.noteLaneWidth;
-    let noteManager: NoteManager = new NoteManager(this.displayContext);
-    noteManager.draw();
+    this.displayContext.noteManager = new NoteManager(this.displayContext);
+    this.tick();
+  }
+
+  tick() {
+    var newTime = this.displayContext.fullParse.offset + Math.round(this.displayContext.media.audio.currentTime * 1000) / 1000
+    if(this.displayContext.currentTime != newTime){
+      this.displayContext.currentTime = newTime;
+      this.displayContext.noteManager.draw();
+    }
+    requestAnimationFrame(this.tick.bind(this));
   }
 }
