@@ -14,10 +14,16 @@ app-note-lane {
     padding: 0;    
 }
 
-app-judgement {
+app-receptor {
     position: absolute;
     left: 0;
     right: 0;
     margin: 0 auto;
     padding: 0;    
+}
+
+app-judgement {
+    position: absolute;
+    left: 0;
+    right: 0;
 }

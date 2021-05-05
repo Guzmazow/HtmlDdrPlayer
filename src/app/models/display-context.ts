@@ -54,4 +54,13 @@ export class DisplayContext {
         this.judgementCanvas.width = screen.width;
     }
 
+    getNoteX(trackNumber: number) {
+        return this.displayOptions.noteSpacingSize + trackNumber * this.displayOptions.trackSize;
+    }
+
+    getNoteY(noteTime: number) {
+        let timeDistance = noteTime - this.currentTime;
+        return timeDistance / this.displayOptions.secondsPerPixel;
+    }
+
 }

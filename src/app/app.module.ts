@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
-import { AppComponent } from '@components/app/app.component';
+import { AppComponent } from './app.component';
 import { HomeComponent } from '@components/home/home.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatIconModule } from '@angular/material/icon';
@@ -18,6 +18,7 @@ import { MatExpansionModule } from '@angular/material/expansion';
 import { DdrPlayerComponent } from '@components/ddr-player/ddr-player.component';
 import { NoteLaneComponent } from '@components/note-lane/note-lane.component';
 import { JudgementComponent } from '@components/judgement/judgement.component';
+import { ReceptorComponent } from '@components/receptor/receptor.component';
 
 
 @NgModule({
@@ -26,7 +27,8 @@ import { JudgementComponent } from '@components/judgement/judgement.component';
     HomeComponent,
     DdrPlayerComponent,
     NoteLaneComponent,
-    JudgementComponent
+    JudgementComponent,
+    ReceptorComponent
   ],
   imports: [
     BrowserModule,

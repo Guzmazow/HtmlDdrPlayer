@@ -1,9 +1,10 @@
-import { Injectable, EventEmitter } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { PartialParse } from '@models/partial-parse';
 import { Note } from '@models/note';
 import { FullParse } from '@models/full-parse';
 import { NoteType } from '@models/enums'
 import { HttpClient } from '@angular/common/http';
+import { Subject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -14,7 +15,7 @@ export class ParsingService {
   partialParse!: PartialParse;
   fullParse!: FullParse;
 
-  loadedSim: EventEmitter<void> = new EventEmitter();
+  loadedSim = new Subject();
 
   constructor(private http: HttpClient) { }
 
@@ -34,7 +35,7 @@ export class ParsingService {
 
     let selectedMode: number = 1;//parseInt((<HTMLInputElement>document.getElementById("mode-select")).value);
     this.getFullModeSpecificParse(1);
-    this.loadedSim.emit();
+    this.loadedSim.next();
     console.log('Parsed', this.fullParse);
   }
 

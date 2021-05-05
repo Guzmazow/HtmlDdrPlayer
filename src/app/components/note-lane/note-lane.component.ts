@@ -16,16 +16,12 @@ export class NoteLaneComponent implements OnInit {
   constructor(private displayService: DisplayService) { }
 
   ngOnInit(): void {
-    this.displayService.redrawTriggered.subscribe(this.draw.bind(this));
-    this.displayService.startTriggered.subscribe(this.init.bind(this));
+    this.displayService.onRedraw.subscribe(this.draw.bind(this));
+    this.displayService.onStart.subscribe(this.init.bind(this));
   }
 
   init(){
-    for (let i = 0; i < this.displayService.displayContext.fullParse.tracks.length; i++) {
-      let x = this.getNoteX(i);
-      let y = 0;
-      new Receptor(x, y, false, i % 4).draw(this.displayService.displayContext);
-    }
+
   }
 
   draw() {
@@ -58,8 +54,8 @@ export class NoteLaneComponent implements OnInit {
   drawNote(note: Note, trackNumber: number, numTracks: number) {
     if(note.pressed)
       return;
-    let x = this.getNoteX(trackNumber);
-    let y = this.getNoteY(note.time);
+    let x = this.displayService.displayContext.getNoteX(trackNumber);
+    let y = this.displayService.displayContext.getNoteY(note.time);
     new NoteDisplay(x, y, note.type, trackNumber % 4).draw(this.displayService.displayContext);
   }
 
@@ -84,15 +80,6 @@ export class NoteLaneComponent implements OnInit {
 
   clear() {
     this.displayService.displayContext.noteLaneCanvasCtx.clearRect(0, 0, this.displayService.displayContext.noteLaneCanvas.width, this.displayService.displayContext.noteLaneCanvas.height);
-  }
-
-  getNoteX(trackNumber: number) {
-    return this.displayService.displayContext.displayOptions.noteSpacingSize + trackNumber * this.displayService.displayContext.displayOptions.trackSize;
-  }
-
-  getNoteY(noteTime: number) {
-    let timeDistance = noteTime - this.displayService.displayContext.currentTime;
-    return timeDistance / this.displayService.displayContext.displayOptions.secondsPerPixel;
   }
 
   drawAllConnectors(leastTime: number, greatestTime: number) {
@@ -141,9 +128,9 @@ export class NoteLaneComponent implements OnInit {
   }
 
   drawConnector(startNote: Note, endNote: Note, trackNumber: number, numTracks: number) {
-    let x = this.getNoteX(trackNumber);
-    let startY = this.getNoteY(startNote.time);
-    let endY = this.getNoteY(endNote.time);
+    let x = this.displayService.displayContext.getNoteX(trackNumber);
+    let startY = this.displayService.displayContext.getNoteY(startNote.time);
+    let endY = this.displayService.displayContext.getNoteY(endNote.time);
     new HoldConnector(x, startY, endY, startNote).draw(this.displayService.displayContext);
   }
 

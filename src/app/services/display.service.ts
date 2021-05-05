@@ -1,10 +1,11 @@
-import { Injectable, destroyPlatform, EventEmitter } from '@angular/core';
+import { Injectable, destroyPlatform } from '@angular/core';
 import { FullParse } from '@models/full-parse';
 import { DisplayContext } from '@models/display-context';
 import { Media } from '@models/media';
 import { ParsingService } from './parsing.service';
 import { MediaService } from './media.service';
 import { DisplayOptions } from '@models/display-options';
+import { Subject } from 'rxjs';
 
 
 @Injectable({
@@ -14,8 +15,8 @@ export class DisplayService {
 
   displayContext!: DisplayContext;
 
-  redrawTriggered: EventEmitter<void> = new EventEmitter();
-  startTriggered: EventEmitter<void> = new EventEmitter();
+  onRedraw = new Subject();
+  onStart = new Subject();
 
   constructor(private parsingService: ParsingService, private mediaService: MediaService) {
 
@@ -38,15 +39,15 @@ export class DisplayService {
   }
 
   load() {
-    this.startTriggered.emit();
+    this.onStart.next();
     this.tick();
   }
 
   tick() {
     var newTime = this.displayContext.fullParse.offset + Math.round(this.displayContext.media.audio.currentTime * 1000) / 1000
-    if(this.displayContext.currentTime != newTime){
+    if (this.displayContext.currentTime != newTime) {
       this.displayContext.currentTime = newTime;
-      this.redrawTriggered.emit();
+      this.onRedraw.next();
     }
     requestAnimationFrame(this.tick.bind(this));
   }
