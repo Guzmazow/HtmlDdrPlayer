@@ -1,6 +1,6 @@
 import { Component, HostListener, OnInit } from '@angular/core';
-import { DisplayService } from '../display.service';
-import { Judgement, Direction } from '../models/note-enums';
+import { DisplayService } from '@services/display.service';
+import { Judgement, Direction } from '@models/enums';
 
 @Component({
   selector: 'app-judgement',

@@ -1,10 +1,10 @@
 import { Injectable, destroyPlatform, EventEmitter } from '@angular/core';
-import { FullParse } from './models/full-parse';
-import { DisplayContext } from './models/display-context';
-import { Media } from './models/media';
+import { FullParse } from '@models/full-parse';
+import { DisplayContext } from '@models/display-context';
+import { Media } from '@models/media';
 import { ParsingService } from './parsing.service';
 import { MediaService } from './media.service';
-import { DisplayOptions } from './models/display-options';
+import { DisplayOptions } from '@models/display-options';
 
 
 @Injectable({

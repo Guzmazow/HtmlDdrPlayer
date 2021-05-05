@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { Note } from '../models/note';
-import { AllDirections, NoteType } from '../models/note-enums';
-import { NoteDisplay } from '../models/note-display';
-import { HoldConnector } from '../models/hold-connector';
-import { DisplayService } from '../display.service';
-import { Receptor } from '../models/receptor';
+import { Note } from '@models/note';
+import { AllDirections, NoteType } from '@models/enums';
+import { NoteDisplay } from '@models/note-display';
+import { HoldConnector } from '@models/hold-connector';
+import { DisplayService } from '@services/display.service';
+import { Receptor } from '@models/receptor';
 
 @Component({
   selector: 'app-note-lane',

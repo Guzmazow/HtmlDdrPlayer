@@ -1,4 +1,4 @@
-import { NoteType, Direction } from "./note-enums";
+import { NoteType, Direction } from "./enums";
 import { DisplayContext } from './display-context';
 
 export class NoteDisplay {

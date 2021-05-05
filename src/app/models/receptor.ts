@@ -1,5 +1,5 @@
 import { DisplayContext } from "./display-context";
-import { Direction, NoteType } from "./note-enums";
+import { Direction, NoteType } from "./enums";
 
 export class Receptor {
     x: number;

@@ -1,8 +1,6 @@
 import { FullParse } from './full-parse';
 import { Media } from './media';
-import { i18nMetaToJSDoc } from '@angular/compiler/src/render3/view/i18n/meta';
 import { PartialParse } from './partial-parse';
-import { DisplayService } from '../display.service';
 import { DisplayOptions } from './display-options';
 
 export class DisplayContext {

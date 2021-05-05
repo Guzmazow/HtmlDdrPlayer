@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { DisplayService } from './display.service';
-import { ParsingService } from './parsing.service';
-import { MediaService } from './media.service';
+import { DisplayService } from '@services/display.service';
+import { ParsingService } from '@services/parsing.service';
+import { MediaService } from '@services/media.service';
 
 @Component({
   selector: 'app-ddr-player',

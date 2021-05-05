@@ -1,8 +1,7 @@
 import { Injectable } from '@angular/core';
-import { Media } from './models/media';
+import { Media } from '@models/media';
 import { ParsingService } from './parsing.service';
-import { AllDirections, AllJudgements, Direction, Judgement } from './models/note-enums';
-import { Direct } from 'protractor/built/driverProviders';
+import { AllDirections, AllJudgements, Direction } from '@models/enums';
 
 @Injectable({
   providedIn: 'root'

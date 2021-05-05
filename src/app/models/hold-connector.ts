@@ -1,6 +1,6 @@
 import { DisplayContext } from './display-context';
 import { Note } from './note';
-import { NoteType } from './note-enums';
+import { NoteType } from './enums';
 
 export class HoldConnector {
     x: number;

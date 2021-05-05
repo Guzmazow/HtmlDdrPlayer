@@ -1,4 +1,4 @@
-import { NoteType } from './note-enums';
+import { NoteType } from './enums';
 
 export class Note {
     type: NoteType;

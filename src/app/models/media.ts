@@ -1,4 +1,4 @@
-import { Direction, Judgement } from './note-enums';
+import { Direction, Judgement } from './enums';
 
 export class Media {
     audio!: HTMLAudioElement;

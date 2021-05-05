@@ -1,8 +1,8 @@
 import { Injectable, EventEmitter } from '@angular/core';
-import { PartialParse } from './models/partial-parse';
-import { Note } from './models/note';
-import { FullParse } from './models/full-parse';
-import { NoteType } from './models/note-enums'
+import { PartialParse } from '@models/partial-parse';
+import { Note } from '@models/note';
+import { FullParse } from '@models/full-parse';
+import { NoteType } from '@models/enums'
 import { HttpClient } from '@angular/common/http';
 
 @Injectable({
