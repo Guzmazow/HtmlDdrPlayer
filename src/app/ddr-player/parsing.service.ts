@@ -247,7 +247,7 @@ export class ParsingService {
       for (let j = 0; j < line.lineInfo.length; j++) {
         let noteType = line.lineInfo.charAt(j);
         if (noteType !== "0") {
-          tracks[j].push({ type: <NoteType>noteType, time: line.time });
+          tracks[j].push(new Note(<NoteType>noteType, line.time));
         }
       }
     }

@@ -14,3 +14,15 @@ export enum Direction {
     UP = 2,
     RIGHT = 3
 }
+
+
+
+export enum Judgement {
+    NONE = -1,
+    MARVELOUS = 0,
+    PERFECT = 1,
+    GREAT = 2,
+    GOOD = 3,
+    BAD = 4,
+    MISS = 5
+}

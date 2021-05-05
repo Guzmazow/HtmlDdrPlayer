@@ -1,6 +1,13 @@
 import { NoteType } from './note-enums';
 
 export class Note {
-    type: NoteType = NoteType.NONE;
-    time: number = 0;
+    type: NoteType;
+    time: number;
+    pressed: boolean = false;
+    precision: number = Number.MIN_VALUE;
+
+    constructor(type: NoteType, time: number) {
+        this.type = type;
+        this.time = time;
+    }
 }

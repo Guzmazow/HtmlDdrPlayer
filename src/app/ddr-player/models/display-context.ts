@@ -4,7 +4,6 @@ import { i18nMetaToJSDoc } from '@angular/compiler/src/render3/view/i18n/meta';
 import { PartialParse } from './partial-parse';
 import { DisplayService } from '../display.service';
 import { DisplayOptions } from './display-options';
-import { NoteManager } from './note-manager';
 
 export class DisplayContext {
     noteLaneCanvas: HTMLCanvasElement;
@@ -19,8 +18,6 @@ export class DisplayContext {
     fullParse: FullParse;
     media: Media;
     displayOptions: DisplayOptions;
-
-    noteManager!: NoteManager;
 
     currentTime: number;
 
@@ -50,6 +47,13 @@ export class DisplayContext {
         this.currentTime = fullParse.offset;
         this.media = media;
         this.displayOptions = displayOptions;
+
+        this.noteLaneCanvas.height = screen.height;
+        this.noteLaneCanvas.width = this.displayOptions.noteLaneWidth;
+        this.receptorCanvas.height = screen.height;
+        this.receptorCanvas.width = this.displayOptions.noteLaneWidth;
+        this.judgementCanvas.height = screen.height;
+        this.judgementCanvas.width = screen.width;
     }
 
 }
