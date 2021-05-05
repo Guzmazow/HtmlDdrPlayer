@@ -52,7 +52,7 @@ export class NoteLaneComponent implements OnInit {
   }
 
   drawNote(note: Note, trackNumber: number, numTracks: number) {
-    if(note.pressed)
+    if(note.judged)
       return;
     let x = this.displayService.displayContext.getNoteX(trackNumber);
     let y = this.displayService.displayContext.getNoteY(note.time);

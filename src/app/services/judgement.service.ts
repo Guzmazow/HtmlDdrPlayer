@@ -45,9 +45,9 @@ export class JudgementService {
     let dCtx = this.displayService.displayContext;
     if (dCtx) {
       for (let track of dCtx.fullParse.tracks) {
-        let unhittable = track.filter(x => x.type == NoteType.NORMAL && !x.pressed && x.time < (dCtx.currentTime - this.errorLimit))
+        let unhittable = track.filter(x => x.type == NoteType.NORMAL && !x.judged && x.time < (dCtx.currentTime - this.errorLimit))
         if (unhittable.length) {
-          unhittable.forEach(x => x.pressed = true)
+          unhittable.forEach(x => x.judged = true)
           this.onJudged.next({ judgement: Judgement.MISS, precision: -this.errorLimit });
         }
       }
@@ -59,14 +59,14 @@ export class JudgementService {
       let dCtx = this.displayService.displayContext;
       if (dCtx) {
         let track = dCtx.fullParse.tracks[direction];
-        let hittable = track.filter(x => x.type == NoteType.NORMAL && !x.pressed && (dCtx.currentTime + this.errorLimit) > x.time && x.time > (dCtx.currentTime - this.errorLimit))
+        let hittable = track.filter(x => x.type == NoteType.NORMAL && !x.judged && (dCtx.currentTime + this.errorLimit) > x.time && x.time > (dCtx.currentTime - this.errorLimit))
         if (hittable.length) {
           hittable.sort(x => x.time);
           let hit = hittable[0];
           let timeDifference = hit.time - dCtx.currentTime;
           let precisionKey = Array.from(this.judgePrecision.keys()).reduce((a, b) => Math.abs(a - timeDifference) < Math.abs(b - timeDifference) ? a : b)
           let judgement = this.judgePrecision.get(precisionKey) ?? Judgement.NONE;
-          hit.pressed = true;
+          hit.judged = true;
           hit.precision = timeDifference;
           this.onJudged.next({ judgement: judgement, precision: timeDifference });
         }
