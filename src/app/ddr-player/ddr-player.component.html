@@ -1,19 +1,6 @@
-<mat-expansion-panel>
-    <mat-expansion-panel-header>
-        <mat-panel-title>
-            Icons
-        </mat-panel-title>
-    </mat-expansion-panel-header>
-    <img id="noteskin-arrow" src="/assets/Noteskins/Outfox/_arrow 1x8 (doubleres).png" />
-    <img id="noteskin-arrow-glow" src="/assets/Noteskins/Outfox/_glow (doubleres).png" />
-    <img id="noteskin-receptor" src="/assets/Noteskins/Outfox/_receptor (doubleres).png" />
-    <img id="noteskin-receptor-flash" src="/assets/Noteskins/Outfox/_rflash (doubleres).png" />
-    <img id="noteskin-judgements" src="/assets//Judgements/default 1x6 (Doubleres).png" />
-</mat-expansion-panel>
-
 <button mat-raised-button (click)="play()">Play</button>
 
 <div id="note-lane-container" [hidden]="!startedPlaying" [style.height.px]="screenHeight" [style.width.px]="screenWidth">
-    <app-note-lane></app-note-lane>
     <app-judgement></app-judgement>
+    <app-note-lane></app-note-lane>
 </div>

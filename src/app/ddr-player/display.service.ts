@@ -32,16 +32,13 @@ export class DisplayService {
       this.parsingService.partialParse,
       this.parsingService.fullParse,
       this.mediaService.media,
-      new DisplayOptions(800, this.parsingService.fullParse.tracks.length, 0.001)
+      new DisplayOptions(800, this.parsingService.fullParse, 0.001)
     )
 
   }
 
   load() {
-
-
     this.startTriggered.emit();
-
     this.tick();
   }
 

@@ -15,7 +15,7 @@ export enum Direction {
     RIGHT = 3
 }
 
-
+export const AllDirections = [Direction.DOWN, Direction.LEFT, Direction.UP, Direction.RIGHT];
 
 export enum Judgement {
     NONE = -1,
@@ -26,3 +26,5 @@ export enum Judgement {
     BAD = 4,
     MISS = 5
 }
+
+export const AllJudgements  = [Judgement.MARVELOUS, Judgement.PERFECT, Judgement.GREAT, Judgement.GOOD, Judgement.BAD, Judgement.MISS]

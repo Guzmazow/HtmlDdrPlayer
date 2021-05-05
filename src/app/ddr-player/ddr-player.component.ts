@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
 import { DisplayService } from './display.service';
 import { ParsingService } from './parsing.service';
 import { MediaService } from './media.service';
@@ -15,7 +14,6 @@ export class DdrPlayerComponent implements OnInit {
   startedPlaying: boolean = false;
 
   constructor(
-    private http: HttpClient, 
     private displayService: DisplayService,
     private parsingService: ParsingService,
     private mediaService: MediaService,

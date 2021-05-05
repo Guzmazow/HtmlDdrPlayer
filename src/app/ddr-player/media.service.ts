@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Media } from './models/media';
 import { ParsingService } from './parsing.service';
-import { Direction, Judgement } from './models/note-enums';
+import { AllDirections, AllJudgements, Direction, Judgement } from './models/note-enums';
 import { Direct } from 'protractor/built/driverProviders';
 
 @Injectable({
@@ -28,15 +28,6 @@ export class MediaService {
       this.media.audio.load();
     }
 
-
-
-
-    // let arrowImage = <HTMLImageElement>document.getElementById("noteskin-arrow");
-    // let arrowGlowImage = <HTMLImageElement>document.getElementById("noteskin-arrow-glow");
-    // let receptorImage = <HTMLImageElement>document.getElementById("noteskin-receptor");
-    // let receptorFlashImage = <HTMLImageElement>document.getElementById("noteskin-receptor-flash");
-    // let judgementImage = <HTMLImageElement>document.getElementById("noteskin-judgements");
-
     Promise.all([this.arrowImageLoad, this.arrowGlowImageLoad, this.receptorImageLoad, this.receptorFlashImageLoad, this.judgementImageLoad]).then((x) => {
       let arrowImage = x[0];
       let arrowGlowImage = x[1];
@@ -44,16 +35,15 @@ export class MediaService {
       let receptorFlashImage = x[3];
       let judgementImage = x[4];
 
-      let directions = [Direction.DOWN, Direction.LEFT, Direction.UP, Direction.RIGHT];
-      for (let direction of directions) {
+      for (let direction of AllDirections) {
+        //TODO: Multi-Color arrows
         this.media.arrowImageCache.set(direction, this.getClippedRegion(arrowImage, 0, 0, arrowImage.width, arrowImage.height / 8, direction));
         this.media.arrowGlowImageCache.set(direction, this.getClippedRegion(arrowGlowImage, 0, 0, arrowGlowImage.width, arrowGlowImage.height, direction));
         this.media.receptorImageCache.set(direction, this.getClippedRegion(receptorImage, 0, 0, receptorImage.width, receptorImage.height, direction));
         this.media.receptorFlashImageCache.set(direction, this.getClippedRegion(receptorFlashImage, 0, 0, receptorFlashImage.width, receptorFlashImage.height, direction));
       }
   
-      let judgements = [Judgement.MARVELOUS, Judgement.PERFECT, Judgement.GREAT, Judgement.GOOD, Judgement.BAD, Judgement.MISS];
-      for (let judgement of judgements) {
+      for (let judgement of AllJudgements) {
         this.media.judgementImageCache.set(judgement, this.getClippedRegion(judgementImage, 0, judgement * judgementImage.height / 6, judgementImage.width, judgementImage.height / 6, Direction.NONE));
       }
       console.log('MEDIA images ready');
@@ -86,6 +76,7 @@ export class MediaService {
     var halfWidth = canvas.width / 2;
     var halfHeight = canvas.height / 2;
     var angleInRadians = 0;
+
     switch (direction) {
       case Direction.LEFT: angleInRadians = 90 * Math.PI / 180; break;
       case Direction.DOWN: angleInRadians = 0; break;

@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { Note } from '../models/note';
-import { NoteType } from '../models/note-enums';
+import { AllDirections, NoteType } from '../models/note-enums';
 import { NoteDisplay } from '../models/note-display';
 import { HoldConnector } from '../models/hold-connector';
 import { DisplayService } from '../display.service';
+import { Receptor } from '../models/receptor';
 
 @Component({
   selector: 'app-note-lane',
@@ -16,6 +17,15 @@ export class NoteLaneComponent implements OnInit {
 
   ngOnInit(): void {
     this.displayService.redrawTriggered.subscribe(this.draw.bind(this));
+    this.displayService.startTriggered.subscribe(this.init.bind(this));
+  }
+
+  init(){
+    for (let i = 0; i < this.displayService.displayContext.fullParse.tracks.length; i++) {
+      let x = this.getNoteX(i);
+      let y = 0;
+      new Receptor(x, y, false, i % 4).draw(this.displayService.displayContext);
+    }
   }
 
   draw() {
