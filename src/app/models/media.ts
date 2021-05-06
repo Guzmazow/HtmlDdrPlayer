@@ -2,11 +2,16 @@ import { Direction, Judgement } from './enums';
 
 export class Media {
     audio!: HTMLAudioElement;
-    arrowImageCache: Map<Direction, HTMLCanvasElement> = new Map<Direction, HTMLCanvasElement>();
-    arrowGlowImageCache: Map<Direction, HTMLCanvasElement> = new Map<Direction, HTMLCanvasElement>();
-    receptorImageCache: Map<Direction, HTMLCanvasElement> = new Map<Direction, HTMLCanvasElement>();
-    receptorFlashImageCache: Map<Direction, HTMLCanvasElement> = new Map<Direction, HTMLCanvasElement>();
-    judgementImageCache: Map<Judgement, HTMLCanvasElement> = new Map<Judgement, HTMLCanvasElement>();
+    arrowImageCache = new Map<Direction, HTMLCanvasElement>();
+    receptorImageCache = new Map<Direction, HTMLCanvasElement>();
+    receptorFlashImageCache = new Map<Direction, HTMLCanvasElement>();
+    receptorGlowImageCache = new Map<Direction, Map<Judgement, HTMLCanvasElement>>([
+        [Direction.LEFT, new Map<Judgement, HTMLCanvasElement>()],
+        [Direction.DOWN, new Map<Judgement, HTMLCanvasElement>()],
+        [Direction.UP, new Map<Judgement, HTMLCanvasElement>()],
+        [Direction.RIGHT, new Map<Judgement, HTMLCanvasElement>()]
+    ]);
+    judgementImageCache = new Map<Judgement, HTMLCanvasElement>();
 
     constructor() {
 

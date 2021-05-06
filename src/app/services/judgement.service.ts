@@ -9,7 +9,7 @@ import { KeyboardService } from './keyboard.service';
 })
 export class JudgementService {
 
-  onJudged = new Subject<{ judgement: Judgement, precision: number }>();
+  onJudged = new Subject<{ judgement: Judgement, precision: number, direction: Direction }>();
 
   errorLimit: number = 0.180000;
 
@@ -48,7 +48,7 @@ export class JudgementService {
         let unhittable = track.filter(x => x.type == NoteType.NORMAL && !x.judged && x.time < (dCtx.currentTime - this.errorLimit))
         if (unhittable.length) {
           unhittable.forEach(x => x.judged = true)
-          this.onJudged.next({ judgement: Judgement.MISS, precision: -this.errorLimit });
+          this.onJudged.next({ judgement: Judgement.MISS, precision: -this.errorLimit, direction: Direction.NONE });
         }
       }
     }
@@ -68,7 +68,7 @@ export class JudgementService {
           let judgement = this.judgePrecision.get(precisionKey) ?? Judgement.NONE;
           hit.judged = true;
           hit.precision = timeDifference;
-          this.onJudged.next({ judgement: judgement, precision: timeDifference });
+          this.onJudged.next({ judgement: judgement, precision: timeDifference, direction: direction });
         }
       }
     }
