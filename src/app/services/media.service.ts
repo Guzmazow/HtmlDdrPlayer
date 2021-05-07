@@ -10,10 +10,10 @@ export class MediaService {
 
   media: Media = new Media();
 
-  arrowImageLoad = this.loadImage("/assets/Noteskins/Outfox/_arrow 1x8 (doubleres).png");
-  receptorGlowImageLoad = this.loadImage("/assets/Noteskins/Outfox/_glow (doubleres).png");
-  receptorImageLoad = this.loadImage("/assets/Noteskins/Outfox/_receptor (doubleres).png");
-  receptorFlashImageLoad = this.loadImage("/assets/Noteskins/Outfox/_rflash (doubleres).png");
+  arrowImageLoad = this.loadImage("/assets/Noteskins/a_arrow 1x8 (doubleres).png");
+  receptorGlowImageLoad = this.loadImage("/assets/Noteskins/a_glow (doubleres).png");
+  receptorImageLoad = this.loadImage("/assets/Noteskins/a_receptor (doubleres).png");
+  receptorFlashImageLoad = this.loadImage("/assets/Noteskins/a_rflash (doubleres).png");
   judgementImageLoad = this.loadImage("/assets/Judgements/default 1x6 (Doubleres).png");
 
   constructor(private parsingService: ParsingService) {
