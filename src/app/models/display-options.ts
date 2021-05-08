@@ -1,5 +1,3 @@
-import { FullParse } from "./full-parse";
-
 export class DisplayOptions {
 
     noteLaneWidth: number;
@@ -7,13 +5,15 @@ export class DisplayOptions {
     noteSize: number;
     noteSpacingSize: number;
     secondsPerPixel: number;
+    noteTopPadding: number;
 
-    constructor(noteLaneWidth: number, fullParse: FullParse, secondsPerPixel: number) {
+    constructor(noteLaneWidth: number, trackCount: number, secondsPerPixel: number) {
         this.noteLaneWidth = noteLaneWidth;
         this.secondsPerPixel = secondsPerPixel;
-        this.trackSize = noteLaneWidth / fullParse.tracks.length;
+        this.trackSize = noteLaneWidth / trackCount;
         this.noteSize = this.trackSize * 0.8;
         this.noteSpacingSize = this.trackSize * 0.2 / 2
+        this.noteTopPadding = this.noteSize / 4;
     }
 
 

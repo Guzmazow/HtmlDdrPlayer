@@ -1,7 +1,5 @@
 import { Injectable } from '@angular/core';
-import { PartialParse } from '@models/partial-parse';
 import { Note } from '@models/note';
-import { FullParse } from '@models/full-parse';
 import { NoteType } from '@models/enums'
 import { HttpClient } from '@angular/common/http';
 import { Subject } from 'rxjs';
@@ -12,10 +10,16 @@ import { Subject } from 'rxjs';
 export class ParsingService {
 
   smFileLocation: string = "";
-  partialParse!: PartialParse;
-  fullParse!: FullParse;
 
-  loadedSim = new Subject();
+  offset: number = 0;
+  bpms: { beat: number; bpm: number }[] = [];
+  stops: { stopDuration: number; beat: number }[] = [];
+  tracks: Note[][] = [];
+  metaData: Map<string, string> = new Map<string, string>();
+  modes: Map<string, string>[] = [];
+
+  onSimLoaded = new Subject();
+  onModeSelected = new Subject();
 
   constructor(private http: HttpClient) { }
 
@@ -23,20 +27,17 @@ export class ParsingService {
     this.smFileLocation = url;
     this.http
       .get(url, { responseType: "text" })
-      .subscribe(response => this.getPartialParse(response));
+      .subscribe(response => this.partialParse(response));
   }
 
   /* Step One Of Parsing */
-  getPartialParse(fileContents: string) {
-    let partialParse: PartialParse = new PartialParse();
-    partialParse.metaData = this.getTopMetaDataAsStrings(fileContents);
-    partialParse.modes = this.getModesInfoAsStrings(fileContents);
-    this.partialParse = partialParse;
+  partialParse(fileContents: string) {
+    this.metaData = this.getTopMetaDataAsStrings(fileContents);
+    this.modes = this.getModesInfoAsStrings(fileContents);
 
     let selectedMode: number = 1;//parseInt((<HTMLInputElement>document.getElementById("mode-select")).value);
     this.getFullModeSpecificParse(1);
-    this.loadedSim.next();
-    console.log('Parsed', this.fullParse);
+    this.onSimLoaded.next();
   }
 
   getTopMetaDataAsStrings(file: string) {
@@ -89,25 +90,17 @@ export class ParsingService {
   /* Step Two Of Parsing */
 
   getFullModeSpecificParse(modeIndex: number) {   
-
-    let fullParse: FullParse = new FullParse();
-
-    let unparsedNotes: string = this.partialParse.modes[modeIndex].get("notes") || '';
+    let unparsedNotes: string = this.modes[modeIndex].get("notes") || '';
     let unparsedArray: string[] = unparsedNotes.split("\n");
     let measures: string[][] = this.getMeasures(unparsedArray);
     let beatsAndLines: { beat: number, lineInfo: string }[] = this.getBeatInfoByLine(measures);
     let cleanedBeatsAndLines: { beat: number, lineInfo: string }[] = this.removeBlankLines(beatsAndLines);
-    let offset: number = parseFloat(this.partialParse.metaData.get("OFFSET") || '0');
-    let bpms: { beat: number; bpm: number }[] = this.parseBPMS(this.partialParse.metaData.get("BPMS") || '0-0');
-    let stops: { stopDuration: number; beat: number }[] = this.parseStops(this.partialParse.metaData.get("STOPS") || '');
-    let timesBeatsAndLines: { time: number; beat: number; lineInfo: string }[] = this.getTimeInfoByLine(cleanedBeatsAndLines, offset, bpms, stops);
-
-    fullParse.bpms = bpms;
-    fullParse.offset = offset;
-    fullParse.stops = stops;
-    fullParse.tracks = this.getTracksFromLines(timesBeatsAndLines);
-
-    this.fullParse = fullParse;
+    this.offset = parseFloat(this.metaData.get("OFFSET") || '0');
+    this.bpms = this.parseBPMS(this.metaData.get("BPMS") || '0-0');
+    this.stops = this.parseStops(this.metaData.get("STOPS") || '');
+    let timesBeatsAndLines: { time: number; beat: number; lineInfo: string }[] = this.getTimeInfoByLine(cleanedBeatsAndLines, this.offset, this.bpms, this.stops);
+    this.tracks = this.getTracksFromLines(timesBeatsAndLines);
+    this.onModeSelected.next();
   }
 
   getMeasures(unparsedArray: string[]) {

@@ -1,0 +1,9 @@
+<mat-selection-list #simfiles [multiple]="false">
+    <mat-list-option *ngFor="let simfile of simfileRegistry" [value]="simfile">
+        {{simfile.filename}}
+    </mat-list-option>
+</mat-selection-list>
+
+<p>
+    Option selected: {{simfiles.selectedOptions.selected[0]?.value}}
+</p>

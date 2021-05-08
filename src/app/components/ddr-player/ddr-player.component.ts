@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { DisplayService } from '@services/display.service';
 import { ParsingService } from '@services/parsing.service';
 import { MediaService } from '@services/media.service';
+import { NgxY2PlayerComponent, NgxY2PlayerOptions } from 'ngx-y2-player';
 
 @Component({
   selector: 'app-ddr-player',
@@ -9,9 +10,47 @@ import { MediaService } from '@services/media.service';
   styleUrls: ['./ddr-player.component.css']
 })
 export class DdrPlayerComponent implements OnInit {
+
   screenWidth: number = screen.width;
   screenHeight: number = screen.height;
   startedPlaying: boolean = false;
+
+  @ViewChild('video') video!: NgxY2PlayerComponent;
+  videoId = 'SL_jZSRZ_Bo';//'z8WdQsPknf0'; // string or string array;
+
+  playerOptions: NgxY2PlayerOptions = {
+    height: screen.height, // you can set 'auto', it will use container width to set size
+    width: screen.width,
+    playerVars: {
+      autoplay: 0,
+      disablekb: YT.KeyboardControls.Disable,
+      iv_load_policy: YT.IvLoadPolicy.Hide,
+      controls: YT.Controls.Hide,
+      showinfo: YT.ShowInfo.Hide
+    },
+    // aspectRatio: (3 / 4), // you can set ratio of aspect ratio to auto resize with
+  };
+
+  // pause() {
+  //   this.video.videoPlayer.pauseVideo();
+  // }
+
+  // play() {
+  //   this.video.videoPlayer.playVideo();
+  // }
+
+  // stop() {
+  //   this.video.videoPlayer.stopVideo();
+  // }
+
+  // go(second: string) {
+  //   this.video.videoPlayer.seekTo(+second, true);
+  // }
+
+  onVideoReady(event: YT.PlayerEvent) {
+    this.mediaService.setPlayer(event.target);
+    console.log('player ready');
+  }
 
   constructor(
     private displayService: DisplayService,
@@ -20,7 +59,7 @@ export class DdrPlayerComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.parsingService.loadedSim.subscribe(()=>{
+    this.parsingService.onSimLoaded.subscribe(()=>{
       this.mediaService.prepareMedia();
     })
     this.parsingService.loadSim('/assets/Songs/Sneakman/Sneakman.sm');
@@ -33,8 +72,9 @@ export class DdrPlayerComponent implements OnInit {
   // }
 
   play(){
-    this.mediaService.media.audio.play();
-    this.displayService.prepareDisplayContext();
+    this.displayService.setup();
+    this.video.videoPlayer.playVideo();
+    //this.mediaService.media.audio.play();
     this.displayService.load();
     this.startedPlaying = true;
   }

@@ -2,6 +2,8 @@ import { Direction, Judgement } from './enums';
 
 export class Media {
     audio!: HTMLAudioElement;
+    video!: YT.Player;
+    
     arrowImageCache = new Map<Direction, HTMLCanvasElement>();
     receptorImageCache = new Map<Direction, HTMLCanvasElement>();
     receptorFlashImageCache = new Map<Direction, HTMLCanvasElement>();

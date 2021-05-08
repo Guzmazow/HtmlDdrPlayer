@@ -1,6 +1,14 @@
 <button mat-raised-button (click)="play()">Play</button>
 
-<div id="note-lane-container" [hidden]="!startedPlaying" [style.height.px]="screenHeight" [style.width.px]="screenWidth">
+<div id="note-lane-container" [hidden]="!startedPlaying" [style.height.px]="screenHeight"
+    [style.width.px]="screenWidth">
+    <!-- <iframe id="ytplayer" type="text/html" [width]="screenWidth" [height]="screenHeight"
+        src="https://www.youtube.com/embed/SL_jZSRZ_Bo?controls=0&disablekb=1&enablejsapi=1&end=11&start=9.5&iv_load_policy=3"
+        frameborder="0">
+    </iframe> -->
+    <ngx-y2-player #video [videoId]="videoId" [playerOptions]="playerOptions" (ready)="onVideoReady($event)">
+    </ngx-y2-player>
+
     <app-judgement></app-judgement>
     <app-receptor></app-receptor>
     <app-note-lane></app-note-lane>

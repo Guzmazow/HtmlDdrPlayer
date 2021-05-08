@@ -1,5 +1,4 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-import { DisplayContext } from '@models/display-context';
 import { AllDirections, Direction, Judgement } from '@models/enums';
 import { DisplayService } from '@services/display.service';
 import { JudgementService } from '@services/judgement.service';
@@ -16,10 +15,6 @@ export class ReceptorComponent implements OnInit {
   @ViewChild("receptorCanvas", { static: true }) canvasEl?: ElementRef;
   canvas!: HTMLCanvasElement;
   ctx!: CanvasRenderingContext2D;
-
-  get dCtx() {
-    return this.displayService.displayContext;
-  }
 
   get media() {
     return this.mediaService.media;
@@ -41,36 +36,17 @@ export class ReceptorComponent implements OnInit {
     private judgementService: JudgementService,
   ) { }
 
-  initCanvas() {
-    this.canvas = <HTMLCanvasElement>this.canvasEl?.nativeElement;
-    this.ctx = this.canvas.getContext('2d')!;
-    this.drawReceptors();
-  }
-
-  drawReceptors() {
-    this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
-    for (let direction of AllDirections) {
-      let x = this.displayService.displayContext.getNoteX(direction);
-      this.ctx.drawImage(this.media.receptorImageCache.get(direction)!, x, 0, this.dCtx.displayOptions.noteSize, this.dCtx.displayOptions.noteSize);
-
-      if (this.receptorFlashVisibilityState.get(direction)) {
-        this.ctx.drawImage(this.media.receptorFlashImageCache.get(direction)!, this.dCtx.getNoteX(direction), 0, this.dCtx.displayOptions.noteSize, this.dCtx.displayOptions.noteSize);
-      }
-
-      let glowFramesLeft = this.receptorGlowVisibilityFramesLeft.get(direction);
-      if (glowFramesLeft && glowFramesLeft.framesLeft > 0 && glowFramesLeft.judgemnet != Judgement.NONE) {
-        this.ctx.save();     
-        this.ctx.globalAlpha = 0.8 * glowFramesLeft.framesLeft / 20;
-        this.ctx.drawImage(this.media.receptorGlowImageCache.get(direction)?.get(glowFramesLeft.judgemnet)!, this.dCtx.getNoteX(direction), 0, this.dCtx.displayOptions.noteSize, this.dCtx.displayOptions.noteSize);
-        this.ctx.restore();
-        glowFramesLeft.framesLeft--;
-      }
-    }
-  }
 
   ngOnInit(): void {
+    this.canvas = <HTMLCanvasElement>this.canvasEl?.nativeElement;    
+    this.ctx = this.canvas.getContext('2d')!;
+
+    this.displayService.onSetup.subscribe(()=>{
+      this.canvas.height = screen.height;
+      this.canvas.width = this.displayService.displayOptions.noteLaneWidth;
+    });
+
     this.displayService.onStart.subscribe(() => {
-      this.initCanvas();
 
       this.displayService.onRedraw.subscribe(this.drawReceptors.bind(this));
 
@@ -84,5 +60,31 @@ export class ReceptorComponent implements OnInit {
     });
 
   }
+
+  drawReceptors() {
+    this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+    this.ctx.save();
+    this.ctx.fillStyle = "rgba(20,20,20,0.5)";
+    this.ctx.fillRect(this.displayService.getTrackX(0), 0, this.displayService.displayOptions.noteLaneWidth, this.canvas.height)
+    this.ctx.restore();
+    for (let direction of AllDirections) {
+      let x = this.displayService.getNoteX(direction);
+      this.ctx.drawImage(this.media.receptorImageCache.get(direction)!, x, this.displayService.displayOptions.noteTopPadding, this.displayService.displayOptions.noteSize, this.displayService.displayOptions.noteSize);
+
+      if (this.receptorFlashVisibilityState.get(direction)) {
+        this.ctx.drawImage(this.media.receptorFlashImageCache.get(direction)!, this.displayService.getNoteX(direction), this.displayService.displayOptions.noteTopPadding, this.displayService.displayOptions.noteSize, this.displayService.displayOptions.noteSize);
+      }
+
+      let glowFramesLeft = this.receptorGlowVisibilityFramesLeft.get(direction);
+      if (glowFramesLeft && glowFramesLeft.framesLeft > 0 && glowFramesLeft.judgemnet != Judgement.NONE) {
+        this.ctx.save();
+        this.ctx.globalAlpha = 0.8 * glowFramesLeft.framesLeft / 20;
+        this.ctx.drawImage(this.media.receptorGlowImageCache.get(direction)?.get(glowFramesLeft.judgemnet)!, this.displayService.getNoteX(direction), this.displayService.displayOptions.noteTopPadding, this.displayService.displayOptions.noteSize, this.displayService.displayOptions.noteSize);
+        this.ctx.restore();
+        glowFramesLeft.framesLeft--;
+      }
+    }
+  }
+
 
 }

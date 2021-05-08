@@ -18,13 +18,11 @@ export class JudgementComponent implements OnInit {
 
   }
 
-  initCanvas() {
-    this.canvas = <HTMLCanvasElement>this.canvasEl?.nativeElement;
-    this.ctx = this.canvas.getContext('2d')!;
-  }
-
   ngOnInit(): void {
-    this.initCanvas();
+    this.canvas = <HTMLCanvasElement>this.canvasEl?.nativeElement;
+    this.canvas.height = screen.height;
+    this.canvas.width = screen.width;
+    this.ctx = this.canvas.getContext('2d')!;
 
     this.judgementService.onJudged.subscribe(judgementContext => {
       let judgementImage = this.mediaService.media.judgementImageCache.get(judgementContext.judgement);

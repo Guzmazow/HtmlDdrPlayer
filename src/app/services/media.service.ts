@@ -7,7 +7,6 @@ import { AllDirections, AllJudgements, Direction, Judgement } from '@models/enum
   providedIn: 'root'
 })
 export class MediaService {
-
   media: Media = new Media();
 
   arrowImageLoad = this.loadImage("/assets/Noteskins/a_arrow 1x8 (doubleres).png");
@@ -20,8 +19,12 @@ export class MediaService {
 
   }
 
+  setPlayer(target: YT.Player) {
+    this.media.video = target;
+  }
+
   prepareMedia() {
-    let filename = this.parsingService.partialParse.metaData.get("MUSIC");
+    let filename = this.parsingService.metaData.get("MUSIC");
     if (filename) {
       this.media.audio = new Audio(`${this.parsingService.smFileLocation.substring(0, this.parsingService.smFileLocation.lastIndexOf("/"))}/${filename}`);
       this.media.audio.load();

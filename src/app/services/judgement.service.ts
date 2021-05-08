@@ -3,6 +3,7 @@ import { Direction, Judgement, NoteType } from '@models/enums';
 import { Subject } from 'rxjs';
 import { DisplayService } from './display.service';
 import { KeyboardService } from './keyboard.service';
+import { ParsingService } from './parsing.service';
 
 @Injectable({
   providedIn: 'root'
@@ -26,7 +27,7 @@ export class JudgementService {
   // TimingWindowSecondsMine=0.075000
   // TimingWindowSecondsRoll=0.500000
 
-  constructor(private displayService: DisplayService, private keyboardService: KeyboardService) {
+  constructor(private displayService: DisplayService, private keyboardService: KeyboardService, private parsingService: ParsingService) {
     const judgeScale = 3;
     let judgePrecision = new Map<number, Judgement>();
     for (let precision of this.judgePrecision) {
@@ -42,35 +43,30 @@ export class JudgementService {
   }
 
   judgeMisses() {
-    let dCtx = this.displayService.displayContext;
-    if (dCtx) {
-      for (let track of dCtx.fullParse.tracks) {
-        let unhittable = track.filter(x => x.type == NoteType.NORMAL && !x.judged && x.time < (dCtx.currentTime - this.errorLimit))
+      for (let track of this.parsingService.tracks) {
+        let unhittable = track.filter(x => x.type == NoteType.NORMAL && !x.judged && x.time < (this.displayService.currentTime - this.errorLimit))
         if (unhittable.length) {
           unhittable.forEach(x => x.judged = true)
           this.onJudged.next({ judgement: Judgement.MISS, precision: -this.errorLimit, direction: Direction.NONE });
         }
       }
-    }
+    
   }
 
   judgePress(direction: Direction, keyPressed: boolean) {
     if (keyPressed) {
-      let dCtx = this.displayService.displayContext;
-      if (dCtx) {
-        let track = dCtx.fullParse.tracks[direction];
-        let hittable = track.filter(x => x.type == NoteType.NORMAL && !x.judged && (dCtx.currentTime + this.errorLimit) > x.time && x.time > (dCtx.currentTime - this.errorLimit))
+        let track = this.parsingService.tracks[direction];
+        let hittable = track.filter(x => x.type == NoteType.NORMAL && !x.judged && (this.displayService.currentTime + this.errorLimit) > x.time && x.time > (this.displayService.currentTime - this.errorLimit))
         if (hittable.length) {
           hittable.sort(x => x.time);
           let hit = hittable[0];
-          let timeDifference = hit.time - dCtx.currentTime;
+          let timeDifference = hit.time - this.displayService.currentTime;
           let precisionKey = Array.from(this.judgePrecision.keys()).reduce((a, b) => Math.abs(a - timeDifference) < Math.abs(b - timeDifference) ? a : b)
           let judgement = this.judgePrecision.get(precisionKey) ?? Judgement.NONE;
           hit.judged = true;
           hit.precision = timeDifference;
           this.onJudged.next({ judgement: judgement, precision: timeDifference, direction: direction });
-        }
-      }
+        }      
     }
   }
 
