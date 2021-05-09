@@ -1,0 +1,44 @@
+@import "~@angular/material/theming";
+
+@mixin scroll-color($theme) {
+    $primary: map-get($theme, primary);
+    $accent: map-get($theme, accent);
+    $background: map-get($theme, background);
+
+    /* width */
+    ::-webkit-scrollbar {
+        width: 10px;
+    }
+
+    /* Track */
+    ::-webkit-scrollbar-track {
+        background: darken(mat-color($background, background), 1%);
+        //border-radius: 10px;
+    }
+
+    /* Handle */
+    ::-webkit-scrollbar-thumb {
+        background: mat-color($accent);
+        //border-radius: 10px;
+    }
+
+    /* Handle on hover */
+    ::-webkit-scrollbar-thumb:hover {
+        background: lighten(mat-color($accent), 10%);
+    }
+
+    ::-webkit-scrollbar-thumb:focus{
+        background: lighten(mat-color($accent), 5%);
+    }
+}
+
+@mixin scroll-theme($theme) {
+    // Extracts the color and typography configurations from the theme.
+    $color: mat-get-color-config($theme);
+
+    // Do not generate styles if configurations for individual theming
+    // systems have been explicitly set to `null`.
+    @if $color != null {
+        @include scroll-color($color);
+    }
+}
