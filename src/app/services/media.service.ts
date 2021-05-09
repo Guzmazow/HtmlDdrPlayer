@@ -24,11 +24,11 @@ export class MediaService {
   }
 
   prepareMedia() {
-    let filename = this.parsingService.metaData.get("MUSIC");
-    if (filename) {
-      this.media.audio = new Audio(`${this.parsingService.smFileLocation.substring(0, this.parsingService.smFileLocation.lastIndexOf("/"))}/${filename}`);
-      this.media.audio.load();
-    }
+    // let filename = this.parsingService.metaData.get("MUSIC");
+    // if (filename) {
+    //   this.media.audio = new Audio(`${this.parsingService.smFileLocation.substring(0, this.parsingService.smFileLocation.lastIndexOf("/"))}/${filename}`);
+    //   this.media.audio.load();
+    // }
 
     Promise.all([this.arrowImageLoad, this.receptorGlowImageLoad, this.receptorImageLoad, this.receptorFlashImageLoad, this.judgementImageLoad]).then((x) => {
       let arrowImage = x[0];

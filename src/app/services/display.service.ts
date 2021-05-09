@@ -35,8 +35,8 @@ export class DisplayService {
   }
 
   setup() {
-    this.currentTime = this.parsingService.offset;
-    this.displayOptions = new DisplayOptions(800, this.parsingService.tracks.length, 0.001);
+    this.currentTime = this.parsingService.selectedMode.offset;
+    this.displayOptions = new DisplayOptions(800, this.parsingService.selectedMode.tracks.length, 0.001);
     this.onSetup.next();
   }
 
@@ -46,7 +46,7 @@ export class DisplayService {
   }
 
   tick() {
-    var newTime = this.parsingService.offset + Math.round(this.mediaService.media.video.getCurrentTime() * 1000) / 1000
+    var newTime = this.parsingService.selectedMode.offset + Math.round(this.mediaService.media.video.getCurrentTime() * 1000) / 1000
     if (this.currentTime != newTime) {
       this.currentTime = newTime;
       this.onRedraw.next();

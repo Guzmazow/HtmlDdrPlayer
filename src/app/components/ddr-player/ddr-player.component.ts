@@ -62,7 +62,7 @@ export class DdrPlayerComponent implements OnInit {
     this.parsingService.onSimLoaded.subscribe(()=>{
       this.mediaService.prepareMedia();
     })
-    this.parsingService.loadSim('/assets/Songs/Sneakman/Sneakman.sm');
+    //this.parsingService.loadSim('Sneakman.sm','/assets/Songs/Sneakman/Sneakman.sm');
   }
 
   // showParseInTextbox(parse: Note[][]) {

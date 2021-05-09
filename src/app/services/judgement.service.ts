@@ -43,7 +43,7 @@ export class JudgementService {
   }
 
   judgeMisses() {
-      for (let track of this.parsingService.tracks) {
+      for (let track of this.parsingService.selectedMode.tracks) {
         let unhittable = track.filter(x => x.type == NoteType.NORMAL && !x.judged && x.time < (this.displayService.currentTime - this.errorLimit))
         if (unhittable.length) {
           unhittable.forEach(x => x.judged = true)
@@ -55,7 +55,7 @@ export class JudgementService {
 
   judgePress(direction: Direction, keyPressed: boolean) {
     if (keyPressed) {
-        let track = this.parsingService.tracks[direction];
+        let track = this.parsingService.selectedMode.tracks[direction];
         let hittable = track.filter(x => x.type == NoteType.NORMAL && !x.judged && (this.displayService.currentTime + this.errorLimit) > x.time && x.time > (this.displayService.currentTime - this.errorLimit))
         if (hittable.length) {
           hittable.sort(x => x.time);

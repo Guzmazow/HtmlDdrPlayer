@@ -46,9 +46,9 @@ export class NoteLaneComponent implements OnInit {
   }
 
   drawAllNotes(leastTime: number, greatestTime: number) {
-    for (let i = 0; i < this.parsingService.tracks.length; i++) {
-      this.drawNotesInTrack(leastTime, greatestTime, this.parsingService.tracks[i], i,
-        this.parsingService.tracks.length);
+    for (let i = 0; i < this.parsingService.selectedMode.tracks.length; i++) {
+      this.drawNotesInTrack(leastTime, greatestTime, this.parsingService.selectedMode.tracks[i], i,
+        this.parsingService.selectedMode.tracks.length);
     }
   }
 
@@ -138,9 +138,9 @@ export class NoteLaneComponent implements OnInit {
   }
 
   drawAllConnectors(leastTime: number, greatestTime: number) {
-    for (let i = 0; i < this.parsingService.tracks.length; i++) {
-      this.drawConnectorsInTrack(leastTime, greatestTime, this.parsingService.tracks[i], i,
-        this.parsingService.tracks.length);
+    for (let i = 0; i < this.parsingService.selectedMode.tracks.length; i++) {
+      this.drawConnectorsInTrack(leastTime, greatestTime, this.parsingService.selectedMode.tracks[i], i,
+        this.parsingService.selectedMode.tracks.length);
     }
   }
 

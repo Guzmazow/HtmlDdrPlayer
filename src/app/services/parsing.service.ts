@@ -2,105 +2,61 @@ import { Injectable } from '@angular/core';
 import { Note } from '@models/note';
 import { NoteType } from '@models/enums'
 import { HttpClient } from '@angular/common/http';
-import { Subject } from 'rxjs';
+import { forkJoin, Subject } from 'rxjs';
+import { map } from 'rxjs/operators';
+import { SelectedMode } from '@models/selected-mode';
+import { ParsedSimfile } from '@models/parsed-simfile';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ParsingService {
 
-  smFileLocation: string = "";
+  onSimfileInfosLoaded = new Subject();
 
-  offset: number = 0;
-  bpms: { beat: number; bpm: number }[] = [];
-  stops: { stopDuration: number; beat: number }[] = [];
-  tracks: Note[][] = [];
-  metaData: Map<string, string> = new Map<string, string>();
-  modes: Map<string, string>[] = [];
+
+  selectedMode: SelectedMode = new SelectedMode();
+  onModeSelected = new Subject();
 
   onSimLoaded = new Subject();
-  onModeSelected = new Subject();
+
 
   constructor(private http: HttpClient) { }
 
-  loadSim(url: string) {
-    this.smFileLocation = url;
-    this.http
-      .get(url, { responseType: "text" })
-      .subscribe(response => this.partialParse(response));
-  }
+  // loadSim(url: string) {
+  //   this.smFileLocation = url;
+  //   this.http
+  //     .get(url, { responseType: "text" })
+  //     .subscribe(response => this.partialParse(response));
+  // }
 
-  /* Step One Of Parsing */
-  partialParse(fileContents: string) {
-    this.metaData = this.getTopMetaDataAsStrings(fileContents);
-    this.modes = this.getModesInfoAsStrings(fileContents);
+  // /* Step One Of Parsing */
+  // partialParse(filename: string, url: string, fileContents: string) {
 
-    let selectedMode: number = 1;//parseInt((<HTMLInputElement>document.getElementById("mode-select")).value);
-    this.getFullModeSpecificParse(1);
-    this.onSimLoaded.next();
-  }
+  //   // this.metaData = this.getTopMetaDataAsStrings(fileContents);
+  //   // this.modes = this.getModesInfoAsStrings(fileContents);
 
-  getTopMetaDataAsStrings(file: string) {
-    // match any metadata tag excluding the "NOTES" tag (case-insensitive)
-    let re = /#(?![nN][oO][tT][eE][sS])([^:]+):([^;]+);/g;
-    //let matches = [...file.matchAll(re)];
-    let matches: RegExpExecArray[] = [];
-    var m;
-    while (m = re.exec(file)) {
-      matches.push(m);
-    }
-    let metaData: Map<string, string> = new Map();
-    for (let i = 0; i < matches.length; i++) {
-      let match = matches[i];
-      metaData.set(this.cleanMetaDataString(match[1]).toUpperCase(), this.cleanMetaDataString(match[2]));
-    }
-    return metaData;
-  }
+  //   // let selectedMode: number = 1;//parseInt((<HTMLInputElement>document.getElementById("mode-select")).value);
+  //   // this.getFullModeSpecificParse(1);
+  //   // this.onSimLoaded.next();
+  // }
 
-  getModesInfoAsStrings(fileContents: string) {
-    // Get "NOTES" sections (case-insensitive). The first five values are postfixed with a colon.
-    // Note data comes last, postfixed by a semicolon.
-    let re = /#[nN][oO][tT][eE][sS]:([^:]*):([^:]*):([^:]*):([^:]*):([^:]*):([^;]+;)/g;
-    // let matches = [...fileContents.matchAll(re)];
-    let matches: RegExpExecArray[] = [];
-    var m;
-    while (m = re.exec(fileContents)) {
-      matches.push(m);
-    }
-    let modes: Map<string, string>[] = [];
-    let fieldNames = ["type", "desc/author", "difficulty", "meter", "radar"];
-    for (let i = 0; i < matches.length; i++) {
-      let match = matches[i];
-      let mode: Map<string, string> = new Map();
-      for (let j = 1; j < match.length - 1; j++) {
-        mode.set(fieldNames[j - 1], this.cleanMetaDataString(match[j]));
-      }
-      mode.set("notes", match[match.length - 1]);
-      modes.push(mode);
-    }
-    modes.reverse();
-    modes.sort((a, b) => ((a.get('type') || '') < (b.get('type') || '')) ? 1 : -1);
-    return modes;
-  }
-
-  cleanMetaDataString(string: string): string {
-    return string.trim().replace(/\n/g, "");
-  }
+ 
 
   /* Step Two Of Parsing */
 
-  getFullModeSpecificParse(modeIndex: number) {   
-    let unparsedNotes: string = this.modes[modeIndex].get("notes") || '';
-    let unparsedArray: string[] = unparsedNotes.split("\n");
-    let measures: string[][] = this.getMeasures(unparsedArray);
-    let beatsAndLines: { beat: number, lineInfo: string }[] = this.getBeatInfoByLine(measures);
-    let cleanedBeatsAndLines: { beat: number, lineInfo: string }[] = this.removeBlankLines(beatsAndLines);
-    this.offset = parseFloat(this.metaData.get("OFFSET") || '0');
-    this.bpms = this.parseBPMS(this.metaData.get("BPMS") || '0-0');
-    this.stops = this.parseStops(this.metaData.get("STOPS") || '');
-    let timesBeatsAndLines: { time: number; beat: number; lineInfo: string }[] = this.getTimeInfoByLine(cleanedBeatsAndLines, this.offset, this.bpms, this.stops);
-    this.tracks = this.getTracksFromLines(timesBeatsAndLines);
-    this.onModeSelected.next();
+  getFullModeSpecificParse(filename: string, modeIndex: number) {
+    // let unparsedNotes: string = this.modes[modeIndex].get("notes") || '';
+    // let unparsedArray: string[] = unparsedNotes.split("\n");
+    // let measures: string[][] = this.getMeasures(unparsedArray);
+    // let beatsAndLines: { beat: number, lineInfo: string }[] = this.getBeatInfoByLine(measures);
+    // let cleanedBeatsAndLines: { beat: number, lineInfo: string }[] = this.removeBlankLines(beatsAndLines);
+    // this.offset = parseFloat(this.metaData.get("OFFSET") || '0');
+    // this.bpms = this.parseBPMS(this.metaData.get("BPMS") || '0-0');
+    // this.stops = this.parseStops(this.metaData.get("STOPS") || '');
+    // let timesBeatsAndLines: { time: number; beat: number; lineInfo: string }[] = this.getTimeInfoByLine(cleanedBeatsAndLines, this.offset, this.bpms, this.stops);
+    // this.tracks = this.getTracksFromLines(timesBeatsAndLines);
+    // this.onModeSelected.next();
   }
 
   getMeasures(unparsedArray: string[]) {

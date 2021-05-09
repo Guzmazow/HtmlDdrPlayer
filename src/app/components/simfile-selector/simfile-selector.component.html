@@ -1,15 +1,32 @@
-<mat-drawer-container class="main-container">
+<mat-drawer-container #mainDrawerContainer class="main-container">
     <mat-drawer mode="side" opened>
-        <mat-selection-list #simfiles [multiple]="false">
-            <mat-list-option *ngFor="let simfile of simfileRegistry" [value]="simfile">
-                {{simfile.filename}}
+        <mat-selection-list #simfiles [multiple]="false"
+            (selectionChange)="onChange($event); mainDrawerContainer.updateContentMargins()">
+            <mat-list-option *ngFor="let simfile of parsedSimfiles" [value]="simfile">
+                {{simfile.title}}
+                <span style="font-size: x-small;">{{simfile.artist}}</span>
             </mat-list-option>
         </mat-selection-list>
     </mat-drawer>
     <mat-drawer-content>
-        Main content
-        <p>
-            Option selected: {{simfiles.selectedOptions.selected[0]?.value | json}}
-        </p>
+        <div *ngIf="selectedSimfile" class="p2">
+            <!-- <div>smFileLocation: {{ selectedSimfile.smFileLocation }}</div> -->
+            
+            <!-- <div>filename: {{ selectedSimfile.filename }}</div> -->
+            <!-- <div>loaded: {{ selectedSimfile.loaded }}</div> -->
+            <!-- <div>title: {{ selectedSimfile.title }}</div> -->
+            <!-- <div>artist: {{ selectedSimfile.artist }}</div> -->
+            <!-- <div>banner: {{ selectedSimfile.banner }}</div> -->
+            <!-- <div>background: {{ selectedSimfile.background }}</div> -->
+            <!-- <div>cdTitle: {{ selectedSimfile.cdTitle }}</div> -->
+            <!-- <div>music: {{ selectedSimfile.music }}</div> -->
+            <!-- <div>offset: {{ selectedSimfile.offset }}</div> -->
+            <!-- <div>sampleStart: {{ selectedSimfile.sampleStart }}</div> -->
+            <!-- <div>sampleLength: {{ selectedSimfile.sampleLength }}</div> -->
+            <!-- <div>selectable: {{ selectedSimfile.selectable }}</div> -->
+
+            <!-- <div>bpms: {{ selectedSimfile.bpms }}</div> -->
+            <!-- <div>bgChanges: {{ selectedSimfile.bgChanges }}</div> -->
+        </div>
     </mat-drawer-content>
 </mat-drawer-container>
