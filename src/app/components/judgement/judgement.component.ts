@@ -6,7 +6,7 @@ import { MediaService } from '@services/media.service';
 @Component({
   selector: 'app-judgement',
   templateUrl: './judgement.component.html',
-  styleUrls: ['./judgement.component.css']
+  styleUrls: ['./judgement.component.scss']
 })
 export class JudgementComponent implements OnInit {
 

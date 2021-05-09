@@ -1,0 +1,32 @@
+@import './theme.scss';
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+#home-drawer-container>mat-drawer-content {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+  }
+
+/* width */
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+/* Track */
+// ::-webkit-scrollbar-track {
+//     box-shadow: inset 0 0 5px; 
+//     border-radius: 10px;
+// }
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background: mat-color($accent); 
+    //border-radius: 10px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+    background: mat-color($accent, 600);
+}

@@ -8,7 +8,7 @@ import { MediaService } from '@services/media.service';
 @Component({
   selector: 'app-receptor',
   templateUrl: './receptor.component.html',
-  styleUrls: ['./receptor.component.css']
+  styleUrls: ['./receptor.component.scss']
 })
 export class ReceptorComponent implements OnInit {
 

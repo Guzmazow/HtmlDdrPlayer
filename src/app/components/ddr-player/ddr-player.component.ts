@@ -7,7 +7,7 @@ import { NgxY2PlayerComponent, NgxY2PlayerOptions } from 'ngx-y2-player';
 @Component({
   selector: 'app-ddr-player',
   templateUrl: './ddr-player.component.html',
-  styleUrls: ['./ddr-player.component.css']
+  styleUrls: ['./ddr-player.component.scss']
 })
 export class DdrPlayerComponent implements OnInit {
 

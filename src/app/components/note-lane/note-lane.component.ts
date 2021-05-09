@@ -8,7 +8,7 @@ import { ParsingService } from '@services/parsing.service';
 @Component({
   selector: 'app-note-lane',
   templateUrl: './note-lane.component.html',
-  styleUrls: ['./note-lane.component.css']
+  styleUrls: ['./note-lane.component.scss']
 })
 export class NoteLaneComponent implements OnInit {
 

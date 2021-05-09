@@ -1,4 +1,4 @@
-<mat-drawer-container fullscreen>
+<mat-drawer-container fullscreen id="home-drawer-container">
 
   <mat-drawer id="home-drawer" #start mode="side">
     <button mat-flat-button (click)="start.close()" [routerLink]="['/']">Home</button>
@@ -26,7 +26,7 @@
     </button>
   </mat-toolbar>
 
-  <div>
+  <div id="home-content">
     <router-outlet></router-outlet>
   </div>
 
