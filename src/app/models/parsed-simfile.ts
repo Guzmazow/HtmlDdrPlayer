@@ -29,7 +29,7 @@ export class ParsedSimfile {
 
   constructor(filename: string, youtubeVideoIds: string[], skips: { from: number, to: number | null }[]) {
     this.filename = filename;
-    this.smFileLocation = `/assets/Simfiles/${filename}`;
+    this.smFileLocation = `/assets/Simfiles/Otaku's Dream Mix/${filename}`;
     this.youtubeVideoIds = youtubeVideoIds;
     this.skips = skips;
 

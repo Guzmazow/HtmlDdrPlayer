@@ -11,8 +11,9 @@ import SimfileRegistry from '../../assets/simfile-registry.json';
   providedIn: 'root'
 })
 export class SimfileLoaderService {
+  
 
-  parsedSimfiles = new Map(SimfileRegistry.map(i => [i.filename, new ParsedSimfile(i.filename, i.youtubeVideoIds ?? [], i.skips ?? [])]));;
+  parsedSimfiles = new Map(SimfileRegistry[1].map(i => [i.filename, new ParsedSimfile(i.filename, i.youtubeVideoIds ?? [], i.skips ?? [])]));;
   parsedSimfilesLoaded = new Subject();
   gameRequested = new BehaviorSubject<GameRequest | undefined>(undefined);
   
