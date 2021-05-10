@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
-import { ParsingService } from './parsing.service';
 import { MediaService } from './media.service';
 import { DisplayOptions } from '@models/display-options';
 import { Subject } from 'rxjs';
+import { SimfileLoaderService } from './simfile-loader.service';
+import { GameRequest } from '@models/game-request';
 
 
 @Injectable({
@@ -14,11 +15,12 @@ export class DisplayService {
   onSetup = new Subject();
   onStart = new Subject();
 
-  displayOptions!: DisplayOptions;
+  displayOptions: DisplayOptions = new DisplayOptions(0, 0, 0);
+  gameRequest!: GameRequest;
   currentTime: number = 0;
 
   getTrackX(trackNumber: number) {
-    return trackNumber * this.displayOptions.trackSize;
+    return trackNumber * this.displayOptions?.trackSize ?? 0;
   }
 
   getNoteX(trackNumber: number) {
@@ -30,23 +32,24 @@ export class DisplayService {
     return (timeDistance / this.displayOptions.secondsPerPixel) + this.displayOptions.noteTopPadding;
   }
 
-  constructor(private parsingService: ParsingService, private mediaService: MediaService) {
-
+  constructor(private mediaService: MediaService, private simfileLoaderService: SimfileLoaderService) {
+    this.mediaService.prepareMedia();
+    simfileLoaderService.gameRequested.subscribe(r => {
+      if(!r) return;
+      this.gameRequest = r;
+      this.currentTime = r.parsedSimfile.offset;
+      this.displayOptions = new DisplayOptions(800, r.playableSimfileMode.tracks.length, 0.001);
+      this.onSetup.next();
+    })
   }
 
-  setup() {
-    this.currentTime = this.parsingService.selectedMode.offset;
-    this.displayOptions = new DisplayOptions(800, this.parsingService.selectedMode.tracks.length, 0.001);
-    this.onSetup.next();
-  }
-
-  load() {
+  play() {
     this.onStart.next();
     this.tick();
   }
 
   tick() {
-    var newTime = this.parsingService.selectedMode.offset + Math.round(this.mediaService.media.video.getCurrentTime() * 1000) / 1000
+    var newTime = Math.round((this.gameRequest?.parsedSimfile.offset ?? 0) + this.mediaService.media.video.getCurrentTime() * 1000) / 1000
     if (this.currentTime != newTime) {
       this.currentTime = newTime;
       this.onRedraw.next();

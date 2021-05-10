@@ -3,7 +3,6 @@ import { Note } from '@models/note';
 import { NoteType } from '@models/enums';
 import { DisplayService } from '@services/display.service';
 import { MediaService } from '@services/media.service';
-import { ParsingService } from '@services/parsing.service';
 
 @Component({
   selector: 'app-note-lane',
@@ -16,22 +15,23 @@ export class NoteLaneComponent implements OnInit {
   canvas!: HTMLCanvasElement;
   ctx!: CanvasRenderingContext2D;
 
-  constructor(private displayService: DisplayService, private mediaService: MediaService, private parsingService: ParsingService) { }
+  constructor(private displayService: DisplayService, private mediaService: MediaService) { }
 
   ngOnInit(): void {
     this.canvas = <HTMLCanvasElement>this.canvasEl?.nativeElement;   
     this.ctx = this.canvas.getContext('2d')!;
-    this.displayService.onSetup.subscribe(()=>{
-      this.canvas.height = screen.height;
-      this.canvas.width = this.displayService.displayOptions.noteLaneWidth;
-    });
+    this.canvas.height = screen.height;
+    this.canvas.width = this.displayService.displayOptions.noteLaneWidth;
+    // this.displayService.onSetup.subscribe(()=>{
+    //   this.canvas.height = screen.height;
+    //   this.canvas.width = this.displayService.displayOptions.noteLaneWidth;
+    // });
     this.displayService.onRedraw.subscribe(this.draw.bind(this));
-    this.displayService.onStart.subscribe(this.init.bind(this));
+    // this.displayService.onStart.subscribe(this.init.bind(this));
   }
 
-  init() {
-
-  }
+  // init() {
+  // }
 
   draw() {
     this.clear();
@@ -46,9 +46,9 @@ export class NoteLaneComponent implements OnInit {
   }
 
   drawAllNotes(leastTime: number, greatestTime: number) {
-    for (let i = 0; i < this.parsingService.selectedMode.tracks.length; i++) {
-      this.drawNotesInTrack(leastTime, greatestTime, this.parsingService.selectedMode.tracks[i], i,
-        this.parsingService.selectedMode.tracks.length);
+    for (let i = 0; i < this.displayService.gameRequest.playableSimfileMode.tracks.length; i++) {
+      this.drawNotesInTrack(leastTime, greatestTime, this.displayService.gameRequest.playableSimfileMode.tracks[i], i,
+        this.displayService.gameRequest.playableSimfileMode.tracks.length);
     }
   }
 
@@ -56,11 +56,11 @@ export class NoteLaneComponent implements OnInit {
     numTracks: number) {
     let bounds = this.getFirstAndLastNotes(leastTime, greatestTime, track);
     for (let i = bounds.start; i <= bounds.stop; i++) {
-      this.drawNote(track[i], trackNumber, numTracks);
+      this.drawNote(track[i], trackNumber);
     }
   }
 
-  drawNote(note: Note, trackNumber: number, numTracks: number) {
+  drawNote(note: Note, trackNumber: number) {
     if (note.judged)
       return;
     let x = this.displayService.getNoteX(trackNumber);
@@ -138,9 +138,9 @@ export class NoteLaneComponent implements OnInit {
   }
 
   drawAllConnectors(leastTime: number, greatestTime: number) {
-    for (let i = 0; i < this.parsingService.selectedMode.tracks.length; i++) {
-      this.drawConnectorsInTrack(leastTime, greatestTime, this.parsingService.selectedMode.tracks[i], i,
-        this.parsingService.selectedMode.tracks.length);
+    for (let i = 0; i < this.displayService.gameRequest.playableSimfileMode.tracks.length; i++) {
+      this.drawConnectorsInTrack(leastTime, greatestTime, this.displayService.gameRequest.playableSimfileMode.tracks[i], i,
+        this.displayService.gameRequest.playableSimfileMode.tracks.length);
     }
   }
 

@@ -1,8 +1,9 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { DisplayService } from '@services/display.service';
-import { ParsingService } from '@services/parsing.service';
 import { MediaService } from '@services/media.service';
 import { NgxY2PlayerComponent, NgxY2PlayerOptions } from 'ngx-y2-player';
+import { SimfileLoaderService } from '@services/simfile-loader.service';
+import { GameRequest } from '@models/game-request';
 
 @Component({
   selector: 'app-ddr-player',
@@ -15,8 +16,9 @@ export class DdrPlayerComponent implements OnInit {
   screenHeight: number = screen.height;
   startedPlaying: boolean = false;
 
-  @ViewChild('video') video!: NgxY2PlayerComponent;
-  videoId = 'SL_jZSRZ_Bo';//'z8WdQsPknf0'; // string or string array;
+  videoId: string = "";
+
+  @ViewChild('video') video?: NgxY2PlayerComponent;
 
   playerOptions: NgxY2PlayerOptions = {
     height: screen.height, // you can set 'auto', it will use container width to set size
@@ -24,7 +26,7 @@ export class DdrPlayerComponent implements OnInit {
     playerVars: {
       autoplay: 0,
       disablekb: YT.KeyboardControls.Disable,
-      iv_load_policy: YT.IvLoadPolicy.Hide,
+      iv_load_policy: YT.IvLoadPolicy.Show,
       controls: YT.Controls.Hide,
       showinfo: YT.ShowInfo.Hide
     },
@@ -48,20 +50,25 @@ export class DdrPlayerComponent implements OnInit {
   // }
 
   onVideoReady(event: YT.PlayerEvent) {
+    if(!this.video) return;
     this.mediaService.setPlayer(event.target);
-    console.log('player ready');
+    this.displayService.play();
+    this.video.videoPlayer.playVideo();
+    this.startedPlaying = true;
   }
 
   constructor(
     private displayService: DisplayService,
-    private parsingService: ParsingService,
     private mediaService: MediaService,
-  ) { }
+    private simfileLoaderService: SimfileLoaderService
+  ) {
+    this.simfileLoaderService.gameRequested.subscribe(r=>{
+      this.videoId = r?.youtubeVideoId ?? "";
+    });
+  }
 
   ngOnInit(): void {
-    this.parsingService.onSimLoaded.subscribe(()=>{
-      this.mediaService.prepareMedia();
-    })
+
     //this.parsingService.loadSim('Sneakman.sm','/assets/Songs/Sneakman/Sneakman.sm');
   }
 
@@ -71,12 +78,5 @@ export class DdrPlayerComponent implements OnInit {
   //     JSON.stringify(parse) + '>';
   // }
 
-  play(){
-    this.displayService.setup();
-    this.video.videoPlayer.playVideo();
-    //this.mediaService.media.audio.play();
-    this.displayService.load();
-    this.startedPlaying = true;
-  }
 
 }

@@ -1,8 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Media } from '@models/media';
-import { ParsingService } from './parsing.service';
 import { AllDirections, AllJudgements, Direction, Judgement } from '@models/enums';
-import { HttpClient } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
@@ -16,7 +14,7 @@ export class MediaService {
   receptorFlashImageLoad = this.loadImage("/assets/Noteskins/a_rflash (doubleres).png");
   judgementImageLoad = this.loadImage("/assets/Judgements/default 1x6 (Doubleres).png");
 
-  constructor(private parsingService: ParsingService, private http: HttpClient) {
+  constructor() {
 
   }
 

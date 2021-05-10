@@ -1,14 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { MatSelectionListChange } from '@angular/material/list';
 import { ParsedSimfile } from '@models/parsed-simfile';
-import { ParsingService } from '@services/parsing.service';
 import { SimfileLoaderService } from '@services/simfile-loader.service';
 import { NgxY2PlayerOptions } from 'ngx-y2-player';
 import { MediaService } from '@services/media.service';
 import { ParsedSimfileMode } from '@models/parsed-simfile-mode';
 import { Difficulty, GameMode, GameModeType } from '@models/enums';
 import { MatTabChangeEvent } from '@angular/material/tabs';
-import { Subject } from 'rxjs';
 import { GameRequest } from '@models/game-request';
 
 @Component({
@@ -27,7 +25,7 @@ export class SimfileSelectorComponent implements OnInit {
   selectedSimfileMode?: ParsedSimfileMode;
   selectedVideoId?: string;
 
-  gameRequested = new Subject<GameRequest>();
+
 
   playerOptions: NgxY2PlayerOptions = {
     height: 'auto',//screen.height, // you can set 'auto', it will use container width to set size
@@ -43,11 +41,7 @@ export class SimfileSelectorComponent implements OnInit {
   };
 
   constructor(private simfileLoaderService: SimfileLoaderService,private mediaService: MediaService) {
-    this.simfileLoaderService.parsedSimfilesLoaded.subscribe(() => {
-      this.parsedSimfiles = Array.from(simfileLoaderService.parsedSimfiles.values());
-    });
-
-
+    this.parsedSimfiles = Array.from(simfileLoaderService.parsedSimfiles.values());
   }
 
   ngOnInit(): void {
@@ -126,7 +120,7 @@ export class SimfileSelectorComponent implements OnInit {
       return;
     if(!this.selectedVideoId)
       this.selectedVideoId = this.selectedSimfile.youtubeVideoIds[0];
-    this.gameRequested.next(new GameRequest(this.selectedSimfile, this.selectedSimfileMode, this.selectedVideoId));
+    this.simfileLoaderService.requestGame(new GameRequest(this.selectedSimfile, this.selectedSimfileMode, this.selectedVideoId));
   }
 
 

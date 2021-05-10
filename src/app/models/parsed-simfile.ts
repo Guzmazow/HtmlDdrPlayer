@@ -18,7 +18,8 @@ export class ParsedSimfile {
   sampleStart: number = 0;
   sampleLength: number = 0;
   selectable: boolean = true;
-  bpms: string = "";
+  bpms: string = "0-0";
+  stops: string= "";
   bgChanges: string = "";
 
   modes: ParsedSimfileMode[] = [];
@@ -47,6 +48,7 @@ export class ParsedSimfile {
     this.sampleLength = parseFloat(this.rawMetaData.get("SAMPLELENGTH") ?? "0");
     this.selectable = (this.rawMetaData.get("SELECTABLE") ?? "YES").toUpperCase() == "YES";
     this.bpms = this.rawMetaData.get("BPMS") ?? "";
+    this.stops = this.rawMetaData.get("STOPS") ?? "";
     this.bgChanges = this.rawMetaData.get("BGCHANGES") ?? "";
 
     this.rawModes = this.getModesInfoAsStrings(simfileContent);

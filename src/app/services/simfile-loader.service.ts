@@ -1,7 +1,9 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Router } from '@angular/router';
+import { GameRequest } from '@models/game-request';
 import { ParsedSimfile } from '@models/parsed-simfile';
-import { forkJoin, Subject } from 'rxjs';
+import { BehaviorSubject, forkJoin, Subject } from 'rxjs';
 import { map } from 'rxjs/operators';
 import SimfileRegistry from '../../assets/simfile-registry.json';
 
@@ -11,10 +13,10 @@ import SimfileRegistry from '../../assets/simfile-registry.json';
 export class SimfileLoaderService {
 
   parsedSimfiles = new Map(SimfileRegistry.map(i => [i.filename, new ParsedSimfile(i.filename, i.youtubeVideoIds ?? [], i.skips ?? [])]));;
-
   parsedSimfilesLoaded = new Subject();
-
-  constructor(private http: HttpClient) {
+  gameRequested = new BehaviorSubject<GameRequest | undefined>(undefined);
+  
+  constructor(private http: HttpClient, private router: Router) {
     forkJoin(
       Array.from(this.parsedSimfiles.values()).map(simfile =>
         this.http
@@ -29,5 +31,14 @@ export class SimfileLoaderService {
       }
       this.parsedSimfilesLoaded.next();
     });
+  }
+
+  startSelecting(){
+    this.router.navigate(['/']);
+  }
+
+  requestGame(r: GameRequest) {
+    this.gameRequested.next(r);
+    this.router.navigate(['/ddr-player']);
   }
 }
