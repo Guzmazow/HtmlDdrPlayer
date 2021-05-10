@@ -27,7 +27,7 @@
         background: lighten(mat-color($accent), 10%);
     }
 
-    ::-webkit-scrollbar-thumb:focus{
+    ::-webkit-scrollbar-thumb:active{
         background: lighten(mat-color($accent), 5%);
     }
 }

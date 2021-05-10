@@ -15,6 +15,8 @@ import { MatCardModule } from '@angular/material/card';
 import { HttpClientModule } from '@angular/common/http';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatListModule } from '@angular/material/list';
+import { MatTabsModule } from '@angular/material/tabs';
+import { MatInputModule } from '@angular/material/input';
 
 import { DdrPlayerComponent } from '@components/ddr-player/ddr-player.component';
 import { NoteLaneComponent } from '@components/note-lane/note-lane.component';
@@ -22,6 +24,7 @@ import { JudgementComponent } from '@components/judgement/judgement.component';
 import { ReceptorComponent } from '@components/receptor/receptor.component';
 import { NgxY2PlayerModule } from 'ngx-y2-player';
 import { SimfileSelectorComponent } from './components/simfile-selector/simfile-selector.component';
+import { FormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -47,7 +50,10 @@ import { SimfileSelectorComponent } from './components/simfile-selector/simfile-
     MatCardModule,
     MatExpansionModule,
     NgxY2PlayerModule,
-    MatListModule
+    MatListModule,
+    MatTabsModule,
+    MatInputModule,
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

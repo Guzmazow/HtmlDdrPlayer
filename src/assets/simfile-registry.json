@@ -1,9 +1,34 @@
 [
     {
-        "filename": "+Danshi.sm"
+        "filename": "+Danshi.sm",
+        "youtubeVideoIds": [
+            "RIA-vEJB1Aw",
+            "6HGLeUqoUf8",
+            "3BZLpBmnADE",
+            "vBmfwovfIHM"
+        ],
+        "skips": [
+            {
+                "from": 57.3,
+                "to": 113.395
+            },
+            {
+                "from": 193.53,
+                "to": 204.04
+            }
+        ]
     },
     {
-        "filename": "1 2 Fanclub.sm"
+        "filename": "1 2 Fanclub.sm",
+        "youtubeVideoIds": [
+            "I_Uax2jCUGo"
+        ],
+        "skips": [
+            {
+                "from": 79.4,
+                "to": 202
+            }
+        ]
     },
     {
         "filename": "118.sm"

@@ -28,3 +28,38 @@ export enum Judgement {
 }
 
 export const AllJudgements  = [Judgement.MARVELOUS, Judgement.PERFECT, Judgement.GREAT, Judgement.GOOD, Judgement.BAD, Judgement.MISS]
+
+export enum GameModeType {
+    NONE = -1,
+    SINGLE = 0,
+    DOUBLE = 1
+}
+
+export enum GameMode {
+    NONE = -1,
+    DANCE = 0,
+    PUMP = 1,
+    KB7 = 2,
+    KICKBOX = 3,
+    LIGHT = 4,
+    PARA = 5,
+    BEAT = 6,
+    POPN = 7,
+    TECHNO = 8,
+    DS3DDX = 9,
+    KARAOKE = 10,
+    MANIAX = 11,
+    HORIZON = 12
+}
+
+
+
+export enum Difficulty {
+    NONE = -1,
+    BEGINNER = 1,
+    EASY = 2,
+    MEDIUM = 3,
+    HARD = 4,
+    CHALLENGE = 5,
+    EDIT = 6
+}

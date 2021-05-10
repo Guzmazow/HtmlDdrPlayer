@@ -10,7 +10,7 @@ import SimfileRegistry from '../../assets/simfile-registry.json';
 })
 export class SimfileLoaderService {
 
-  parsedSimfiles = new Map(SimfileRegistry.map(i => [i.filename, new ParsedSimfile(i.filename)]));;
+  parsedSimfiles = new Map(SimfileRegistry.map(i => [i.filename, new ParsedSimfile(i.filename, i.youtubeVideoIds ?? [], i.skips ?? [])]));;
 
   parsedSimfilesLoaded = new Subject();
 

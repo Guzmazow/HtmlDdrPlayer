@@ -1,7 +1,7 @@
 <mat-drawer-container #mainDrawerContainer class="main-container">
     <mat-drawer mode="side" opened>
         <mat-selection-list #simfiles [multiple]="false"
-            (selectionChange)="onChange($event); mainDrawerContainer.updateContentMargins()">
+            (selectionChange)="onSimfileSelectionChange($event); mainDrawerContainer.updateContentMargins()">
             <mat-list-option *ngFor="let simfile of parsedSimfiles" [value]="simfile">
                 {{simfile.title}}
                 <span style="font-size: x-small;">{{simfile.artist}}</span>
@@ -9,24 +9,64 @@
         </mat-selection-list>
     </mat-drawer>
     <mat-drawer-content>
-        <div *ngIf="selectedSimfile" class="p2">
-            <!-- <div>smFileLocation: {{ selectedSimfile.smFileLocation }}</div> -->
-            
-            <div>filename: {{ selectedSimfile.filename }}</div>
-            <div>loaded: {{ selectedSimfile.loaded }}</div>
-            <div>title: {{ selectedSimfile.title }}</div>
-            <div>artist: {{ selectedSimfile.artist }}</div>
-            <div>banner: {{ selectedSimfile.banner }}</div>
-            <div>background: {{ selectedSimfile.background }}</div>
-            <div>cdTitle: {{ selectedSimfile.cdTitle }}</div>
-            <div>music: {{ selectedSimfile.music }}</div>
-            <div>offset: {{ selectedSimfile.offset }}</div>
-            <div>sampleStart: {{ selectedSimfile.sampleStart }}</div>
-            <div>sampleLength: {{ selectedSimfile.sampleLength }}</div>
-            <div>selectable: {{ selectedSimfile.selectable }}</div>
+        <div *ngIf="selectedSimfile">
+            <!-- <div>
+                <mat-form-field>
+                    <mat-label>From</mat-label>
+                    <input matInput type="number" step="0.01" [(ngModel)]="from">
+                </mat-form-field>
+                <mat-form-field>
+                    <mat-label>To</mat-label>
+                    <input matInput type="number" step="0.01" [(ngModel)]="to">
+                </mat-form-field>
+            </div> -->
+            <button mat-raised-button (click)="playSelectedMode()">Play</button>
 
-            <!-- <div>bpms: {{ selectedSimfile.bpms }}</div> -->
-            <!-- <div>bgChanges: {{ selectedSimfile.bgChanges }}</div> -->
+            <mat-selection-list #simfiles [multiple]="false"
+                (selectionChange)="onSimfileModeSelectionChange($event); mainDrawerContainer.updateContentMargins()">
+                <mat-list-option *ngFor="let mode of selectedSimfile.modes" [value]="mode">                    
+                    {{GameMode[mode.gameMode]}} - {{GameModeType[mode.gameModeType]}} - {{mode.meter}} - {{Difficulty[mode.difficulty]}}
+                    <span style="font-size: x-small;">{{mode.descAuthor}}</span>
+                </mat-list-option>
+            </mat-selection-list>
+
+            <mat-tab-group animationDuration="0ms" (selectedTabChange)="onVideoSelected($event)">
+                <mat-tab [label]="videoId" style="height: 300px;"
+                    *ngFor="let videoId of selectedSimfile.youtubeVideoIds">
+                    <ng-template matTabContent>
+                        <div style="height: 100%;" #videoContainer>
+                            <ngx-y2-player #video [videoId]="videoId" [playerOptions]="playerOptions"
+                                [container]="videoContainer" (ready)="onVideoReady($event)">
+                            </ngx-y2-player>
+                        </div>
+                    </ng-template>
+                </mat-tab>
+            </mat-tab-group>
+            <div class="p2">
+                <!-- <div>smFileLocation: {{ selectedSimfile.smFileLocation }}</div> -->
+
+                <div>filename: {{ selectedSimfile.filename }}</div>
+                <div>loaded: {{ selectedSimfile.loaded }}</div>
+                <div>title: {{ selectedSimfile.title }}</div>
+                <div>artist: {{ selectedSimfile.artist }}</div>
+                <div>banner: {{ selectedSimfile.banner }}</div>
+                <div>background: {{ selectedSimfile.background }}</div>
+                <div>cdTitle: {{ selectedSimfile.cdTitle }}</div>
+                <div>music: {{ selectedSimfile.music }}</div>
+                <div>offset: {{ selectedSimfile.offset }}</div>
+                <div>sampleStart: {{ selectedSimfile.sampleStart }}</div>
+                <div>sampleLength: {{ selectedSimfile.sampleLength }}</div>
+                <div>selectable: {{ selectedSimfile.selectable }}</div>
+
+                Videos:
+
+
+
+
+                <!-- <div>bpms: {{ selectedSimfile.bpms }}</div> -->
+                <!-- <div>bgChanges: {{ selectedSimfile.bgChanges }}</div> -->
+            </div>
+
         </div>
     </mat-drawer-content>
 </mat-drawer-container>
