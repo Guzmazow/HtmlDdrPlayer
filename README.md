@@ -3,5 +3,5 @@
 ### Things TODO
 - [ ] Basic play
 - [ ] Youtube support
-- [ ] External 
+- [ ] External simfiles
 - [ ] List all ~~stolen~~borrowed code and media as references
