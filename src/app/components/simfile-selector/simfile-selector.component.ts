@@ -1,11 +1,11 @@
-import { Component, OnInit } from '@angular/core';
-import { MatSelectionListChange } from '@angular/material/list';
+import { Component, OnInit, ViewChild, ChangeDetectorRef } from '@angular/core';
+import { MatListOption, MatSelectionList, MatSelectionListChange } from '@angular/material/list';
 import { ParsedSimfile } from '@models/parsed-simfile';
 import { SimfileLoaderService } from '@services/simfile-loader.service';
 import { NgxY2PlayerOptions } from 'ngx-y2-player';
 import { MediaService } from '@services/media.service';
 import { ParsedSimfileMode } from '@models/parsed-simfile-mode';
-import { Difficulty, GameMode, GameModeType } from '@models/enums';
+import { Difficulty, GameMode, GameModeType, Key } from '@models/enums';
 import { MatTabChangeEvent } from '@angular/material/tabs';
 import { GameRequest } from '@models/game-request';
 import { KeyboardService } from '@services/keyboard.service';
@@ -23,10 +23,12 @@ export class SimfileSelectorComponent implements OnInit {
 
   parsedSimfiles: ParsedSimfile[] = [];
   selectedSimfile?: ParsedSimfile;
+  lastSelectedSimfileMode?: ParsedSimfileMode;
   selectedSimfileMode?: ParsedSimfileMode;
   selectedVideoId?: string;
 
-
+  @ViewChild("simfiles") simFileSelector?: MatSelectionList;
+  @ViewChild("simfileModes") simFileModeSelector?: MatSelectionList;
 
   playerOptions: NgxY2PlayerOptions = {
     height: 'auto',//screen.height, // you can set 'auto', it will use container width to set size
@@ -41,12 +43,53 @@ export class SimfileSelectorComponent implements OnInit {
     // aspectRatio: (3 / 4), // you can set ratio of aspect ratio to auto resize with
   };
 
-  constructor(private simfileLoaderService: SimfileLoaderService,private keyboardService: KeyboardService) {
+  constructor(private simfileLoaderService: SimfileLoaderService, private keyboardService: KeyboardService, private changeDetectorRef: ChangeDetectorRef) {
     this.parsedSimfiles = Array.from(simfileLoaderService.parsedSimfiles.values());
   }
 
   ngOnInit(): void {
-
+    this.keyboardService.onPress.subscribe((keyEv) => {
+      if (keyEv.state) {
+        switch (keyEv.key) {
+          case Key.UP:
+          case Key.DOWN:
+            if (this.selectedSimfile && this.simFileModeSelector) {
+              let toSelect: MatListOption = keyEv.key == Key.UP ? this.simFileModeSelector.options.last : this.simFileModeSelector.options.first;
+              if (this.simFileModeSelector.selectedOptions.selected.length > 0) {
+                let indexChange = keyEv.key == Key.UP ? -1 : 1;
+                let selected = this.simFileModeSelector.selectedOptions.selected[0]
+                let allOptions = this.simFileModeSelector.options.toArray();
+                let selectedIndex = allOptions.indexOf(selected);
+                toSelect = this.simFileModeSelector.options.get(selectedIndex + indexChange) ?? toSelect;
+              }
+              this.simFileModeSelector.selectedOptions.select(toSelect);
+              toSelect.focus();
+              this.selectSimfileMode(toSelect.value);
+            }
+            break;
+          case Key.LEFT:
+          case Key.RIGHT:
+            if (this.simFileSelector) {
+              let toSelect: MatListOption = keyEv.key == Key.LEFT ? this.simFileSelector.options.last : this.simFileSelector.options.first;
+              if (this.simFileSelector.selectedOptions.selected.length > 0) {
+                let indexChange = keyEv.key == Key.LEFT ? -1 : 1;
+                let selected = this.simFileSelector.selectedOptions.selected[0]
+                let allOptions = this.simFileSelector.options.toArray();
+                let selectedIndex = allOptions.indexOf(selected);
+                toSelect = this.simFileSelector.options.get(selectedIndex + indexChange) ?? toSelect;
+              }
+              this.simFileSelector.selectedOptions.select(toSelect);
+              toSelect.focus();
+              this.selectedSimfile = toSelect.value;
+            }
+            break;
+          case Key.SELECT:
+          case Key.START:
+            this.playSelectedMode();
+            break;
+        }
+      }
+    });
   }
 
   currentAnimationFrame?: number;
@@ -100,29 +143,44 @@ export class SimfileSelectorComponent implements OnInit {
     this.currentAnimationFrame = requestAnimationFrame(this.tick.bind(this));
   }
 
+  selectSimfile(parsedSimfile: ParsedSimfile) {
+    this.selectedSimfile = parsedSimfile;
+  }
+
   onSimfileSelectionChange(ev: MatSelectionListChange) {
     if (ev.options.length > 0) {
-      this.selectedSimfile = ev.options[0].value;
+      this.selectSimfile(ev.options[0].value);
     }
+  }
+
+  selectSimfileMode(parsedSimfileMode: ParsedSimfileMode) {
+    this.lastSelectedSimfileMode = this.selectedSimfileMode;
+    this.selectedSimfileMode = parsedSimfileMode;
   }
 
   onSimfileModeSelectionChange(ev: MatSelectionListChange) {
     if (ev.options.length > 0) {
-      this.selectedSimfileMode = ev.options[0].value;
+      this.selectSimfileMode(ev.options[0].value);
     }
   }
 
-  onVideoSelected(ev: MatTabChangeEvent){
+  onVideoSelected(ev: MatTabChangeEvent) {
     this.selectedVideoId = this.selectedSimfile?.youtubeVideoIds[ev.index];
   }
 
   playSelectedMode() {
-    if(!this.selectedSimfile || !this.selectedSimfileMode)
+    if (!this.selectedSimfile || !this.selectedSimfileMode)
       return;
-    if(!this.selectedVideoId)
+    if (!this.selectedVideoId)
       this.selectedVideoId = this.selectedSimfile.youtubeVideoIds[0];
     this.simfileLoaderService.requestGame(new GameRequest(this.selectedSimfile, this.selectedSimfileMode, this.selectedVideoId));
   }
 
-
+  getCompareWith() {
+    let context = this;
+    return (lastSelectedSimfileMode: ParsedSimfileMode, mode: ParsedSimfileMode) => {
+      context.changeDetectorRef.detectChanges();
+      return (mode.difficulty == lastSelectedSimfileMode.difficulty && mode.gameModeType == lastSelectedSimfileMode.gameModeType && mode.gameMode == lastSelectedSimfileMode.gameMode);
+    }
+  }
 }

@@ -18,6 +18,8 @@ export class DisplayService {
   displayOptions: DisplayOptions = new DisplayOptions(0, 0, 0);
   gameRequest!: GameRequest;
   currentTime: number = 0;
+  currentPlayerTime: number = 0;
+  skipedPlayeTimeUntilNow: number = 0;
 
   getTrackX(trackNumber: number) {
     return trackNumber * this.displayOptions?.trackSize ?? 0;
@@ -34,8 +36,8 @@ export class DisplayService {
 
   constructor(private mediaService: MediaService, private simfileLoaderService: SimfileLoaderService) {
     this.mediaService.prepareMedia();
-    simfileLoaderService.gameRequested.subscribe(r => {
-      if(!r) return;
+    this.simfileLoaderService.gameRequested.subscribe(r => {
+      if (!r) return;
       this.gameRequest = r;
       this.currentTime = r.parsedSimfile.offset;
       this.displayOptions = new DisplayOptions(800, r.playableSimfileMode.tracks.length, 0.001);
@@ -49,10 +51,36 @@ export class DisplayService {
   }
 
   tick() {
-    var newTime = Math.round((this.gameRequest?.parsedSimfile.offset ?? 0) + this.mediaService.media.video.getCurrentTime() * 1000) / 1000
-    if (this.currentTime != newTime) {
-      this.currentTime = newTime;
-      this.onRedraw.next();
+    if (this.gameRequest?.parsedSimfile) {
+
+      var newPlayerTime = Math.round((this.gameRequest.parsedSimfile.offset ?? 0) + this.mediaService.media.video.getCurrentTime() * 1000) / 1000;
+      if (this.currentPlayerTime != newPlayerTime) {
+        this.currentPlayerTime = newPlayerTime;
+      }
+      for (let skip of this.gameRequest.parsedSimfile.skips) {
+        if(skip.skipped) continue;
+        if (this.currentPlayerTime >= skip.from) {
+          if (!skip.to) {
+            this.mediaService.media.video.stopVideo();
+            skip.skipped = true;
+            console.log("ending", skip.from);
+            return;
+          }
+          if (this.currentPlayerTime < skip.to) {
+            this.mediaService.media.video.seekTo(skip.to, true);
+            this.mediaService.media.video.playVideo();
+            this.skipedPlayeTimeUntilNow += (skip.to - skip.from);
+            skip.skipped = true;
+            console.log("skipping", skip.from, skip.to);
+          }
+        }
+      }
+
+      var newTime = this.currentPlayerTime - this.skipedPlayeTimeUntilNow;
+      if (this.currentTime != newTime) {
+        this.currentTime = newTime;
+        this.onRedraw.next();
+      }
     }
     requestAnimationFrame(this.tick.bind(this));
   }

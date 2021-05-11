@@ -22,10 +22,13 @@
             </div> -->
             <button mat-raised-button (click)="playSelectedMode()">Play</button>
 
-            <mat-selection-list #simfiles [multiple]="false"
-                (selectionChange)="onSimfileModeSelectionChange($event); mainDrawerContainer.updateContentMargins()">
-                <mat-list-option *ngFor="let mode of selectedSimfile.modes" [value]="mode">                    
-                    {{GameMode[mode.gameMode]}} - {{GameModeType[mode.gameModeType]}} - {{mode.meter}} - {{Difficulty[mode.difficulty]}}
+            <mat-selection-list #simfileModes [multiple]="false"
+                (selectionChange)="onSimfileModeSelectionChange($event)" [compareWith]="getCompareWith()">
+                <mat-list-option *ngFor="let mode of selectedSimfile.modes" [value]="mode">
+                    {{GameMode[mode.gameMode]}} -
+                    {{GameModeType[mode.gameModeType]}} -
+                    {{mode.meter}} -
+                    {{Difficulty[mode.difficulty]}}        
                     <span style="font-size: x-small;">{{mode.descAuthor}}</span>
                 </mat-list-option>
             </mat-selection-list>
@@ -34,7 +37,7 @@
                 <mat-tab [label]="videoId" style="height: 300px;"
                     *ngFor="let videoId of selectedSimfile.youtubeVideoIds">
                     <ng-template matTabContent>
-                        <div style="height: 100%;" #videoContainer>
+                        <div style="height: 100%; width: 750px;" #videoContainer>
                             <ngx-y2-player #video [videoId]="videoId" [playerOptions]="playerOptions"
                                 [container]="videoContainer" (ready)="onVideoReady($event)">
                             </ngx-y2-player>

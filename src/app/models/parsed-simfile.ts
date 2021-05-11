@@ -5,7 +5,7 @@ export class ParsedSimfile {
   smFileLocation: string;
   filename: string;
   youtubeVideoIds: string[];
-  skips: { from: number, to: number | null }[];
+  skips: { from: number, to: number | null, skipped: boolean }[];
 
   loaded: boolean = false;
   title: string = "";
@@ -19,7 +19,7 @@ export class ParsedSimfile {
   sampleLength: number = 0;
   selectable: boolean = true;
   bpms: string = "0-0";
-  stops: string= "";
+  stops: string = "";
   bgChanges: string = "";
 
   modes: ParsedSimfileMode[] = [];
@@ -31,7 +31,7 @@ export class ParsedSimfile {
     this.filename = filename;
     this.smFileLocation = `/assets/Simfiles/Otaku's Dream Mix/${filename}`;
     this.youtubeVideoIds = youtubeVideoIds;
-    this.skips = skips;
+    this.skips = skips.map(x => ({ from: x.from, to: x.to, skipped: false }));
 
   }
 
