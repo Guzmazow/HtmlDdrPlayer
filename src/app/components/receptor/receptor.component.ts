@@ -1,5 +1,5 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-import { AllDirections, Direction, Judgement } from '@models/enums';
+import { AllDirections, Direction, Judgement, Key } from '@models/enums';
 import { DisplayService } from '@services/display.service';
 import { JudgementService } from '@services/judgement.service';
 import { KeyboardService } from '@services/keyboard.service';
@@ -20,14 +20,18 @@ export class ReceptorComponent implements OnInit {
     return this.mediaService.media;
   }
 
-  receptorGlowVisibilityFramesLeft = new Map<Direction, { judgemnet: Judgement, framesLeft: number }>([
-    [Direction.LEFT, { judgemnet: Judgement.NONE, framesLeft: 0 }],
-    [Direction.DOWN, { judgemnet: Judgement.NONE, framesLeft: 0 }],
-    [Direction.UP, { judgemnet: Judgement.NONE, framesLeft: 0 }],
-    [Direction.RIGHT, { judgemnet: Judgement.NONE, framesLeft: 0 }]
+  receptorGlowVisibilityFramesLeft = new Map<Key, { judgemnet: Judgement, framesLeft: number }>([
+    [Key.LEFT, { judgemnet: Judgement.NONE, framesLeft: 0 }],
+    [Key.DOWN, { judgemnet: Judgement.NONE, framesLeft: 0 }],
+    [Key.UP, { judgemnet: Judgement.NONE, framesLeft: 0 }],
+    [Key.RIGHT, { judgemnet: Judgement.NONE, framesLeft: 0 }],
+    [Key.SECONDLEFT, { judgemnet: Judgement.NONE, framesLeft: 0 }],
+    [Key.SECONDDOWN, { judgemnet: Judgement.NONE, framesLeft: 0 }],
+    [Key.SECONDUP, { judgemnet: Judgement.NONE, framesLeft: 0 }],
+    [Key.SECONDRIGHT, { judgemnet: Judgement.NONE, framesLeft: 0 }]
   ]);
 
-  receptorFlashVisibilityState = new Map<Direction, boolean>();
+  receptorFlashVisibilityState = new Map<Key, boolean>();
 
   constructor(
     private keyboardService: KeyboardService,
@@ -53,11 +57,11 @@ export class ReceptorComponent implements OnInit {
       this.displayService.onRedraw.subscribe(this.drawReceptors.bind(this));
 
       this.keyboardService.onPress.subscribe(press => {
-        this.receptorFlashVisibilityState.set(press.direction, press.state);
+        this.receptorFlashVisibilityState.set(press.key, press.state);
       });
 
       this.judgementService.onJudged.subscribe(judged => {
-        this.receptorGlowVisibilityFramesLeft.set(judged.direction, { judgemnet: judged.judgement, framesLeft: 20 })
+        this.receptorGlowVisibilityFramesLeft.set(judged.key, { judgemnet: judged.judgement, framesLeft: 20 })
       });
     });
 
@@ -73,11 +77,11 @@ export class ReceptorComponent implements OnInit {
       let x = this.displayService.getNoteX(direction);
       this.ctx.drawImage(this.media.receptorImageCache.get(direction)!, x, this.displayService.displayOptions.noteTopPadding, this.displayService.displayOptions.noteSize, this.displayService.displayOptions.noteSize);
 
-      if (this.receptorFlashVisibilityState.get(direction)) {
+      if (this.receptorFlashVisibilityState.get(+direction)) {
         this.ctx.drawImage(this.media.receptorFlashImageCache.get(direction)!, this.displayService.getNoteX(direction), this.displayService.displayOptions.noteTopPadding, this.displayService.displayOptions.noteSize, this.displayService.displayOptions.noteSize);
       }
 
-      let glowFramesLeft = this.receptorGlowVisibilityFramesLeft.get(direction);
+      let glowFramesLeft = this.receptorGlowVisibilityFramesLeft.get(+direction);
       if (glowFramesLeft && glowFramesLeft.framesLeft > 0 && glowFramesLeft.judgemnet != Judgement.NONE) {
         this.ctx.save();
         this.ctx.globalAlpha = 0.8 * glowFramesLeft.framesLeft / 20;

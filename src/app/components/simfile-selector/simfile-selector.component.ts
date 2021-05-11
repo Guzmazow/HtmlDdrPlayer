@@ -8,6 +8,7 @@ import { ParsedSimfileMode } from '@models/parsed-simfile-mode';
 import { Difficulty, GameMode, GameModeType } from '@models/enums';
 import { MatTabChangeEvent } from '@angular/material/tabs';
 import { GameRequest } from '@models/game-request';
+import { KeyboardService } from '@services/keyboard.service';
 
 @Component({
   selector: 'app-simfile-selector',
@@ -40,7 +41,7 @@ export class SimfileSelectorComponent implements OnInit {
     // aspectRatio: (3 / 4), // you can set ratio of aspect ratio to auto resize with
   };
 
-  constructor(private simfileLoaderService: SimfileLoaderService,private mediaService: MediaService) {
+  constructor(private simfileLoaderService: SimfileLoaderService,private keyboardService: KeyboardService) {
     this.parsedSimfiles = Array.from(simfileLoaderService.parsedSimfiles.values());
   }
 

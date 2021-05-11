@@ -7,6 +7,22 @@ export enum NoteType {
     MINE = "M",
 }
 
+
+export enum Key {
+    NONE = -1, //has to correspond to Direction
+    LEFT = 0, //has to correspond to Direction
+    DOWN = 1, //has to correspond to Direction
+    UP = 2, //has to correspond to Direction
+    RIGHT = 3, //has to correspond to Direction
+    SECONDLEFT = 4, //has to correspond to Direction % 4
+    SECONDDOWN = 5, //has to correspond to Direction % 4
+    SECONDUP = 6, //has to correspond to Direction % 4
+    SECONDRIGHT = 7, //has to correspond to Direction % 4
+    START = 8,
+    SELECT = 9,
+    CANCEL = 10
+}
+
 export enum Direction {
     NONE = -1,
     LEFT = 0,
@@ -27,7 +43,7 @@ export enum Judgement {
     MISS = 5
 }
 
-export const AllJudgements  = [Judgement.MARVELOUS, Judgement.PERFECT, Judgement.GREAT, Judgement.GOOD, Judgement.BAD, Judgement.MISS]
+export const AllJudgements = [Judgement.MARVELOUS, Judgement.PERFECT, Judgement.GREAT, Judgement.GOOD, Judgement.BAD, Judgement.MISS]
 
 export enum GameModeType {
     NONE = -1,

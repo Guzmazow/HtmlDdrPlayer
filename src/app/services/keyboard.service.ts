@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Direction } from '@models/enums';
+import { Direction, Key } from '@models/enums';
 import { Subject } from 'rxjs';
 import { DisplayService } from './display.service';
 
@@ -8,41 +8,79 @@ import { DisplayService } from './display.service';
 })
 export class KeyboardService {
 
-  listenStarted: boolean = false;
+  //listenStarted: boolean = false;
 
-  onPress = new Subject<{ direction: Direction, state: boolean }>();
+  onPress = new Subject<{ key: Key, state: boolean }>();
+  onLongPress = new Subject<Key>();
 
-  keyMap = new Map<string, Direction>([
-    ["ArrowLeft", Direction.LEFT],
-    ["ArrowDown", Direction.DOWN],
-    ["ArrowUp", Direction.UP],
-    ["ArrowRight", Direction.RIGHT]
+  keyMap = new Map<string, Key>([
+    ["ArrowLeft", Key.LEFT],
+    ["ArrowDown", Key.DOWN],
+    ["ArrowUp", Key.UP],
+    ["ArrowRight", Key.RIGHT],
+    ["KeyA", Key.SECONDLEFT],
+    ["KeyS", Key.SECONDDOWN],
+    ["KeyW", Key.SECONDUP],
+    ["KeyD", Key.SECONDRIGHT],
+    ["Space", Key.START],
+    ["Enter", Key.SELECT],
+    ["Escape", Key.CANCEL],
   ]);
 
-  keyState = new Map<Direction, boolean>([
-    [Direction.LEFT, false],
-    [Direction.DOWN, false],
-    [Direction.UP, false],
-    [Direction.RIGHT, false]
+  //setTimeout handles
+  keyLongPressState = new Map<Key, ReturnType<typeof setTimeout> | null>([
+    [Key.LEFT, null],
+    [Key.DOWN, null],
+    [Key.UP, null],
+    [Key.RIGHT, null],
+    [Key.SECONDLEFT, null],
+    [Key.SECONDDOWN, null],
+    [Key.SECONDUP, null],
+    [Key.SECONDRIGHT, null],
+    [Key.START, null],
+    [Key.SELECT, null],
+    [Key.CANCEL, null]
+  ]);
+
+  keyState = new Map<Key, boolean>([
+    [Key.LEFT, false],
+    [Key.DOWN, false],
+    [Key.UP, false],
+    [Key.RIGHT, false],
+    [Key.SECONDLEFT, false],
+    [Key.SECONDDOWN, false],
+    [Key.SECONDUP, false],
+    [Key.SECONDRIGHT, false],
+    [Key.START, false],
+    [Key.SELECT, false],
+    [Key.CANCEL, false]
   ]);
 
   constructor(private displayService: DisplayService) {
-    window.addEventListener('keyup', this.onKeyUpHandler.bind(this));
-    window.addEventListener('keydown', this.onKeyUpHandler.bind(this));
-
-
-    this.displayService.onStart.subscribe(x => this.listenStarted = true);
+    console.log('started listening keys');
+    window.addEventListener('keyup', this.onKeyHandler.bind(this));
+    window.addEventListener('keydown', this.onKeyHandler.bind(this));
+    //this.displayService.onStart.subscribe(x => this.listenStarted = true);
   }
 
-  onKeyUpHandler(event: KeyboardEvent) {
-    if (!this.listenStarted) return;
+  onKeyHandler(event: KeyboardEvent) {
+    //if (!this.listenStarted) return;
     let isKeyDown = event.type == 'keydown';
-    let keyDirection = this.keyMap.get(event.key);
-    if (keyDirection === undefined) return;
-    let keyState = this.keyState.get(keyDirection);
+    let systemKey = this.keyMap.get(event.code);
+    if (systemKey === undefined) return;
+    let keyState = this.keyState.get(systemKey);
     if (isKeyDown != keyState) {
-      this.keyState.set(keyDirection, isKeyDown);
-      this.onPress.next({ direction: keyDirection, state: isKeyDown });
+      console.log("KeyState change", event.code, isKeyDown)
+      this.keyState.set(systemKey, isKeyDown);
+      this.onPress.next({ key: systemKey, state: isKeyDown });
+      if (isKeyDown) {
+        this.keyLongPressState.set(systemKey, setTimeout(() => {
+          this.onLongPress.next(systemKey);
+        }, 1000));
+      } else {
+        let timerHandle = this.keyLongPressState.get(systemKey);
+        if (timerHandle) clearTimeout(timerHandle);
+      }
     }
   }
 }

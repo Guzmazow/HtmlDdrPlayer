@@ -25,6 +25,7 @@ import { ReceptorComponent } from '@components/receptor/receptor.component';
 import { NgxY2PlayerModule } from 'ngx-y2-player';
 import { SimfileSelectorComponent } from './components/simfile-selector/simfile-selector.component';
 import { FormsModule } from '@angular/forms';
+import { KeyboardService } from '@services/keyboard.service';
 
 
 @NgModule({
@@ -55,7 +56,7 @@ import { FormsModule } from '@angular/forms';
     MatInputModule,
     FormsModule
   ],
-  providers: [],
+  providers: [KeyboardService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

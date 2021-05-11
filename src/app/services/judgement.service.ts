@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
-import { Direction, Judgement, NoteType } from '@models/enums';
+import { Router } from '@angular/router';
+import { Direction, Judgement, Key, NoteType } from '@models/enums';
 import { Subject } from 'rxjs';
 import { DisplayService } from './display.service';
 import { KeyboardService } from './keyboard.service';
@@ -8,8 +9,9 @@ import { KeyboardService } from './keyboard.service';
   providedIn: 'root'
 })
 export class JudgementService {
+  startedJudging = false;
 
-  onJudged = new Subject<{ judgement: Judgement, precision: number, direction: Direction }>();
+  onJudged = new Subject<{ judgement: Judgement, precision: number, key: Key }>();
 
   errorLimit: number = 0.180000;
 
@@ -26,7 +28,7 @@ export class JudgementService {
   // TimingWindowSecondsMine=0.075000
   // TimingWindowSecondsRoll=0.500000
 
-  constructor(private displayService: DisplayService, private keyboardService: KeyboardService) {
+  constructor(private displayService: DisplayService, private keyboardService: KeyboardService, private router: Router) {
     const judgeScale = 3;
     let judgePrecision = new Map<number, Judgement>();
     for (let precision of this.judgePrecision) {
@@ -36,26 +38,43 @@ export class JudgementService {
       }
     }
     this.judgePrecision = judgePrecision;
-    this.keyboardService.onPress.subscribe(x => this.judgePress(x.direction, x.state))
+    this.keyboardService.onPress.subscribe(x => this.judgePress(x.key, x.state))
+    this.displayService.onStart.subscribe(x => { this.startedJudging = true; })
+    this.keyboardService.onLongPress.subscribe(key => this.longPress(key))
     this.displayService.onRedraw.subscribe(() => this.judgeMisses())
 
   }
 
-  judgeMisses() {
-      for (let track of this.displayService.gameRequest.playableSimfileMode.tracks) {
-        let unhittable = track.filter(x => x.type == NoteType.NORMAL && !x.judged && x.time < (this.displayService.currentTime - this.errorLimit))
-        if (unhittable.length) {
-          unhittable.forEach(x => x.judged = true)
-          this.onJudged.next({ judgement: Judgement.MISS, precision: -this.errorLimit, direction: Direction.NONE });
-        }
-      }
-    
+  longPress(key: Key): void {
+    console.log('long pressed', key);
+    if (key == Key.CANCEL) {
+      this.startedJudging = false;
+      this.router.navigate(['/']);
+    }
   }
 
-  judgePress(direction: Direction, keyPressed: boolean) {
+  judgeMisses() {
+    if (!this.startedJudging) return;
+    for (let track of this.displayService.gameRequest.playableSimfileMode.tracks) {
+      let unhittable = track.filter(x => x.type == NoteType.NORMAL && !x.judged && x.time < (this.displayService.currentTime - this.errorLimit))
+      if (unhittable.length) {
+        unhittable.forEach(x => x.judged = true)
+        this.onJudged.next({ judgement: Judgement.MISS, precision: -this.errorLimit, key: Key.NONE });
+      }
+    }
+
+  }
+
+  judgePress(key: Key, keyPressed: boolean) {
+    if (!this.startedJudging) return;
     if (keyPressed) {
-        let track = this.displayService.gameRequest.playableSimfileMode.tracks[direction];
-        let hittable = track.filter(x => x.type == NoteType.NORMAL && !x.judged && (this.displayService.currentTime + this.errorLimit) > x.time && x.time > (this.displayService.currentTime - this.errorLimit))
+      let track = this.displayService.gameRequest.playableSimfileMode.tracks[key];
+      if (track) {
+        let hittable = track.filter(x =>
+          x.type == NoteType.NORMAL &&
+          !x.judged &&
+          (this.displayService.currentTime + this.errorLimit) > x.time && x.time > (this.displayService.currentTime - this.errorLimit)
+        )
         if (hittable.length) {
           hittable.sort(x => x.time);
           let hit = hittable[0];
@@ -64,8 +83,9 @@ export class JudgementService {
           let judgement = this.judgePrecision.get(precisionKey) ?? Judgement.NONE;
           hit.judged = true;
           hit.precision = timeDifference;
-          this.onJudged.next({ judgement: judgement, precision: timeDifference, direction: direction });
-        }      
+          this.onJudged.next({ judgement: judgement, precision: timeDifference, key: key });
+        }
+      }
     }
   }
 
