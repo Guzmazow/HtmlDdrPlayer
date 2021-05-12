@@ -900,6 +900,18 @@
             "youtubeVideoIds": []
         },
         {
+            "filename": "Outgrow.sm",
+            "youtubeVideoIds": [
+                "CpE60HVhFA4"
+            ],
+            "skips": [
+                {
+                    "from": 0,
+                    "to": 2.4
+                }
+            ]
+        },
+        {
             "filename": "PAPERMOON.sm",
             "youtubeVideoIds": [
                 "eYK3YP524A"
@@ -1085,18 +1097,6 @@
             "filename": "Wonderland.sm",
             "youtubeVideoIds": [
                 "lelGG_1jtcg"
-            ]
-        },
-        {
-            "filename": "~Outgrow~.sm",
-            "youtubeVideoIds": [
-                "CpE60HVhFA4"
-            ],
-            "skips": [
-                {
-                    "from": 0,
-                    "to": 2.4
-                }
             ]
         }
     ]
