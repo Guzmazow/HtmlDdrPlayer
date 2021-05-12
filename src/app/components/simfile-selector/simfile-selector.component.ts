@@ -9,6 +9,7 @@ import { Difficulty, GameMode, GameModeType, Key } from '@models/enums';
 import { MatTabChangeEvent } from '@angular/material/tabs';
 import { GameRequest } from '@models/game-request';
 import { KeyboardService } from '@services/keyboard.service';
+import { LocalStorage } from '../../other/storage';
 
 @Component({
   selector: 'app-simfile-selector',
@@ -29,6 +30,7 @@ export class SimfileSelectorComponent implements OnInit {
 
   @ViewChild("simfiles") simFileSelector?: MatSelectionList;
   @ViewChild("simfileModes") simFileModeSelector?: MatSelectionList;
+  @LocalStorage('', '') lastSelectedSimfileLocation!: string;
 
   playerOptions: NgxY2PlayerOptions = {
     height: 'auto',//screen.height, // you can set 'auto', it will use container width to set size
@@ -80,7 +82,7 @@ export class SimfileSelectorComponent implements OnInit {
               }
               this.simFileSelector.selectedOptions.select(toSelect);
               toSelect.focus();
-              this.selectedSimfile = toSelect.value;
+              this.selectSimfile(toSelect.value);
             }
             break;
           case Key.SELECT:
@@ -145,6 +147,7 @@ export class SimfileSelectorComponent implements OnInit {
 
   selectSimfile(parsedSimfile: ParsedSimfile) {
     this.selectedSimfile = parsedSimfile;
+    this.lastSelectedSimfileLocation = this.selectedSimfile.smFileLocation;
   }
 
   onSimfileSelectionChange(ev: MatSelectionListChange) {

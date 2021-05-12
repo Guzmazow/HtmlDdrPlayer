@@ -2,7 +2,7 @@
     <mat-drawer mode="side" opened>
         <mat-selection-list #simfiles [multiple]="false"
             (selectionChange)="onSimfileSelectionChange($event); mainDrawerContainer.updateContentMargins()">
-            <mat-list-option *ngFor="let simfile of parsedSimfiles" [value]="simfile">
+            <mat-list-option *ngFor="let simfile of parsedSimfiles" [value]="simfile" [selected]="!selectedSimfile && simfile.smFileLocation == lastSelectedSimfileLocation">
                 {{simfile.title}}
                 <span style="font-size: x-small;">{{simfile.artist}}</span>
             </mat-list-option>

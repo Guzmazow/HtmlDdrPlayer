@@ -60,19 +60,19 @@ export class DisplayService {
       for (let skip of this.gameRequest.parsedSimfile.skips) {
         if(skip.skipped) continue;
         if (this.currentPlayerTime >= skip.from) {
-          if (!skip.to) {
+          if (skip.to === null) {
             this.mediaService.media.video.stopVideo();
             skip.skipped = true;
             console.log("ending", skip.from);
             return;
           }
-          if (this.currentPlayerTime < skip.to) {
+          // if (this.currentPlayerTime < skip.to) {
             this.mediaService.media.video.seekTo(skip.to, true);
             this.mediaService.media.video.playVideo();
             this.skipedPlayeTimeUntilNow += (skip.to - skip.from);
             skip.skipped = true;
             console.log("skipping", skip.from, skip.to);
-          }
+          // }
         }
       }
 
