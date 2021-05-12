@@ -34,6 +34,7 @@ export enum Direction {
 export const AllDirections = [Direction.DOWN, Direction.LEFT, Direction.UP, Direction.RIGHT];
 
 export enum Judgement {
+    ALL = -2,
     NONE = -1,
     MARVELOUS = 0,
     PERFECT = 1,

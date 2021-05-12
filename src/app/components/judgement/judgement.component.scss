@@ -1,9 +1,57 @@
-#judgement-canvas {
-    display: block;
+:host {
     position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    margin: 0 auto;
-    padding: 0;    
+    left: 0px;
+    top: 10%;
+    padding: 10px;
+    margin: 10px;
+    background-color: rgba(20, 20, 20, 0.92);
+    border-radius: 10px;
+}
+
+#judgement-image {
+    height: 68px;
+    width: 512px;
+}
+
+#judgement-count-table > tr {
+    & > {
+        td,
+        th {
+            text-align: center;
+            border: #424242 1px solid;
+        }
+    }
+}
+
+#precision-level-container {
+    background-color: gray;
+    height: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0px 50px;
+    padding: 0px 1%;
+
+    & > .precision-level-parent {
+        width: 49.5%;
+        height: 100%;
+        display: flex;
+        align-items: center;
+
+        &.horizontal-reverse {
+            transform: scaleX(-1);
+        }
+
+        & > .precision-level {
+            background-color: #424242;
+            height: 70%;
+            width: 10%;
+        }
+    }
+
+    & > #precision-level-splitter {
+        width: 1%;
+        background-color: black;
+        height: 100%;
+    }
 }

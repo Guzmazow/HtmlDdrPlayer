@@ -1,5 +1,6 @@
 import { Component, ElementRef, HostListener, OnInit, ViewChild } from '@angular/core';
 import { Judgement, Direction } from '@models/enums';
+import { JudgementStats } from '@models/judgement-stats';
 import { JudgementService } from '@services/judgement.service';
 import { MediaService } from '@services/media.service';
 
@@ -10,39 +11,36 @@ import { MediaService } from '@services/media.service';
 })
 export class JudgementComponent implements OnInit {
 
-  @ViewChild("judgementCanvas", { static: true }) canvasEl?: ElementRef;
-  canvas!: HTMLCanvasElement;
-  ctx!: CanvasRenderingContext2D;
+  Judgement = Judgement;
+
+  lastJudgementImageDataUrl = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=";
+  lastPrecision = 0;
+  lastPrecisionNegative = false;
+  judgementStats = new JudgementStats();
+  missLimitTime: number;
 
   constructor(private mediaService: MediaService, private judgementService: JudgementService) {
-
+    this.missLimitTime = judgementService.errorLimit;
   }
 
   ngOnInit(): void {
-    this.canvas = <HTMLCanvasElement>this.canvasEl?.nativeElement;
-    this.canvas.height = screen.height;
-    this.canvas.width = screen.width;
-    this.ctx = this.canvas.getContext('2d')!;
 
     this.judgementService.onJudged.subscribe(judgementContext => {
-      //clear
-      this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
-      this.ctx.fillStyle = "rgba(20,20,20,0.5)";
-      this.ctx.fillRect(0, 0, 512 /*judgementImage width*/, 300);
+      let currentCount = this.judgementStats.judgementCounts.get(judgementContext.judgement) ?? 0;
+      this.judgementStats.judgementCounts.set(judgementContext.judgement, currentCount + 1)
+      let currentPrecision = this.judgementStats.precisionSums.get(judgementContext.judgement) ?? 0;
+      this.judgementStats.precisionSums.set(judgementContext.judgement, currentPrecision + Math.abs(judgementContext.precision))
+
+      let currentNoneCount = this.judgementStats.judgementCounts.get(Judgement.ALL) ?? 0;
+      this.judgementStats.judgementCounts.set(Judgement.ALL, currentNoneCount + 1)
+      let currentNonePrecision = this.judgementStats.precisionSums.get(Judgement.ALL) ?? 0;
+      this.judgementStats.precisionSums.set(Judgement.ALL, currentNonePrecision + Math.abs(judgementContext.precision))
+
       //judgement
-      let judgementImage = this.mediaService.media.judgementImageCache.get(judgementContext.judgement);
-      if (judgementContext.judgement != Judgement.NONE) {
-        if (judgementImage) {
-          this.ctx.drawImage(judgementImage, 0, 50, judgementImage.width, judgementImage.height);
-        }
-      }
+      this.lastJudgementImageDataUrl = this.mediaService.media.judgementImageCache.get(judgementContext.judgement) ?? "";
       //judgement precision
-      let yStart = (68 /*judgementImage height*/) + 10 + 50;
-      let xCenter = (512 /*judgementImage width*/) / 2;
-      this.ctx.fillStyle = "darkred";
-      this.ctx.fillRect(xCenter + 2, yStart + 10, (xCenter * 0.9) * judgementContext.precision / this.judgementService.errorLimit, 40)
-      this.ctx.fillStyle = "black";
-      this.ctx.fillRect(xCenter, yStart, 3, 60)
+      this.lastPrecision = Math.abs(judgementContext.precision);
+      this.lastPrecisionNegative = judgementContext.precision < 0
 
 
     });

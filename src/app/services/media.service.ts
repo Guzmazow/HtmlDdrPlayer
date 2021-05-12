@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { EventEmitter, Injectable } from '@angular/core';
 import { Media } from '@models/media';
 import { AllDirections, AllJudgements, Direction, Judgement } from '@models/enums';
 
@@ -6,6 +6,9 @@ import { AllDirections, AllJudgements, Direction, Judgement } from '@models/enum
   providedIn: 'root'
 })
 export class MediaService {
+
+  onMediaLoaded = new EventEmitter();
+
   media: Media = new Media();
 
   arrowImageLoad = this.loadImage("/assets/Noteskins/a_arrow 1x8 (doubleres).png");
@@ -50,12 +53,11 @@ export class MediaService {
       }
 
       for (let judgement of AllJudgements) {
-        this.media.judgementImageCache.set(judgement, this.adjustImage(judgementImage, 0, judgement * judgementImage.height / 6, judgementImage.width, judgementImage.height / 6, Direction.NONE));
+        this.media.judgementImageCache.set(judgement, this.adjustImage(judgementImage, 0, judgement * judgementImage.height / 6, judgementImage.width, judgementImage.height / 6, Direction.NONE).toDataURL());
       }
       console.log('MEDIA images ready');
+      this.onMediaLoaded.emit();
     })
-
-    console.log('MEDIA ready');
   }
 
   loadImage(src: string) {

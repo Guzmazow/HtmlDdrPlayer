@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, ViewChild, ChangeDetectorRef, OnDestroy } from '@angular/core';
 import { MatListOption, MatSelectionList, MatSelectionListChange } from '@angular/material/list';
 import { ParsedSimfile } from '@models/parsed-simfile';
 import { SimfileLoaderService } from '@services/simfile-loader.service';
@@ -10,13 +10,15 @@ import { MatTabChangeEvent } from '@angular/material/tabs';
 import { GameRequest } from '@models/game-request';
 import { KeyboardService } from '@services/keyboard.service';
 import { LocalStorage } from '../../other/storage';
+import { MatDrawerContainer } from '@angular/material/sidenav';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-simfile-selector',
   templateUrl: './simfile-selector.component.html',
   styleUrls: ['./simfile-selector.component.scss']
 })
-export class SimfileSelectorComponent implements OnInit {
+export class SimfileSelectorComponent implements OnInit, OnDestroy {
 
   GameMode = GameMode;
   GameModeType = GameModeType;
@@ -28,8 +30,11 @@ export class SimfileSelectorComponent implements OnInit {
   selectedSimfileMode?: ParsedSimfileMode;
   selectedVideoId?: string;
 
+  keyPressSubscribe?: Subscription;
+
   @ViewChild("simfiles") simFileSelector?: MatSelectionList;
   @ViewChild("simfileModes") simFileModeSelector?: MatSelectionList;
+  @ViewChild("mainDrawerContainer") mainDrawerContainer?: MatDrawerContainer;
   @LocalStorage('', '') lastSelectedSimfileLocation!: string;
 
   playerOptions: NgxY2PlayerOptions = {
@@ -47,10 +52,16 @@ export class SimfileSelectorComponent implements OnInit {
 
   constructor(private simfileLoaderService: SimfileLoaderService, private keyboardService: KeyboardService, private changeDetectorRef: ChangeDetectorRef) {
     this.parsedSimfiles = Array.from(simfileLoaderService.parsedSimfiles.values());
+    this.selectedSimfile = this.parsedSimfiles.find(x => x.smFileLocation == this.lastSelectedSimfileLocation);
+
   }
 
+
   ngOnInit(): void {
-    this.keyboardService.onPress.subscribe((keyEv) => {
+    setTimeout(() => {
+      this.mainDrawerContainer?.updateContentMargins();
+    }, 0);
+    this.keyPressSubscribe = this.keyboardService.onPress.subscribe((keyEv) => {
       if (keyEv.state) {
         switch (keyEv.key) {
           case Key.UP:
@@ -92,6 +103,10 @@ export class SimfileSelectorComponent implements OnInit {
         }
       }
     });
+  }
+
+  ngOnDestroy(): void {
+    this.keyPressSubscribe?.unsubscribe();
   }
 
   currentAnimationFrame?: number;

@@ -58,7 +58,7 @@ export class JudgementService {
     for (let track of this.displayService.gameRequest.playableSimfileMode.tracks) {
       let unhittable = track.filter(x => x.type == NoteType.NORMAL && !x.judged && x.time < (this.displayService.currentTime - this.errorLimit))
       if (unhittable.length) {
-        unhittable.forEach(x => x.judged = true)
+        unhittable.forEach(x => { x.judged = true; x.judgement = Judgement.MISS, x.precision = this.errorLimit })
         this.onJudged.next({ judgement: Judgement.MISS, precision: -this.errorLimit, key: Key.NONE });
       }
     }
@@ -83,6 +83,7 @@ export class JudgementService {
           let judgement = this.judgePrecision.get(precisionKey) ?? Judgement.NONE;
           hit.judged = true;
           hit.precision = timeDifference;
+          hit.judgement = judgement;
           this.onJudged.next({ judgement: judgement, precision: timeDifference, key: key });
         }
       }

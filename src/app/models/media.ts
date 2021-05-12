@@ -13,7 +13,7 @@ export class Media {
         [Direction.UP, new Map<Judgement, HTMLCanvasElement>()],
         [Direction.RIGHT, new Map<Judgement, HTMLCanvasElement>()]
     ]);
-    judgementImageCache = new Map<Judgement, HTMLCanvasElement>();
+    judgementImageCache = new Map<Judgement, string>();
 
     constructor() {
 
