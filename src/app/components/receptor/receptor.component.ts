@@ -70,7 +70,7 @@ export class ReceptorComponent implements OnInit {
   drawReceptors() {
     this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
     this.ctx.save();
-    this.ctx.fillStyle = "rgba(20,20,20,0.5)";
+    this.ctx.fillStyle = "rgba(20,20,20,0.8)";
     this.ctx.fillRect(this.displayService.getTrackX(0), 0, this.displayService.displayOptions.noteLaneWidth, this.canvas.height)
     this.ctx.restore();
     for (let direction of AllDirections) {
