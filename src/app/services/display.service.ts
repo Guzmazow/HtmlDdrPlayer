@@ -40,7 +40,7 @@ export class DisplayService {
       if (!r) return;
       this.gameRequest = r;
       this.currentTime = r.parsedSimfile.offset;
-      this.displayOptions = new DisplayOptions(800, r.playableSimfileMode.tracks.length, 0.001);
+      this.displayOptions = new DisplayOptions(700, r.playableSimfileMode.tracks.length, 0.001);
       this.onSetup.next();
     })
   }

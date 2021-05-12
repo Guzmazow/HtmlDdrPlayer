@@ -11,8 +11,8 @@ export class DisplayOptions {
         this.noteLaneWidth = noteLaneWidth;
         this.secondsPerPixel = secondsPerPixel;
         this.trackSize = noteLaneWidth / trackCount;
-        this.noteSize = this.trackSize * 0.8;
-        this.noteSpacingSize = this.trackSize * 0.2 / 2
+        this.noteSize = this.trackSize * 0.9;
+        this.noteSpacingSize = this.trackSize * 0.1 / 2
         this.noteTopPadding = this.noteSize / 4;
     }
 
