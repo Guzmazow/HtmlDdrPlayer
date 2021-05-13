@@ -70,7 +70,7 @@ export class KeyboardService {
     if (systemKey === undefined) return;
     let keyState = this.keyState.get(systemKey);
     if (isKeyDown != keyState) {
-      console.log("KeyState change", event.code, isKeyDown)
+      // console.log("KeyState change", event.code, isKeyDown)
       this.keyState.set(systemKey, isKeyDown);
       this.onPress.next({ key: systemKey, state: isKeyDown });
       if (isKeyDown) {

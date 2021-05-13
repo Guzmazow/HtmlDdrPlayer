@@ -44,6 +44,7 @@ export class ReceptorComponent implements OnInit {
   ngOnInit(): void {
     this.canvas = <HTMLCanvasElement>this.canvasEl?.nativeElement;    
     this.ctx = this.canvas.getContext('2d')!;
+    this.ctx.imageSmoothingEnabled = false;
     this.canvas.height = screen.height;
     this.canvas.width = this.displayService.displayOptions.noteLaneWidth;
 

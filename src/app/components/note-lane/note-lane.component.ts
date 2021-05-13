@@ -18,8 +18,9 @@ export class NoteLaneComponent implements OnInit {
   constructor(private displayService: DisplayService, private mediaService: MediaService) { }
 
   ngOnInit(): void {
-    this.canvas = <HTMLCanvasElement>this.canvasEl?.nativeElement;   
+    this.canvas = <HTMLCanvasElement>this.canvasEl?.nativeElement;
     this.ctx = this.canvas.getContext('2d')!;
+    this.ctx.imageSmoothingEnabled = false;
     this.canvas.height = screen.height;
     this.canvas.width = this.displayService.displayOptions.noteLaneWidth;
     // this.displayService.onSetup.subscribe(()=>{
@@ -70,11 +71,12 @@ export class NoteLaneComponent implements OnInit {
 
     this.ctx.save();
     this.ctx.fillStyle = "black";
-    let halfNoteSize = this.displayService.displayOptions.noteSize * 0.5;
-    let ninthNoteSize = this.displayService.displayOptions.noteSize * 0.9;
+    let halfNoteSize = Math.round(this.displayService.displayOptions.noteSize * 0.5);
+    let ninthNoteSize = Math.round(this.displayService.displayOptions.noteSize * 0.9);
     switch (note.type) {
       case NoteType.NORMAL:
-        //ctx.fillRect(x, y, 40, 40);
+        //this.ctx.fillStyle = "white";
+        //this.ctx.fillRect(x, y, this.displayService.displayOptions.noteSize, this.displayService.displayOptions.noteSize);
         this.ctx.drawImage(this.mediaService.media.arrowImageCache.get(direction)!, x, y, this.displayService.displayOptions.noteSize, this.displayService.displayOptions.noteSize);
         break;
       case NoteType.HOLD_HEAD: // Hold head

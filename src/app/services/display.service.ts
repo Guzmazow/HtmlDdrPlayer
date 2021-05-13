@@ -22,28 +22,32 @@ export class DisplayService {
   skipedPlayeTimeUntilNow: number = 0;
 
   getTrackX(trackNumber: number) {
-    return trackNumber * this.displayOptions?.trackSize ?? 0;
+    return Math.round(trackNumber * this.displayOptions?.trackSize ?? 0);
   }
 
   getNoteX(trackNumber: number) {
-    return this.displayOptions.noteSpacingSize + trackNumber * this.displayOptions.trackSize;
+    return Math.round(this.displayOptions.noteSpacingSize + trackNumber * this.displayOptions.trackSize);
   }
 
   getNoteY(noteTime: number) {
     let timeDistance = noteTime - this.currentTime;
-    return (timeDistance / this.displayOptions.secondsPerPixel) + this.displayOptions.noteTopPadding;
+    return Math.round((timeDistance / this.displayOptions.secondsPerPixel) + this.displayOptions.noteTopPadding);
   }
 
   constructor(private mediaService: MediaService, private simfileLoaderService: SimfileLoaderService) {
-    this.mediaService.prepareMedia();
     this.simfileLoaderService.gameRequested.subscribe(r => {
       if (!r) return;
       this.gameRequest = r;
       this.currentTime = r.parsedSimfile.offset;
       this.displayOptions = new DisplayOptions(700, r.playableSimfileMode.tracks.length, 0.001);
-      this.onSetup.next();
+      this.mediaService.prepareMedia(this.displayOptions.noteSize);
+      this.mediaService.onMediaLoaded.subscribe(()=>{
+        this.onSetup.next();        
+      });
     })
   }
+
+  index = 0
 
   play() {
     this.onStart.next();

@@ -25,7 +25,7 @@ export class MediaService {
     this.media.video = target;
   }
 
-  prepareMedia() {
+  prepareMedia(noteSize: number) {
     // let filename = this.parsingService.metaData.get("MUSIC");
     // if (filename) {
     //   this.media.audio = new Audio(`${this.parsingService.smFileLocation.substring(0, this.parsingService.smFileLocation.lastIndexOf("/"))}/${filename}`);
@@ -41,19 +41,19 @@ export class MediaService {
 
       for (let direction of AllDirections) {
         //TODO: Multi-Color arrows
-        this.media.arrowImageCache.set(direction, this.adjustImage(arrowImage, 0, 0, arrowImage.width, arrowImage.height / 8, direction));
-        this.media.receptorImageCache.set(direction, this.adjustImage(receptorImage, 0, 0, receptorImage.width, receptorImage.height, direction));
-        this.media.receptorFlashImageCache.set(direction, this.adjustImage(receptorFlashImage, 0, 0, receptorFlashImage.width, receptorFlashImage.height, direction));
+        this.media.arrowImageCache.set(direction, this.adjustImage(arrowImage, noteSize, 0, 0, arrowImage.width, arrowImage.height / 8, direction));
+        this.media.receptorImageCache.set(direction, this.adjustImage(receptorImage, noteSize, 0, 0, receptorImage.width, receptorImage.height, direction));
+        this.media.receptorFlashImageCache.set(direction, this.adjustImage(receptorFlashImage, noteSize, 0, 0, receptorFlashImage.width, receptorFlashImage.height, direction));
         var receptorGlowImageCache = this.media.receptorGlowImageCache.get(direction);
         if (receptorGlowImageCache) {
           for (let judgement of AllJudgements) {
-            receptorGlowImageCache.set(judgement, this.adjustImage(receptorGlowImage, 0, 0, receptorGlowImage.width, receptorGlowImage.height, direction, judgement));
+            receptorGlowImageCache.set(judgement, this.adjustImage(receptorGlowImage, noteSize, 0, 0, receptorGlowImage.width, receptorGlowImage.height, direction, judgement));
           }
         }
       }
 
       for (let judgement of AllJudgements) {
-        this.media.judgementImageCache.set(judgement, this.adjustImage(judgementImage, 0, judgement * judgementImage.height / 6, judgementImage.width, judgementImage.height / 6, Direction.NONE).toDataURL());
+        this.media.judgementImageCache.set(judgement, this.adjustImage(judgementImage, null, 0, judgement * judgementImage.height / 6, judgementImage.width, judgementImage.height / 6, Direction.NONE).toDataURL());
       }
       console.log('MEDIA images ready');
       this.onMediaLoaded.emit();
@@ -70,16 +70,17 @@ export class MediaService {
   }
 
 
-  adjustImage(image: HTMLImageElement, clipStartX: number, clipStartY: number, clipWidth: number, clipHeight: number, rotateByDirection: Direction = Direction.NONE, colorByJudgement: Judgement = Judgement.NONE) {
+  adjustImage(image: HTMLImageElement, noteSize: number | null, clipStartX: number, clipStartY: number, clipWidth: number, clipHeight: number, rotateByDirection: Direction = Direction.NONE, colorByJudgement: Judgement = Judgement.NONE) {
 
     var canvas = document.createElement('canvas');
     var ctx = canvas.getContext('2d');
 
     if (ctx == null)
       throw 'ctx must not be null';
+    ctx.imageSmoothingEnabled = false;
 
-    canvas.width = clipWidth;
-    canvas.height = clipHeight;
+    canvas.width = noteSize ?? clipWidth;
+    canvas.height = noteSize ?? clipHeight;
 
     var halfWidth = canvas.width / 2;
     var halfHeight = canvas.height / 2;
@@ -107,7 +108,7 @@ export class MediaService {
     ctx.translate(halfWidth, halfHeight);
     ctx.rotate(angleInRadians);
     //source region dest. region    
-    ctx.drawImage(image, clipStartX, clipStartY, clipWidth, clipHeight, -halfWidth, -halfHeight, clipWidth, clipHeight);
+    ctx.drawImage(image, clipStartX, clipStartY, clipWidth, clipHeight, -halfWidth, -halfHeight, canvas.width, canvas.height);
     ctx.rotate(-angleInRadians);
     ctx.translate(-halfWidth, -halfHeight);
 
