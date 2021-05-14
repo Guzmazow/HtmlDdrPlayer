@@ -77,7 +77,7 @@ export class NoteLaneComponent implements OnInit {
       case NoteType.NORMAL:
         //this.ctx.fillStyle = "white";
         //this.ctx.fillRect(x, y, this.displayService.displayOptions.noteSize, this.displayService.displayOptions.noteSize);
-        this.ctx.drawImage(this.mediaService.media.arrowImageCache.get(direction)!, x, y, this.displayService.displayOptions.noteSize, this.displayService.displayOptions.noteSize);
+        this.ctx.drawImage(this.mediaService.arrowImageCache.get(direction)!, x, y, this.displayService.displayOptions.noteSize, this.displayService.displayOptions.noteSize);
         break;
       case NoteType.HOLD_HEAD: // Hold head
         this.ctx.fillRect(x, y, this.displayService.displayOptions.noteSize, this.displayService.displayOptions.noteSize);

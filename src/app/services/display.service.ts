@@ -56,23 +56,31 @@ export class DisplayService {
 
   tick() {
     if (this.gameRequest?.parsedSimfile) {
+      if(this.mediaService.video.getDuration() <= this.mediaService.video.getCurrentTime() + 2)
+      {
+        setTimeout(() => {
+          this.simfileLoaderService.startSelecting();
+        }, 10000);
+        return;
+      }
 
-      var newPlayerTime = Math.round((this.gameRequest.parsedSimfile.offset ?? 0) + this.mediaService.media.video.getCurrentTime() * 1000) / 1000;
+
+      var newPlayerTime = Math.round((this.gameRequest.parsedSimfile.offset ?? 0) + this.mediaService.video.getCurrentTime() * 1000) / 1000;
       if (this.currentPlayerTime != newPlayerTime) {
         this.currentPlayerTime = newPlayerTime;
       }
-      for (let skip of this.gameRequest.parsedSimfile.skips) {
+      for (let skip of this.gameRequest.youtubeVideo.skips) {
         if(skip.skipped) continue;
         if (this.currentPlayerTime >= skip.from) {
           if (skip.to === null) {
-            this.mediaService.media.video.stopVideo();
+            this.mediaService.video.stopVideo();
             skip.skipped = true;
             console.log("ending", skip.from);
             return;
           }
           // if (this.currentPlayerTime < skip.to) {
-            this.mediaService.media.video.seekTo(skip.to, true);
-            this.mediaService.media.video.playVideo();
+            this.mediaService.video.seekTo(skip.to, true);
+            this.mediaService.video.playVideo();
             this.skipedPlayeTimeUntilNow += (skip.to - skip.from);
             skip.skipped = true;
             console.log("skipping", skip.from, skip.to);

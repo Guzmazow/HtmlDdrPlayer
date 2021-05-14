@@ -34,11 +34,11 @@
             </mat-selection-list>
 
             <mat-tab-group animationDuration="0ms" (selectedTabChange)="onVideoSelected($event)">
-                <mat-tab [label]="videoId" style="height: 300px;"
-                    *ngFor="let videoId of selectedSimfile.youtubeVideoIds">
+                <mat-tab [label]="registryVideo.id" style="height: 300px;"
+                    *ngFor="let registryVideo of selectedSimfile.youtubeVideos">
                     <ng-template matTabContent>
                         <div style="height: 100%; width: 750px;" #videoContainer>
-                            <ngx-y2-player #video [videoId]="videoId" [playerOptions]="playerOptions"
+                            <ngx-y2-player #video [videoId]="registryVideo.id" [playerOptions]="playerOptions"
                                 [container]="videoContainer" (ready)="onVideoReady($event)">
                             </ngx-y2-player>
                         </div>

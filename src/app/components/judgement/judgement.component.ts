@@ -1,6 +1,5 @@
 import { Component, ElementRef, HostListener, OnInit, ViewChild } from '@angular/core';
 import { Judgement, Direction } from '@models/enums';
-import { JudgementStats } from '@models/judgement-stats';
 import { JudgementService } from '@services/judgement.service';
 import { MediaService } from '@services/media.service';
 
@@ -16,7 +15,10 @@ export class JudgementComponent implements OnInit {
   lastJudgementImageDataUrl = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=";
   lastPrecision = 0;
   lastPrecisionNegative = false;
-  judgementStats = new JudgementStats();
+
+  judgementCounts = new Map<Judgement, number>();
+  precisionSums = new Map<Judgement, number>();
+
   missLimitTime: number;
 
   constructor(private mediaService: MediaService, private judgementService: JudgementService) {
@@ -26,18 +28,18 @@ export class JudgementComponent implements OnInit {
   ngOnInit(): void {
 
     this.judgementService.onJudged.subscribe(judgementContext => {
-      let currentCount = this.judgementStats.judgementCounts.get(judgementContext.judgement) ?? 0;
-      this.judgementStats.judgementCounts.set(judgementContext.judgement, currentCount + 1)
-      let currentPrecision = this.judgementStats.precisionSums.get(judgementContext.judgement) ?? 0;
-      this.judgementStats.precisionSums.set(judgementContext.judgement, currentPrecision + Math.abs(judgementContext.precision))
+      let currentCount = this.judgementCounts.get(judgementContext.judgement) ?? 0;
+      this.judgementCounts.set(judgementContext.judgement, currentCount + 1)
+      let currentPrecision = this.precisionSums.get(judgementContext.judgement) ?? 0;
+      this.precisionSums.set(judgementContext.judgement, currentPrecision + Math.abs(judgementContext.precision))
 
-      let currentNoneCount = this.judgementStats.judgementCounts.get(Judgement.ALL) ?? 0;
-      this.judgementStats.judgementCounts.set(Judgement.ALL, currentNoneCount + 1)
-      let currentNonePrecision = this.judgementStats.precisionSums.get(Judgement.ALL) ?? 0;
-      this.judgementStats.precisionSums.set(Judgement.ALL, currentNonePrecision + Math.abs(judgementContext.precision))
+      let currentNoneCount = this.judgementCounts.get(Judgement.ALL) ?? 0;
+      this.judgementCounts.set(Judgement.ALL, currentNoneCount + 1)
+      let currentNonePrecision = this.precisionSums.get(Judgement.ALL) ?? 0;
+      this.precisionSums.set(Judgement.ALL, currentNonePrecision + Math.abs(judgementContext.precision))
 
       //judgement
-      this.lastJudgementImageDataUrl = this.mediaService.media.judgementImageCache.get(judgementContext.judgement) ?? "";
+      this.lastJudgementImageDataUrl = this.mediaService.judgementImageCache.get(judgementContext.judgement) ?? "";
       //judgement precision
       this.lastPrecision = Math.abs(judgementContext.precision);
       this.lastPrecisionNegative = judgementContext.precision < 0

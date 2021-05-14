@@ -17,7 +17,7 @@ export class ReceptorComponent implements OnInit {
   ctx!: CanvasRenderingContext2D;
 
   get media() {
-    return this.mediaService.media;
+    return this.mediaService;
   }
 
   receptorGlowVisibilityFramesLeft = new Map<Key, { judgemnet: Judgement, framesLeft: number }>([

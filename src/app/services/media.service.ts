@@ -1,5 +1,4 @@
 import { EventEmitter, Injectable } from '@angular/core';
-import { Media } from '@models/media';
 import { AllDirections, AllJudgements, Direction, Judgement } from '@models/enums';
 
 @Injectable({
@@ -9,7 +8,19 @@ export class MediaService {
 
   onMediaLoaded = new EventEmitter();
 
-  media: Media = new Media();
+  audio!: HTMLAudioElement;
+  video!: YT.Player;
+  
+  arrowImageCache = new Map<Direction, HTMLCanvasElement>();
+  receptorImageCache = new Map<Direction, HTMLCanvasElement>();
+  receptorFlashImageCache = new Map<Direction, HTMLCanvasElement>();
+  receptorGlowImageCache = new Map<Direction, Map<Judgement, HTMLCanvasElement>>([
+      [Direction.LEFT, new Map<Judgement, HTMLCanvasElement>()],
+      [Direction.DOWN, new Map<Judgement, HTMLCanvasElement>()],
+      [Direction.UP, new Map<Judgement, HTMLCanvasElement>()],
+      [Direction.RIGHT, new Map<Judgement, HTMLCanvasElement>()]
+  ]);
+  judgementImageCache = new Map<Judgement, string>();
 
   arrowImageLoad = this.loadImage("/assets/Noteskins/a_arrow 1x8 (doubleres).png");
   receptorGlowImageLoad = this.loadImage("/assets/Noteskins/a_glow (doubleres).png");
@@ -22,7 +33,7 @@ export class MediaService {
   }
 
   setPlayer(target: YT.Player) {
-    this.media.video = target;
+    this.video = target;
   }
 
   prepareMedia(noteSize: number) {
@@ -41,10 +52,10 @@ export class MediaService {
 
       for (let direction of AllDirections) {
         //TODO: Multi-Color arrows
-        this.media.arrowImageCache.set(direction, this.adjustImage(arrowImage, noteSize, 0, 0, arrowImage.width, arrowImage.height / 8, direction));
-        this.media.receptorImageCache.set(direction, this.adjustImage(receptorImage, noteSize, 0, 0, receptorImage.width, receptorImage.height, direction));
-        this.media.receptorFlashImageCache.set(direction, this.adjustImage(receptorFlashImage, noteSize, 0, 0, receptorFlashImage.width, receptorFlashImage.height, direction));
-        var receptorGlowImageCache = this.media.receptorGlowImageCache.get(direction);
+        this.arrowImageCache.set(direction, this.adjustImage(arrowImage, noteSize, 0, 0, arrowImage.width, arrowImage.height / 8, direction));
+        this.receptorImageCache.set(direction, this.adjustImage(receptorImage, noteSize, 0, 0, receptorImage.width, receptorImage.height, direction));
+        this.receptorFlashImageCache.set(direction, this.adjustImage(receptorFlashImage, noteSize, 0, 0, receptorFlashImage.width, receptorFlashImage.height, direction));
+        var receptorGlowImageCache = this.receptorGlowImageCache.get(direction);
         if (receptorGlowImageCache) {
           for (let judgement of AllJudgements) {
             receptorGlowImageCache.set(judgement, this.adjustImage(receptorGlowImage, noteSize, 0, 0, receptorGlowImage.width, receptorGlowImage.height, direction, judgement));
@@ -53,7 +64,7 @@ export class MediaService {
       }
 
       for (let judgement of AllJudgements) {
-        this.media.judgementImageCache.set(judgement, this.adjustImage(judgementImage, null, 0, judgement * judgementImage.height / 6, judgementImage.width, judgementImage.height / 6, Direction.NONE).toDataURL());
+        this.judgementImageCache.set(judgement, this.adjustImage(judgementImage, null, 0, judgement * judgementImage.height / 6, judgementImage.width, judgementImage.height / 6, Direction.NONE).toDataURL());
       }
       console.log('MEDIA images ready');
       this.onMediaLoaded.emit();

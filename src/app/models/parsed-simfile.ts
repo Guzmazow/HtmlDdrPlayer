@@ -1,11 +1,12 @@
 import { Difficulty, GameMode, GameModeType } from "./enums";
 import { ParsedSimfileMode } from "./parsed-simfile-mode";
+import { SimfileRegistryEntry } from "./simfile-registry-entry";
+import { SimfileRegistryYoutubeInfo } from "./simfile-registry-youtube-info";
 
-export class ParsedSimfile {
+export class ParsedSimfile implements SimfileRegistryEntry {
   smFileLocation: string;
   filename: string;
-  youtubeVideoIds: string[];
-  skips: { from: number, to: number | null, skipped: boolean }[];
+  youtubeVideos: SimfileRegistryYoutubeInfo[];
 
   loaded: boolean = false;
   title: string = "";
@@ -27,11 +28,14 @@ export class ParsedSimfile {
   rawMetaData = new Map<string, string>();
   rawModes: Map<string, string>[] = [];
 
-  constructor(filename: string, youtubeVideoIds: string[], skips: { from: number, to: number | null }[]) {
-    this.filename = filename;
-    this.smFileLocation = `/assets/Simfiles/Otaku's Dream Mix/${filename}`;
-    this.youtubeVideoIds = youtubeVideoIds;
-    this.skips = skips.map(x => ({ from: x.from, to: x.to, skipped: false }));
+  constructor(registryEntry: SimfileRegistryEntry) {
+    this.filename = registryEntry.filename;
+    this.smFileLocation = `/assets/Simfiles/Otaku's Dream Mix/${registryEntry.filename}`;
+    this.youtubeVideos = registryEntry.youtubeVideos;
+    this.youtubeVideos.forEach(y => {
+      y.skips = y.skips.map(x => ({ from: x.from, to: x.to, skipped: false }));
+    });
+
 
   }
 

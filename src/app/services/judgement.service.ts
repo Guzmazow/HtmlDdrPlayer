@@ -47,7 +47,7 @@ export class JudgementService {
 
   longPress(key: Key): void {
     console.log('long pressed', key);
-    if (key == Key.CANCEL) {
+    if (key == Key.CANCEL || key == Key.START || key == Key.SELECT) {
       this.startedJudging = false;
       this.router.navigate(['/']);
     }

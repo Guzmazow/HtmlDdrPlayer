@@ -63,7 +63,7 @@ export class DdrPlayerComponent implements OnInit {
     private simfileLoaderService: SimfileLoaderService
   ) {
     this.simfileLoaderService.gameRequested.subscribe(r=>{
-      this.videoId = r?.youtubeVideoId ?? "";
+      this.videoId = r?.youtubeVideo.id ?? "";
     });
   }
 

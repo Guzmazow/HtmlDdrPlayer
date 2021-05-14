@@ -12,6 +12,7 @@ import { KeyboardService } from '@services/keyboard.service';
 import { LocalStorage } from '../../other/storage';
 import { MatDrawerContainer } from '@angular/material/sidenav';
 import { Subscription } from 'rxjs';
+import { SimfileRegistryYoutubeInfo } from '@models/simfile-registry-youtube-info';
 
 @Component({
   selector: 'app-simfile-selector',
@@ -28,7 +29,7 @@ export class SimfileSelectorComponent implements OnInit, OnDestroy {
   selectedSimfile?: ParsedSimfile;
   lastSelectedSimfileMode?: ParsedSimfileMode;
   selectedSimfileMode?: ParsedSimfileMode;
-  selectedVideoId?: string;
+  selectedVideo?: SimfileRegistryYoutubeInfo;
 
   keyPressSubscribe?: Subscription;
 
@@ -41,7 +42,8 @@ export class SimfileSelectorComponent implements OnInit, OnDestroy {
     height: 'auto',//screen.height, // you can set 'auto', it will use container width to set size
     width: 'auto',//screen.width,
     playerVars: {
-      autoplay: 0,
+      start: 20,
+      autoplay: 1,
       disablekb: YT.KeyboardControls.Disable,
       iv_load_policy: YT.IvLoadPolicy.Show,
       //controls: YT.Controls.Hide,
@@ -51,16 +53,23 @@ export class SimfileSelectorComponent implements OnInit, OnDestroy {
   };
 
   constructor(private simfileLoaderService: SimfileLoaderService, private keyboardService: KeyboardService, private changeDetectorRef: ChangeDetectorRef) {
-    this.parsedSimfiles = Array.from(simfileLoaderService.parsedSimfiles.values());
-    this.selectedSimfile = this.parsedSimfiles.find(x => x.smFileLocation == this.lastSelectedSimfileLocation);
-
+    this.simfileLoaderService.parsedSimfilesLoaded.subscribe(loaded => {
+      if (!loaded) return;
+      if (simfileLoaderService.parsedSimfiles) {
+        this.parsedSimfiles = Array.from(simfileLoaderService.parsedSimfiles.values());
+        this.selectedSimfile = this.parsedSimfiles.find(x => x.smFileLocation == this.lastSelectedSimfileLocation);
+      }
+    });
   }
 
 
   ngOnInit(): void {
     setTimeout(() => {
+      //slow ui fixes
       this.mainDrawerContainer?.updateContentMargins();
-    }, 0);
+      if(this.simFileSelector && this.simFileSelector.selectedOptions.selected.length > 0)
+        this.simFileSelector.selectedOptions.selected[0].focus();
+    }, 200);
     this.keyPressSubscribe = this.keyboardService.onPress.subscribe((keyEv) => {
       if (keyEv.state) {
         switch (keyEv.key) {
@@ -137,12 +146,12 @@ export class SimfileSelectorComponent implements OnInit, OnDestroy {
     //   }
     // }
 
-    if (this.player && this.selectedSimfile) {
+    if (this.player && this.selectedVideo) {
       var newTime = +this.player.getCurrentTime().toFixed(4)
       if (this.lastTime != newTime) {
         this.lastTime = newTime;
       }
-      for (let skip of this.selectedSimfile.skips) {
+      for (let skip of this.selectedVideo.skips) {
         if (this.lastTime >= skip.from) {
           if (!skip.to) {
             this.player.stopVideo();
@@ -183,15 +192,15 @@ export class SimfileSelectorComponent implements OnInit, OnDestroy {
   }
 
   onVideoSelected(ev: MatTabChangeEvent) {
-    this.selectedVideoId = this.selectedSimfile?.youtubeVideoIds[ev.index];
+    this.selectedVideo = this.selectedSimfile?.youtubeVideos[ev.index];
   }
 
   playSelectedMode() {
     if (!this.selectedSimfile || !this.selectedSimfileMode)
       return;
-    if (!this.selectedVideoId)
-      this.selectedVideoId = this.selectedSimfile.youtubeVideoIds[0];
-    this.simfileLoaderService.requestGame(new GameRequest(this.selectedSimfile, this.selectedSimfileMode, this.selectedVideoId));
+    if (!this.selectedVideo)
+      this.selectedVideo = this.selectedSimfile.youtubeVideos[0];
+    this.simfileLoaderService.requestGame(new GameRequest(this.selectedSimfile, this.selectedSimfileMode, this.selectedVideo));
   }
 
   getCompareWith() {

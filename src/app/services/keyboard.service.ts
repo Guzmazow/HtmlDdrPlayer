@@ -66,11 +66,11 @@ export class KeyboardService {
   onKeyHandler(event: KeyboardEvent) {
     //if (!this.listenStarted) return;
     let isKeyDown = event.type == 'keydown';
-    let systemKey = this.keyMap.get(event.code);
+    let systemKey = this.keyMap.get(event.code || event.key);
     if (systemKey === undefined) return;
     let keyState = this.keyState.get(systemKey);
     if (isKeyDown != keyState) {
-      // console.log("KeyState change", event.code, isKeyDown)
+      // console.log("KeyState change", event.code || event.key, isKeyDown)
       this.keyState.set(systemKey, isKeyDown);
       this.onPress.next({ key: systemKey, state: isKeyDown });
       if (isKeyDown) {
