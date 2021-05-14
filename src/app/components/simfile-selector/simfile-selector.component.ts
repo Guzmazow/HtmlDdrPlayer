@@ -43,7 +43,7 @@ export class SimfileSelectorComponent implements OnInit, OnDestroy {
     width: 'auto',//screen.width,
     playerVars: {
       start: 20,
-      autoplay: 1,
+      autoplay: 0,
       disablekb: YT.KeyboardControls.Disable,
       iv_load_policy: YT.IvLoadPolicy.Show,
       //controls: YT.Controls.Hide,

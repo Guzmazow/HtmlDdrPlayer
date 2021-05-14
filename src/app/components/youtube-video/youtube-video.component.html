@@ -1,0 +1,2 @@
+<ngx-y2-player *ngIf="youtubeVideo.id" #video [videoId]="youtubeVideo.id || ''" [playerOptions]="playerOptions" (ready)="onVideoReady($event)">
+</ngx-y2-player>

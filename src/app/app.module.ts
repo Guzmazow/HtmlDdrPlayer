@@ -26,6 +26,8 @@ import { NgxY2PlayerModule } from 'ngx-y2-player';
 import { SimfileSelectorComponent } from './components/simfile-selector/simfile-selector.component';
 import { FormsModule } from '@angular/forms';
 import { KeyboardService } from '@services/keyboard.service';
+import { YoutubeVideoComponent } from './components/youtube-video/youtube-video.component';
+import { SynchronizerComponent } from './components/synchronizer/synchronizer.component';
 
 
 @NgModule({
@@ -36,7 +38,9 @@ import { KeyboardService } from '@services/keyboard.service';
     NoteLaneComponent,
     JudgementComponent,
     ReceptorComponent,
-    SimfileSelectorComponent
+    SimfileSelectorComponent,
+    YoutubeVideoComponent,
+    SynchronizerComponent
   ],
   imports: [
     BrowserModule,

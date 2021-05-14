@@ -2,7 +2,8 @@
     <mat-drawer mode="side" opened>
         <mat-selection-list #simfiles [multiple]="false"
             (selectionChange)="onSimfileSelectionChange($event); mainDrawerContainer.updateContentMargins()">
-            <mat-list-option *ngFor="let simfile of parsedSimfiles" [value]="simfile" [selected]="selectedSimfile == simfile">
+            <mat-list-option *ngFor="let simfile of parsedSimfiles" [value]="simfile"
+                [selected]="selectedSimfile == simfile">
                 {{simfile.title}}
                 <span style="font-size: x-small;">{{simfile.artist}}</span>
             </mat-list-option>
@@ -21,6 +22,7 @@
                 </mat-form-field>
             </div> -->
             <button mat-raised-button (click)="playSelectedMode()">Play</button>
+            <button mat-raised-button [routerLink]="['/synchronizer', selectedSimfile.filename]">Sync</button>
 
             <mat-selection-list #simfileModes [multiple]="false"
                 (selectionChange)="onSimfileModeSelectionChange($event)" [compareWith]="getCompareWith()">
@@ -28,7 +30,7 @@
                     {{GameMode[mode.gameMode]}} -
                     {{GameModeType[mode.gameModeType]}} -
                     {{mode.meter}} -
-                    {{Difficulty[mode.difficulty]}}        
+                    {{Difficulty[mode.difficulty]}}
                     <span style="font-size: x-small;">{{mode.descAuthor}}</span>
                 </mat-list-option>
             </mat-selection-list>

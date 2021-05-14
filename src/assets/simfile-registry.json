@@ -550,11 +550,22 @@
                 "youtubeVideos": [
                     {
                         "id": "Bw-5Lka7gPE",
-                        "skips": []
+                        "skips": [
+                            {
+                                "from": 0,
+                                "to": 0.01
+                            }
+                        ]
                     },
                     {
                         "id": "F5OJPUXJvHk",
-                        "skips": []
+                        "offset": 0.08,
+                        "skips": [
+                            {
+                                "from": 72,
+                                "to": 213.5
+                            }
+                        ]
                     }
                 ]
             },
@@ -563,6 +574,7 @@
                 "youtubeVideos": [
                     {
                         "id": "VMb2ikp5sSU",
+                        "offset": 1.2,
                         "skips": []
                     }
                 ]
@@ -572,7 +584,12 @@
                 "youtubeVideos": [
                     {
                         "id": "X59yPeVk_70",
-                        "skips": []
+                        "skips": [
+                            {
+                                "from": 0,
+                                "to": 0.2
+                            }
+                        ]
                     }
                 ]
             },
@@ -581,7 +598,12 @@
                 "youtubeVideos": [
                     {
                         "id": "qaLeO-2Fytg",
-                        "skips": []
+                        "skips": [
+                            {
+                                "from": 0,
+                                "to": 0.98
+                            }
+                        ]
                     }
                 ]
             },
@@ -590,6 +612,7 @@
                 "youtubeVideos": [
                     {
                         "id": "nwr1A-KPopM",
+                        "offset": 2.09,
                         "skips": []
                     }
                 ]
@@ -599,6 +622,7 @@
                 "youtubeVideos": [
                     {
                         "id": "e-7uuV7B7mo",
+                        "offset": 0.3,
                         "skips": []
                     }
                 ]
@@ -607,6 +631,7 @@
                 "filename": "Bakusou Yumeuta.sm",
                 "youtubeVideos": [
                     {
+                        "offset": 1.5,
                         "id": "6W1ajuerl6o",
                         "skips": []
                     }
@@ -616,7 +641,7 @@
                 "filename": "believe.sm",
                 "youtubeVideos": [
                     {
-                        "id": "Obgj-0IQ0yo",
+                        "id": "JSH7burWTxs",
                         "skips": []
                     }
                 ]
@@ -626,6 +651,7 @@
                 "youtubeVideos": [
                     {
                         "id": "BlEmAcDm8pY",
+                        "offset": 0.3,
                         "skips": []
                     }
                 ]
@@ -635,6 +661,7 @@
                 "youtubeVideos": [
                     {
                         "id": "d08dw3ztKZw",
+                        "offset": 0.25,
                         "skips": []
                     }
                 ]
@@ -644,6 +671,7 @@
                 "youtubeVideos": [
                     {
                         "id": "XYIWI4I3ASk",
+                        "offset": 0.7,
                         "skips": []
                     }
                 ]
@@ -653,7 +681,12 @@
                 "youtubeVideos": [
                     {
                         "id": "SReCZXEqE48",
-                        "skips": []
+                        "skips": [
+                            {
+                                "from": 0,
+                                "to": 0.25
+                            }
+                        ]
                     }
                 ]
             },
@@ -662,11 +695,21 @@
                 "youtubeVideos": [
                     {
                         "id": "VyaKCN5rljw",
-                        "skips": []
+                        "skips": [
+                            {
+                                "from": 0,
+                                "to": 2
+                            }
+                        ]
                     },
                     {
                         "id": "V7mMls-zSDI",
-                        "skips": []
+                        "skips": [
+                            {
+                                "from": 0,
+                                "to": 2.113
+                            }
+                        ]
                     }
                 ]
             },
@@ -684,11 +727,25 @@
                 "youtubeVideos": [
                     {
                         "id": "rUuHxyYqUSU",
-                        "skips": []
+                        "skips": [
+                            {
+                                "from": 0,
+                                "to": 0.20
+                            }
+                        ]
                     },
                     {
                         "id": "KbetinNS-bY",
-                        "skips": []
+                        "skips": [
+                            {
+                                "from": 0,
+                                "to": 0.15
+                            },
+                            {
+                                "from": 0.5,
+                                "to": null
+                            }
+                        ]
                     }
                 ]
             },
@@ -697,6 +754,7 @@
                 "youtubeVideos": [
                     {
                         "id": "KOWcj7XKnfQ",
+                        "offset": 0.055,
                         "skips": []
                     }
                 ]

@@ -1,0 +1,47 @@
+<p>synchronizer works!</p>
+<div *ngIf="selectedSimfile">
+
+
+    <form>
+        <button mat-raised-button (click)="fileInput.click()">File</button>
+        <input hidden type="file" accept="audio/*" #fileInput (change)="audioSelected($event)" />
+        <button mat-raised-button (click)="play()">Play</button>
+        <button mat-raised-button (click)="reset()">Reset</button>
+        <mat-form-field>
+            <mat-label>Offset</mat-label>
+            <input type="number" matInput (change)="changeOffset($event)" />
+        </mat-form-field>
+        <mat-form-field>
+            <mat-label>From</mat-label>
+            <input type="number" matInput step="0.01" (change)="changeFrom($event)" />
+        </mat-form-field>
+        <mat-form-field>
+            <mat-label>To</mat-label>
+            <input type="number" matInput step="0.01" (change)="changeTo($event)" />
+        </mat-form-field>
+    </form>
+
+
+
+
+
+    <audio style="width:100%;" #audioPlayer controls></audio>
+
+    <mat-tab-group animationDuration="0ms" (selectedTabChange)="onVideoSelected($event)">
+        <mat-tab [label]="registryVideo.id" style="height: 300px;"
+            *ngFor="let registryVideo of selectedSimfile.youtubeVideos">
+            <ng-template matTabContent>
+                <div style="height: 100%; width: 750px;" #videoContainer>
+                    <ngx-y2-player #video [videoId]="registryVideo.id" [playerOptions]="playerOptions"
+                        [container]="videoContainer" (ready)="onVideoReady($event)">
+                    </ngx-y2-player>
+                </div>
+            </ng-template>
+        </mat-tab>
+    </mat-tab-group>
+
+    <hr>
+
+    <pre>{{selectedSimfile | json}}</pre>
+
+</div>

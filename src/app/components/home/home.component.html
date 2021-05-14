@@ -1,9 +1,9 @@
 <mat-drawer-container fullscreen id="home-drawer-container">
 
   <mat-drawer id="home-drawer" #start mode="side">
-    <button mat-flat-button (click)="start.close()" [routerLink]="['/']">Home</button>
+    <button mat-flat-button (click)="start.close()" routerLink="/">Home</button>
     <mat-divider></mat-divider>
-    <button mat-flat-button (click)="start.close()" [routerLink]="['/ddr-player']">Player</button>
+    <button mat-flat-button (click)="start.close()" routerLink="ddr-player">Player</button>
     <mat-divider></mat-divider>
     <button mat-flat-button (click)="start.close()">Basic 2</button>
     <mat-divider></mat-divider>
