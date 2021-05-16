@@ -1,6 +1,7 @@
 import { Difficulty, GameMode, GameModeType } from "./enums";
 import { ParsedSimfileMode } from "./parsed-simfile-mode";
 import { SimfileRegistryEntry } from "./simfile-registry-entry";
+import { SimfileRegistryFolder } from "./simfile-registry-folder";
 import { SimfileRegistryYoutubeInfo } from "./simfile-registry-youtube-info";
 
 export class ParsedSimfile implements SimfileRegistryEntry {
@@ -39,9 +40,9 @@ export class ParsedSimfile implements SimfileRegistryEntry {
   rawMetaData = new Map<string, string>();
   rawModes: Map<string, string>[] = [];
 
-  constructor(registryEntry: SimfileRegistryEntry) {
+  constructor(folderRegistryEntry: SimfileRegistryFolder, registryEntry: SimfileRegistryEntry) {
     this.filename = registryEntry.filename;
-    this.smFileLocation = `/assets/Simfiles/Otaku's Dream Mix/${registryEntry.filename}`;
+    this.smFileLocation = `/assets/Simfiles/${folderRegistryEntry.location}/${registryEntry.filename}`;
     this.youtubeVideos = registryEntry.youtubeVideos;
     this.youtubeVideos.forEach(y => {
       y.offset = y.offset ?? 0;

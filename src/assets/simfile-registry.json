@@ -1,549 +1,119 @@
 [
     {
-        "name": "Vocaloid Project Pad Pack",
+        "title": "Sudziosis",
+        "location": "Sudziosis",
         "simfiles": [
             {
-                "filename": "+Danshi.sm",
+                "filename": "Absolution Day.sm",
                 "youtubeVideos": [
                     {
-                        "id": "RIA-vEJB1Aw",
-                        "skips": [
-                            {
-                                "from": 57.3,
-                                "to": 113.395
-                            },
-                            {
-                                "from": 193.53,
-                                "to": 204.04
-                            }
-                        ]
-                    },
-                    {
-                        "id": "6HGLeUqoUf8",
-                        "skips": [
-                            {
-                                "from": 57.3,
-                                "to": 113.395
-                            },
-                            {
-                                "from": 193.53,
-                                "to": 204.04
-                            }
-                        ]
-                    },
-                    {
-                        "id": "3BZLpBmnADE",
-                        "skips": [
-                            {
-                                "from": 57.3,
-                                "to": 113.395
-                            },
-                            {
-                                "from": 193.53,
-                                "to": 204.04
-                            }
-                        ]
-                    },
-                    {
-                        "id": "vBmfwovfIHM",
-                        "skips": [
-                            {
-                                "from": 57.3,
-                                "to": 113.395
-                            },
-                            {
-                                "from": 193.53,
-                                "to": 204.04
-                            }
-                        ]
-                    }
-                ]
-            },
-            {
-                "filename": "1 2 Fanclub.sm",
-                "youtubeVideos": [
-                    {
-                        "id": "I_Uax2jCUGo"
-                    }
-                ]
-            },
-            {
-                "filename": "118.sm",
-                "youtubeVideos": []
-            },
-            {
-                "filename": "2-Dimensional Dream Fever.sm",
-                "youtubeVideos": []
-            },
-            {
-                "filename": "39 Music!.sm",
-                "youtubeVideos": []
-            },
-            {
-                "filename": "39.sm",
-                "youtubeVideos": []
-            },
-            {
-                "filename": "7 8.sm",
-                "youtubeVideos": []
-            },
-            {
-                "filename": "A Happy Death.sm",
-                "youtubeVideos": []
-            },
-            {
-                "filename": "A Rendezvous With Sleep Paralysis.sm",
-                "youtubeVideos": []
-            },
-            {
-                "filename": "After-School Stride.sm",
-                "youtubeVideos": []
-            },
-            {
-                "filename": "Alien Alien.sm",
-                "youtubeVideos": []
-            },
-            {
-                "filename": "Animal Fortune-Telling.sm",
-                "youtubeVideos": []
-            },
-            {
-                "filename": "Anti the EuphoriaHOLiC.sm",
-                "youtubeVideos": []
-            },
-            {
-                "filename": "Anti the Holic.sm",
-                "youtubeVideos": []
-            },
-            {
-                "filename": "Apparently There's A Cheat Code To Happiness.sm",
-                "youtubeVideos": []
-            },
-            {
-                "filename": "Artemis.sm",
-                "youtubeVideos": []
-            },
-            {
-                "filename": "Astro Troopers.sm",
-                "youtubeVideos": []
-            },
-            {
-                "filename": "Bamboo Sword Girl.sm",
-                "youtubeVideos": []
-            },
-            {
-                "filename": "batlmoon.sm",
-                "youtubeVideos": []
-            },
-            {
-                "filename": "Beside & Besides.sm",
-                "youtubeVideos": []
-            },
-            {
-                "filename": "Black Rock Shooter.sm",
-                "youtubeVideos": []
-            },
-            {
-                "filename": "Bring it On.sm",
-                "youtubeVideos": []
-            },
-            {
-                "filename": "Burenai Eye de (Winter Version).sm",
-                "youtubeVideos": []
-            },
-            {
-                "filename": "Butterfly On Your Right Shoulder.sm",
-                "youtubeVideos": []
-            },
-            {
-                "filename": "bwiw2b.sm",
-                "youtubeVideos": []
-            },
-            {
-                "filename": "Carnival.sm",
-                "youtubeVideos": []
-            },
-            {
-                "filename": "Catch The Wave.sm",
-                "youtubeVideos": []
-            },
-            {
-                "filename": "Cendrillon.sm",
-                "youtubeVideos": []
-            },
-            {
-                "filename": "Chaining Intention.sm",
-                "youtubeVideos": [
-                    {
-                        "id": "GOwN_qvlYUg",
+                        "id": "XcXp0YdQGi4",
                         "skips": []
                     }
                 ]
             },
             {
-                "filename": "Charles.sm",
-                "youtubeVideos": []
-            },
-            {
-                "filename": "Children's War.sm",
-                "youtubeVideos": []
-            },
-            {
-                "filename": "Chururira Chururira Daddadda.sm",
-                "youtubeVideos": []
-            },
-            {
-                "filename": "COLORFUL VOICE.sm",
-                "youtubeVideos": []
-            },
-            {
-                "filename": "Cosmonauts.sm",
-                "youtubeVideos": []
-            },
-            {
-                "filename": "Critical Situation Zen Girl.sm",
-                "youtubeVideos": []
-            },
-            {
-                "filename": "Dance Robot Dance.sm",
-                "youtubeVideos": []
-            },
-            {
-                "filename": "Death Should Not Have Taken Thee!.sm",
-                "youtubeVideos": []
-            },
-            {
-                "filename": "Dependence Intension.sm",
-                "youtubeVideos": []
-            },
-            {
-                "filename": "Donut Hole.sm",
-                "youtubeVideos": []
-            },
-            {
-                "filename": "Dream-Eating Monochrome Baku.sm",
-                "youtubeVideos": []
-            },
-            {
-                "filename": "eazy.sm",
-                "youtubeVideos": []
-            },
-            {
-                "filename": "Equation+.sm",
-                "youtubeVideos": []
-            },
-            {
-                "filename": "Even a Kunoichi Needs Love.sm",
-                "youtubeVideos": []
-            },
-            {
-                "filename": "F(R)IEND.sm",
-                "youtubeVideos": []
-            },
-            {
-                "filename": "Failure Girl.sm",
-                "youtubeVideos": []
-            },
-            {
-                "filename": "Fantasy World Repair Girl.sm",
-                "youtubeVideos": []
-            },
-            {
-                "filename": "Gedatz Sensation.sm",
-                "youtubeVideos": []
-            },
-            {
-                "filename": "Gigantic Girl.sm",
-                "youtubeVideos": []
-            },
-            {
-                "filename": "Girls' Rebellion.sm",
-                "youtubeVideos": []
-            },
-            {
-                "filename": "Goodbye, World of Common Sense.sm",
-                "youtubeVideos": []
-            },
-            {
-                "filename": "Happy Synthesizer (4sk Remix).sm",
-                "youtubeVideos": []
-            },
-            {
-                "filename": "Happy Synthesizer.sm",
-                "youtubeVideos": []
-            },
-            {
-                "filename": "Heartbreak Headlines.sm",
-                "youtubeVideos": []
-            },
-            {
-                "filename": "Highsense Nonsense.sm",
-                "youtubeVideos": []
-            },
-            {
-                "filename": "Hope for Azure Sky.sm",
-                "youtubeVideos": []
-            },
-            {
-                "filename": "Ievan Polkka.sm",
-                "youtubeVideos": []
-            },
-            {
-                "filename": "Ikasama Life Game.sm",
-                "youtubeVideos": []
-            },
-            {
-                "filename": "Imagination Forest.sm",
-                "youtubeVideos": []
-            },
-            {
-                "filename": "It's a Wonderful Cat's Life.sm",
-                "youtubeVideos": []
-            },
-            {
-                "filename": "Kagamine Rin & Len - Trick & Treat.sm",
-                "youtubeVideos": []
-            },
-            {
-                "filename": "Kagerou Daze.sm",
-                "youtubeVideos": []
-            },
-            {
-                "filename": "Kimagure Mercy.sm",
-                "youtubeVideos": []
-            },
-            {
-                "filename": "Kisaragi Attention.sm",
-                "youtubeVideos": []
-            },
-            {
-                "filename": "Kokoro-Game-Box.sm",
-                "youtubeVideos": []
-            },
-            {
-                "filename": "Kuru Kuru Pa.sm",
-                "youtubeVideos": []
-            },
-            {
-                "filename": "Life Reset Button.sm",
-                "youtubeVideos": []
-            },
-            {
-                "filename": "Loop.sm",
-                "youtubeVideos": []
-            },
-            {
-                "filename": "Love Hero.sm",
-                "youtubeVideos": []
-            },
-            {
-                "filename": "Lucky Orb.sm",
-                "youtubeVideos": []
-            },
-            {
-                "filename": "LUVORATORRRRRY!.sm",
-                "youtubeVideos": []
-            },
-            {
-                "filename": "MANDARA.sm",
-                "youtubeVideos": []
-            },
-            {
-                "filename": "Matryoshka.sm",
-                "youtubeVideos": []
-            },
-            {
-                "filename": "MAYU.sm",
-                "youtubeVideos": []
-            },
-            {
-                "filename": "Meltdown.sm",
-                "youtubeVideos": []
-            },
-            {
-                "filename": "Mr Earthling.sm",
-                "youtubeVideos": []
-            },
-            {
-                "filename": "Netoge Haijin Sprechchor.sm",
-                "youtubeVideos": []
-            },
-            {
-                "filename": "Night Sky Patrol of Tomorrow.sm",
-                "youtubeVideos": []
-            },
-            {
-                "filename": "Noisy Lover's Soul.sm",
-                "youtubeVideos": []
-            },
-            {
-                "filename": "Non-World Harmonize.sm",
-                "youtubeVideos": []
-            },
-            {
-                "filename": "ODDS&ENDS.sm",
-                "youtubeVideos": []
-            },
-            {
-                "filename": "Out of Step.sm",
-                "youtubeVideos": []
-            },
-            {
-                "filename": "Outer Science.sm",
-                "youtubeVideos": []
-            },
-            {
-                "filename": "Party Junkie.sm",
-                "youtubeVideos": []
-            },
-            {
-                "filename": "Pomp and Circumstance.sm",
-                "youtubeVideos": []
-            },
-            {
-                "filename": "Rebirth.sm",
-                "youtubeVideos": []
-            },
-            {
-                "filename": "Reminiscence.sm",
-                "youtubeVideos": []
-            },
-            {
-                "filename": "Remote Control.sm",
-                "youtubeVideos": []
-            },
-            {
-                "filename": "Reset.sm",
-                "youtubeVideos": []
-            },
-            {
-                "filename": "Revolution Habit The Great King Epidemic.sm",
-                "youtubeVideos": []
-            },
-            {
-                "filename": "ROKI.sm",
-                "youtubeVideos": []
-            },
-            {
-                "filename": "Rolling Girl.sm",
-                "youtubeVideos": []
-            },
-            {
-                "filename": "Sand Planet.sm",
-                "youtubeVideos": []
-            },
-            {
-                "filename": "Secret Police.sm",
-                "youtubeVideos": []
-            },
-            {
-                "filename": "Sincerity Habit.sm",
-                "youtubeVideos": []
-            },
-            {
-                "filename": "Splatter Party.sm",
-                "youtubeVideos": []
-            },
-            {
-                "filename": "START.sm",
-                "youtubeVideos": []
-            },
-            {
-                "filename": "steps.sm",
-                "youtubeVideos": []
-            },
-            {
-                "filename": "Streaming Heart.sm",
-                "youtubeVideos": []
-            },
-            {
-                "filename": "Sweet Devil (colate remix).sm",
-                "youtubeVideos": []
-            },
-            {
-                "filename": "Sweet Devil.sm",
-                "youtubeVideos": []
-            },
-            {
-                "filename": "Tell Your Donk.sm",
-                "youtubeVideos": []
-            },
-            {
-                "filename": "the Nightmare Theater.sm",
-                "youtubeVideos": []
-            },
-            {
-                "filename": "Toluthin Antenna.sm",
-                "youtubeVideos": []
-            },
-            {
-                "filename": "Totetatetoteta!.sm",
-                "youtubeVideos": []
-            },
-            {
-                "filename": "Two Breaths Walking.sm",
-                "youtubeVideos": []
-            },
-            {
-                "filename": "Ubaware.sm",
-                "youtubeVideos": []
-            },
-            {
-                "filename": "Undead Enemy.sm",
-                "youtubeVideos": []
-            },
-            {
-                "filename": "Unhappy Refrain.sm",
-                "youtubeVideos": []
-            },
-            {
-                "filename": "Vampire's Territory.sm",
-                "youtubeVideos": []
-            },
-            {
-                "filename": "Venom.sm",
-                "youtubeVideos": []
-            },
-            {
-                "filename": "VILE CAT.sm",
-                "youtubeVideos": []
-            },
-            {
-                "filename": "VIRTUAL COMPLEX.sm",
-                "youtubeVideos": []
-            },
-            {
-                "filename": "Viva Happy.sm",
-                "youtubeVideos": []
-            },
-            {
-                "filename": "Whatever Whatever Whatever.sm",
-                "youtubeVideos": []
-            },
-            {
-                "filename": "World's End Dancehall.sm",
-                "youtubeVideos": []
-            },
-            {
-                "filename": "YADA.sm",
-                "youtubeVideos": []
-            },
-            {
-                "filename": "Yobanashi Deceive.sm",
-                "youtubeVideos": []
-            },
-            {
-                "filename": "Young Disease Outburst Boy.sm",
-                "youtubeVideos": []
-            },
-            {
-                "filename": "YY.sm",
-                "youtubeVideos": []
+                "filename": "Alive (Vonikk Remx).sm",
+                "youtubeVideos": [
+                    {
+                        "id": "z4wF5J2dg3o",
+                        "skips": []
+                    }
+                ]
+            },
+            {
+                "filename": "Festivo.sm",
+                "youtubeVideos": [
+                    {
+                        "id": "LCOJmBGEmiU",
+                        "skips": []
+                    }
+                ]
+            },
+            {
+                "filename": "Free Race.sm",
+                "youtubeVideos": [
+                    {
+                        "id": "dbtH1qpc91c",
+                        "skips": []
+                    }
+                ]
+            },
+            {
+                "filename": "Guitars SUCK.sm",
+                "youtubeVideos": [
+                    {
+                        "id": "wEOFMHgkHzI",
+                        "skips": []
+                    }
+                ]
+            },
+            {
+                "filename": "Haunted.sm",
+                "youtubeVideos": [
+                    {
+                        "id": "t8d1UsB3JaY",
+                        "skips": []
+                    }
+                ]
+            },
+            {
+                "filename": "Here to Stay.sm",
+                "youtubeVideos": [
+                    {
+                        "id": "v0vJFQxlmOU",
+                        "skips": []
+                    }
+                ]
+            },
+            {
+                "filename": "Koko Soko.sm",
+                "youtubeVideos": [{
+                    "id": "X7kMP24N2UI",
+                    "skips": []
+                }]
+            },
+            {
+                "filename": "Martyr.sm",
+                "youtubeVideos": [
+                    {
+                        "id": "G1x3wmbsZDU",
+                        "skips": []
+                    }
+                ]
+            },
+            {
+                "filename": "Red Roses.sm",
+                "youtubeVideos": [
+                    {
+                        "id": "IXtsY7QnIdY",
+                        "skips": []
+                    }
+                ]
+            },
+            {
+                "filename": "Sneakman.sm",
+                "youtubeVideos": [
+                    {
+                        "id": "SL_jZSRZ_Bo",
+                        "skips": []
+                    }
+                ]
+            },
+            {
+                "filename": "Synthesizers.sm",
+                "youtubeVideos": [
+                    {
+                        "id": "W43NIe79vZM",
+                        "skips": []
+                    }
+                ]
             }
         ]
     },
     {
-        "name": "Otaku's Dream",
+        "title": "Otaku's Dream Mix",
+        "location": "Otaku's Dream Mix",
         "simfiles": [
             {
                 "filename": "99.sm",
@@ -979,7 +549,6 @@
                     {
                         "id": "pOHwVZc6QYY",
                         "offset": 0.115
-
                     }
                 ]
             },
@@ -1578,7 +1147,7 @@
                 "filename": "V.I.P.sm",
                 "youtubeVideos": [
                     {
-                        "id": "M8JuOhB7-U0",   
+                        "id": "M8JuOhB7-U0",
                         "offset": 3.18
                     }
                 ]
@@ -1588,10 +1157,12 @@
                 "youtubeVideos": [
                     {
                         "id": "nau1BvFAGLY",
-                        "skips": [    {
-                            "from": 0,
-                            "to": 1.38
-                          }]
+                        "skips": [
+                            {
+                                "from": 0,
+                                "to": 1.38
+                            }
+                        ]
                     }
                 ]
             },
@@ -1602,6 +1173,576 @@
                         "id": "lelGG_1jtcg"
                     }
                 ]
+            }
+        ]
+    },
+    {
+        "title": "Vocaloid Project Pad Pack",
+        "location": "Vocaloid Project Pad Pack",
+        "simfiles": [
+            {
+                "filename": "+Danshi.sm",
+                "youtubeVideos": [
+                    {
+                        "id": "RIA-vEJB1Aw",
+                        "skips": [
+                            {
+                                "from": 0,
+                                "to": 0.66
+                            },
+                            {
+                                "from": 57.3,
+                                "to": 113.3
+                            },
+                            {
+                                "from": 193.53,
+                                "to": 204.25
+                            }
+                        ]
+                    },
+                    {
+                        "id": "6HGLeUqoUf8",
+                        "skips": [
+                            {
+                                "from": 0,
+                                "to": 0.66
+                            },
+                            {
+                                "from": 57.3,
+                                "to": 113.3
+                            },
+                            {
+                                "from": 193.53,
+                                "to": 204.25
+                            }
+                        ]
+                    },
+                    {
+                        "id": "3BZLpBmnADE",
+                        "skips": [
+                            {
+                                "from": 0,
+                                "to": 0.66
+                            },
+                            {
+                                "from": 57.3,
+                                "to": 113.3
+                            },
+                            {
+                                "from": 193.53,
+                                "to": 204.25
+                            }
+                        ]
+                    },
+                    {
+                        "id": "vBmfwovfIHM",
+                        "skips": [
+                            {
+                                "from": 0,
+                                "to": 0.66
+                            },
+                            {
+                                "from": 57.3,
+                                "to": 113.3
+                            },
+                            {
+                                "from": 193.53,
+                                "to": 204.25
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "filename": "1 2 Fanclub.sm",
+                "youtubeVideos": [
+                    {
+                        "id": "I_Uax2jCUGo",
+                        "skips": [
+                            {
+                                "from": 0,
+                                "to": 1
+                            },
+                            {
+                                "from": 88.9,
+                                "to": 211.37
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "filename": "118.sm",
+                "youtubeVideos": []
+            },
+            {
+                "filename": "2-Dimensional Dream Fever.sm",
+                "youtubeVideos": []
+            },
+            {
+                "filename": "39 Music!.sm",
+                "youtubeVideos": []
+            },
+            {
+                "filename": "39.sm",
+                "youtubeVideos": []
+            },
+            {
+                "filename": "7 8.sm",
+                "youtubeVideos": []
+            },
+            {
+                "filename": "A Happy Death.sm",
+                "youtubeVideos": []
+            },
+            {
+                "filename": "A Rendezvous With Sleep Paralysis.sm",
+                "youtubeVideos": []
+            },
+            {
+                "filename": "After-School Stride.sm",
+                "youtubeVideos": []
+            },
+            {
+                "filename": "Alien Alien.sm",
+                "youtubeVideos": []
+            },
+            {
+                "filename": "Animal Fortune-Telling.sm",
+                "youtubeVideos": []
+            },
+            {
+                "filename": "Anti the EuphoriaHOLiC.sm",
+                "youtubeVideos": []
+            },
+            {
+                "filename": "Anti the Holic.sm",
+                "youtubeVideos": []
+            },
+            {
+                "filename": "Apparently There's A Cheat Code To Happiness.sm",
+                "youtubeVideos": []
+            },
+            {
+                "filename": "Artemis.sm",
+                "youtubeVideos": []
+            },
+            {
+                "filename": "Astro Troopers.sm",
+                "youtubeVideos": []
+            },
+            {
+                "filename": "Bamboo Sword Girl.sm",
+                "youtubeVideos": []
+            },
+            {
+                "filename": "batlmoon.sm",
+                "youtubeVideos": []
+            },
+            {
+                "filename": "Beside & Besides.sm",
+                "youtubeVideos": []
+            },
+            {
+                "filename": "Black Rock Shooter.sm",
+                "youtubeVideos": []
+            },
+            {
+                "filename": "Bring it On.sm",
+                "youtubeVideos": []
+            },
+            {
+                "filename": "Burenai Eye de (Winter Version).sm",
+                "youtubeVideos": []
+            },
+            {
+                "filename": "Butterfly On Your Right Shoulder.sm",
+                "youtubeVideos": []
+            },
+            {
+                "filename": "bwiw2b.sm",
+                "youtubeVideos": []
+            },
+            {
+                "filename": "Carnival.sm",
+                "youtubeVideos": []
+            },
+            {
+                "filename": "Catch The Wave.sm",
+                "youtubeVideos": []
+            },
+            {
+                "filename": "Cendrillon.sm",
+                "youtubeVideos": []
+            },
+            {
+                "filename": "Chaining Intention.sm",
+                "youtubeVideos": [
+                    {
+                        "id": "GOwN_qvlYUg",
+                        "skips": []
+                    }
+                ]
+            },
+            {
+                "filename": "Charles.sm",
+                "youtubeVideos": []
+            },
+            {
+                "filename": "Children's War.sm",
+                "youtubeVideos": []
+            },
+            {
+                "filename": "Chururira Chururira Daddadda.sm",
+                "youtubeVideos": []
+            },
+            {
+                "filename": "COLORFUL VOICE.sm",
+                "youtubeVideos": []
+            },
+            {
+                "filename": "Cosmonauts.sm",
+                "youtubeVideos": []
+            },
+            {
+                "filename": "Critical Situation Zen Girl.sm",
+                "youtubeVideos": []
+            },
+            {
+                "filename": "Dance Robot Dance.sm",
+                "youtubeVideos": []
+            },
+            {
+                "filename": "Death Should Not Have Taken Thee!.sm",
+                "youtubeVideos": []
+            },
+            {
+                "filename": "Dependence Intension.sm",
+                "youtubeVideos": []
+            },
+            {
+                "filename": "Donut Hole.sm",
+                "youtubeVideos": []
+            },
+            {
+                "filename": "Dream-Eating Monochrome Baku.sm",
+                "youtubeVideos": []
+            },
+            {
+                "filename": "eazy.sm",
+                "youtubeVideos": []
+            },
+            {
+                "filename": "Equation+.sm",
+                "youtubeVideos": []
+            },
+            {
+                "filename": "Even a Kunoichi Needs Love.sm",
+                "youtubeVideos": []
+            },
+            {
+                "filename": "F(R)IEND.sm",
+                "youtubeVideos": []
+            },
+            {
+                "filename": "Failure Girl.sm",
+                "youtubeVideos": []
+            },
+            {
+                "filename": "Fantasy World Repair Girl.sm",
+                "youtubeVideos": []
+            },
+            {
+                "filename": "Gedatz Sensation.sm",
+                "youtubeVideos": []
+            },
+            {
+                "filename": "Gigantic Girl.sm",
+                "youtubeVideos": []
+            },
+            {
+                "filename": "Girls' Rebellion.sm",
+                "youtubeVideos": []
+            },
+            {
+                "filename": "Goodbye, World of Common Sense.sm",
+                "youtubeVideos": []
+            },
+            {
+                "filename": "Happy Synthesizer (4sk Remix).sm",
+                "youtubeVideos": []
+            },
+            {
+                "filename": "Happy Synthesizer.sm",
+                "youtubeVideos": []
+            },
+            {
+                "filename": "Heartbreak Headlines.sm",
+                "youtubeVideos": []
+            },
+            {
+                "filename": "Highsense Nonsense.sm",
+                "youtubeVideos": []
+            },
+            {
+                "filename": "Hope for Azure Sky.sm",
+                "youtubeVideos": []
+            },
+            {
+                "filename": "Ievan Polkka.sm",
+                "youtubeVideos": []
+            },
+            {
+                "filename": "Ikasama Life Game.sm",
+                "youtubeVideos": []
+            },
+            {
+                "filename": "Imagination Forest.sm",
+                "youtubeVideos": []
+            },
+            {
+                "filename": "It's a Wonderful Cat's Life.sm",
+                "youtubeVideos": []
+            },
+            {
+                "filename": "Kagamine Rin & Len - Trick & Treat.sm",
+                "youtubeVideos": []
+            },
+            {
+                "filename": "Kagerou Daze.sm",
+                "youtubeVideos": []
+            },
+            {
+                "filename": "Kimagure Mercy.sm",
+                "youtubeVideos": []
+            },
+            {
+                "filename": "Kisaragi Attention.sm",
+                "youtubeVideos": []
+            },
+            {
+                "filename": "Kokoro-Game-Box.sm",
+                "youtubeVideos": []
+            },
+            {
+                "filename": "Kuru Kuru Pa.sm",
+                "youtubeVideos": []
+            },
+            {
+                "filename": "Life Reset Button.sm",
+                "youtubeVideos": []
+            },
+            {
+                "filename": "Loop.sm",
+                "youtubeVideos": []
+            },
+            {
+                "filename": "Love Hero.sm",
+                "youtubeVideos": []
+            },
+            {
+                "filename": "Lucky Orb.sm",
+                "youtubeVideos": []
+            },
+            {
+                "filename": "LUVORATORRRRRY!.sm",
+                "youtubeVideos": []
+            },
+            {
+                "filename": "MANDARA.sm",
+                "youtubeVideos": []
+            },
+            {
+                "filename": "Matryoshka.sm",
+                "youtubeVideos": []
+            },
+            {
+                "filename": "MAYU.sm",
+                "youtubeVideos": []
+            },
+            {
+                "filename": "Meltdown.sm",
+                "youtubeVideos": []
+            },
+            {
+                "filename": "Mr Earthling.sm",
+                "youtubeVideos": []
+            },
+            {
+                "filename": "Netoge Haijin Sprechchor.sm",
+                "youtubeVideos": []
+            },
+            {
+                "filename": "Night Sky Patrol of Tomorrow.sm",
+                "youtubeVideos": []
+            },
+            {
+                "filename": "Noisy Lover's Soul.sm",
+                "youtubeVideos": []
+            },
+            {
+                "filename": "Non-World Harmonize.sm",
+                "youtubeVideos": []
+            },
+            {
+                "filename": "ODDS&ENDS.sm",
+                "youtubeVideos": []
+            },
+            {
+                "filename": "Out of Step.sm",
+                "youtubeVideos": []
+            },
+            {
+                "filename": "Outer Science.sm",
+                "youtubeVideos": []
+            },
+            {
+                "filename": "Party Junkie.sm",
+                "youtubeVideos": []
+            },
+            {
+                "filename": "Pomp and Circumstance.sm",
+                "youtubeVideos": []
+            },
+            {
+                "filename": "Rebirth.sm",
+                "youtubeVideos": []
+            },
+            {
+                "filename": "Reminiscence.sm",
+                "youtubeVideos": []
+            },
+            {
+                "filename": "Remote Control.sm",
+                "youtubeVideos": []
+            },
+            {
+                "filename": "Reset.sm",
+                "youtubeVideos": []
+            },
+            {
+                "filename": "Revolution Habit The Great King Epidemic.sm",
+                "youtubeVideos": []
+            },
+            {
+                "filename": "ROKI.sm",
+                "youtubeVideos": []
+            },
+            {
+                "filename": "Rolling Girl.sm",
+                "youtubeVideos": []
+            },
+            {
+                "filename": "Sand Planet.sm",
+                "youtubeVideos": []
+            },
+            {
+                "filename": "Secret Police.sm",
+                "youtubeVideos": []
+            },
+            {
+                "filename": "Sincerity Habit.sm",
+                "youtubeVideos": []
+            },
+            {
+                "filename": "Splatter Party.sm",
+                "youtubeVideos": []
+            },
+            {
+                "filename": "START.sm",
+                "youtubeVideos": []
+            },
+            {
+                "filename": "steps.sm",
+                "youtubeVideos": []
+            },
+            {
+                "filename": "Streaming Heart.sm",
+                "youtubeVideos": []
+            },
+            {
+                "filename": "Sweet Devil (colate remix).sm",
+                "youtubeVideos": []
+            },
+            {
+                "filename": "Sweet Devil.sm",
+                "youtubeVideos": []
+            },
+            {
+                "filename": "Tell Your Donk.sm",
+                "youtubeVideos": []
+            },
+            {
+                "filename": "the Nightmare Theater.sm",
+                "youtubeVideos": []
+            },
+            {
+                "filename": "Toluthin Antenna.sm",
+                "youtubeVideos": []
+            },
+            {
+                "filename": "Totetatetoteta!.sm",
+                "youtubeVideos": []
+            },
+            {
+                "filename": "Two Breaths Walking.sm",
+                "youtubeVideos": []
+            },
+            {
+                "filename": "Ubaware.sm",
+                "youtubeVideos": []
+            },
+            {
+                "filename": "Undead Enemy.sm",
+                "youtubeVideos": []
+            },
+            {
+                "filename": "Unhappy Refrain.sm",
+                "youtubeVideos": []
+            },
+            {
+                "filename": "Vampire's Territory.sm",
+                "youtubeVideos": []
+            },
+            {
+                "filename": "Venom.sm",
+                "youtubeVideos": []
+            },
+            {
+                "filename": "VILE CAT.sm",
+                "youtubeVideos": []
+            },
+            {
+                "filename": "VIRTUAL COMPLEX.sm",
+                "youtubeVideos": []
+            },
+            {
+                "filename": "Viva Happy.sm",
+                "youtubeVideos": []
+            },
+            {
+                "filename": "Whatever Whatever Whatever.sm",
+                "youtubeVideos": []
+            },
+            {
+                "filename": "World's End Dancehall.sm",
+                "youtubeVideos": []
+            },
+            {
+                "filename": "YADA.sm",
+                "youtubeVideos": []
+            },
+            {
+                "filename": "Yobanashi Deceive.sm",
+                "youtubeVideos": []
+            },
+            {
+                "filename": "Young Disease Outburst Boy.sm",
+                "youtubeVideos": []
+            },
+            {
+                "filename": "YY.sm",
+                "youtubeVideos": []
             }
         ]
     }

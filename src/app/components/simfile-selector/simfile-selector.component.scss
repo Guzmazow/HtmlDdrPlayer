@@ -1,3 +1,8 @@
-:host > mat-drawer-container {
+:host mat-drawer-container {
     height: 100%;
+}
+
+td, th {
+    max-width: 600px;
+    word-break: break-all;
 }

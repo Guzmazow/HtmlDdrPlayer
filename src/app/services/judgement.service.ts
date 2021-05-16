@@ -29,7 +29,7 @@ export class JudgementService {
   // TimingWindowSecondsRoll=0.500000
 
   constructor(private displayService: DisplayService, private keyboardService: KeyboardService, private router: Router) {
-    const judgeScale = 3;
+    const judgeScale = 1;
     let judgePrecision = new Map<number, Judgement>();
     for (let precision of this.judgePrecision) {
       judgePrecision.set(precision[0] * judgeScale, precision[1])

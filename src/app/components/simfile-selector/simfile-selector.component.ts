@@ -12,6 +12,7 @@ import { LocalStorage } from '../../other/storage';
 import { MatDrawerContainer } from '@angular/material/sidenav';
 import { Subscription } from 'rxjs';
 import { SimfileRegistryYoutubeInfo } from '@models/simfile-registry-youtube-info';
+import { SimfileRegistryFolder } from '@models/simfile-registry-folder';
 
 @Component({
   selector: 'app-simfile-selector',
@@ -24,7 +25,9 @@ export class SimfileSelectorComponent implements OnInit, OnDestroy {
   GameModeType = GameModeType;
   Difficulty = Difficulty;
 
-  parsedSimfiles: ParsedSimfile[] = [];
+  simfileFolders: SimfileRegistryFolder[] = [];
+  selectedSimfileFolder?: SimfileRegistryFolder;
+  simfilesInSelectedFolder: ParsedSimfile[] = [];
   selectedSimfile?: ParsedSimfile;
   lastSelectedSimfileMode?: ParsedSimfileMode;
   selectedSimfileMode?: ParsedSimfileMode;
@@ -32,10 +35,13 @@ export class SimfileSelectorComponent implements OnInit, OnDestroy {
 
   keyPressSubscribe?: Subscription;
 
-  @ViewChild("simfiles") simFileSelector?: MatSelectionList;
-  @ViewChild("simfileModes") simFileModeSelector?: MatSelectionList;
-  @ViewChild("mainDrawerContainer") mainDrawerContainer?: MatDrawerContainer;
+  @ViewChild("simfileSelect") simfileSelect?: MatSelectionList;
+  @ViewChild("simfileFolderSelect") simfileFolderSelect?: MatSelectionList;
+  @ViewChild("simfileModeSelect") simfileModeSelect?: MatSelectionList;
+  @ViewChild("folderDrawerContainer") folderDrawerContainer?: MatDrawerContainer;
+  @ViewChild("simfileDrawerContainer") simfileDrawerContainer?: MatDrawerContainer;
   @LocalStorage('', '') lastSelectedSimfileLocation!: string;
+  @LocalStorage('', '') lastSelectedSimfileFolderLocation!: string;
 
   playerOptions: NgxY2PlayerOptions = {
     height: 'auto',//screen.height, // you can set 'auto', it will use container width to set size
@@ -55,52 +61,60 @@ export class SimfileSelectorComponent implements OnInit, OnDestroy {
   constructor(private simfileLoaderService: SimfileLoaderService, private keyboardService: KeyboardService, private changeDetectorRef: ChangeDetectorRef) {
     this.simfileLoaderService.parsedSimfilesLoaded.subscribe(loaded => {
       if (!loaded) return;
-      if (simfileLoaderService.parsedSimfiles) {
-        this.parsedSimfiles = Array.from(simfileLoaderService.parsedSimfiles.values());
-        this.selectedSimfile = this.parsedSimfiles.find(x => x.smFileLocation == this.lastSelectedSimfileLocation);
+      if (simfileLoaderService.simfileRegistryFolders) {
+        this.simfileFolders = Array.from(simfileLoaderService.simfileRegistryFolders.values());
+        this.selectedSimfileFolder = this.simfileFolders.find(x => x.location == this.lastSelectedSimfileFolderLocation) ?? this.simfileFolders[0];
+        this.simfilesInSelectedFolder = Array.from(this.selectedSimfileFolder?.parsedSimfiles?.values() ?? []);
+        this.selectedSimfile = this.simfilesInSelectedFolder.find(x => x.smFileLocation == this.lastSelectedSimfileLocation);
       }
     });
   }
 
-
-  ngOnInit(): void {
+  antiGlitch(){
     setTimeout(() => {
       //slow ui fixes
-      this.mainDrawerContainer?.updateContentMargins();
-      if(this.simFileSelector && this.simFileSelector.selectedOptions.selected.length > 0)
-        this.simFileSelector.selectedOptions.selected[0].focus();
+      this.folderDrawerContainer?.updateContentMargins();
+      this.simfileDrawerContainer?.updateContentMargins();
+      if(this.simfileFolderSelect && this.simfileFolderSelect.selectedOptions.selected.length > 0)
+        this.simfileFolderSelect.selectedOptions.selected[0].focus();
+      if(this.simfileSelect && this.simfileSelect.selectedOptions.selected.length > 0)
+        this.simfileSelect.selectedOptions.selected[0].focus();
     }, 200);
+  }
+
+  ngOnInit(): void {
+    this.antiGlitch();
     this.keyPressSubscribe = this.keyboardService.onPress.subscribe((keyEv) => {
       if (keyEv.state) {
         switch (keyEv.key) {
           case Key.UP:
           case Key.DOWN:
-            if (this.selectedSimfile && this.simFileModeSelector) {
-              let toSelect: MatListOption = keyEv.key == Key.UP ? this.simFileModeSelector.options.last : this.simFileModeSelector.options.first;
-              if (this.simFileModeSelector.selectedOptions.selected.length > 0) {
+            if (this.selectedSimfile && this.simfileModeSelect) {
+              let toSelect: MatListOption = keyEv.key == Key.UP ? this.simfileModeSelect.options.last : this.simfileModeSelect.options.first;
+              if (this.simfileModeSelect.selectedOptions.selected.length > 0) {
                 let indexChange = keyEv.key == Key.UP ? -1 : 1;
-                let selected = this.simFileModeSelector.selectedOptions.selected[0]
-                let allOptions = this.simFileModeSelector.options.toArray();
+                let selected = this.simfileModeSelect.selectedOptions.selected[0]
+                let allOptions = this.simfileModeSelect.options.toArray();
                 let selectedIndex = allOptions.indexOf(selected);
-                toSelect = this.simFileModeSelector.options.get(selectedIndex + indexChange) ?? toSelect;
+                toSelect = this.simfileModeSelect.options.get(selectedIndex + indexChange) ?? toSelect;
               }
-              this.simFileModeSelector.selectedOptions.select(toSelect);
+              this.simfileModeSelect.selectedOptions.select(toSelect);
               toSelect.focus();
               this.selectSimfileMode(toSelect.value);
             }
             break;
           case Key.LEFT:
           case Key.RIGHT:
-            if (this.simFileSelector) {
-              let toSelect: MatListOption = keyEv.key == Key.LEFT ? this.simFileSelector.options.last : this.simFileSelector.options.first;
-              if (this.simFileSelector.selectedOptions.selected.length > 0) {
+            if (this.simfileSelect) {
+              let toSelect: MatListOption = keyEv.key == Key.LEFT ? this.simfileSelect.options.last : this.simfileSelect.options.first;
+              if (this.simfileSelect.selectedOptions.selected.length > 0) {
                 let indexChange = keyEv.key == Key.LEFT ? -1 : 1;
-                let selected = this.simFileSelector.selectedOptions.selected[0]
-                let allOptions = this.simFileSelector.options.toArray();
+                let selected = this.simfileSelect.selectedOptions.selected[0]
+                let allOptions = this.simfileSelect.options.toArray();
                 let selectedIndex = allOptions.indexOf(selected);
-                toSelect = this.simFileSelector.options.get(selectedIndex + indexChange) ?? toSelect;
+                toSelect = this.simfileSelect.options.get(selectedIndex + indexChange) ?? toSelect;
               }
-              this.simFileSelector.selectedOptions.select(toSelect);
+              this.simfileSelect.selectedOptions.select(toSelect);
               toSelect.focus();
               this.selectSimfile(toSelect.value);
             }
@@ -116,6 +130,20 @@ export class SimfileSelectorComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.keyPressSubscribe?.unsubscribe();
+  }
+
+  selectSimfileFolder(folder: SimfileRegistryFolder) {
+    this.selectedSimfileFolder = folder;
+    this.lastSelectedSimfileFolderLocation = folder.location;
+    this.simfilesInSelectedFolder = Array.from(this.selectedSimfileFolder?.parsedSimfiles?.values() ?? []);
+    this.selectSimfile(this.simfilesInSelectedFolder[0]);
+    this.antiGlitch();
+  }
+
+  onSimfileFolderSelectionChange(ev: MatSelectionListChange) {
+    if (ev.options.length > 0) {
+      this.selectSimfileFolder(ev.options[0].value);
+    }
   }
 
   selectSimfile(parsedSimfile: ParsedSimfile) {

@@ -72,11 +72,9 @@ export class SynchronizerComponent implements OnInit {
   }
 
   ngOnInit() {
-
-
     this.s1imfileLoaderService.parsedSimfilesLoaded.subscribe((loaded) => {
       if (!loaded) return;
-      this.selectedSimfile = this.s1imfileLoaderService.parsedSimfiles?.get(this.route.snapshot.paramMap.get('filename') || '');
+      this.selectedSimfile = this.s1imfileLoaderService.simfileRegistryFolders?.get(this.route.snapshot.paramMap.get('foldername') || '')?.parsedSimfiles?.get(this.route.snapshot.paramMap.get('filename') || '');
       if (this.selectedSimfile && this.selectedSimfile.youtubeVideos.length > 0)
         this.selectVideo(this.selectedSimfile?.youtubeVideos[0]);
     });

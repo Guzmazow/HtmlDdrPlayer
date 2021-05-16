@@ -12,7 +12,7 @@ const routes: Routes = [
         path: '', component: SimfileSelectorComponent
       },
       {
-        path: 'synchronizer/:filename', component: SynchronizerComponent
+        path: 'synchronizer/:foldername/:filename', component: SynchronizerComponent
       },
       {
         path: 'ddr-player', component: DdrPlayerComponent
