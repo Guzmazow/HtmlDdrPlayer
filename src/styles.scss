@@ -13,6 +13,10 @@ body {
   height: 100%;
 }
 
+button {
+  margin: 8px 8px 8px 0px !important;
+}
+
 $sizes: 6;
 
 @mixin margin-classes {

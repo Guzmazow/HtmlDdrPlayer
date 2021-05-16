@@ -1,6 +1,6 @@
 <mat-drawer-container #mainDrawerContainer class="main-container">
-    <mat-drawer mode="side" opened>
-        <mat-selection-list #simfiles [multiple]="false"
+    <mat-drawer mode="side" opened disableClose="true">
+        <mat-selection-list #simfiles multiple="false"
             (selectionChange)="onSimfileSelectionChange($event); mainDrawerContainer.updateContentMargins()">
             <mat-list-option *ngFor="let simfile of parsedSimfiles" [value]="simfile"
                 [selected]="selectedSimfile == simfile">

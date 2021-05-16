@@ -574,8 +574,7 @@
                 "youtubeVideos": [
                     {
                         "id": "VMb2ikp5sSU",
-                        "offset": 1.2,
-                        "skips": []
+                        "offset": 1.2
                     }
                 ]
             },
@@ -612,8 +611,7 @@
                 "youtubeVideos": [
                     {
                         "id": "nwr1A-KPopM",
-                        "offset": 2.09,
-                        "skips": []
+                        "offset": 2.09
                     }
                 ]
             },
@@ -622,8 +620,7 @@
                 "youtubeVideos": [
                     {
                         "id": "e-7uuV7B7mo",
-                        "offset": 0.3,
-                        "skips": []
+                        "offset": 0.3
                     }
                 ]
             },
@@ -631,9 +628,8 @@
                 "filename": "Bakusou Yumeuta.sm",
                 "youtubeVideos": [
                     {
-                        "offset": 1.5,
                         "id": "6W1ajuerl6o",
-                        "skips": []
+                        "offset": 1.5
                     }
                 ]
             },
@@ -641,8 +637,7 @@
                 "filename": "believe.sm",
                 "youtubeVideos": [
                     {
-                        "id": "JSH7burWTxs",
-                        "skips": []
+                        "id": "JSH7burWTxs"
                     }
                 ]
             },
@@ -651,8 +646,7 @@
                 "youtubeVideos": [
                     {
                         "id": "BlEmAcDm8pY",
-                        "offset": 0.3,
-                        "skips": []
+                        "offset": 0.3
                     }
                 ]
             },
@@ -661,8 +655,7 @@
                 "youtubeVideos": [
                     {
                         "id": "d08dw3ztKZw",
-                        "offset": 0.25,
-                        "skips": []
+                        "offset": 0.25
                     }
                 ]
             },
@@ -671,8 +664,7 @@
                 "youtubeVideos": [
                     {
                         "id": "XYIWI4I3ASk",
-                        "offset": 0.7,
-                        "skips": []
+                        "offset": 0.7
                     }
                 ]
             },
@@ -717,8 +709,7 @@
                 "filename": "Chaining Intention.sm",
                 "youtubeVideos": [
                     {
-                        "id": "GOwN_qvlYUg",
-                        "skips": []
+                        "id": "GOwN_qvlYUg"
                     }
                 ]
             },
@@ -754,8 +745,7 @@
                 "youtubeVideos": [
                     {
                         "id": "KOWcj7XKnfQ",
-                        "offset": 0.055,
-                        "skips": []
+                        "offset": 0.055
                     }
                 ]
             },
@@ -764,7 +754,12 @@
                 "youtubeVideos": [
                     {
                         "id": "f8d3bW42aFY",
-                        "skips": []
+                        "skips": [
+                            {
+                                "from": 0,
+                                "to": 0.13
+                            }
+                        ]
                     }
                 ]
             },
@@ -773,7 +768,7 @@
                 "youtubeVideos": [
                     {
                         "id": "80-W822k6Vw",
-                        "skips": []
+                        "offset": 7.95
                     }
                 ]
             },
@@ -782,7 +777,7 @@
                 "youtubeVideos": [
                     {
                         "id": "vXV7Cs3VChc",
-                        "skips": []
+                        "offset": 0.5
                     }
                 ]
             },
@@ -791,7 +786,12 @@
                 "youtubeVideos": [
                     {
                         "id": "PkdCpPK1vFY",
-                        "skips": []
+                        "skips": [
+                            {
+                                "from": 0,
+                                "to": 0.2
+                            }
+                        ]
                     }
                 ]
             },
@@ -800,7 +800,7 @@
                 "youtubeVideos": [
                     {
                         "id": "CZ73Qv-RQNg",
-                        "skips": []
+                        "offset": 0.25
                     }
                 ]
             },
@@ -809,7 +809,12 @@
                 "youtubeVideos": [
                     {
                         "id": "n2RgysLc66E",
-                        "skips": []
+                        "skips": [
+                            {
+                                "from": 0,
+                                "to": 0.2
+                            }
+                        ]
                     }
                 ]
             },
@@ -818,7 +823,12 @@
                 "youtubeVideos": [
                     {
                         "id": "_1hNaDmBS-U",
-                        "skips": []
+                        "skips": [
+                            {
+                                "from": 0,
+                                "to": 1
+                            }
+                        ]
                     }
                 ]
             },
@@ -827,7 +837,12 @@
                 "youtubeVideos": [
                     {
                         "id": "Gdt4h0ZobfI",
-                        "skips": []
+                        "skips": [
+                            {
+                                "from": 30,
+                                "to": 30
+                            }
+                        ]
                     }
                 ]
             },
@@ -835,8 +850,7 @@
                 "filename": "Feed A.sm",
                 "youtubeVideos": [
                     {
-                        "id": "CgeKdKzwSis",
-                        "skips": []
+                        "id": "CgeKdKzwSis"
                     }
                 ]
             },
@@ -845,11 +859,15 @@
                 "youtubeVideos": [
                     {
                         "id": "OgPWakn5b0c",
-                        "skips": []
+                        "skips": [
+                            {
+                                "from": 0,
+                                "to": 0.42
+                            }
+                        ]
                     },
                     {
-                        "id": "Ca5Tf5BDSYI",
-                        "skips": []
+                        "id": "Ca5Tf5BDSYI"
                     }
                 ]
             },
@@ -857,8 +875,7 @@
                 "filename": "Follow Me Feat.Sound Around.sm",
                 "youtubeVideos": [
                     {
-                        "id": "gjwxINQYwPg",
-                        "skips": []
+                        "id": "gjwxINQYwPg"
                     }
                 ]
             },
@@ -866,8 +883,7 @@
                 "filename": "Friends Making Group.sm",
                 "youtubeVideos": [
                     {
-                        "id": "dMuIIKbgoGc",
-                        "skips": []
+                        "id": "dMuIIKbgoGc"
                     }
                 ]
             },
@@ -876,7 +892,7 @@
                 "youtubeVideos": [
                     {
                         "id": "fcCJhQrGcEQ",
-                        "skips": []
+                        "offset": 1.1
                     }
                 ]
             },
@@ -885,7 +901,7 @@
                 "youtubeVideos": [
                     {
                         "id": "jr-YAO5loV8",
-                        "skips": []
+                        "offset": 0.08
                     }
                 ]
             },
@@ -894,7 +910,7 @@
                 "youtubeVideos": [
                     {
                         "id": "R9KhHVcRb7c",
-                        "skips": []
+                        "offset": 1.2
                     }
                 ]
             },
@@ -903,7 +919,12 @@
                 "youtubeVideos": [
                     {
                         "id": "iOrkj_MFXm8",
-                        "skips": []
+                        "skips": [
+                            {
+                                "from": 0,
+                                "to": 0.43
+                            }
+                        ]
                     }
                 ]
             },
@@ -912,12 +933,13 @@
                 "youtubeVideos": [
                     {
                         "id": "gWCnKoEgfP0",
-                        "skips": []
+                        "offset": 0.1
                     }
                 ]
             },
             {
                 "filename": "Gunjou Survival.sm",
+                "status": "Copyright hell",
                 "youtubeVideos": []
             },
             {
@@ -925,7 +947,12 @@
                 "youtubeVideos": [
                     {
                         "id": "8OkpRK2_gVs",
-                        "skips": []
+                        "skips": [
+                            {
+                                "from": 0,
+                                "to": 0.24
+                            }
+                        ]
                     }
                 ]
             },
@@ -933,8 +960,7 @@
                 "filename": "Hakushu Kassai Uta Awase.sm",
                 "youtubeVideos": [
                     {
-                        "id": "TVA3tnsjQY4",
-                        "skips": []
+                        "id": "TVA3tnsjQY4"
                     }
                 ]
             },
@@ -942,8 +968,8 @@
                 "filename": "HANAJI (2).sm",
                 "youtubeVideos": [
                     {
-                        "id": "pOHwVZc6QYY",
-                        "skips": []
+                        "offset": 0.11,
+                        "id": "pOHwVZc6QYY"
                     }
                 ]
             },
@@ -952,7 +978,8 @@
                 "youtubeVideos": [
                     {
                         "id": "pOHwVZc6QYY",
-                        "skips": []
+                        "offset": 0.115
+
                     }
                 ]
             },
@@ -960,8 +987,8 @@
                 "filename": "Haruka Kanata.sm",
                 "youtubeVideos": [
                     {
-                        "id": "SRn99oN1p_c",
-                        "skips": []
+                        "id": "2SHfwrMDapc",
+                        "offset": 0.5
                     }
                 ]
             },
@@ -970,7 +997,12 @@
                 "youtubeVideos": [
                     {
                         "id": "E-ejE--Q3UE",
-                        "skips": []
+                        "skips": [
+                            {
+                                "from": 0,
+                                "to": 0.13
+                            }
+                        ]
                     }
                 ]
             },
@@ -993,7 +1025,7 @@
                 "youtubeVideos": [
                     {
                         "id": "vxvP9zSOL7s",
-                        "skips": []
+                        "offset": 0.05
                     }
                 ]
             },
@@ -1001,8 +1033,21 @@
                 "filename": "holLow wORlD.sm",
                 "youtubeVideos": [
                     {
-                        "id": "4XtHp3NxQLc",
-                        "skips": []
+                        "id": "4XtHp3NxQLc"
+                    }
+                ]
+            },
+            {
+                "filename": "HOTD.sm",
+                "youtubeVideos": [
+                    {
+                        "id": "TQwQMeb-44g",
+                        "skips": [
+                            {
+                                "from": 0,
+                                "to": 0.02
+                            }
+                        ]
                     }
                 ]
             },
@@ -1011,7 +1056,7 @@
                 "youtubeVideos": [
                     {
                         "id": "od5pOw6y2a0",
-                        "skips": []
+                        "offset": 0.7
                     }
                 ]
             },
@@ -1019,8 +1064,13 @@
                 "filename": "KABANERI OF THE IRON FORTRESS.sm",
                 "youtubeVideos": [
                     {
-                        "id": "BQwwn4QO6aI",
-                        "skips": []
+                        "id": "rbE0g6OV7RI",
+                        "skips": [
+                            {
+                                "from": 0,
+                                "to": 0.52
+                            }
+                        ]
                     }
                 ]
             },
@@ -1028,8 +1078,8 @@
                 "filename": "Key.sm",
                 "youtubeVideos": [
                     {
-                        "id": "REHaJZgWwxY",
-                        "skips": []
+                        "id": "jD3ZawJlZR0",
+                        "offset": 1.4
                     }
                 ]
             },
@@ -1037,8 +1087,7 @@
                 "filename": "Kimi ja Nakya Dame Mitai.sm",
                 "youtubeVideos": [
                     {
-                        "id": "EjgOD9vruTE",
-                        "skips": []
+                        "id": "EjgOD9vruTE"
                     }
                 ]
             },
@@ -1047,7 +1096,7 @@
                 "youtubeVideos": [
                     {
                         "id": "hRo1uK2NILo",
-                        "skips": []
+                        "offset": 0.32
                     }
                 ]
             },
@@ -1056,7 +1105,7 @@
                 "youtubeVideos": [
                     {
                         "id": "hRo1uK2NILo",
-                        "skips": []
+                        "offset": 0.32
                     }
                 ]
             },
@@ -1065,7 +1114,7 @@
                 "youtubeVideos": [
                     {
                         "id": "HBT7o-o8zjA",
-                        "skips": []
+                        "offset": 0.7
                     }
                 ]
             },
@@ -1073,8 +1122,7 @@
                 "filename": "Kimi no Shiranai Monogatari.sm",
                 "youtubeVideos": [
                     {
-                        "id": "HBT7o-o8zjA",
-                        "skips": []
+                        "id": "HBT7o-o8zjA"
                     }
                 ]
             },
@@ -1083,7 +1131,7 @@
                 "youtubeVideos": [
                     {
                         "id": "ChayFwyFvPk",
-                        "skips": []
+                        "offset": 0.1
                     }
                 ]
             },
@@ -1092,7 +1140,7 @@
                 "youtubeVideos": [
                     {
                         "id": "nN0NKKcBCdQ",
-                        "skips": []
+                        "offset": 0.3
                     }
                 ]
             },
@@ -1101,7 +1149,7 @@
                 "youtubeVideos": [
                     {
                         "id": "HdgD7E6JEE4",
-                        "skips": []
+                        "offset": 0.17
                     }
                 ]
             },
@@ -1112,8 +1160,14 @@
                         "id": "v9wrDGfYCWA",
                         "skips": [
                             {
-                                "from": 1,
-                                "to": null
+                                "from": 0,
+                                "to": 0.5,
+                                "skipped": false
+                            },
+                            {
+                                "from": 94,
+                                "to": 229.71,
+                                "skipped": false
                             }
                         ]
                     }
@@ -1124,7 +1178,13 @@
                 "youtubeVideos": [
                     {
                         "id": "6jfMKoN16fI",
-                        "skips": []
+                        "skips": [
+                            {
+                                "from": 0,
+                                "to": 1.5,
+                                "skipped": false
+                            }
+                        ]
                     }
                 ]
             },
@@ -1133,7 +1193,7 @@
                 "youtubeVideos": [
                     {
                         "id": "KmrTuNXVrf4",
-                        "skips": []
+                        "offset": 0.35
                     }
                 ]
             },
@@ -1142,7 +1202,7 @@
                 "youtubeVideos": [
                     {
                         "id": "bnmPUlbwVc4",
-                        "skips": []
+                        "offset": 1.11
                     }
                 ]
             },
@@ -1151,7 +1211,7 @@
                 "youtubeVideos": [
                     {
                         "id": "bnmPUlbwVc4",
-                        "skips": []
+                        "offset": 0.11
                     }
                 ]
             },
@@ -1160,7 +1220,7 @@
                 "youtubeVideos": [
                     {
                         "id": "7uTmelgEsE8",
-                        "skips": []
+                        "offset": 0.1
                     }
                 ]
             },
@@ -1169,7 +1229,12 @@
                 "youtubeVideos": [
                     {
                         "id": "cHN2mdIwB8M",
-                        "skips": []
+                        "skips": [
+                            {
+                                "from": 0,
+                                "to": 0.1
+                            }
+                        ]
                     }
                 ]
             },
@@ -1178,7 +1243,12 @@
                 "youtubeVideos": [
                     {
                         "id": "reTAq6CjHQ0",
-                        "skips": []
+                        "skips": [
+                            {
+                                "from": 0,
+                                "to": 0.6
+                            }
+                        ]
                     }
                 ]
             },
@@ -1187,12 +1257,13 @@
                 "youtubeVideos": [
                     {
                         "id": "-cFvEPfhMdo",
-                        "skips": []
+                        "offset": 19.07
                     }
                 ]
             },
             {
                 "filename": "Orange.sm",
+                "status": "Copyright hell",
                 "youtubeVideos": []
             },
             {
@@ -1203,7 +1274,7 @@
                         "skips": [
                             {
                                 "from": 0,
-                                "to": 2.4
+                                "to": 0.95
                             }
                         ]
                     }
@@ -1214,7 +1285,7 @@
                 "youtubeVideos": [
                     {
                         "id": "eYK3YP524A",
-                        "skips": []
+                        "offset": 0.21
                     }
                 ]
             },
@@ -1223,7 +1294,12 @@
                 "youtubeVideos": [
                     {
                         "id": "iu_0kOfMGD0",
-                        "skips": []
+                        "skips": [
+                            {
+                                "from": 0,
+                                "to": 0.1
+                            }
+                        ]
                     }
                 ]
             },
@@ -1231,8 +1307,7 @@
                 "filename": "Pray.sm",
                 "youtubeVideos": [
                     {
-                        "id": "REHaJZgWwxY",
-                        "skips": []
+                        "id": "REHaJZgWwxY"
                     }
                 ]
             },
@@ -1241,7 +1316,12 @@
                 "youtubeVideos": [
                     {
                         "id": "3v_USHwhxe8",
-                        "skips": []
+                        "skips": [
+                            {
+                                "from": 0,
+                                "to": 0.19
+                            }
+                        ]
                     }
                 ]
             },
@@ -1250,7 +1330,12 @@
                 "youtubeVideos": [
                     {
                         "id": "gz_nHGZutVU",
-                        "skips": []
+                        "skips": [
+                            {
+                                "from": 0,
+                                "to": 0.13
+                            }
+                        ]
                     }
                 ]
             },
@@ -1258,8 +1343,7 @@
                 "filename": "Raise your flag.sm",
                 "youtubeVideos": [
                     {
-                        "id": "FjXS_lbU2TU",
-                        "skips": []
+                        "id": "FjXS_lbU2TU"
                     }
                 ]
             },
@@ -1268,7 +1352,7 @@
                 "youtubeVideos": [
                     {
                         "id": "XXjgwpayNoM",
-                        "skips": []
+                        "offset": 0.7
                     }
                 ]
             },
@@ -1277,7 +1361,7 @@
                 "youtubeVideos": [
                     {
                         "id": "fodAJ-1dN3I",
-                        "skips": []
+                        "offset": 61.85
                     }
                 ]
             },
@@ -1285,8 +1369,7 @@
                 "filename": "Reason Living.sm",
                 "youtubeVideos": [
                     {
-                        "id": "v9OhNoPAZJY",
-                        "skips": []
+                        "id": "v9OhNoPAZJY"
                     }
                 ]
             },
@@ -1295,7 +1378,7 @@
                 "youtubeVideos": [
                     {
                         "id": "0Vwwr3VGsYg",
-                        "skips": []
+                        "offset": 0.73
                     }
                 ]
             },
@@ -1304,7 +1387,12 @@
                 "youtubeVideos": [
                     {
                         "id": "5O_roG-cfF4",
-                        "skips": []
+                        "skips": [
+                            {
+                                "from": 0,
+                                "to": 0.9
+                            }
+                        ]
                     }
                 ]
             },
@@ -1312,8 +1400,11 @@
                 "filename": "Rising Hope.sm",
                 "youtubeVideos": [
                     {
-                        "id": "fKTkzCNDSRw",
-                        "skips": []
+                        "id": "RmIyTzutud4",
+                        "offset": 0.1
+                    },
+                    {
+                        "id": "fKTkzCNDSRw"
                     }
                 ]
             },
@@ -1322,7 +1413,12 @@
                 "youtubeVideos": [
                     {
                         "id": "f74_M9-o9do",
-                        "skips": []
+                        "skips": [
+                            {
+                                "from": 0,
+                                "to": 0.45
+                            }
+                        ]
                     }
                 ]
             },
@@ -1334,18 +1430,9 @@
                         "skips": [
                             {
                                 "from": 0,
-                                "to": 49
+                                "to": 49.283
                             }
                         ]
-                    }
-                ]
-            },
-            {
-                "filename": "sm.sm",
-                "youtubeVideos": [
-                    {
-                        "id": "TQwQMeb-44g",
-                        "skips": []
                     }
                 ]
             },
@@ -1354,7 +1441,7 @@
                 "youtubeVideos": [
                     {
                         "id": "8EMCTHpRnJE",
-                        "skips": []
+                        "offset": 0.26
                     }
                 ]
             },
@@ -1362,8 +1449,8 @@
                 "filename": "STRIKE BACK.sm",
                 "youtubeVideos": [
                     {
-                        "id": "7p_bsuValtA",
-                        "skips": []
+                        "id": "m6cJaI1Z_v4",
+                        "offset": 0.02
                     }
                 ]
             },
@@ -1372,7 +1459,7 @@
                 "youtubeVideos": [
                     {
                         "id": "AefEZWOWMeY",
-                        "skips": []
+                        "offset": 1.15
                     }
                 ]
             },
@@ -1380,16 +1467,28 @@
                 "filename": "Sugar Song to Bitter Step.sm",
                 "youtubeVideos": [
                     {
-                        "id": "3exsRhw3xt8",
-                        "skips": []
-                    },
-                    {
-                        "id": "8KHGsjXXJlY",
-                        "skips": []
-                    },
-                    {
                         "id": "j3SlUmr_T4g",
-                        "skips": []
+                        "offset": 9.7,
+                        "skips": [
+                            {
+                                "from": 0,
+                                "to": 6
+                            }
+                        ]
+                    },
+                    {
+                        "id": "3exsRhw3xt8",
+                        "offset": 0.05,
+                        "skips": [
+                            {
+                                "from": 7.7,
+                                "to": 22.25
+                            },
+                            {
+                                "from": 89.6,
+                                "to": 67.8
+                            }
+                        ]
                     }
                 ]
             },
@@ -1398,7 +1497,7 @@
                 "youtubeVideos": [
                     {
                         "id": "r_iWmWNr8xU",
-                        "skips": []
+                        "offset": 0.02
                     }
                 ]
             },
@@ -1407,7 +1506,12 @@
                 "youtubeVideos": [
                     {
                         "id": "yu0HjPzFYnY",
-                        "skips": []
+                        "skips": [
+                            {
+                                "from": 0,
+                                "to": 0.08
+                            }
+                        ]
                     }
                 ]
             },
@@ -1416,7 +1520,12 @@
                 "youtubeVideos": [
                     {
                         "id": "atxYe-nOa9w",
-                        "skips": []
+                        "skips": [
+                            {
+                                "from": 0,
+                                "to": 0.34
+                            }
+                        ]
                     }
                 ]
             },
@@ -1427,8 +1536,8 @@
                         "id": "lyzQL5EjKhM",
                         "skips": [
                             {
-                                "from": 4,
-                                "to": null
+                                "from": 88,
+                                "to": 272
                             }
                         ]
                     }
@@ -1438,8 +1547,7 @@
                 "filename": "Toumei Datta Sekai.sm",
                 "youtubeVideos": [
                     {
-                        "id": "lGTp4VogNaQ",
-                        "skips": []
+                        "id": "lGTp4VogNaQ"
                     }
                 ]
             },
@@ -1448,7 +1556,12 @@
                 "youtubeVideos": [
                     {
                         "id": "86sLUOnyCPs",
-                        "skips": []
+                        "skips": [
+                            {
+                                "from": 0,
+                                "to": 0.5
+                            }
+                        ]
                     }
                 ]
             },
@@ -1457,7 +1570,7 @@
                 "youtubeVideos": [
                     {
                         "id": "10n1ZJGx7A0",
-                        "skips": []
+                        "offset": 4.86
                     }
                 ]
             },
@@ -1465,8 +1578,8 @@
                 "filename": "V.I.P.sm",
                 "youtubeVideos": [
                     {
-                        "id": "M8JuOhB7-U0",
-                        "skips": []
+                        "id": "M8JuOhB7-U0",   
+                        "offset": 3.18
                     }
                 ]
             },
@@ -1475,7 +1588,10 @@
                 "youtubeVideos": [
                     {
                         "id": "nau1BvFAGLY",
-                        "skips": []
+                        "skips": [    {
+                            "from": 0,
+                            "to": 1.38
+                          }]
                     }
                 ]
             },
@@ -1483,8 +1599,7 @@
                 "filename": "Wonderland.sm",
                 "youtubeVideos": [
                     {
-                        "id": "lelGG_1jtcg",
-                        "skips": []
+                        "id": "lelGG_1jtcg"
                     }
                 ]
             }

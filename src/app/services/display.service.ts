@@ -38,7 +38,7 @@ export class DisplayService {
     this.simfileLoaderService.gameRequested.subscribe(r => {
       if (!r) return;
       this.gameRequest = r;
-      this.currentTime = r.parsedSimfile.offset;
+      this.currentTime = r.parsedSimfile.offset + (r.youtubeVideo.offset ?? 0);
       this.displayOptions = new DisplayOptions(700, r.playableSimfileMode.tracks.length, 0.001);
       this.mediaService.prepareMedia(this.displayOptions.noteSize);
       this.mediaService.onMediaLoaded.subscribe(()=>{
@@ -65,7 +65,7 @@ export class DisplayService {
       }
 
 
-      var newPlayerTime = Math.round((this.gameRequest.parsedSimfile.offset ?? 0) + this.mediaService.video.getCurrentTime() * 1000) / 1000;
+      var newPlayerTime = Math.round(((this.gameRequest.parsedSimfile.offset ?? 0) + (this.gameRequest.youtubeVideo.offset ?? 0) + this.mediaService.video.getCurrentTime()) * 1000) / 1000;
       if (this.currentPlayerTime != newPlayerTime) {
         this.currentPlayerTime = newPlayerTime;
       }

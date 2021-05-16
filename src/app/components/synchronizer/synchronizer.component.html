@@ -1,32 +1,57 @@
 <p>synchronizer works!</p>
-<div *ngIf="selectedSimfile">
-
-
-    <form>
-        <button mat-raised-button (click)="fileInput.click()">File</button>
-        <input hidden type="file" accept="audio/*" #fileInput (change)="audioSelected($event)" />
-        <button mat-raised-button (click)="play()">Play</button>
-        <button mat-raised-button (click)="reset()">Reset</button>
-        <mat-form-field>
-            <mat-label>Offset</mat-label>
-            <input type="number" matInput (change)="changeOffset($event)" />
-        </mat-form-field>
-        <mat-form-field>
-            <mat-label>From</mat-label>
-            <input type="number" matInput step="0.01" (change)="changeFrom($event)" />
-        </mat-form-field>
-        <mat-form-field>
-            <mat-label>To</mat-label>
-            <input type="number" matInput step="0.01" (change)="changeTo($event)" />
-        </mat-form-field>
+<div *ngIf="selectedSimfile" class="m2">
+    <form *ngIf="youtubeVideoForm" [formGroup]="youtubeVideoForm" class="mb2">
+        <div>
+            <mat-form-field appearance="fill">
+                <mat-label>Id</mat-label>
+                <input type="text" matInput formControlName="id" />
+            </mat-form-field>
+        </div>
+        <div>
+            <mat-form-field appearance="fill">
+                <mat-label>Offset</mat-label>
+                <input type="number" step="0.1" matInput formControlName="offset" />
+            </mat-form-field>
+        </div>
+        <div formArrayName="skips">
+            <div *ngFor="let skill of youtubeVideoFormSkips.controls; let i=index">
+                <div [formGroupName]="i">
+                    <mat-form-field appearance="fill">
+                        <mat-label>From</mat-label>
+                        <input type="number" step="0.1" matInput formControlName="from" />
+                    </mat-form-field>
+                    <mat-form-field appearance="fill" class="ml2">
+                        <mat-label>To</mat-label>
+                        <input type="number" step="0.1" matInput formControlName="to" />
+                    </mat-form-field>
+                </div>
+            </div>
+            <button mat-raised-button (click)="addSkip()">Add skip</button>
+            <button mat-raised-button (click)="removeSkip()">Remove skip</button>
+        </div>
     </form>
 
+    <div class="my2">
+        <button mat-raised-button (click)="fileInput.click()">File</button>
+        <input hidden type="file" accept="audio/*" #fileInput (change)="audioSelected($event)" />
+        <button mat-raised-button (click)="reset(); play()">Reset & Play</button>
+        <button mat-raised-button (click)="play()">Play</button>
+        <button mat-raised-button (click)="reset()">Reset</button>
+        <button mat-raised-button (click)="pause()">Pause</button>
+        <button mat-raised-button (click)="pause10msAudio()">Pause 10ms audio</button>
+        <button mat-raised-button (click)="pause10msVideo()">Pause 10ms video</button>
+        <button mat-raised-button (click)="play10msAudio()">play 10ms audio</button>
+        <button mat-raised-button (click)="play10msVideo()">play 10ms video</button>
+    </div>
 
-
-
+    <div>
+        {{audioLocation}}
+    </div>
+    <div>
+        {{videoLocation}}
+    </div>
 
     <audio style="width:100%;" #audioPlayer controls></audio>
-
     <mat-tab-group animationDuration="0ms" (selectedTabChange)="onVideoSelected($event)">
         <mat-tab [label]="registryVideo.id" style="height: 300px;"
             *ngFor="let registryVideo of selectedSimfile.youtubeVideos">
@@ -42,6 +67,6 @@
 
     <hr>
 
-    <pre>{{selectedSimfile | json}}</pre>
+    <pre>{{selectedVideo | json}}</pre>
 
 </div>

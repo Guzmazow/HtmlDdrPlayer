@@ -24,7 +24,7 @@ import { JudgementComponent } from '@components/judgement/judgement.component';
 import { ReceptorComponent } from '@components/receptor/receptor.component';
 import { NgxY2PlayerModule } from 'ngx-y2-player';
 import { SimfileSelectorComponent } from './components/simfile-selector/simfile-selector.component';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { KeyboardService } from '@services/keyboard.service';
 import { YoutubeVideoComponent } from './components/youtube-video/youtube-video.component';
 import { SynchronizerComponent } from './components/synchronizer/synchronizer.component';
@@ -58,7 +58,7 @@ import { SynchronizerComponent } from './components/synchronizer/synchronizer.co
     MatListModule,
     MatTabsModule,
     MatInputModule,
-    FormsModule
+    ReactiveFormsModule
   ],
   providers: [KeyboardService],
   bootstrap: [AppComponent]

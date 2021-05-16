@@ -33,7 +33,8 @@ export class ParsedSimfile implements SimfileRegistryEntry {
     this.smFileLocation = `/assets/Simfiles/Otaku's Dream Mix/${registryEntry.filename}`;
     this.youtubeVideos = registryEntry.youtubeVideos;
     this.youtubeVideos.forEach(y => {
-      y.skips = y.skips.map(x => ({ from: x.from, to: x.to, skipped: false }));
+      y.offset = y.offset ?? 0;
+      y.skips = y.skips?.map(x => ({ from: x.from, to: x.to, skipped: false })) ?? [];
     });
 
 

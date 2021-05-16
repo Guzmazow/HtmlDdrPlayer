@@ -1,4 +1,5 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { FormArray, FormControl, FormGroup } from '@angular/forms';
 import { MatTabChangeEvent } from '@angular/material/tabs';
 import { ActivatedRoute } from '@angular/router';
 import { ParsedSimfile } from '@models/parsed-simfile';
@@ -13,9 +14,29 @@ import { NgxY2PlayerComponent, NgxY2PlayerOptions } from 'ngx-y2-player';
 })
 export class SynchronizerComponent implements OnInit {
 
-  offset: number = 0;
-  from: number = 0;
-  to: number = 0;
+  youtubeVideoForm?: FormGroup;
+  get youtubeVideoFormSkips(): FormArray {
+    return this.youtubeVideoForm?.get('skips') as FormArray;
+  }
+  addSkip(from: number = 0, to: number | null = null) {
+    if (confirm('You sure about that?')) {
+      this.youtubeVideoFormSkips.push(new FormGroup({
+        'from': new FormControl(from),
+        'to': new FormControl(to),
+        'skipped': new FormControl(false),
+      }));
+    }
+  }
+
+  removeSkip() {
+    if (confirm('You sure about that?')) {
+      this.youtubeVideoFormSkips.removeAt(this.youtubeVideoFormSkips.length - 1)
+    }
+  }
+
+
+  audioLocation: number = 0;
+  videoLocation: number = 0;
 
   selectedVideo?: SimfileRegistryYoutubeInfo;
   selectedSimfile?: ParsedSimfile;
@@ -29,7 +50,7 @@ export class SynchronizerComponent implements OnInit {
     height: 'auto',//screen.height, // you can set 'auto', it will use container width to set size
     width: 'auto',//screen.width,
     playerVars: {
-      start: 20,
+      //start: 20,
       autoplay: 0,
       disablekb: YT.KeyboardControls.Disable,
       iv_load_policy: YT.IvLoadPolicy.Show,
@@ -39,13 +60,49 @@ export class SynchronizerComponent implements OnInit {
     // aspectRatio: (3 / 4), // you can set ratio of aspect ratio to auto resize with
   };
 
-  constructor(private route: ActivatedRoute, private s1imfileLoaderService: SimfileLoaderService) { }
+  constructor(private route: ActivatedRoute, private s1imfileLoaderService: SimfileLoaderService) {
+    requestAnimationFrame(this.matchLocation.bind(this));
+  }
+
+  matchLocation() {
+    this.audioLocation = this.audioPlayer?.currentTime ?? 0;
+    if (this.video?.videoPlayer?.getCurrentTime)
+      this.videoLocation = this.video?.videoPlayer.getCurrentTime() ?? 0;
+    requestAnimationFrame(this.matchLocation.bind(this));
+  }
 
   ngOnInit() {
+
+
     this.s1imfileLoaderService.parsedSimfilesLoaded.subscribe((loaded) => {
       if (!loaded) return;
       this.selectedSimfile = this.s1imfileLoaderService.parsedSimfiles?.get(this.route.snapshot.paramMap.get('filename') || '');
+      if (this.selectedSimfile && this.selectedSimfile.youtubeVideos.length > 0)
+        this.selectVideo(this.selectedSimfile?.youtubeVideos[0]);
     });
+  }
+
+  initYoutubeVideoForm(youtubeVideo: SimfileRegistryYoutubeInfo) {
+    this.youtubeVideoForm = new FormGroup({
+      'id': new FormControl(null),
+      'offset': new FormControl(null),
+      'skips': new FormArray(youtubeVideo.skips?.map(x => new FormGroup({
+        'from': new FormControl(null),
+        'to': new FormControl(null),
+        'skipped': new FormControl(null),
+      })) ?? [])
+    });
+
+    this.youtubeVideoForm?.setValue(youtubeVideo);
+
+    this.youtubeVideoForm?.valueChanges.subscribe(newValue => {
+      Object.assign(this.selectedVideo, newValue);
+    });
+  }
+
+  selectVideo(youtubeVideo: SimfileRegistryYoutubeInfo) {
+    this.selectedVideo = youtubeVideo;
+    this.initYoutubeVideoForm(youtubeVideo);
   }
 
   onVideoReady(event: YT.PlayerEvent) {
@@ -57,7 +114,8 @@ export class SynchronizerComponent implements OnInit {
   }
 
   onVideoSelected(ev: MatTabChangeEvent) {
-    this.selectedVideo = this.selectedSimfile?.youtubeVideos[ev.index];
+    if (this.selectedSimfile)
+      this.selectVideo(this.selectedSimfile?.youtubeVideos[ev.index]);
   }
 
   audioSelected(event: Event) {
@@ -76,14 +134,24 @@ export class SynchronizerComponent implements OnInit {
   }
 
   reset() {
-    if (this.audioPlayer && this.audioPlayer.duration && this.video) {
-      this.audioPlayer.currentTime = this.from + this.offset /1000;
-      this.audioPlayer.pause();
-      this.video.videoPlayer.seekTo(this.to, true);
-      this.video.videoPlayer.pauseVideo();
+    if (this.audioPlayer && this.audioPlayer.duration && this.video && this.selectedVideo) {
+      let originalSkip = 0;
+      for (let index = 0; index < this.selectedVideo.skips.length - 1 /*Last skip not yet applied*/; index++) {
+        originalSkip -= (this.selectedVideo.skips[index]?.to ?? 0) - (this.selectedVideo.skips[index].from ?? 0);
+      }
 
+      let lastSkip = this.selectedVideo.skips[this.selectedVideo.skips.length - 1];
+      this.audioPlayer.currentTime = (lastSkip?.from ?? 0) + originalSkip + (this.selectedVideo?.offset ?? 0);
+      this.audioPlayer.pause();
+      this.video.videoPlayer.seekTo(lastSkip?.to ?? 0, true);
+      this.video.videoPlayer.pauseVideo();
     }
 
+  }
+
+  pause() {
+    this.audioPlayer?.pause();
+    this.video?.videoPlayer.pauseVideo();
   }
 
   play() {
@@ -93,28 +161,39 @@ export class SynchronizerComponent implements OnInit {
       //     this.video?.videoPlayer.playVideo();
       //   }, this.offset);
       // } else {
-        this.video?.videoPlayer.playVideo();
+
+      this.video?.videoPlayer.playVideo();
       //}
       this.audioPlayer.play();
     }
-
+  }
+  pause10msAudio() {
+    this.audioPlayer?.pause();
+    setTimeout(() => {
+      this.audioPlayer?.play();
+    }, 10);
   }
 
-  changeOffset(ev: Event) {
-    this.offset = +(<HTMLInputElement>ev.target).value;
-    this.reset();
-    this.play();
+  pause10msVideo() {
+    this.video?.videoPlayer.pauseVideo();
+    setTimeout(() => {
+      this.video?.videoPlayer.playVideo();
+    }, 10);
   }
 
-  changeFrom(ev: Event) {
-    this.from = +(<HTMLInputElement>ev.target).value;
-    this.reset();
-    this.play();
+  play10msAudio() {
+    this.audioPlayer?.play();
+    setTimeout(() => {      
+      this.audioPlayer?.pause();
+    }, 10);
   }
 
-  changeTo(ev: Event) {
-    this.to = +(<HTMLInputElement>ev.target).value;
-    this.reset();
-    this.play();
+  play10msVideo() {
+    this.video?.videoPlayer.playVideo();    
+    setTimeout(() => {
+      this.video?.videoPlayer.pauseVideo();
+    }, 10);
   }
+
+
 }
