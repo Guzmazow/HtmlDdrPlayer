@@ -12,7 +12,7 @@ export class ParsedSimfile implements SimfileRegistryEntry {
   title: string = "";
   titleTranslit: string = "";
   subtitle: string = "";
-  subTitleTranslit: string = "";
+  subtitleTranslit: string = "";
   artist: string = "";
   artistTranslit: string = "";
   credit: string = ""; //Prefer one on difficulty mode because of collab
@@ -54,7 +54,7 @@ export class ParsedSimfile implements SimfileRegistryEntry {
     this.title = this.rawMetaData.get("TITLE") ?? "";
     this.titleTranslit = this.rawMetaData.get("TITLETRANSLIT") ?? "";
     this.subtitle = this.rawMetaData.get("SUBTITLE") ?? "";
-    this.subTitleTranslit = this.rawMetaData.get("SUBTITLETRANSLIT") ?? "";
+    this.subtitleTranslit = this.rawMetaData.get("SUBTITLETRANSLIT") ?? "";
     this.artist = this.rawMetaData.get("ARTIST") ?? "";
     this.artistTranslit = this.rawMetaData.get("ARTISTTRANSLIT") ?? "";
     this.credit = this.rawMetaData.get("CREDIT") ?? "";
