@@ -11,16 +11,6 @@
     </mat-drawer>
     <mat-drawer-content>
         <div *ngIf="selectedSimfile">
-            <!-- <div>
-                <mat-form-field>
-                    <mat-label>From</mat-label>
-                    <input matInput type="number" step="0.01" [(ngModel)]="from">
-                </mat-form-field>
-                <mat-form-field>
-                    <mat-label>To</mat-label>
-                    <input matInput type="number" step="0.01" [(ngModel)]="to">
-                </mat-form-field>
-            </div> -->
             <button mat-raised-button (click)="playSelectedMode()">Play</button>
             <button mat-raised-button [routerLink]="['/synchronizer', selectedSimfile.filename]">Sync</button>
 
