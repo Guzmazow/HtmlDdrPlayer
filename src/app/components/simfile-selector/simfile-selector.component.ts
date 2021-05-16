@@ -3,7 +3,6 @@ import { MatListOption, MatSelectionList, MatSelectionListChange } from '@angula
 import { ParsedSimfile } from '@models/parsed-simfile';
 import { SimfileLoaderService } from '@services/simfile-loader.service';
 import { NgxY2PlayerOptions } from 'ngx-y2-player';
-import { MediaService } from '@services/media.service';
 import { ParsedSimfileMode } from '@models/parsed-simfile-mode';
 import { Difficulty, GameMode, GameModeType, Key } from '@models/enums';
 import { MatTabChangeEvent } from '@angular/material/tabs';
@@ -42,7 +41,8 @@ export class SimfileSelectorComponent implements OnInit, OnDestroy {
     height: 'auto',//screen.height, // you can set 'auto', it will use container width to set size
     width: 'auto',//screen.width,
     playerVars: {
-      start: 20,
+      start: 0,
+      end: undefined,
       autoplay: 0,
       disablekb: YT.KeyboardControls.Disable,
       iv_load_policy: YT.IvLoadPolicy.Show,
@@ -116,57 +116,6 @@ export class SimfileSelectorComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.keyPressSubscribe?.unsubscribe();
-  }
-
-  currentAnimationFrame?: number;
-  player?: YT.Player;
-  lastTime: number = 0;
-  from: number = 0;
-  to: number = 0;
-
-  onVideoReady(event: YT.PlayerEvent) {
-    // this.mediaService.setPlayer(event.target);
-    this.player = event.target;
-    if (this.currentAnimationFrame)
-      cancelAnimationFrame(this.currentAnimationFrame);
-    this.currentAnimationFrame = requestAnimationFrame(this.tick.bind(this));
-  }
-
-  tick() {
-    // if (this.player && this.selectedSimfile) {
-    //   let time = this.player.getCurrentTime();
-    //   if(time > (this.to + 1)){
-    //     this.player.seekTo(this.from - 1, true);
-    //     this.player.playVideo();
-    //   }
-
-    //   if(time >= this.from && time < this.to){
-    //     this.player.seekTo(this.to, true);
-    //     this.player.playVideo();
-    //   }
-    // }
-
-    if (this.player && this.selectedVideo) {
-      var newTime = +this.player.getCurrentTime().toFixed(4)
-      if (this.lastTime != newTime) {
-        this.lastTime = newTime;
-      }
-      for (let skip of this.selectedVideo.skips) {
-        if (this.lastTime >= skip.from) {
-          if (!skip.to) {
-            this.player.stopVideo();
-            console.log("ending", skip.from);
-            return;
-          }
-          if (this.lastTime < skip.to) {
-            this.player.seekTo(skip.to, true);
-            this.player.playVideo();
-            console.log("skipping", skip.from, skip.to);
-          }
-        }
-      }
-    }
-    this.currentAnimationFrame = requestAnimationFrame(this.tick.bind(this));
   }
 
   selectSimfile(parsedSimfile: ParsedSimfile) {

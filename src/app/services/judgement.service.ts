@@ -39,7 +39,7 @@ export class JudgementService {
     }
     this.judgePrecision = judgePrecision;
     this.keyboardService.onPress.subscribe(x => this.judgePress(x.key, x.state))
-    this.displayService.onStart.subscribe(x => { this.startedJudging = true; })
+    this.displayService.onGamePlayStateChange.subscribe(playing => { this.startedJudging = playing; })
     this.keyboardService.onLongPress.subscribe(key => this.longPress(key))
     this.displayService.onRedraw.subscribe(() => this.judgeMisses())
 
@@ -47,10 +47,6 @@ export class JudgementService {
 
   longPress(key: Key): void {
     console.log('long pressed', key);
-    if (key == Key.CANCEL || key == Key.START || key == Key.SELECT) {
-      this.startedJudging = false;
-      this.router.navigate(['/']);
-    }
   }
 
   judgeMisses() {

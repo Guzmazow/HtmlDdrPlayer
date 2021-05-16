@@ -4,8 +4,8 @@
             (selectionChange)="onSimfileSelectionChange($event); mainDrawerContainer.updateContentMargins()">
             <mat-list-option *ngFor="let simfile of parsedSimfiles" [value]="simfile"
                 [selected]="selectedSimfile == simfile">
-                {{simfile.title}}
-                <span style="font-size: x-small;">{{simfile.artist}}</span>
+                {{simfile.titleTranslit || simfile.title}}
+                <span style="font-size: x-small;">{{simfile.artistTranslit || simfile.artist}}</span>
             </mat-list-option>
         </mat-selection-list>
     </mat-drawer>
@@ -41,35 +41,131 @@
                     <ng-template matTabContent>
                         <div style="height: 100%; width: 750px;" #videoContainer>
                             <ngx-y2-player #video [videoId]="registryVideo.id" [playerOptions]="playerOptions"
-                                [container]="videoContainer" (ready)="onVideoReady($event)">
+                                [container]="videoContainer">
                             </ngx-y2-player>
                         </div>
                     </ng-template>
                 </mat-tab>
             </mat-tab-group>
             <div class="p2">
-                <!-- <div>smFileLocation: {{ selectedSimfile.smFileLocation }}</div> -->
-
-                <div>filename: {{ selectedSimfile.filename }}</div>
-                <div>loaded: {{ selectedSimfile.loaded }}</div>
-                <div>title: {{ selectedSimfile.title }}</div>
-                <div>artist: {{ selectedSimfile.artist }}</div>
-                <div>banner: {{ selectedSimfile.banner }}</div>
-                <div>background: {{ selectedSimfile.background }}</div>
-                <div>cdTitle: {{ selectedSimfile.cdTitle }}</div>
-                <div>music: {{ selectedSimfile.music }}</div>
-                <div>offset: {{ selectedSimfile.offset }}</div>
-                <div>sampleStart: {{ selectedSimfile.sampleStart }}</div>
-                <div>sampleLength: {{ selectedSimfile.sampleLength }}</div>
-                <div>selectable: {{ selectedSimfile.selectable }}</div>
-
-                Videos:
-
-
-
-
-                <!-- <div>bpms: {{ selectedSimfile.bpms }}</div> -->
-                <!-- <div>bgChanges: {{ selectedSimfile.bgChanges }}</div> -->
+                <table>
+                    <tr>
+                        <th>Key</th>
+                        <th>Value</th>
+                    </tr>
+                    <tr>
+                        <td>filename</td>
+                        <td>{{ selectedSimfile.filename }}</td>
+                    </tr>
+                    <tr>
+                        <td>loaded</td>
+                        <td>{{ selectedSimfile.loaded }}</td>
+                    </tr>
+                    <tr>
+                        <td>title</td>
+                        <td>{{ selectedSimfile.title }}</td>
+                    </tr>
+                    <tr>
+                        <td>titleTranslit</td>
+                        <td>{{ selectedSimfile.titleTranslit }}</td>
+                    </tr>
+                    <tr>
+                        <td>subtitle</td>
+                        <td>{{ selectedSimfile.subtitle }}</td>
+                    </tr>
+                    <tr>
+                        <td>subTitleTranslit</td>
+                        <td>{{ selectedSimfile.subTitleTranslit }}</td>
+                    </tr>
+                    <tr>
+                        <td>artist</td>
+                        <td>{{ selectedSimfile.artist }}</td>
+                    </tr>
+                    <tr>
+                        <td>artistTranslit</td>
+                        <td>{{ selectedSimfile.artistTranslit }}</td>
+                    </tr>
+                    <tr>
+                        <td>credit</td>
+                        <td>{{ selectedSimfile.credit }}</td>
+                    </tr>
+                    <tr>
+                        <td>banner</td>
+                        <td>{{ selectedSimfile.banner }}</td>
+                    </tr>
+                    <tr>
+                        <td>background</td>
+                        <td>{{ selectedSimfile.background }}</td>
+                    </tr>
+                    <tr>
+                        <td>jacket</td>
+                        <td>{{ selectedSimfile.jacket }}</td>
+                    </tr>
+                    <tr>
+                        <td>lyricsPath</td>
+                        <td>{{ selectedSimfile.lyricsPath }}</td>
+                    </tr>
+                    <tr>
+                        <td>cdTitle</td>
+                        <td>{{ selectedSimfile.cdTitle }}</td>
+                    </tr>
+                    <tr>
+                        <td>music</td>
+                        <td>{{ selectedSimfile.music }}</td>
+                    </tr>
+                    <tr>
+                        <td>offset</td>
+                        <td>{{ selectedSimfile.offset }}</td>
+                    </tr>
+                    <tr>
+                        <td>sampleStart</td>
+                        <td>{{ selectedSimfile.sampleStart }}</td>
+                    </tr>
+                    <tr>
+                        <td>sampleLength</td>
+                        <td>{{ selectedSimfile.sampleLength }}</td>
+                    </tr>
+                    <tr>
+                        <td>selectable</td>
+                        <td>{{ selectedSimfile.selectable }}</td>
+                    </tr>
+                    <tr>
+                        <td>listSort</td>
+                        <td>{{ selectedSimfile.listSort }}</td>
+                    </tr>
+                    <tr>
+                        <td>bpms</td>
+                        <td>{{ selectedSimfile.bpms }}</td>
+                    </tr>
+                    <tr>
+                        <td>stops</td>
+                        <td>{{ selectedSimfile.stops }}</td>
+                    </tr>
+                    <tr>
+                        <td>tickCount</td>
+                        <td>{{ selectedSimfile.tickCount }}</td>
+                    </tr>
+                    <tr>
+                        <td>bgChanges</td>
+                        <td>{{ selectedSimfile.bgChanges }}</td>
+                    </tr>
+                    <tr>
+                        <td>keySounds</td>
+                        <td>{{ selectedSimfile.keySounds }}</td>
+                    </tr>
+                    <tr>
+                        <td>attacks</td>
+                        <td>{{ selectedSimfile.attacks }}</td>
+                    </tr>
+                    <tr>
+                        <td>
+                            youtube Videos
+                        </td>
+                        <td>
+                            <pre>{{ selectedSimfile.youtubeVideos | json }}</pre>
+                        </td>
+                    </tr>
+                </table>
             </div>
 
         </div>

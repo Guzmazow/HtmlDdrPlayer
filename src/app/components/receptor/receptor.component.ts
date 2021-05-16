@@ -15,6 +15,7 @@ export class ReceptorComponent implements OnInit {
   @ViewChild("receptorCanvas", { static: true }) canvasEl?: ElementRef;
   canvas!: HTMLCanvasElement;
   ctx!: CanvasRenderingContext2D;
+  mediaLoaded: boolean = false;
 
   get media() {
     return this.mediaService;
@@ -42,7 +43,7 @@ export class ReceptorComponent implements OnInit {
 
 
   ngOnInit(): void {
-    this.canvas = <HTMLCanvasElement>this.canvasEl?.nativeElement;    
+    this.canvas = <HTMLCanvasElement>this.canvasEl?.nativeElement;
     this.ctx = this.canvas.getContext('2d')!;
     this.ctx.imageSmoothingEnabled = false;
     this.canvas.height = screen.height;
@@ -53,8 +54,10 @@ export class ReceptorComponent implements OnInit {
     //   this.canvas.width = this.displayService.displayOptions.noteLaneWidth;
     // });
 
-    this.displayService.onStart.subscribe(() => {
+    this.displayService.onGamePlayStateChange.subscribe(playing => {
+      if (!playing) return;
 
+      this.mediaService.onMediaLoaded.subscribe(x => this.mediaLoaded = x);
       this.displayService.onRedraw.subscribe(this.drawReceptors.bind(this));
 
       this.keyboardService.onPress.subscribe(press => {
@@ -69,6 +72,7 @@ export class ReceptorComponent implements OnInit {
   }
 
   drawReceptors() {
+    if(!this.mediaLoaded) return;
     this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
     this.ctx.save();
     this.ctx.fillStyle = "rgba(20,20,20,0.8)";

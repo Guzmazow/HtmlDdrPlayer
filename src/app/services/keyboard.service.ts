@@ -56,7 +56,7 @@ export class KeyboardService {
     [Key.CANCEL, false]
   ]);
 
-  constructor(private displayService: DisplayService) {
+  constructor() {
     console.log('started listening keys');
     window.addEventListener('keyup', this.onKeyHandler.bind(this));
     window.addEventListener('keydown', this.onKeyHandler.bind(this));

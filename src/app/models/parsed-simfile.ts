@@ -10,18 +10,29 @@ export class ParsedSimfile implements SimfileRegistryEntry {
 
   loaded: boolean = false;
   title: string = "";
+  titleTranslit: string = "";
+  subtitle: string = "";
+  subTitleTranslit: string = "";
   artist: string = "";
-  banner: string = "";
-  background: string = "";
+  artistTranslit: string = "";
+  credit: string = ""; //Prefer one on difficulty mode because of collab
+  banner: string = ""; //Unused
+  background: string = ""; //Only youtube for now
+  jacket: string = ""; //WTF is this
+  lyricsPath: string = ""; //No idea how this works
   cdTitle: string = "";
   music: string = "";
   offset: number = 0;
   sampleStart: number = 0;
   sampleLength: number = 0;
   selectable: boolean = true;
+  listSort: string = ""; //WTF is this
   bpms: string = "0-0";
   stops: string = "";
+  tickCount: string = ""; //Probably relaease hold counter configuration for very short holds... otherwise no idea
   bgChanges: string = "";
+  keySounds: string = ""; //Never seen this in use
+  attacks: string = ""; //Never seen this in use
 
   modes: ParsedSimfileMode[] = [];
 
@@ -36,25 +47,34 @@ export class ParsedSimfile implements SimfileRegistryEntry {
       y.offset = y.offset ?? 0;
       y.skips = y.skips?.map(x => ({ from: x.from, to: x.to, skipped: false })) ?? [];
     });
-
-
   }
 
   loadSimfile(simfileContent: string) {
     this.rawMetaData = this.getTopMetaDataAsStrings(simfileContent);
     this.title = this.rawMetaData.get("TITLE") ?? "";
+    this.titleTranslit = this.rawMetaData.get("TITLETRANSLIT") ?? "";
+    this.subtitle = this.rawMetaData.get("SUBTITLE") ?? "";
+    this.subTitleTranslit = this.rawMetaData.get("SUBTITLETRANSLIT") ?? "";
     this.artist = this.rawMetaData.get("ARTIST") ?? "";
+    this.artistTranslit = this.rawMetaData.get("ARTISTTRANSLIT") ?? "";
+    this.credit = this.rawMetaData.get("CREDIT") ?? "";
     this.banner = this.rawMetaData.get("BANNER") ?? "";
     this.background = this.rawMetaData.get("BACKGROUND") ?? "";
+    this.jacket =  this.rawMetaData.get("JACKET") ?? "";
+    this.lyricsPath =  this.rawMetaData.get("LYRICSPATH") ?? "";
     this.cdTitle = this.rawMetaData.get("CDTITLE") ?? "";
     this.music = this.rawMetaData.get("MUSIC") ?? "";
     this.offset = parseFloat(this.rawMetaData.get("OFFSET") ?? "0");
     this.sampleStart = parseFloat(this.rawMetaData.get("SAMPLESTART") ?? "0");
     this.sampleLength = parseFloat(this.rawMetaData.get("SAMPLELENGTH") ?? "0");
     this.selectable = (this.rawMetaData.get("SELECTABLE") ?? "YES").toUpperCase() == "YES";
+    this.listSort = this.rawMetaData.get("LISTSORT") ?? "";
     this.bpms = this.rawMetaData.get("BPMS") ?? "";
     this.stops = this.rawMetaData.get("STOPS") ?? "";
+    this.tickCount = this.rawMetaData.get("TICKCOUNT") ?? "";
     this.bgChanges = this.rawMetaData.get("BGCHANGES") ?? "";
+    this.keySounds = this.rawMetaData.get("KEYSOUNDS") ?? "";
+    this.attacks = this.rawMetaData.get("ATTACKS") ?? "";
 
     this.rawModes = this.getModesInfoAsStrings(simfileContent);
     for (let mode of this.rawModes) {

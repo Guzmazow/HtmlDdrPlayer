@@ -1,12 +1,13 @@
 import { EventEmitter, Injectable } from '@angular/core';
 import { AllDirections, AllJudgements, Direction, Judgement } from '@models/enums';
+import { BehaviorSubject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class MediaService {
 
-  onMediaLoaded = new EventEmitter();
+  onMediaLoaded = new BehaviorSubject(false);
 
   audio!: HTMLAudioElement;
   video!: YT.Player;
@@ -67,7 +68,7 @@ export class MediaService {
         this.judgementImageCache.set(judgement, this.adjustImage(judgementImage, null, 0, judgement * judgementImage.height / 6, judgementImage.width, judgementImage.height / 6, Direction.NONE).toDataURL());
       }
       console.log('MEDIA images ready');
-      this.onMediaLoaded.emit();
+      this.onMediaLoaded.next(true);
     })
   }
 
