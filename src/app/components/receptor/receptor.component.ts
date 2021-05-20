@@ -4,6 +4,7 @@ import { DisplayService } from '@services/display.service';
 import { JudgementService } from '@services/judgement.service';
 import { KeyboardService } from '@services/keyboard.service';
 import { MediaService } from '@services/media.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-receptor',
@@ -34,6 +35,12 @@ export class ReceptorComponent implements OnInit {
 
   receptorFlashVisibilityState = new Map<Key, boolean>();
 
+  onJudgedSub?: Subscription;
+  onGamePlayStateChangeSub?: Subscription;
+  onPressSub?: Subscription;
+  onMediaLoadedSub?: Subscription;
+  onRedrawSub?:Subscription
+
   constructor(
     private keyboardService: KeyboardService,
     private mediaService: MediaService,
@@ -54,21 +61,29 @@ export class ReceptorComponent implements OnInit {
     //   this.canvas.width = this.displayService.displayOptions.noteLaneWidth;
     // });
 
-    this.displayService.onGamePlayStateChange.subscribe(playing => {
+   this.onGamePlayStateChangeSub =  this.displayService.onGamePlayStateChange.subscribe(playing => {
       if (!playing) return;
 
-      this.mediaService.onMediaLoaded.subscribe(x => this.mediaLoaded = x);
-      this.displayService.onRedraw.subscribe(this.drawReceptors.bind(this));
+      this.onMediaLoadedSub = this.mediaService.onMediaLoaded.subscribe(x => this.mediaLoaded = x);
+      this.onRedrawSub = this.displayService.onRedraw.subscribe(this.drawReceptors.bind(this));
 
-      this.keyboardService.onPress.subscribe(press => {
+      this.onPressSub = this.keyboardService.onPress.subscribe(press => {
         this.receptorFlashVisibilityState.set(press.key, press.state);
       });
 
-      this.judgementService.onJudged.subscribe(judged => {
+      this.onJudgedSub = this.judgementService.onJudged.subscribe(judged => {
         this.receptorGlowVisibilityFramesLeft.set(judged.key, { judgemnet: judged.judgement, framesLeft: 20 })
       });
     });
 
+  }
+
+  ngOnDestroy(): void {
+    this.onJudgedSub?.unsubscribe();
+    this.onGamePlayStateChangeSub?.unsubscribe();
+    this.onPressSub?.unsubscribe();
+    this.onMediaLoadedSub?.unsubscribe();
+    this.onRedrawSub?.unsubscribe();
   }
 
   drawReceptors() {

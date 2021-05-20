@@ -16,7 +16,7 @@
                     (selectionChange)="onSimfileSelectionChange($event); simfileDrawerContainer.updateContentMargins()">
                     <mat-list-option *ngFor="let simfile of simfilesInSelectedFolder" [value]="simfile"
                         [selected]="selectedSimfile == simfile">
-                        {{simfile.titleTranslit || simfile.title}}
+                        {{simfile.titleTranslit || simfile.title}} <ng-container *ngIf="simfile.status">({{simfile.status}})</ng-container><ng-container *ngIf="simfile.displayScore">({{simfile.displayScore}})</ng-container>                        
                         <span style="font-size: x-small;">{{simfile.artistTranslit || simfile.artist}}</span>
                     </mat-list-option>
                 </mat-selection-list>

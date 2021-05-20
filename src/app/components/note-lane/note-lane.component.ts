@@ -1,20 +1,24 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { Note } from '@models/note';
 import { NoteType } from '@models/enums';
 import { DisplayService } from '@services/display.service';
 import { MediaService } from '@services/media.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-note-lane',
   templateUrl: './note-lane.component.html',
   styleUrls: ['./note-lane.component.scss']
 })
-export class NoteLaneComponent implements OnInit {
+export class NoteLaneComponent implements OnInit, OnDestroy {
 
   @ViewChild("noteLaneCanvas", { static: true }) canvasEl?: ElementRef;
   canvas!: HTMLCanvasElement;
   ctx!: CanvasRenderingContext2D;
   mediaLoaded: boolean = false;
+
+  onDrawSub?: Subscription;
+  onMediaLoadedSub?: Subscription
 
   constructor(private displayService: DisplayService, private mediaService: MediaService) { }
 
@@ -28,16 +32,21 @@ export class NoteLaneComponent implements OnInit {
     //   this.canvas.height = screen.height;
     //   this.canvas.width = this.displayService.displayOptions.noteLaneWidth;
     // });
-    this.mediaService.onMediaLoaded.subscribe(x => this.mediaLoaded = x);
-    this.displayService.onRedraw.subscribe(this.draw.bind(this));
+    this.onMediaLoadedSub =this.mediaService.onMediaLoaded.subscribe(x => this.mediaLoaded = x);
+    this.onDrawSub = this.displayService.onRedraw.subscribe(this.draw.bind(this));
     // this.displayService.onStart.subscribe(this.init.bind(this));
   }
 
+  ngOnDestroy(): void {
+    this.onMediaLoadedSub?.unsubscribe();
+    this.onDrawSub?.unsubscribe();
+  }
+  
   // init() {
   // }
 
   draw() {
-    if(!this.mediaLoaded) return;
+    if (!this.mediaLoaded) return;
     this.clear();
     this.drawNotesAndConnectors();
   }

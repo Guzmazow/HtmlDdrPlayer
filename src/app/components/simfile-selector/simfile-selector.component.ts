@@ -40,6 +40,7 @@ export class SimfileSelectorComponent implements OnInit, OnDestroy {
   @ViewChild("simfileModeSelect") simfileModeSelect?: MatSelectionList;
   @ViewChild("folderDrawerContainer") folderDrawerContainer?: MatDrawerContainer;
   @ViewChild("simfileDrawerContainer") simfileDrawerContainer?: MatDrawerContainer;
+  @LocalStorage('', Difficulty.NONE) lastSelectedSimfileDifficulty!: Difficulty;
   @LocalStorage('', '') lastSelectedSimfileLocation!: string;
   @LocalStorage('', '') lastSelectedSimfileFolderLocation!: string;
 
@@ -63,21 +64,23 @@ export class SimfileSelectorComponent implements OnInit, OnDestroy {
       if (!loaded) return;
       if (simfileLoaderService.simfileRegistryFolders) {
         this.simfileFolders = Array.from(simfileLoaderService.simfileRegistryFolders.values());
+        this.loadScores();
         this.selectedSimfileFolder = this.simfileFolders.find(x => x.location == this.lastSelectedSimfileFolderLocation) ?? this.simfileFolders[0];
         this.simfilesInSelectedFolder = Array.from(this.selectedSimfileFolder?.parsedSimfiles?.values() ?? []);
         this.selectedSimfile = this.simfilesInSelectedFolder.find(x => x.smFileLocation == this.lastSelectedSimfileLocation);
+        this.selectedSimfileMode = this.selectedSimfile?.modes.find(x => x.difficulty == this.lastSelectedSimfileDifficulty);
       }
     });
   }
 
-  antiGlitch(){
+  antiGlitch() {
     setTimeout(() => {
       //slow ui fixes
       this.folderDrawerContainer?.updateContentMargins();
       this.simfileDrawerContainer?.updateContentMargins();
-      if(this.simfileFolderSelect && this.simfileFolderSelect.selectedOptions.selected.length > 0)
+      if (this.simfileFolderSelect && this.simfileFolderSelect.selectedOptions.selected.length > 0)
         this.simfileFolderSelect.selectedOptions.selected[0].focus();
-      if(this.simfileSelect && this.simfileSelect.selectedOptions.selected.length > 0)
+      if (this.simfileSelect && this.simfileSelect.selectedOptions.selected.length > 0)
         this.simfileSelect.selectedOptions.selected[0].focus();
     }, 200);
   }
@@ -128,6 +131,22 @@ export class SimfileSelectorComponent implements OnInit, OnDestroy {
     });
   }
 
+  loadScores() {
+    let scores: { [folderName: string]: { [filename: string]: number } } = JSON.parse(localStorage.getItem('ScorePercentage') || '{}');
+    for (let folder of this.simfileFolders) {
+      let folderScores = scores[folder.location];
+      if (!folderScores) continue;
+      for (let simfile of folder.parsedSimfiles.values()) {
+        let simfileScore = folderScores[simfile.filename];
+        if (!simfileScore) continue;
+        simfile.score = simfileScore;
+        if (simfile.score) {
+          simfile.displayScore = new Number(35 - Math.round(simfile.score * 25 / 100)).toString(36).toUpperCase();
+        }
+      }
+    }
+  }
+
   ngOnDestroy(): void {
     this.keyPressSubscribe?.unsubscribe();
   }
@@ -158,6 +177,7 @@ export class SimfileSelectorComponent implements OnInit, OnDestroy {
   }
 
   selectSimfileMode(parsedSimfileMode: ParsedSimfileMode) {
+    this.lastSelectedSimfileDifficulty = parsedSimfileMode.difficulty;
     this.lastSelectedSimfileMode = this.selectedSimfileMode;
     this.selectedSimfileMode = parsedSimfileMode;
   }
@@ -173,11 +193,11 @@ export class SimfileSelectorComponent implements OnInit, OnDestroy {
   }
 
   playSelectedMode() {
-    if (!this.selectedSimfile || !this.selectedSimfileMode)
+    if (!this.selectedSimfileFolder || !this.selectedSimfile || !this.selectedSimfileMode)
       return;
     if (!this.selectedVideo)
       this.selectedVideo = this.selectedSimfile.youtubeVideos[0];
-    this.simfileLoaderService.requestGame(new GameRequest(this.selectedSimfile, this.selectedSimfileMode, this.selectedVideo));
+    this.simfileLoaderService.requestGame(new GameRequest(this.selectedSimfileFolder, this.selectedSimfile, this.selectedSimfileMode, this.selectedVideo));
   }
 
   getCompareWith() {

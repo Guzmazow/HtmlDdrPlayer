@@ -2864,8 +2864,19 @@
                 "filename": "Chururira Chururira Daddadda.sm",
                 "youtubeVideos": [
                     {
-                        "id": "XXX",
-                        "skips": []
+                        "id": "_j0kfGNwIlw",
+                        "skips": [
+                            {
+                                "from": 0,
+                                "to": 0.627,
+                                "skipped": false
+                            },
+                            {
+                                "from": 68.6,
+                                "to": 114.4,
+                                "skipped": false
+                            }
+                        ]
                     }
                 ]
             },
@@ -2873,8 +2884,14 @@
                 "filename": "COLORFUL VOICE.sm",
                 "youtubeVideos": [
                     {
-                        "id": "XXX",
-                        "skips": []
+                        "id": "Pn8xZq-CJjQ",
+                        "skips": [
+                            {
+                                "from": 0,
+                                "to": 1,
+                                "skipped": false
+                            }
+                        ]
                     }
                 ]
             },
@@ -2882,8 +2899,19 @@
                 "filename": "Cosmonauts.sm",
                 "youtubeVideos": [
                     {
-                        "id": "XXX",
-                        "skips": []
+                        "id": "Xsj-IZaheUU",
+                        "skips": [
+                            {
+                                "from": 0,
+                                "to": 1.1,
+                                "skipped": false
+                            },
+                            {
+                                "from": 17,
+                                "to": 107.1,
+                                "skipped": false
+                            }
+                        ]
                     }
                 ]
             },
@@ -2891,8 +2919,19 @@
                 "filename": "Critical Situation Zen Girl.sm",
                 "youtubeVideos": [
                     {
-                        "id": "XXX",
-                        "skips": []
+                        "id": "xEhKWS53RfY",
+                        "skips": [
+                            {
+                                "from": 0,
+                                "to": 0.5,
+                                "skipped": false
+                            },
+                            {
+                                "from": 66.5,
+                                "to": 125.9,
+                                "skipped": false
+                            }
+                        ]
                     }
                 ]
             },
@@ -2900,8 +2939,19 @@
                 "filename": "Dance Robot Dance.sm",
                 "youtubeVideos": [
                     {
-                        "id": "XXX",
-                        "skips": []
+                        "id": "g7dvpD_zlIM",
+                        "skips": [
+                            {
+                                "from": 0,
+                                "to": 0.05,
+                                "skipped": false
+                            },
+                            {
+                                "from": 93,
+                                "to": 184,
+                                "skipped": false
+                            }
+                        ]
                     }
                 ]
             },
@@ -2909,17 +2959,35 @@
                 "filename": "Death Should Not Have Taken Thee!.sm",
                 "youtubeVideos": [
                     {
-                        "id": "XXX",
-                        "skips": []
+                        "id": "FseXpxk5s5M",
+                        "skips": [
+                            {
+                                "from": 0,
+                                "to": 0.4,
+                                "skipped": false
+                            },
+                            {
+                                "from": 94.5,
+                                "to": 224.1,
+                                "skipped": false
+                            }
+                        ]
                     }
                 ]
             },
             {
                 "filename": "Dependence Intension.sm",
+                "status": "Not worth cutting",
                 "youtubeVideos": [
                     {
-                        "id": "XXX",
-                        "skips": []
+                        "id": "w-jrGoUUTc8",
+                        "skips": [
+                            {
+                                "from": 0,
+                                "to": 0.65,
+                                "skipped": false
+                            }
+                        ]
                     }
                 ]
             },
@@ -2927,8 +2995,19 @@
                 "filename": "Donut Hole.sm",
                 "youtubeVideos": [
                     {
-                        "id": "XXX",
-                        "skips": []
+                        "id": "qnX2CdOBcDI",
+                        "skips": [
+                            {
+                                "from": 0,
+                                "to": 3.7,
+                                "skipped": false
+                            },
+                            {
+                                "from": 93.9,
+                                "to": 153,
+                                "skipped": false
+                            }
+                        ]
                     }
                 ]
             },
@@ -2936,8 +3015,19 @@
                 "filename": "Dream-Eating Monochrome Baku.sm",
                 "youtubeVideos": [
                     {
-                        "id": "XXX",
-                        "skips": []
+                        "id": "Xa2JHeWrgIk",
+                        "skips": [
+                            {
+                                "from": 0,
+                                "to": 4.9,
+                                "skipped": false
+                            },
+                            {
+                                "from": 83.4,
+                                "to": 137,
+                                "skipped": false
+                            }
+                        ]
                     }
                 ]
             },
@@ -2945,8 +3035,14 @@
                 "filename": "eazy.sm",
                 "youtubeVideos": [
                     {
-                        "id": "XXX",
-                        "skips": []
+                        "id": "TIbZDRXM-Tg",
+                        "skips": [
+                            {
+                                "from": 109.5,
+                                "to": 268.1,
+                                "skipped": false
+                            }
+                        ]
                     }
                 ]
             },
@@ -2954,8 +3050,19 @@
                 "filename": "Equation+.sm",
                 "youtubeVideos": [
                     {
-                        "id": "XXX",
-                        "skips": []
+                        "id": "AQp2iSI997A",
+                        "skips": [
+                            {
+                                "from": 0,
+                                "to": 5.91,
+                                "skipped": false
+                            },
+                            {
+                                "from": 81.1,
+                                "to": 94.89,
+                                "skipped": false
+                            }
+                        ]
                     }
                 ]
             },
@@ -2963,8 +3070,19 @@
                 "filename": "Even a Kunoichi Needs Love.sm",
                 "youtubeVideos": [
                     {
-                        "id": "XXX",
-                        "skips": []
+                        "id": "eI4F8vuxoQE",
+                        "skips": [
+                            {
+                                "from": 0,
+                                "to": 1.35,
+                                "skipped": false
+                            },
+                            {
+                                "from": 78,
+                                "to": 224,
+                                "skipped": false
+                            }
+                        ]
                     }
                 ]
             },
@@ -2972,8 +3090,14 @@
                 "filename": "F(R)IEND.sm",
                 "youtubeVideos": [
                     {
-                        "id": "XXX",
-                        "skips": []
+                        "id": "zu-e6SwwImc",
+                        "skips": [
+                            {
+                                "from": 0,
+                                "to": 3.5,
+                                "skipped": false
+                            }
+                        ]
                     }
                 ]
             },
@@ -2981,13 +3105,25 @@
                 "filename": "Failure Girl.sm",
                 "youtubeVideos": [
                     {
-                        "id": "XXX",
-                        "skips": []
+                        "id": "p8xRoIkIuRA",
+                        "skips": [
+                            {
+                                "from": 0,
+                                "to": 8.3,
+                                "skipped": false
+                            },
+                            {
+                                "from": 64.3,
+                                "to": 112.35,
+                                "skipped": false
+                            }
+                        ]
                     }
                 ]
             },
             {
                 "filename": "Fantasy World Repair Girl.sm",
+                "status": "Copyright hell",
                 "youtubeVideos": [
                     {
                         "id": "XXX",
@@ -2999,8 +3135,34 @@
                 "filename": "Gedatz Sensation.sm",
                 "youtubeVideos": [
                     {
-                        "id": "XXX",
-                        "skips": []
+                        "id": "Px1hIRaixZA",
+                        "skips": [
+                          {
+                            "from": 0,
+                            "to": 0.55,
+                            "skipped": false
+                          },
+                          {
+                            "from": 38.5,
+                            "to": 50.9,
+                            "skipped": false
+                          },
+                          {
+                            "from": 96,
+                            "to": 108.5,
+                            "skipped": false
+                          },
+                          {
+                            "from": 128,
+                            "to": 140.3,
+                            "skipped": false
+                          },
+                          {
+                            "from": 170,
+                            "to": 194.8,
+                            "skipped": false
+                          }
+                        ]
                     }
                 ]
             },
@@ -3008,13 +3170,25 @@
                 "filename": "Gigantic Girl.sm",
                 "youtubeVideos": [
                     {
-                        "id": "XXX",
-                        "skips": []
+                        "id": "CH5S-IpNerc",
+                        "skips": [
+                          {
+                            "from": 0,
+                            "to": 0.3,
+                            "skipped": false
+                          },
+                          {
+                            "from": 123,
+                            "to": 247.4,
+                            "skipped": false
+                          }
+                        ]
                     }
                 ]
             },
             {
                 "filename": "Girls' Rebellion.sm",
+                "status": "Unavailable online",
                 "youtubeVideos": [
                     {
                         "id": "XXX",
@@ -3026,13 +3200,24 @@
                 "filename": "Goodbye, World of Common Sense.sm",
                 "youtubeVideos": [
                     {
-                        "id": "XXX",
-                        "skips": []
-                    }
+                        "id": "g7Yk8ZtqNC0",
+                        "skips": [
+                          {
+                            "from": 0,
+                            "to": 0.4,
+                            "skipped": false
+                          },
+                          {
+                            "from": 110,
+                            "to": 205,
+                            "skipped": false
+                          }
+                        ]                    }
                 ]
             },
             {
                 "filename": "Happy Synthesizer (4sk Remix).sm",
+                "status": "Unavailable online",
                 "youtubeVideos": [
                     {
                         "id": "XXX",
@@ -3044,8 +3229,19 @@
                 "filename": "Happy Synthesizer.sm",
                 "youtubeVideos": [
                     {
-                        "id": "XXX",
-                        "skips": []
+                        "id": "xOKplMgHxxA",
+                        "skips": [
+                          {
+                            "from": 0,
+                            "to": 1.5,
+                            "skipped": false
+                          },
+                          {
+                            "from": 86.8,
+                            "to": 151.05,
+                            "skipped": false
+                          }
+                        ]
                     }
                 ]
             },

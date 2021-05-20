@@ -7,7 +7,10 @@ import { SimfileRegistryYoutubeInfo } from "./simfile-registry-youtube-info";
 export class ParsedSimfile implements SimfileRegistryEntry {
   smFileLocation: string;
   filename: string;
+  status?: string;
   youtubeVideos: SimfileRegistryYoutubeInfo[];
+  score?: number;
+  displayScore?: string;
 
   loaded: boolean = false;
   title: string = "";
@@ -42,6 +45,7 @@ export class ParsedSimfile implements SimfileRegistryEntry {
 
   constructor(folderRegistryEntry: SimfileRegistryFolder, registryEntry: SimfileRegistryEntry) {
     this.filename = registryEntry.filename;
+    this.status = registryEntry.status;
     this.smFileLocation = `/assets/Simfiles/${folderRegistryEntry.location}/${registryEntry.filename}`;
     this.youtubeVideos = registryEntry.youtubeVideos;
     this.youtubeVideos.forEach(y => {

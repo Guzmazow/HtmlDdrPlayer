@@ -29,6 +29,9 @@
       ],
       "@services/*": [
         "src/app/services/*"
+      ],
+      "@other/*": [
+        "src/app/other/*"
       ]
     }
   },

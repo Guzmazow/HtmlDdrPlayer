@@ -91,7 +91,7 @@ export class DisplayService {
       if (this.mediaService.video.getDuration() <= this.mediaService.video.getCurrentTime() + 2) {
         setTimeout(() => {
           this.end();
-        }, 10000);
+        }, 3000);
         return;
       }
 
