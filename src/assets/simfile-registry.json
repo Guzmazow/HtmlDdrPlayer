@@ -602,7 +602,8 @@
                 "filename": "Chaining Intention.sm",
                 "youtubeVideos": [
                     {
-                        "id": "GOwN_qvlYUg"
+                        "id": "GOwN_qvlYUg",
+                        "skips": []
                     }
                 ]
             },
@@ -1914,10 +1915,10 @@
                     {
                         "id": "n6T9olarH-U",
                         "skips": [
-                          {
-                            "from": 0,
-                            "to": 162.2
-                          }
+                            {
+                                "from": 0,
+                                "to": 162.2
+                            }
                         ]
                     }
                 ]
@@ -1926,8 +1927,25 @@
                 "filename": "80s Fitness.sm",
                 "youtubeVideos": [
                     {
-                        "id": "XXX",
-                        "skips": []
+                        "id": "g5FFpYm-360",
+                        "skips": [
+                            {
+                                "from": 0,
+                                "to": 2.16
+                            },
+                            {
+                                "from": 25,
+                                "to": 42.5
+                            },
+                            {
+                                "from": 89.4,
+                                "to": 141.85
+                            },
+                            {
+                                "from": 159.1,
+                                "to": 193.9
+                            }
+                        ]
                     }
                 ]
             },
@@ -1935,8 +1953,25 @@
                 "filename": "A Turtle's Heart.sm",
                 "youtubeVideos": [
                     {
-                        "id": "XXX",
-                        "skips": []
+                        "id": "zlK4AEXJ-kU",
+                        "skips": [
+                            {
+                                "from": 0,
+                                "to": 7.39
+                            },
+                            {
+                                "from": 72.3,
+                                "to": 78.76
+                            },
+                            {
+                                "from": 113,
+                                "to": 119.55
+                            },
+                            {
+                                "from": 120.5,
+                                "to": 120.5
+                            }
+                        ]
                     }
                 ]
             },
@@ -1944,22 +1979,33 @@
                 "filename": "B12.sm",
                 "youtubeVideos": [
                     {
-                        "id": "XXX",
-                        "skips": []
+                        "id": "P1zz5OZ4ljU",
+                        "skips": [
+                            {
+                                "from": 65,
+                                "to": 147.25
+                            },
+                            {
+                                "from": 202,
+                                "to": 220.3
+                            }
+                        ]
                     }
                 ]
             },
             {
                 "filename": "Bad 4 My Health.sm",
+                "status": "Not worth cutting",
                 "youtubeVideos": [
                     {
-                        "id": "XXX",
+                        "id": "oiN0gzSilvw",
                         "skips": []
                     }
                 ]
             },
             {
                 "filename": "Bad Pyromaniacs.sm",
+                "status": "Unavailable online",
                 "youtubeVideos": [
                     {
                         "id": "XXX",
@@ -1971,8 +2017,21 @@
                 "filename": "Death by Robot.sm",
                 "youtubeVideos": [
                     {
-                        "id": "XXX",
-                        "skips": []
+                        "id": "eAjiFcAnkp8",
+                        "skips": [
+                            {
+                                "from": 0,
+                                "to": 15.3
+                            },
+                            {
+                                "from": 90.7,
+                                "to": 165.7
+                            },
+                            {
+                                "from": 208,
+                                "to": 223
+                            }
+                        ]
                     }
                 ]
             },
@@ -1980,16 +2039,55 @@
                 "filename": "FAKE!FAKE!FAKE!.sm",
                 "youtubeVideos": [
                     {
-                        "id": "XXX",
-                        "skips": []
+                        "id": "sz6CVpS32QY",
+                        "skips": [
+                            {
+                                "from": 13.3,
+                                "to": 22.02
+                            },
+                            {
+                                "from": 33,
+                                "to": 41.8
+                            },
+                            {
+                                "from": 90,
+                                "to": 98.7
+                            },
+                            {
+                                "from": 109.3,
+                                "to": 118
+                            }
+                        ]
+                    },
+                    {
+                        "id": "tKQp_WyzcOo",
+                        "skips": [
+                            {
+                                "from": 13.3,
+                                "to": 22.02
+                            },
+                            {
+                                "from": 33,
+                                "to": 41.8
+                            },
+                            {
+                                "from": 90,
+                                "to": 98.7
+                            },
+                            {
+                                "from": 109.3,
+                                "to": 118
+                            }
+                        ]
                     }
                 ]
             },
             {
                 "filename": "funky.sm",
+                "status": "Not worth cutting",
                 "youtubeVideos": [
                     {
-                        "id": "XXX",
+                        "id": "CwE2k0HMDfo",
                         "skips": []
                     }
                 ]
@@ -1998,34 +2096,42 @@
                 "filename": "Hop Step Adventure.sm",
                 "youtubeVideos": [
                     {
-                        "id": "XXX",
-                        "skips": []
+                        "id": "5i8PQlYWjg8",
+                        "skips": [
+                            {
+                                "from": 0,
+                                "to": 0.25
+                            }
+                        ]
                     }
                 ]
             },
             {
                 "filename": "Louder Than Words.sm",
+                "status": "Not worth cutting",
                 "youtubeVideos": [
                     {
-                        "id": "XXX",
+                        "id": "MW5Hn70zrg0",
                         "skips": []
                     }
                 ]
             },
             {
                 "filename": "Nothing to Say.sm",
+                "status": "Not worth cutting",
                 "youtubeVideos": [
                     {
-                        "id": "XXX",
+                        "id": "1zXJ0LlEmX4",
                         "skips": []
                     }
                 ]
             },
             {
                 "filename": "On The Rocks.sm",
+                "status": "Not worth cutting",
                 "youtubeVideos": [
                     {
-                        "id": "XXX",
+                        "id": "pAGpz0EuMOU",
                         "skips": []
                     }
                 ]
@@ -2034,8 +2140,17 @@
                 "filename": "Our Demons.sm",
                 "youtubeVideos": [
                     {
-                        "id": "XXX",
-                        "skips": []
+                        "id": "VkvOLB7Yzhs",
+                        "skips": [
+                            {
+                                "from": 0,
+                                "to": 5.3
+                            },
+                            {
+                                "from": 121.9,
+                                "to": 135.4
+                            }
+                        ]
                     }
                 ]
             },
@@ -2043,7 +2158,7 @@
                 "filename": "Our Xenopittan.sm",
                 "youtubeVideos": [
                     {
-                        "id": "XXX",
+                        "id": "ulWbm1mIDks",
                         "skips": []
                     }
                 ]
@@ -2052,16 +2167,17 @@
                 "filename": "Papa Gonzales.sm",
                 "youtubeVideos": [
                     {
-                        "id": "XXX",
+                        "id": "ZKg6V0rijTM",
                         "skips": []
                     }
                 ]
             },
             {
                 "filename": "propane.sm",
+                "status": "Not worth cutting",
                 "youtubeVideos": [
                     {
-                        "id": "XXX",
+                        "id": "HtY7Szd7WO4",
                         "skips": []
                     }
                 ]
@@ -2070,40 +2186,49 @@
                 "filename": "Showdown.sm",
                 "youtubeVideos": [
                     {
-                        "id": "XXX",
-                        "skips": []
+                        "id": "bFkF58695yU",
+                        "skips": [
+                            {
+                                "from": 0,
+                                "to": 0.85
+                            }
+                        ]
                     }
                 ]
             },
             {
                 "filename": "Splinter.sm",
+                "status": "Not worth cutting",
                 "youtubeVideos": [
                     {
-                        "id": "XXX",
+                        "id": "SVYuXfM6yfg",
                         "skips": []
                     }
                 ]
             },
             {
                 "filename": "Swamp Thing.sm",
+                "status": "Not worth cutting",
                 "youtubeVideos": [
                     {
-                        "id": "XXX",
+                        "id": "SDiJiGuUeBo",
                         "skips": []
                     }
                 ]
             },
             {
                 "filename": "Swing Break.sm",
+                "status": "Not worth cutting",
                 "youtubeVideos": [
                     {
-                        "id": "XXX",
+                        "id": "v-CZA5bhK_Q",
                         "skips": []
                     }
                 ]
             },
             {
                 "filename": "The Horror.sm",
+                "status": "Not worth cutting",
                 "youtubeVideos": [
                     {
                         "id": "XXX",
@@ -2115,8 +2240,17 @@
                 "filename": "The Massacre.sm",
                 "youtubeVideos": [
                     {
-                        "id": "XXX",
-                        "skips": []
+                        "id": "uY6xrEFh7WQ",
+                        "skips": [
+                            {
+                                "from": 0,
+                                "to": 0.5
+                            },
+                            {
+                                "from": 98.6,
+                                "to": 113.7
+                            }
+                        ]
                     }
                 ]
             },
@@ -2124,13 +2258,23 @@
                 "filename": "Time Traveler.sm",
                 "youtubeVideos": [
                     {
-                        "id": "XXX",
-                        "skips": []
+                        "id": "itRWssMSuvw",
+                        "skips": [
+                            {
+                                "from": 0,
+                                "to": 25
+                            },
+                            {
+                                "from": 112,
+                                "to": 178
+                            }
+                        ]
                     }
                 ]
             },
             {
                 "filename": "Whiskers.sm",
+                "status": "Not worth cutting",
                 "youtubeVideos": [
                     {
                         "id": "XXX",
@@ -2140,6 +2284,7 @@
             },
             {
                 "filename": "Zoan Zound.sm",
+                "status": "Not worth cutting",
                 "youtubeVideos": [
                     {
                         "id": "XXX",
@@ -2248,8 +2393,14 @@
                 "filename": "118.sm",
                 "youtubeVideos": [
                     {
-                        "id": "XXX",
-                        "skips": []
+                        "id": "g_fczHw349E",
+                        "skips": [
+                            {
+                                "from": 48.5,
+                                "to": 89.2
+                            }
+                        ],
+                        "offset": 0.24
                     }
                 ]
             },
@@ -2257,8 +2408,13 @@
                 "filename": "2-Dimensional Dream Fever.sm",
                 "youtubeVideos": [
                     {
-                        "id": "XXX",
-                        "skips": []
+                        "id": "ek028GSPg5k",
+                        "skips": [
+                            {
+                                "from": 0,
+                                "to": 5
+                            }
+                        ]
                     }
                 ]
             },
@@ -2266,8 +2422,13 @@
                 "filename": "39 Music!.sm",
                 "youtubeVideos": [
                     {
-                        "id": "XXX",
-                        "skips": []
+                        "id": "Is2G2EIOKvY",
+                        "skips": [
+                            {
+                                "from": 98,
+                                "to": 223.55
+                            }
+                        ]
                     }
                 ]
             },
@@ -2275,8 +2436,13 @@
                 "filename": "39.sm",
                 "youtubeVideos": [
                     {
-                        "id": "XXX",
-                        "skips": []
+                        "id": "ecU_uJRzhfk",
+                        "skips": [
+                            {
+                                "from": 65.2,
+                                "to": 166
+                            }
+                        ]
                     }
                 ]
             },
@@ -2284,22 +2450,42 @@
                 "filename": "7 8.sm",
                 "youtubeVideos": [
                     {
-                        "id": "XXX",
-                        "skips": []
+                        "id": "QVyVDoGB-eg",
+                        "skips": [
+                            {
+                                "from": 0,
+                                "to": 0.3
+                            },
+                            {
+                                "from": 65,
+                                "to": 126
+                            },
+                            {
+                                "from": 141,
+                                "to": 156.7
+                            }
+                        ]
                     }
                 ]
             },
             {
                 "filename": "A Happy Death.sm",
+                "status": "Not worth cutting",
                 "youtubeVideos": [
                     {
-                        "id": "XXX",
-                        "skips": []
+                        "id": "FaWZlXPwyKE",
+                        "skips": [
+                            {
+                                "from": 0,
+                                "to": 1
+                            }
+                        ]
                     }
                 ]
             },
             {
                 "filename": "A Rendezvous With Sleep Paralysis.sm",
+                "status": "Unavailable online",
                 "youtubeVideos": [
                     {
                         "id": "XXX",
@@ -2311,8 +2497,17 @@
                 "filename": "After-School Stride.sm",
                 "youtubeVideos": [
                     {
-                        "id": "XXX",
-                        "skips": []
+                        "id": "PLqu8uAXO8s",
+                        "skips": [
+                            {
+                                "from": 0,
+                                "to": 0.8
+                            },
+                            {
+                                "from": 110,
+                                "to": 212.4
+                            }
+                        ]
                     }
                 ]
             },
@@ -2320,8 +2515,21 @@
                 "filename": "Alien Alien.sm",
                 "youtubeVideos": [
                     {
-                        "id": "XXX",
-                        "skips": []
+                        "id": "vRpbtf8_7XM",
+                        "skips": [
+                            {
+                                "from": 0,
+                                "to": 0.12
+                            },
+                            {
+                                "from": 88,
+                                "to": 94.25
+                            },
+                            {
+                                "from": 137,
+                                "to": 162.35
+                            }
+                        ]
                     }
                 ]
             },
@@ -2329,8 +2537,17 @@
                 "filename": "Animal Fortune-Telling.sm",
                 "youtubeVideos": [
                     {
-                        "id": "XXX",
-                        "skips": []
+                        "id": "4s01TDJ6YyQ",
+                        "skips": [
+                            {
+                                "from": 0,
+                                "to": 1
+                            },
+                            {
+                                "from": 92,
+                                "to": 243.35
+                            }
+                        ]
                     }
                 ]
             },
@@ -2338,8 +2555,17 @@
                 "filename": "Anti the EuphoriaHOLiC.sm",
                 "youtubeVideos": [
                     {
-                        "id": "XXX",
-                        "skips": []
+                        "id": "o-TYHP3xYns",
+                        "skips": [
+                            {
+                                "from": 0,
+                                "to": 1.4
+                            },
+                            {
+                                "from": 61.5,
+                                "to": 200.2
+                            }
+                        ]
                     }
                 ]
             },
@@ -2347,8 +2573,17 @@
                 "filename": "Anti the Holic.sm",
                 "youtubeVideos": [
                     {
-                        "id": "XXX",
-                        "skips": []
+                        "id": "lvPRs_HC7Wg",
+                        "skips": [
+                            {
+                                "from": 75,
+                                "to": 190.8
+                            },
+                            {
+                                "from": 210,
+                                "to": 277.8
+                            }
+                        ]
                     }
                 ]
             },
@@ -2356,8 +2591,17 @@
                 "filename": "Apparently There's A Cheat Code To Happiness.sm",
                 "youtubeVideos": [
                     {
-                        "id": "XXX",
-                        "skips": []
+                        "id": "shNgOFTla-c",
+                        "skips": [
+                            {
+                                "from": 83,
+                                "to": 138.77
+                            },
+                            {
+                                "from": 153.2,
+                                "to": 180.3
+                            }
+                        ]
                     }
                 ]
             },
@@ -2365,8 +2609,17 @@
                 "filename": "Artemis.sm",
                 "youtubeVideos": [
                     {
-                        "id": "XXX",
-                        "skips": []
+                        "id": "zRopGqtJmN8",
+                        "skips": [
+                            {
+                                "from": 0,
+                                "to": 0.7
+                            },
+                            {
+                                "from": 100,
+                                "to": 100
+                            }
+                        ]
                     }
                 ]
             },
@@ -2374,8 +2627,21 @@
                 "filename": "Astro Troopers.sm",
                 "youtubeVideos": [
                     {
-                        "id": "XXX",
-                        "skips": []
+                        "id": "eYWtUZ1qDlg",
+                        "skips": [
+                            {
+                                "from": 0,
+                                "to": 1.2
+                            },
+                            {
+                                "from": 49.3,
+                                "to": 119.1
+                            },
+                            {
+                                "from": 186.4,
+                                "to": 205.75
+                            }
+                        ]
                     }
                 ]
             },
@@ -2383,13 +2649,19 @@
                 "filename": "Bamboo Sword Girl.sm",
                 "youtubeVideos": [
                     {
-                        "id": "XXX",
-                        "skips": []
+                        "id": "KUTDXV0ZuZ0",
+                        "skips": [
+                            {
+                                "from": 0,
+                                "to": 0.3
+                            }
+                        ]
                     }
                 ]
             },
             {
                 "filename": "batlmoon.sm",
+                "status": "Unavailable online",
                 "youtubeVideos": [
                     {
                         "id": "XXX",
@@ -2399,9 +2671,10 @@
             },
             {
                 "filename": "Beside & Besides.sm",
+                "status": "Not worth cutting",
                 "youtubeVideos": [
                     {
-                        "id": "XXX",
+                        "id": "uim567HShJI",
                         "skips": []
                     }
                 ]
@@ -2410,8 +2683,13 @@
                 "filename": "Black Rock Shooter.sm",
                 "youtubeVideos": [
                     {
-                        "id": "XXX",
-                        "skips": []
+                        "id": "OLzOrik5YJ8",
+                        "skips": [
+                            {
+                                "from": 116,
+                                "to": 273
+                            }
+                        ]
                     }
                 ]
             },
@@ -2419,8 +2697,21 @@
                 "filename": "Bring it On.sm",
                 "youtubeVideos": [
                     {
-                        "id": "XXX",
-                        "skips": []
+                        "id": "oEkGC2HV7rc",
+                        "skips": [
+                            {
+                                "from": 0,
+                                "to": 0.25
+                            },
+                            {
+                                "from": 53,
+                                "to": 113
+                            },
+                            {
+                                "from": 154,
+                                "to": 154
+                            }
+                        ]
                     }
                 ]
             },
@@ -2428,7 +2719,7 @@
                 "filename": "Burenai Eye de (Winter Version).sm",
                 "youtubeVideos": [
                     {
-                        "id": "XXX",
+                        "id": "wmdICpXIECU",
                         "skips": []
                     }
                 ]
@@ -2437,13 +2728,31 @@
                 "filename": "Butterfly On Your Right Shoulder.sm",
                 "youtubeVideos": [
                     {
-                        "id": "XXX",
-                        "skips": []
+                        "id": "uzDjwziLCPI",
+                        "skips": [
+                            {
+                                "from": 0,
+                                "to": 8.5
+                            },
+                            {
+                                "from": 119.5,
+                                "to": 126.4
+                            },
+                            {
+                                "from": 133.5,
+                                "to": 147.25
+                            },
+                            {
+                                "from": 159,
+                                "to": 173
+                            }
+                        ]
                     }
                 ]
             },
             {
                 "filename": "bwiw2b.sm",
+                "status": "Copyright hell",
                 "youtubeVideos": [
                     {
                         "id": "XXX",
@@ -2455,8 +2764,13 @@
                 "filename": "Carnival.sm",
                 "youtubeVideos": [
                     {
-                        "id": "XXX",
-                        "skips": []
+                        "id": "ID-SLX80jPQ",
+                        "skips": [
+                            {
+                                "from": 69,
+                                "to": 173
+                            }
+                        ]
                     }
                 ]
             },
@@ -2464,8 +2778,14 @@
                 "filename": "Catch The Wave.sm",
                 "youtubeVideos": [
                     {
-                        "id": "XXX",
-                        "skips": []
+                        "id": "pqiJ7krbEDM",
+                        "offset": 0.1,
+                        "skips": [
+                            {
+                                "from": 77.5,
+                                "to": 140.28
+                            }
+                        ]
                     }
                 ]
             },
@@ -2473,8 +2793,21 @@
                 "filename": "Cendrillon.sm",
                 "youtubeVideos": [
                     {
-                        "id": "XXX",
-                        "skips": []
+                        "id": "ns7jeST41SM",
+                        "skips": [
+                            {
+                                "from": null,
+                                "to": 15.36
+                            },
+                            {
+                                "from": 121.2,
+                                "to": 207.9
+                            },
+                            {
+                                "from": 221,
+                                "to": 247.1
+                            }
+                        ]
                     }
                 ]
             },
@@ -2491,8 +2824,21 @@
                 "filename": "Charles.sm",
                 "youtubeVideos": [
                     {
-                        "id": "XXX",
-                        "skips": []
+                        "id": "FFnJOer7F10",
+                        "skips": [
+                            {
+                                "from": 0,
+                                "to": 0.9
+                            },
+                            {
+                                "from": 81,
+                                "to": 147.3
+                            },
+                            {
+                                "from": 195,
+                                "to": 208.2
+                            }
+                        ]
                     }
                 ]
             },
@@ -2500,8 +2846,17 @@
                 "filename": "Children's War.sm",
                 "youtubeVideos": [
                     {
-                        "id": "XXX",
-                        "skips": []
+                        "id": "pywNi6gD1FA",
+                        "skips": [
+                            {
+                                "from": 0,
+                                "to": 1
+                            },
+                            {
+                                "from": 73,
+                                "to": 138.9
+                            }
+                        ]
                     }
                 ]
             },
