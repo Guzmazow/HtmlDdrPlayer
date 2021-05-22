@@ -1,6 +1,6 @@
 import { Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { Note } from '@models/note';
-import { NoteType } from '@models/enums';
+import { NoteQuantization, NoteType } from '@models/enums';
 import { DisplayService } from '@services/display.service';
 import { MediaService } from '@services/media.service';
 import { takeUntil } from 'rxjs/operators';
@@ -85,7 +85,7 @@ export class NoteLaneComponent implements OnInit, OnDestroy {
       case NoteType.NORMAL:
         //this.ctx.fillStyle = "white";
         //this.ctx.fillRect(x, y, this.displayService.displayOptions.noteSize, this.displayService.displayOptions.noteSize);
-        this.ctx.drawImage(this.mediaService.arrowImageCache.get(direction)!, x, y, this.displayService.displayOptions.noteSize, this.displayService.displayOptions.noteSize);
+        this.ctx.drawImage(this.mediaService.arrowImageCache.get(direction)?.get(NoteQuantization.Q4)!, x, y, this.displayService.displayOptions.noteSize, this.displayService.displayOptions.noteSize);
         break;
       case NoteType.HOLD_HEAD: // Hold head
         this.ctx.fillRect(x, y, this.displayService.displayOptions.noteSize, this.displayService.displayOptions.noteSize);

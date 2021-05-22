@@ -1,4 +1,4 @@
-import { NoteType } from "./enums";
+import { NoteType, SimfileNoteType } from "./enums";
 import { Note } from "./note";
 import { ParsedSimfile } from "./parsed-simfile";
 import { ParsedSimfileMode } from "./parsed-simfile-mode";
@@ -155,9 +155,9 @@ export class PlayableSimfileMode {
         for (let i = 0; i < timesBeatsAndLines.length; i++) {
             let line: { time: number; beat: number; lineInfo: string } = timesBeatsAndLines[i];
             for (let j = 0; j < line.lineInfo.length; j++) {
-                let noteType = line.lineInfo.charAt(j);
-                if (noteType !== "0") {
-                    tracks[j].push(new Note(<NoteType>noteType, line.time));
+                let simfileNoteType = <SimfileNoteType>line.lineInfo.charAt(j);
+                if (simfileNoteType != SimfileNoteType.EMPTY) {
+                    tracks[j].push(new Note(simfileNoteType, line.time));
                 }
             }
         }

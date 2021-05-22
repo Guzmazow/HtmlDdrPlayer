@@ -1,10 +1,35 @@
-export enum NoteType {
-    NONE = "0",
+export enum NoteQuantization {
+    NONE = -1,
+    Q4 = 4,
+    Q8 = 8,
+    Q12 = 12,
+    Q16 = 16,
+    Q24 = 24,
+    Q32 = 32,
+    Q48 = 48,
+    Q64 = 64,
+    Q128 = 128
+}
+
+export const AllNoteQuantizations = [NoteQuantization.Q4, NoteQuantization.Q8, NoteQuantization.Q12, NoteQuantization.Q16, NoteQuantization.Q24, NoteQuantization.Q32, NoteQuantization.Q48, NoteQuantization.Q64];
+
+export enum SimfileNoteType {
+    EMPTY = "0",
     NORMAL = "1",
     HOLD_HEAD = "2",
     TAIL = "3",
     ROLL_HEAD = "4",
-    MINE = "M",
+    MINE = "M"
+}
+
+export enum NoteType {
+    NONE = -1,
+    EMPTY = 0,
+    NORMAL = 1,
+    HOLD_HEAD = 2,
+    TAIL = 3,
+    ROLL_HEAD = 4,
+    MINE = 5
 }
 
 

@@ -1,6 +1,6 @@
 import { EventEmitter, Injectable } from '@angular/core';
-import { AllDirections, AllJudgements, Direction, Judgement } from '@models/enums';
-import { BehaviorSubject } from 'rxjs';
+import { AllDirections, AllJudgements, AllNoteQuantizations, Direction, Judgement, NoteQuantization } from '@models/enums';
+import { BehaviorSubject, forkJoin } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -11,23 +11,53 @@ export class MediaService {
 
   audio!: HTMLAudioElement;
   video!: YT.Player;
-  
-  arrowImageCache = new Map<Direction, HTMLCanvasElement>();
+
+  arrowImageCache = new Map<Direction, Map<NoteQuantization, HTMLCanvasElement>>([
+    [Direction.LEFT, new Map<NoteQuantization, HTMLCanvasElement>()],
+    [Direction.DOWN, new Map<NoteQuantization, HTMLCanvasElement>()],
+    [Direction.UP, new Map<NoteQuantization, HTMLCanvasElement>()],
+    [Direction.RIGHT, new Map<NoteQuantization, HTMLCanvasElement>()]
+  ]);
+
+  arrowGlowImageCache = new Map<Direction, Map<Judgement, HTMLCanvasElement>>([
+    [Direction.LEFT, new Map<Judgement, HTMLCanvasElement>()],
+    [Direction.DOWN, new Map<Judgement, HTMLCanvasElement>()],
+    [Direction.UP, new Map<Judgement, HTMLCanvasElement>()],
+    [Direction.RIGHT, new Map<Judgement, HTMLCanvasElement>()]
+  ]);
+
   receptorImageCache = new Map<Direction, HTMLCanvasElement>();
   receptorFlashImageCache = new Map<Direction, HTMLCanvasElement>();
-  receptorGlowImageCache = new Map<Direction, Map<Judgement, HTMLCanvasElement>>([
-      [Direction.LEFT, new Map<Judgement, HTMLCanvasElement>()],
-      [Direction.DOWN, new Map<Judgement, HTMLCanvasElement>()],
-      [Direction.UP, new Map<Judgement, HTMLCanvasElement>()],
-      [Direction.RIGHT, new Map<Judgement, HTMLCanvasElement>()]
-  ]);
+
   judgementImageCache = new Map<Judgement, string>();
 
-  arrowImageLoad = this.loadImage("/assets/Noteskins/a_arrow 1x8 (doubleres).png");
-  receptorGlowImageLoad = this.loadImage("/assets/Noteskins/a_glow (doubleres).png");
-  receptorImageLoad = this.loadImage("/assets/Noteskins/a_receptor (doubleres).png");
-  receptorFlashImageLoad = this.loadImage("/assets/Noteskins/a_rflash (doubleres).png");
-  judgementImageLoad = this.loadImage("/assets/Judgements/default 1x6 (Doubleres).png");
+  holdBodyActiveImageCache?: HTMLCanvasElement;
+  holdBodyInactiveImageCache?: HTMLCanvasElement;
+  holdCapActiveImageCache?: HTMLCanvasElement;
+  holdCapInactiveImageCache?: HTMLCanvasElement;
+
+  rollBodyActiveImageCache?: HTMLCanvasElement;
+  rollBodyInactiveImageCache?: HTMLCanvasElement;
+  rollCapActiveImageCache?: HTMLCanvasElement;
+  rollCapInactiveImageCache?: HTMLCanvasElement;
+
+  arrowImageLoad = this.loadImage("/assets/Images/Arrow.png");
+  arrowGlowImageLoad = this.loadImage("/assets/Images/ArrowGlow.png");
+
+  receptorImageLoad = this.loadImage("/assets/Images/ArrowReceptor.png");
+  receptorFlashImageLoad = this.loadImage("/assets/Images/ArrowReceptorFlash.png");
+
+  holdBodyActiveLoad = this.loadImage("/assets/Images/HoldBodyActive.png");
+  holdBodyInactiveLoad = this.loadImage("/assets/Images/HoldBodyInactive.png");
+  holdCapActiveLoad = this.loadImage("/assets/Images/HoldCapActive.png");
+  holdCapInactiveLoad = this.loadImage("/assets/Images/HoldCapInactive.png");
+
+  rollBodyActiveLoad = this.loadImage("/assets/Images/RollBodyActive.png");
+  rollBodyInactiveLoad = this.loadImage("/assets/Images/RollBodyInactive.png");
+  rollCapActiveLoad = this.loadImage("/assets/Images/RollCapActive.png");
+  rollCapInactiveLoad = this.loadImage("/assets/Images/RollCapInactive.png");
+
+  judgementImageLoad = this.loadImage("/assets/Images/Judgement.png");
 
   constructor() {
 
@@ -44,28 +74,51 @@ export class MediaService {
     //   this.media.audio.load();
     // }
 
-    Promise.all([this.arrowImageLoad, this.receptorGlowImageLoad, this.receptorImageLoad, this.receptorFlashImageLoad, this.judgementImageLoad]).then((x) => {
-      let arrowImage = x[0];
-      let receptorGlowImage = x[1];
-      let receptorImage = x[2];
-      let receptorFlashImage = x[3];
-      let judgementImage = x[4];
-
+    forkJoin({
+      arrow: this.arrowImageLoad,
+      arrowGlow: this.arrowGlowImageLoad,
+      receptor: this.receptorImageLoad,
+      receptorFlash: this.receptorFlashImageLoad,
+      judgement: this.judgementImageLoad,
+      holdBodyActive: this.holdBodyActiveLoad,
+      holdBodyInactive: this.holdBodyInactiveLoad,
+      holdCapActive: this.holdCapActiveLoad,
+      holdCapInactive: this.holdCapInactiveLoad,
+      rollBodyActive: this.rollBodyActiveLoad,
+      rollBodyInactive: this.rollBodyInactiveLoad,
+      rollCapActive: this.rollCapActiveLoad,
+      rollCapInactive: this.rollCapInactiveLoad
+    }).subscribe(images => {
       for (let direction of AllDirections) {
-        //TODO: Multi-Color arrows
-        this.arrowImageCache.set(direction, this.adjustImage(arrowImage, noteSize, 0, 0, arrowImage.width, arrowImage.height / 8, direction));
-        this.receptorImageCache.set(direction, this.adjustImage(receptorImage, noteSize, 0, 0, receptorImage.width, receptorImage.height, direction));
-        this.receptorFlashImageCache.set(direction, this.adjustImage(receptorFlashImage, noteSize, 0, 0, receptorFlashImage.width, receptorFlashImage.height, direction));
-        var receptorGlowImageCache = this.receptorGlowImageCache.get(direction);
-        if (receptorGlowImageCache) {
+        let arrowImageDirectionCache = this.arrowImageCache.get(direction);
+        if (arrowImageDirectionCache) {
+          for (let index = 0; index < AllNoteQuantizations.length; index++) {
+            let quantization = AllNoteQuantizations[index];
+            arrowImageDirectionCache.set(quantization, this.adjustImage(images.arrow, noteSize, 0, images.arrow.height / 8 * index, images.arrow.width, images.arrow.height / 8, direction));
+          }
+        }
+
+        this.receptorImageCache.set(direction, this.adjustImage(images.receptor, noteSize, 0, 0, images.receptor.width, images.receptor.height, direction));
+        this.receptorFlashImageCache.set(direction, this.adjustImage(images.receptorFlash, noteSize, 0, 0, images.receptorFlash.width, images.receptorFlash.height, direction));
+        let arrowGlowImageDirectionCache = this.arrowGlowImageCache.get(direction);
+        if (arrowGlowImageDirectionCache) {
           for (let judgement of AllJudgements) {
-            receptorGlowImageCache.set(judgement, this.adjustImage(receptorGlowImage, noteSize, 0, 0, receptorGlowImage.width, receptorGlowImage.height, direction, judgement));
+            arrowGlowImageDirectionCache.set(judgement, this.adjustImage(images.arrowGlow, noteSize, 0, 0, images.arrowGlow.width, images.arrowGlow.height, direction, judgement));
           }
         }
       }
 
+      this.holdBodyActiveImageCache = this.adjustImage(images.holdBodyActive, noteSize);
+      this.holdBodyInactiveImageCache = this.adjustImage(images.holdBodyInactive, noteSize);
+      this.holdCapActiveImageCache = this.adjustImage(images.holdCapActive, noteSize);
+      this.holdCapInactiveImageCache = this.adjustImage(images.holdCapInactive, noteSize);
+      this.rollBodyActiveImageCache = this.adjustImage(images.rollBodyActive, noteSize);
+      this.rollBodyInactiveImageCache = this.adjustImage(images.rollBodyInactive, noteSize);
+      this.rollCapActiveImageCache = this.adjustImage(images.rollCapActive, noteSize);
+      this.rollCapInactiveImageCache = this.adjustImage(images.rollCapInactive, noteSize);
+
       for (let judgement of AllJudgements) {
-        this.judgementImageCache.set(judgement, this.adjustImage(judgementImage, null, 0, judgement * judgementImage.height / 6, judgementImage.width, judgementImage.height / 6, Direction.NONE).toDataURL());
+        this.judgementImageCache.set(judgement, this.adjustImage(images.judgement, null, 0, judgement * images.judgement.height / 6, images.judgement.width, images.judgement.height / 6).toDataURL());
       }
       console.log('MEDIA images ready');
       this.onMediaLoaded.next(true);
@@ -82,7 +135,7 @@ export class MediaService {
   }
 
 
-  adjustImage(image: HTMLImageElement, noteSize: number | null, clipStartX: number, clipStartY: number, clipWidth: number, clipHeight: number, rotateByDirection: Direction = Direction.NONE, colorByJudgement: Judgement = Judgement.NONE) {
+  adjustImage(image: HTMLImageElement, noteSize: number | null, clipStartX: number = 0, clipStartY: number = 0, clipWidth: number = image.width, clipHeight: number = image.height, rotateByDirection: Direction = Direction.NONE, colorByJudgement: Judgement = Judgement.NONE) {
 
     var canvas = document.createElement('canvas');
     var ctx = canvas.getContext('2d');

@@ -95,7 +95,7 @@ export class ReceptorComponent implements OnInit {
       if (glowFramesLeft && glowFramesLeft.framesLeft > 0 && glowFramesLeft.judgemnet != Judgement.NONE) {
         this.ctx.save();
         this.ctx.globalAlpha = 0.8 * glowFramesLeft.framesLeft / 20;
-        this.ctx.drawImage(this.media.receptorGlowImageCache.get(direction)?.get(glowFramesLeft.judgemnet)!, this.displayService.getNoteX(direction), this.displayService.displayOptions.noteTopPadding, this.displayService.displayOptions.noteSize, this.displayService.displayOptions.noteSize);
+        this.ctx.drawImage(this.media.arrowGlowImageCache.get(direction)?.get(glowFramesLeft.judgemnet)!, this.displayService.getNoteX(direction), this.displayService.displayOptions.noteTopPadding, this.displayService.displayOptions.noteSize, this.displayService.displayOptions.noteSize);
         this.ctx.restore();
         glowFramesLeft.framesLeft--;
       }
