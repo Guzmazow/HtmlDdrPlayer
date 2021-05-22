@@ -1,10 +1,11 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { AllDirections, Direction, Judgement, Key } from '@models/enums';
+import { componentDestroyed } from '@other/untilDestroyed';
 import { DisplayService } from '@services/display.service';
 import { JudgementService } from '@services/judgement.service';
 import { KeyboardService } from '@services/keyboard.service';
 import { MediaService } from '@services/media.service';
-import { Subscription } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 
 @Component({
   selector: 'app-receptor',
@@ -35,12 +36,6 @@ export class ReceptorComponent implements OnInit {
 
   receptorFlashVisibilityState = new Map<Key, boolean>();
 
-  onJudgedSub?: Subscription;
-  onGamePlayStateChangeSub?: Subscription;
-  onPressSub?: Subscription;
-  onMediaLoadedSub?: Subscription;
-  onRedrawSub?:Subscription
-
   constructor(
     private keyboardService: KeyboardService,
     private mediaService: MediaService,
@@ -56,22 +51,22 @@ export class ReceptorComponent implements OnInit {
     this.canvas.height = screen.height;
     this.canvas.width = this.displayService.displayOptions.noteLaneWidth;
 
-    // this.displayService.onSetup.subscribe(()=>{
+    // this.displayService.onSetup.pipe(takeUntil(componentDestroyed(this))).subscribe(()=>{
     //   this.canvas.height = screen.height;
     //   this.canvas.width = this.displayService.displayOptions.noteLaneWidth;
     // });
 
-   this.onGamePlayStateChangeSub =  this.displayService.onGamePlayStateChange.subscribe(playing => {
+   this.displayService.onGamePlayStateChange.pipe(takeUntil(componentDestroyed(this))).subscribe(playing => {
       if (!playing) return;
 
-      this.onMediaLoadedSub = this.mediaService.onMediaLoaded.subscribe(x => this.mediaLoaded = x);
-      this.onRedrawSub = this.displayService.onRedraw.subscribe(this.drawReceptors.bind(this));
+      this.mediaService.onMediaLoaded.pipe(takeUntil(componentDestroyed(this))).subscribe(x => this.mediaLoaded = x);
+      this.displayService.onRedraw.pipe(takeUntil(componentDestroyed(this))).subscribe(this.drawReceptors.bind(this));
 
-      this.onPressSub = this.keyboardService.onPress.subscribe(press => {
+      this.keyboardService.onPress.pipe(takeUntil(componentDestroyed(this))).subscribe(press => {
         this.receptorFlashVisibilityState.set(press.key, press.state);
       });
 
-      this.onJudgedSub = this.judgementService.onJudged.subscribe(judged => {
+      this.judgementService.onJudged.pipe(takeUntil(componentDestroyed(this))).subscribe(judged => {
         this.receptorGlowVisibilityFramesLeft.set(judged.key, { judgemnet: judged.judgement, framesLeft: 20 })
       });
     });
@@ -79,11 +74,6 @@ export class ReceptorComponent implements OnInit {
   }
 
   ngOnDestroy(): void {
-    this.onJudgedSub?.unsubscribe();
-    this.onGamePlayStateChangeSub?.unsubscribe();
-    this.onPressSub?.unsubscribe();
-    this.onMediaLoadedSub?.unsubscribe();
-    this.onRedrawSub?.unsubscribe();
   }
 
   drawReceptors() {

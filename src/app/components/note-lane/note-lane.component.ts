@@ -3,7 +3,8 @@ import { Note } from '@models/note';
 import { NoteType } from '@models/enums';
 import { DisplayService } from '@services/display.service';
 import { MediaService } from '@services/media.service';
-import { Subscription } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
+import { componentDestroyed } from '@other/untilDestroyed';
 
 @Component({
   selector: 'app-note-lane',
@@ -17,9 +18,6 @@ export class NoteLaneComponent implements OnInit, OnDestroy {
   ctx!: CanvasRenderingContext2D;
   mediaLoaded: boolean = false;
 
-  onDrawSub?: Subscription;
-  onMediaLoadedSub?: Subscription
-
   constructor(private displayService: DisplayService, private mediaService: MediaService) { }
 
   ngOnInit(): void {
@@ -32,14 +30,12 @@ export class NoteLaneComponent implements OnInit, OnDestroy {
     //   this.canvas.height = screen.height;
     //   this.canvas.width = this.displayService.displayOptions.noteLaneWidth;
     // });
-    this.onMediaLoadedSub =this.mediaService.onMediaLoaded.subscribe(x => this.mediaLoaded = x);
-    this.onDrawSub = this.displayService.onRedraw.subscribe(this.draw.bind(this));
+    this.mediaService.onMediaLoaded.pipe(takeUntil(componentDestroyed(this))).subscribe(x => this.mediaLoaded = x);
+    this.displayService.onRedraw.pipe(takeUntil(componentDestroyed(this))).subscribe(this.draw.bind(this));
     // this.displayService.onStart.subscribe(this.init.bind(this));
   }
 
   ngOnDestroy(): void {
-    this.onMediaLoadedSub?.unsubscribe();
-    this.onDrawSub?.unsubscribe();
   }
   
   // init() {

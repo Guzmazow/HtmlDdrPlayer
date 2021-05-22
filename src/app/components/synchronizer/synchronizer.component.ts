@@ -1,18 +1,20 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { FormArray, FormControl, FormGroup } from '@angular/forms';
 import { MatTabChangeEvent } from '@angular/material/tabs';
 import { ActivatedRoute } from '@angular/router';
 import { ParsedSimfile } from '@models/parsed-simfile';
 import { SimfileRegistryYoutubeInfo } from '@models/simfile-registry-youtube-info';
+import { componentDestroyed } from '@other/untilDestroyed';
 import { SimfileLoaderService } from '@services/simfile-loader.service';
 import { NgxY2PlayerComponent, NgxY2PlayerOptions } from 'ngx-y2-player';
+import { takeUntil } from 'rxjs/operators';
 
 @Component({
   selector: 'app-synchronizer',
   templateUrl: './synchronizer.component.html',
   styleUrls: ['./synchronizer.component.css']
 })
-export class SynchronizerComponent implements OnInit {
+export class SynchronizerComponent implements OnInit, OnDestroy {
 
   youtubeVideoForm?: FormGroup;
   get youtubeVideoFormSkips(): FormArray {
@@ -34,6 +36,7 @@ export class SynchronizerComponent implements OnInit {
     }
   }
 
+  lastFrame: number = 0;
 
   audioLocation: number = 0;
   videoLocation: number = 0;
@@ -61,23 +64,28 @@ export class SynchronizerComponent implements OnInit {
   };
 
   constructor(private route: ActivatedRoute, private s1imfileLoaderService: SimfileLoaderService) {
-    requestAnimationFrame(this.matchLocation.bind(this));
+    
   }
 
   matchLocation() {
     this.audioLocation = this.audioPlayer?.currentTime ?? 0;
     if (this.video?.videoPlayer?.getCurrentTime)
       this.videoLocation = this.video?.videoPlayer.getCurrentTime() ?? 0;
-    requestAnimationFrame(this.matchLocation.bind(this));
+      this.lastFrame = requestAnimationFrame(this.matchLocation.bind(this));
   }
 
   ngOnInit() {
-    this.s1imfileLoaderService.parsedSimfilesLoaded.subscribe((loaded) => {
+    this.s1imfileLoaderService.parsedSimfilesLoaded.pipe(takeUntil(componentDestroyed(this))).subscribe((loaded) => {
       if (!loaded) return;
       this.selectedSimfile = this.s1imfileLoaderService.simfileRegistryFolders?.get(this.route.snapshot.paramMap.get('foldername') || '')?.parsedSimfiles?.get(this.route.snapshot.paramMap.get('filename') || '');
       if (this.selectedSimfile && this.selectedSimfile.youtubeVideos.length > 0)
         this.selectVideo(this.selectedSimfile?.youtubeVideos[0]);
     });
+    requestAnimationFrame(this.matchLocation.bind(this));
+  }
+
+  ngOnDestroy(): void {
+    cancelAnimationFrame(this.lastFrame);
   }
 
   initYoutubeVideoForm(youtubeVideo: SimfileRegistryYoutubeInfo) {
@@ -93,7 +101,7 @@ export class SynchronizerComponent implements OnInit {
 
     this.youtubeVideoForm?.setValue(youtubeVideo);
 
-    this.youtubeVideoForm?.valueChanges.subscribe(newValue => {
+    this.youtubeVideoForm?.valueChanges.pipe(takeUntil(componentDestroyed(this))).subscribe(newValue => {
       Object.assign(this.selectedVideo, newValue);
     });
   }

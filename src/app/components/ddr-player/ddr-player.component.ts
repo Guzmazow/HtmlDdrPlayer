@@ -1,16 +1,17 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { DisplayService } from '@services/display.service';
 import { MediaService } from '@services/media.service';
 import { NgxY2PlayerComponent, NgxY2PlayerOptions } from 'ngx-y2-player';
 import { SimfileLoaderService } from '@services/simfile-loader.service';
-import { GameRequest } from '@models/game-request';
+import { takeUntil } from 'rxjs/operators';
+import { componentDestroyed } from '@other/untilDestroyed';
 
 @Component({
   selector: 'app-ddr-player',
   templateUrl: './ddr-player.component.html',
   styleUrls: ['./ddr-player.component.scss']
 })
-export class DdrPlayerComponent implements OnInit {
+export class DdrPlayerComponent implements OnInit, OnDestroy {
 
   screenWidth: number = screen.width;
   screenHeight: number = screen.height;
@@ -62,9 +63,12 @@ export class DdrPlayerComponent implements OnInit {
     private mediaService: MediaService,
     private simfileLoaderService: SimfileLoaderService
   ) {
-    this.simfileLoaderService.gameRequested.subscribe(r=>{
+    this.simfileLoaderService.gameRequested.pipe(takeUntil(componentDestroyed(this))).subscribe(r=>{
       this.videoId = r?.youtubeVideo.id ?? "";
     });
+  }
+
+  ngOnDestroy(): void {
   }
 
   ngOnInit(): void {

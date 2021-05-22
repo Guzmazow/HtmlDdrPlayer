@@ -3,9 +3,8 @@ import { Judgement, Direction } from '@models/enums';
 import { DisplayService } from '@services/display.service';
 import { JudgementService } from '@services/judgement.service';
 import { MediaService } from '@services/media.service';
-import { SimfileLoaderService } from '@services/simfile-loader.service';
-import { LocalStorage } from '@other/storage';
-import { Subscription } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
+import { componentDestroyed } from '@other/untilDestroyed';
 
 @Component({
   selector: 'app-judgement',
@@ -26,9 +25,6 @@ export class JudgementComponent implements OnInit, OnDestroy {
   missLimitTime: number; //used in view
   mediaLoaded: boolean = false;
 
-  onGamePlayStateChangeSub?: Subscription;
-  onMediaLoadedSub?: Subscription;
-  onJudgedSub?: Subscription;
 
   constructor(private mediaService: MediaService, private judgementService: JudgementService, public displayService: DisplayService) {
     this.missLimitTime = judgementService.errorLimit;
@@ -36,7 +32,7 @@ export class JudgementComponent implements OnInit, OnDestroy {
 
 
   ngOnInit(): void {
-    this.onGamePlayStateChangeSub = this.displayService.onGamePlayStateChange.subscribe(playing => {
+    this.displayService.onGamePlayStateChange.pipe(takeUntil(componentDestroyed(this))).subscribe(playing => {
       if (!playing && this.displayService.gameRequest) {
         let scores: { [folderName: string]: { [filename: string]: number } } = JSON.parse(localStorage.getItem('ScorePercentage') || '{}');
         if(!scores[this.displayService.gameRequest.simfileFolder.location]){
@@ -50,8 +46,8 @@ export class JudgementComponent implements OnInit, OnDestroy {
       }
     });
 
-    this.onMediaLoadedSub = this.mediaService.onMediaLoaded.subscribe(x => this.mediaLoaded = x);
-    this.onJudgedSub = this.judgementService.onJudged.subscribe(judgementContext => {
+    this.mediaService.onMediaLoaded.pipe(takeUntil(componentDestroyed(this))).subscribe(x => this.mediaLoaded = x);
+    this.judgementService.onJudged.pipe(takeUntil(componentDestroyed(this))).subscribe(judgementContext => {
 
       let currentCount = this.judgementCounts.get(judgementContext.judgement) ?? 0;
       this.judgementCounts.set(judgementContext.judgement, currentCount + 1)
@@ -77,9 +73,6 @@ export class JudgementComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.onGamePlayStateChangeSub?.unsubscribe();
-    this.onMediaLoadedSub?.unsubscribe();
-    this.onJudgedSub?.unsubscribe();
   }
 
 

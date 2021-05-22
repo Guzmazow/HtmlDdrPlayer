@@ -10,9 +10,10 @@ import { GameRequest } from '@models/game-request';
 import { KeyboardService } from '@services/keyboard.service';
 import { LocalStorage } from '../../other/storage';
 import { MatDrawerContainer } from '@angular/material/sidenav';
-import { Subscription } from 'rxjs';
 import { SimfileRegistryYoutubeInfo } from '@models/simfile-registry-youtube-info';
 import { SimfileRegistryFolder } from '@models/simfile-registry-folder';
+import { componentDestroyed } from '@other/untilDestroyed';
+import { takeUntil } from 'rxjs/operators';
 
 @Component({
   selector: 'app-simfile-selector',
@@ -33,7 +34,6 @@ export class SimfileSelectorComponent implements OnInit, OnDestroy {
   selectedSimfileMode?: ParsedSimfileMode;
   selectedVideo?: SimfileRegistryYoutubeInfo;
 
-  keyPressSubscribe?: Subscription;
 
   @ViewChild("simfileSelect") simfileSelect?: MatSelectionList;
   @ViewChild("simfileFolderSelect") simfileFolderSelect?: MatSelectionList;
@@ -60,17 +60,6 @@ export class SimfileSelectorComponent implements OnInit, OnDestroy {
   };
 
   constructor(private simfileLoaderService: SimfileLoaderService, private keyboardService: KeyboardService, private changeDetectorRef: ChangeDetectorRef) {
-    this.simfileLoaderService.parsedSimfilesLoaded.subscribe(loaded => {
-      if (!loaded) return;
-      if (simfileLoaderService.simfileRegistryFolders) {
-        this.simfileFolders = Array.from(simfileLoaderService.simfileRegistryFolders.values());
-        this.loadScores();
-        this.selectedSimfileFolder = this.simfileFolders.find(x => x.location == this.lastSelectedSimfileFolderLocation) ?? this.simfileFolders[0];
-        this.simfilesInSelectedFolder = Array.from(this.selectedSimfileFolder?.parsedSimfiles?.values() ?? []);
-        this.selectedSimfile = this.simfilesInSelectedFolder.find(x => x.smFileLocation == this.lastSelectedSimfileLocation);
-        this.selectedSimfileMode = this.selectedSimfile?.modes.find(x => x.difficulty == this.lastSelectedSimfileDifficulty);
-      }
-    });
   }
 
   antiGlitch() {
@@ -86,8 +75,19 @@ export class SimfileSelectorComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.antiGlitch();
-    this.keyPressSubscribe = this.keyboardService.onPress.subscribe((keyEv) => {
+    this.simfileLoaderService.parsedSimfilesLoaded.pipe(takeUntil(componentDestroyed(this))).subscribe(loaded => {
+      if (!loaded) return;
+      if (this.simfileLoaderService.simfileRegistryFolders) {
+        this.simfileFolders = Array.from(this.simfileLoaderService.simfileRegistryFolders.values());
+        this.loadScores();
+        this.selectedSimfileFolder = this.simfileFolders.find(x => x.location == this.lastSelectedSimfileFolderLocation) ?? this.simfileFolders[0];
+        this.simfilesInSelectedFolder = Array.from(this.selectedSimfileFolder?.parsedSimfiles?.values() ?? []);
+        this.selectedSimfile = this.simfilesInSelectedFolder.find(x => x.smFileLocation == this.lastSelectedSimfileLocation);
+        this.selectedSimfileMode = this.selectedSimfile?.modes.find(x => x.difficulty == this.lastSelectedSimfileDifficulty);
+      }
+      this.antiGlitch();
+    });    
+    this.keyboardService.onPress.pipe(takeUntil(componentDestroyed(this))).subscribe((keyEv) => {
       if (keyEv.state) {
         switch (keyEv.key) {
           case Key.UP:
@@ -148,7 +148,6 @@ export class SimfileSelectorComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.keyPressSubscribe?.unsubscribe();
   }
 
   selectSimfileFolder(folder: SimfileRegistryFolder) {
