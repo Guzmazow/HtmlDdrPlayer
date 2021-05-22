@@ -37,7 +37,7 @@ export class NoteLaneComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
   }
-  
+
   // init() {
   // }
 
@@ -85,12 +85,7 @@ export class NoteLaneComponent implements OnInit, OnDestroy {
       case NoteType.NORMAL:
         //this.ctx.fillStyle = "white";
         //this.ctx.fillRect(x, y, this.displayService.displayOptions.noteSize, this.displayService.displayOptions.noteSize);
-        let image = this.mediaService.arrowImageCache.get(direction)?.get(note.quantization);
-        if(image)
-          this.ctx.drawImage(image, x, y, this.displayService.displayOptions.noteSize, this.displayService.displayOptions.noteSize);
-        else
-          console.warn(`image not found for arrow d:${direction}, q:${note.quantization}`)
-      
+        this.ctx.drawImage(this.mediaService.arrowImageCache.get(direction)?.get(note.quantization)!, x, y, this.displayService.displayOptions.noteSize, this.displayService.displayOptions.noteSize);
         break;
       case NoteType.HOLD_HEAD: // Hold head
         this.ctx.fillRect(x, y, this.displayService.displayOptions.noteSize, this.displayService.displayOptions.noteSize);
@@ -110,14 +105,15 @@ export class NoteLaneComponent implements OnInit, OnDestroy {
         this.ctx.fillText("R", x + halfNoteSize, y + ninthNoteSize, this.displayService.displayOptions.noteSize);
         break;
       case NoteType.MINE:
-        this.ctx.beginPath();
-        this.ctx.arc(x + halfNoteSize, y + halfNoteSize, halfNoteSize, 0, 2 * Math.PI);
-        this.ctx.fill();
-        // ctx.fillRect(x, y, 40, 40);
-        this.ctx.font = `${this.displayService.displayOptions.noteSize}px Arial`;
-        this.ctx.textAlign = "center";
-        this.ctx.fillStyle = "white";
-        this.ctx.fillText("M", x + halfNoteSize, y + ninthNoteSize, this.displayService.displayOptions.noteSize);
+        // this.ctx.beginPath();
+        // this.ctx.arc(x + halfNoteSize, y + halfNoteSize, halfNoteSize, 0, 2 * Math.PI);
+        // this.ctx.fill();
+        // // ctx.fillRect(x, y, 40, 40);
+        // this.ctx.font = `${this.displayService.displayOptions.noteSize}px Arial`;
+        // this.ctx.textAlign = "center";
+        // this.ctx.fillStyle = "white";
+        // this.ctx.fillText("M", x + halfNoteSize, y + ninthNoteSize, this.displayService.displayOptions.noteSize);
+        this.ctx.drawImage(this.mediaService.mineImageCache.get(direction)?.get(Math.round(new Date().getMilliseconds()/2 * 359 / 1000))!, x, y, this.displayService.displayOptions.noteSize, this.displayService.displayOptions.noteSize);
         break;
       default:
         this.ctx.strokeRect(x, y, this.displayService.displayOptions.noteSize, this.displayService.displayOptions.noteSize);

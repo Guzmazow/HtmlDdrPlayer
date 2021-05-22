@@ -41,6 +41,13 @@ export class MediaService {
   rollCapActiveImageCache?: HTMLCanvasElement;
   rollCapInactiveImageCache?: HTMLCanvasElement;
 
+  mineImageCache = new Map<Direction, Map<Number, HTMLCanvasElement>>([
+    [Direction.LEFT, new Map<Number, HTMLCanvasElement>()],
+    [Direction.DOWN, new Map<Number, HTMLCanvasElement>()],
+    [Direction.UP, new Map<Number, HTMLCanvasElement>()],
+    [Direction.RIGHT, new Map<Number, HTMLCanvasElement>()]
+  ]);
+
   arrowImageLoad = this.loadImage("/assets/Images/Arrow.png");
   arrowGlowImageLoad = this.loadImage("/assets/Images/ArrowGlow.png");
 
@@ -56,6 +63,8 @@ export class MediaService {
   rollBodyInactiveLoad = this.loadImage("/assets/Images/RollBodyInactive.png");
   rollCapActiveLoad = this.loadImage("/assets/Images/RollCapActive.png");
   rollCapInactiveLoad = this.loadImage("/assets/Images/RollCapInactive.png");
+
+  mineImageLoad = this.loadImage("/assets/Images/Mine.png");
 
   judgementImageLoad = this.loadImage("/assets/Images/Judgement.png");
 
@@ -87,23 +96,30 @@ export class MediaService {
       rollBodyActive: this.rollBodyActiveLoad,
       rollBodyInactive: this.rollBodyInactiveLoad,
       rollCapActive: this.rollCapActiveLoad,
-      rollCapInactive: this.rollCapInactiveLoad
+      rollCapInactive: this.rollCapInactiveLoad,
+      mine: this.mineImageLoad,
     }).subscribe(images => {
       for (let direction of AllDirections) {
         let arrowImageDirectionCache = this.arrowImageCache.get(direction);
         if (arrowImageDirectionCache) {
           for (let index = 0; index < AllNoteQuantizations.length; index++) {
             let quantization = AllNoteQuantizations[index];
-            arrowImageDirectionCache.set(quantization, this.adjustImage(images.arrow, noteSize, 0, images.arrow.height / 8 * index, images.arrow.width, images.arrow.height / 8, direction));
+            arrowImageDirectionCache.set(quantization, this.adjustImage(images.arrow, noteSize, 0, images.arrow.height / 8 * index, images.arrow.width, images.arrow.height / 8, this.directionToRadians(direction)));
           }
         }
 
-        this.receptorImageCache.set(direction, this.adjustImage(images.receptor, noteSize, 0, 0, images.receptor.width, images.receptor.height, direction));
-        this.receptorFlashImageCache.set(direction, this.adjustImage(images.receptorFlash, noteSize, 0, 0, images.receptorFlash.width, images.receptorFlash.height, direction));
+        this.receptorImageCache.set(direction, this.adjustImage(images.receptor, noteSize, 0, 0, images.receptor.width, images.receptor.height, this.directionToRadians(direction)));
+        this.receptorFlashImageCache.set(direction, this.adjustImage(images.receptorFlash, noteSize, 0, 0, images.receptorFlash.width, images.receptorFlash.height, this.directionToRadians(direction)));
         let arrowGlowImageDirectionCache = this.arrowGlowImageCache.get(direction);
         if (arrowGlowImageDirectionCache) {
           for (let judgement of AllJudgements) {
-            arrowGlowImageDirectionCache.set(judgement, this.adjustImage(images.arrowGlow, noteSize, 0, 0, images.arrowGlow.width, images.arrowGlow.height, direction, judgement));
+            arrowGlowImageDirectionCache.set(judgement, this.adjustImage(images.arrowGlow, noteSize, 0, 0, images.arrowGlow.width, images.arrowGlow.height, this.directionToRadians(direction), judgement));
+          }
+        }
+        let mineImageDirectionCache = this.mineImageCache.get(direction);
+        if (mineImageDirectionCache) {
+          for (let angle = 0; angle < 360; angle++) {
+            mineImageDirectionCache.set(angle, this.adjustImage(images.mine, noteSize, 0, images.mine.width / 4 * direction, images.mine.width / 4, images.mine.height / 2, angle * Math.PI / 180));
           }
         }
       }
@@ -117,12 +133,25 @@ export class MediaService {
       this.rollCapActiveImageCache = this.adjustImage(images.rollCapActive, noteSize);
       this.rollCapInactiveImageCache = this.adjustImage(images.rollCapInactive, noteSize);
 
+
+
+
       for (let judgement of AllJudgements) {
         this.judgementImageCache.set(judgement, this.adjustImage(images.judgement, null, 0, judgement * images.judgement.height / 6, images.judgement.width, images.judgement.height / 6).toDataURL());
       }
       console.log('MEDIA images ready');
       this.onMediaLoaded.next(true);
     })
+  }
+
+  directionToRadians(rotateByDirection: Direction) {
+    switch (rotateByDirection) {
+      case Direction.LEFT: return 90 * Math.PI / 180;
+      case Direction.DOWN: return 0;
+      case Direction.RIGHT: return -90 * Math.PI / 180;
+      case Direction.UP: return 180 * Math.PI / 180;
+      default: return 0;
+    }
   }
 
   loadImage(src: string) {
@@ -135,7 +164,7 @@ export class MediaService {
   }
 
 
-  adjustImage(image: HTMLImageElement, noteSize: number | null, clipStartX: number = 0, clipStartY: number = 0, clipWidth: number = image.width, clipHeight: number = image.height, rotateByDirection: Direction = Direction.NONE, colorByJudgement: Judgement = Judgement.NONE) {
+  adjustImage(image: HTMLImageElement, noteSize: number | null, clipStartX: number = 0, clipStartY: number = 0, clipWidth: number = image.width, clipHeight: number = image.height, rotateByRadians: number = 0, colorByJudgement: Judgement = Judgement.NONE) {
 
     var canvas = document.createElement('canvas');
     var ctx = canvas.getContext('2d');
@@ -149,16 +178,6 @@ export class MediaService {
 
     var halfWidth = canvas.width / 2;
     var halfHeight = canvas.height / 2;
-    var angleInRadians = 0;
-
-    switch (rotateByDirection) {
-      case Direction.LEFT: angleInRadians = 90 * Math.PI / 180; break;
-      case Direction.DOWN: angleInRadians = 0; break;
-      case Direction.RIGHT: angleInRadians = -90 * Math.PI / 180; break;
-      case Direction.UP: angleInRadians = 180 * Math.PI / 180; break;
-    }
-
-
 
     //https://codepen.io/sosuke/pen/Pjoqqp
     switch (colorByJudgement) {
@@ -171,10 +190,10 @@ export class MediaService {
     }
 
     ctx.translate(halfWidth, halfHeight);
-    ctx.rotate(angleInRadians);
+    ctx.rotate(rotateByRadians);
     //source region dest. region    
     ctx.drawImage(image, clipStartX, clipStartY, clipWidth, clipHeight, -halfWidth, -halfHeight, canvas.width, canvas.height);
-    ctx.rotate(-angleInRadians);
+    ctx.rotate(-rotateByRadians);
     ctx.translate(-halfWidth, -halfHeight);
 
     return canvas;
