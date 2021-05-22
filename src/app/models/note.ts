@@ -1,13 +1,15 @@
-import { Judgement, NoteType, SimfileNoteType } from './enums';
+import { Judgement, NoteQuantization, NoteType, SimfileNoteType } from './enums';
 
 export class Note {
     type: NoteType;
     time: number;
+    quantization: NoteQuantization;
+    totalBeat: number;
     judged: boolean = false;
     judgement: Judgement = Judgement.NONE;
     precision: number | null = null;
 
-    constructor(type: SimfileNoteType, time: number) {
+    constructor(type: SimfileNoteType, time: number, quantization: NoteQuantization, totalBeat: number) {
         switch (type) {
             case SimfileNoteType.EMPTY: this.type = NoteType.EMPTY; break;
             case SimfileNoteType.NORMAL: this.type = NoteType.NORMAL; break;
@@ -18,5 +20,7 @@ export class Note {
             default: this.type = NoteType.NONE;
         }
         this.time = time;
+        this.quantization = quantization;
+        this.totalBeat = totalBeat;
     }
 }

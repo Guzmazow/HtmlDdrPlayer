@@ -5,17 +5,21 @@
     - [x] Normal arrows
         - [x] Add built-in noteskin load
         - [x] Judgement
-    - [ ] Colored arrows
-        - [ ] Add built-in noteskin load
-        - [ ] Judgement
+    - [X] Colored arrows
+        - [X] Add built-in noteskin load
+        - [X] Quantization
     - [ ] Mines
-        - [ ] Add built-in noteskin load
+        - [X] Add built-in noteskin load
+        - [ ] Draw
         - [ ] Judgement
+        - [ ] Rotation
     - [ ] Holds
-        - [ ] Add built-in noteskin load    
+        - [X] Add built-in noteskin load   
+        - [ ] Draw 
         - [ ] Judgement
     - [ ] Rols
-        - [ ] Add built-in noteskin load
+        - [X] Add built-in noteskin load
+        - [ ] Draw
         - [ ] Judgement
     - [ ] Post-game screen
         - [ ] Save played game stats
@@ -23,10 +27,10 @@
     - [ ] Auto-generate simfile
         - [ ] Beat
         - [ ] Vocal
-    - [ ] Down-scale existing simfile dificullty to a specified level
+    - [ ] Down-scale existing simfile dificullty to a specified level (Cut option, by quantization level)
     - [ ] Subtitles
-- [ ] Basic menu
-    - [ ] Folder view
+- [X] Basic menu
+    - [X] Folder view
     - [x] Selected folder view
         - [x] Simfile list 
         - [x] Selected simfile details

@@ -1,17 +1,25 @@
+//the ones that can be divided by 3 are reaallly broken ones
+//they add a new color but make the color repeat every 3 notes instead of 4
 export enum NoteQuantization {
     NONE = -1,
     Q4 = 4,
-    Q8 = 8,
-    Q12 = 12,
-    Q16 = 16,
-    Q24 = 24,
-    Q32 = 32,
-    Q48 = 48,
-    Q64 = 64,
-    Q128 = 128
+    Q8 = 8,   
+    Q12 = 12,  
+    Q16 = 16,  
+    Q24 = 24,  
+    Q32 = 32,  
+    Q48 = 48,  
+    Q64 = 64,  
+    Q128 = 128,
+    Q256 = 256,
+    Q512 = 512 
 }
 
-export const AllNoteQuantizations = [NoteQuantization.Q4, NoteQuantization.Q8, NoteQuantization.Q12, NoteQuantization.Q16, NoteQuantization.Q24, NoteQuantization.Q32, NoteQuantization.Q48, NoteQuantization.Q64];
+//Only the ones that can't be divided by 3
+export const AllNoteQuantizations = [NoteQuantization.Q4, NoteQuantization.Q8, NoteQuantization.Q16, NoteQuantization.Q32, NoteQuantization.Q64, NoteQuantization.Q128 , NoteQuantization.Q256, NoteQuantization.Q512];
+export const BadNoteQuantizations = [NoteQuantization.Q12, NoteQuantization.Q24, NoteQuantization.Q48];
+
+
 
 export enum SimfileNoteType {
     EMPTY = "0",

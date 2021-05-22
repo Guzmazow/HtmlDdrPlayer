@@ -85,7 +85,12 @@ export class NoteLaneComponent implements OnInit, OnDestroy {
       case NoteType.NORMAL:
         //this.ctx.fillStyle = "white";
         //this.ctx.fillRect(x, y, this.displayService.displayOptions.noteSize, this.displayService.displayOptions.noteSize);
-        this.ctx.drawImage(this.mediaService.arrowImageCache.get(direction)?.get(NoteQuantization.Q4)!, x, y, this.displayService.displayOptions.noteSize, this.displayService.displayOptions.noteSize);
+        let image = this.mediaService.arrowImageCache.get(direction)?.get(note.quantization);
+        if(image)
+          this.ctx.drawImage(image, x, y, this.displayService.displayOptions.noteSize, this.displayService.displayOptions.noteSize);
+        else
+          console.warn(`image not found for arrow d:${direction}, q:${note.quantization}`)
+      
         break;
       case NoteType.HOLD_HEAD: // Hold head
         this.ctx.fillRect(x, y, this.displayService.displayOptions.noteSize, this.displayService.displayOptions.noteSize);

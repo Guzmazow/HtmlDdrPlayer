@@ -1,4 +1,4 @@
-import { NoteType, SimfileNoteType } from "./enums";
+import { AllNoteQuantizations, BadNoteQuantizations, NoteQuantization, NoteType, SimfileNoteType } from "./enums";
 import { Note } from "./note";
 import { ParsedSimfile } from "./parsed-simfile";
 import { ParsedSimfileMode } from "./parsed-simfile-mode";
@@ -53,51 +53,69 @@ export class PlayableSimfileMode {
         return measures;
     }
 
-    // assumes 4/4 time signature
+
     getBeatInfoByLine(measures: string[][]) {
         let beatsAndLines = [];
         let currentBeat = 0;
         for (let i = 0; i < measures.length; i++) {
             let measure = measures[i];
+            let beatsPerMeasure = measure.length;
+            let threeNoteRepeatCycle = beatsPerMeasure % 3 == 0;
+            let noteCycle = threeNoteRepeatCycle ? 3 : 4;
+            let beatStep = noteCycle / beatsPerMeasure; // 1, 0.5, 0.25, 0.125 | 0.25, 0.125
+            let noteCycleStep = beatsPerMeasure / noteCycle; // 4, 8, 16, 32, 64, 128 | 12, 24, 48
+            let quantizationIndex = threeNoteRepeatCycle ? BadNoteQuantizations.indexOf(beatsPerMeasure) : AllNoteQuantizations.indexOf(beatsPerMeasure);
+            if (quantizationIndex == -1) {
+                console.warn(`quantization not found for beats per measure: ${beatsPerMeasure}`);
+            }
+            
             for (let j = 0; j < measure.length; j++) {
-                beatsAndLines.push({ beat: currentBeat, lineInfo: measure[j] });
-                currentBeat += 4 / measure.length;
+                let noteQuantizationIndex = j % noteCycleStep; // 0-noteCycleStep / 0-noteCycleStep
+                let noteQuantization = AllNoteQuantizations[noteQuantizationIndex];
+                if(!noteQuantization){
+                    console.warn(`missing quatization for beatStep: ${beatStep}`)
+                }
+                beatsAndLines.push({ quantization:  noteQuantization ?? NoteQuantization.Q512, totalBeat: currentBeat, lineInfo: measure[j] });
+                currentBeat += beatStep;
             }
         }
         return beatsAndLines;
     }
 
-    removeBlankLines(beatsAndLines: { beat: number, lineInfo: string }[]) {
+    removeBlankLines(beatsAndLines: { quantization: NoteQuantization, totalBeat: number, lineInfo: string }[]) {
         let cleanedBeatsAndLines = [];
         for (let i = 0; i < beatsAndLines.length; i++) {
             let line = beatsAndLines[i];
-            if (!this.isAllZeros(line.lineInfo)) {
+            if (!this.isAllEmpty(line.lineInfo)) {
                 cleanedBeatsAndLines.push(line);
             }
         }
         return cleanedBeatsAndLines;
     }
 
-    isAllZeros(string: string) {
+    isAllEmpty(string: string) {
         for (let i = 0; i < string.length; i++) {
-            if (string.charAt(i) !== '0') {
+            if (<SimfileNoteType>string.charAt(i) != SimfileNoteType.EMPTY) {
                 return false;
             }
         }
         return true;
     }
 
-    getTimeInfoByLine(infoByLine: { beat: number, lineInfo: string }[], offset: number,
-        bpms: { beat: number, bpm: number }[], stops: { beat: number, stopDuration: number }[]
-    ): { time: number, beat: number, lineInfo: string }[] {
-        let infoByLineWithTime: { time: number, beat: number, lineInfo: string }[] = [];
-        let currentTime = -offset + this.getElapsedTime(0, infoByLine[0].beat, bpms, stops);
-        infoByLineWithTime.push({ time: currentTime, beat: infoByLine[0].beat, lineInfo: infoByLine[0].lineInfo });
+    getTimeInfoByLine(
+        infoByLine: { quantization: NoteQuantization, totalBeat: number, lineInfo: string }[],
+        offset: number,
+        bpms: { beat: number, bpm: number }[],
+        stops: { beat: number, stopDuration: number }[]
+    ) {
+        let infoByLineWithTime: { time: number, quantization: NoteQuantization, totalBeat: number, lineInfo: string }[] = [];
+        let currentTime = -offset + this.getElapsedTime(0, infoByLine[0].totalBeat, bpms, stops);
+        infoByLineWithTime.push({ time: currentTime, quantization: infoByLine[0].quantization, totalBeat: infoByLine[0].totalBeat, lineInfo: infoByLine[0].lineInfo });
         for (let i = 1; i < infoByLine.length; i++) {
-            let startBeat = infoByLine[i - 1].beat;
-            let endBeat = infoByLine[i].beat;
+            let startBeat = infoByLine[i - 1].totalBeat;
+            let endBeat = infoByLine[i].totalBeat;
             currentTime += this.getElapsedTime(startBeat, endBeat, bpms, stops);
-            infoByLineWithTime.push({ time: currentTime, beat: infoByLine[i].beat, lineInfo: infoByLine[i].lineInfo });
+            infoByLineWithTime.push({ time: currentTime, quantization: infoByLine[i].quantization, totalBeat: infoByLine[i].totalBeat, lineInfo: infoByLine[i].lineInfo });
         }
         return infoByLineWithTime;
     }
@@ -146,18 +164,18 @@ export class PlayableSimfileMode {
         return Number.POSITIVE_INFINITY;
     }
 
-    getTracksFromLines(timesBeatsAndLines: { time: number; beat: number; lineInfo: string; }[]) {
+    getTracksFromLines(timesBeatsAndLines: { time: number, quantization: NoteQuantization, totalBeat: number, lineInfo: string; }[]) {
         let numTracks: number = timesBeatsAndLines[0].lineInfo.length;
         let tracks: Note[][] = [];
         for (let i = 0; i < numTracks; i++) {
             tracks.push([]);
         }
         for (let i = 0; i < timesBeatsAndLines.length; i++) {
-            let line: { time: number; beat: number; lineInfo: string } = timesBeatsAndLines[i];
+            let line = timesBeatsAndLines[i];
             for (let j = 0; j < line.lineInfo.length; j++) {
                 let simfileNoteType = <SimfileNoteType>line.lineInfo.charAt(j);
                 if (simfileNoteType != SimfileNoteType.EMPTY) {
-                    tracks[j].push(new Note(simfileNoteType, line.time));
+                    tracks[j].push(new Note(simfileNoteType, line.time, line.quantization, line.totalBeat));
                 }
             }
         }
