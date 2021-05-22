@@ -50,7 +50,8 @@
     - [ ] Valex's Magical 4-Arrow Adventure
     - [ ] Other
 - [ ] Find followers (No need for this wile i'm alone 😭)
-    - [ ] Make post on flashflashrevolution.com
+    - [ ] Make a post on flashflashrevolution.com
+    - [ ] Make a post on reddit
     - [ ] Configurability
     - [ ] External simfiles registry support (registry example in assets folder)
 - [ ] List all ~~stolen~~borrowed code and media as references because some of them require leaving a comment of usage...
