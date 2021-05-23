@@ -12,8 +12,8 @@ import { LocalStorage } from '../../other/storage';
 import { MatDrawerContainer } from '@angular/material/sidenav';
 import { SimfileRegistryYoutubeInfo } from '@models/simfile-registry-youtube-info';
 import { SimfileRegistryFolder } from '@models/simfile-registry-folder';
-import { componentDestroyed } from '@other/untilDestroyed';
 import { takeUntil } from 'rxjs/operators';
+import { ReplaySubject } from 'rxjs';
 
 @Component({
   selector: 'app-simfile-selector',
@@ -21,6 +21,8 @@ import { takeUntil } from 'rxjs/operators';
   styleUrls: ['./simfile-selector.component.scss']
 })
 export class SimfileSelectorComponent implements OnInit, OnDestroy {
+
+  destroyed$ = new ReplaySubject<boolean>(1);
 
   GameMode = GameMode;
   GameModeType = GameModeType;
@@ -75,7 +77,7 @@ export class SimfileSelectorComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.simfileLoaderService.parsedSimfilesLoaded.pipe(takeUntil(componentDestroyed(this))).subscribe(loaded => {
+    this.simfileLoaderService.parsedSimfilesLoaded.pipe(takeUntil(this.destroyed$)).subscribe(loaded => {
       if (!loaded) return;
       if (this.simfileLoaderService.simfileRegistryFolders) {
         this.simfileFolders = Array.from(this.simfileLoaderService.simfileRegistryFolders.values());
@@ -86,8 +88,9 @@ export class SimfileSelectorComponent implements OnInit, OnDestroy {
         this.selectedSimfileMode = this.selectedSimfile?.modes.find(x => x.difficulty == this.lastSelectedSimfileDifficulty);
       }
       this.antiGlitch();
-    });    
-    this.keyboardService.onPress.pipe(takeUntil(componentDestroyed(this))).subscribe((keyEv) => {
+    });
+    this.keyboardService.onPress.pipe(takeUntil(this.destroyed$)).subscribe((keyEv) => {
+      console.log("still checking")
       if (keyEv.state) {
         switch (keyEv.key) {
           case Key.UP:
@@ -132,22 +135,24 @@ export class SimfileSelectorComponent implements OnInit, OnDestroy {
   }
 
   loadScores() {
-    let scores: { [folderName: string]: { [filename: string]: number } } = JSON.parse(localStorage.getItem('ScorePercentage') || '{}');
+    let scores: { [folderName: string]: { [filename: string]: number[] } } = JSON.parse(localStorage.getItem('ScorePercentage') || '{}');
     for (let folder of this.simfileFolders) {
       let folderScores = scores[folder.location];
       if (!folderScores) continue;
       for (let simfile of folder.parsedSimfiles.values()) {
-        let simfileScore = folderScores[simfile.filename];
-        if (!simfileScore) continue;
-        simfile.score = simfileScore;
-        if (simfile.score) {
-          simfile.displayScore = new Number(35 - Math.round(simfile.score * 25 / 100)).toString(36).toUpperCase();
+        let simfileScores = folderScores[simfile.filename];
+        if (!simfileScores) continue;
+        simfile.scores = simfileScores;
+        if (simfile.scores) {
+          simfile.displayScores = simfile.scores.map(x => new Number(35 - Math.round(x * 25 / 100)).toString(36).toUpperCase()).join("; ");
         }
       }
     }
   }
 
   ngOnDestroy(): void {
+    this.destroyed$.next(true);
+    this.destroyed$.complete();
   }
 
   selectSimfileFolder(folder: SimfileRegistryFolder) {

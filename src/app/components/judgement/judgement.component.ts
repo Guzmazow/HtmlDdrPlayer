@@ -3,8 +3,8 @@ import { Judgement, Direction } from '@models/enums';
 import { DisplayService } from '@services/display.service';
 import { JudgementService } from '@services/judgement.service';
 import { MediaService } from '@services/media.service';
+import { ReplaySubject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
-import { componentDestroyed } from '@other/untilDestroyed';
 
 @Component({
   selector: 'app-judgement',
@@ -12,6 +12,8 @@ import { componentDestroyed } from '@other/untilDestroyed';
   styleUrls: ['./judgement.component.scss']
 })
 export class JudgementComponent implements OnInit, OnDestroy {
+
+  destroyed$ = new ReplaySubject<boolean>(1);
 
   Judgement = Judgement;
 
@@ -32,22 +34,28 @@ export class JudgementComponent implements OnInit, OnDestroy {
 
 
   ngOnInit(): void {
-    this.displayService.onGamePlayStateChange.pipe(takeUntil(componentDestroyed(this))).subscribe(playing => {
-      if (!playing && this.displayService.gameRequest) {
-        let scores: { [folderName: string]: { [filename: string]: number } } = JSON.parse(localStorage.getItem('ScorePercentage') || '{}');
+    this.displayService.onGameFinished.pipe(takeUntil(this.destroyed$)).subscribe(() => {
+      if (this.displayService.gameRequest) {
+        let scores: { [folderName: string]: { [filename: string]: number[] } } = JSON.parse(localStorage.getItem('ScorePercentage') || '{}');
         if(!scores[this.displayService.gameRequest.simfileFolder.location]){
           scores[this.displayService.gameRequest.simfileFolder.location] = {};
         }
+        let folderScores = scores[this.displayService.gameRequest.simfileFolder.location];
+        if(!folderScores[this.displayService.gameRequest.parsedSimfile.filename]){
+          folderScores[this.displayService.gameRequest.parsedSimfile.filename] = [];
+        }
+        let currentHistory = folderScores[this.displayService.gameRequest.parsedSimfile.filename];
+        
         let total = Array.from(this.judgementCounts.values()).reduce((total, num) => total + num, 0);
-        let actual = total - (this.judgementCounts.get(Judgement.BAD) ?? 0) - (this.judgementCounts.get(Judgement.MISS) ?? 0)
-
-        scores[this.displayService.gameRequest.simfileFolder.location][this.displayService.gameRequest.parsedSimfile.filename] = Math.round(actual / total * 100);
+        let actual = total - (this.judgementCounts.get(Judgement.MINEHIT) ?? 0) - (this.judgementCounts.get(Judgement.BAD) ?? 0) - (this.judgementCounts.get(Judgement.MISS) ?? 0)
+        currentHistory.unshift(Math.round(actual / total * 100))
+        
         localStorage.setItem('ScorePercentage', JSON.stringify(scores));
       }
     });
 
-    this.mediaService.onMediaLoaded.pipe(takeUntil(componentDestroyed(this))).subscribe(x => this.mediaLoaded = x);
-    this.judgementService.onJudged.pipe(takeUntil(componentDestroyed(this))).subscribe(judgementContext => {
+    this.mediaService.onMediaLoaded.pipe(takeUntil(this.destroyed$)).subscribe(x => this.mediaLoaded = x);
+    this.judgementService.onJudged.pipe(takeUntil(this.destroyed$)).subscribe(judgementContext => {
 
       let currentCount = this.judgementCounts.get(judgementContext.judgement) ?? 0;
       this.judgementCounts.set(judgementContext.judgement, currentCount + 1)
@@ -73,6 +81,8 @@ export class JudgementComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
+    this.destroyed$.next(true);
+    this.destroyed$.complete();
   }
 
 

@@ -4,7 +4,7 @@ import { NoteQuantization, NoteType } from '@models/enums';
 import { DisplayService } from '@services/display.service';
 import { MediaService } from '@services/media.service';
 import { takeUntil } from 'rxjs/operators';
-import { componentDestroyed } from '@other/untilDestroyed';
+import { ReplaySubject } from 'rxjs';
 
 @Component({
   selector: 'app-note-lane',
@@ -12,6 +12,8 @@ import { componentDestroyed } from '@other/untilDestroyed';
   styleUrls: ['./note-lane.component.scss']
 })
 export class NoteLaneComponent implements OnInit, OnDestroy {
+
+  destroyed$ = new ReplaySubject<boolean>(1);
 
   @ViewChild("noteLaneCanvas", { static: true }) canvasEl?: ElementRef;
   canvas!: HTMLCanvasElement;
@@ -30,12 +32,14 @@ export class NoteLaneComponent implements OnInit, OnDestroy {
     //   this.canvas.height = screen.height;
     //   this.canvas.width = this.displayService.displayOptions.noteLaneWidth;
     // });
-    this.mediaService.onMediaLoaded.pipe(takeUntil(componentDestroyed(this))).subscribe(x => this.mediaLoaded = x);
-    this.displayService.onRedraw.pipe(takeUntil(componentDestroyed(this))).subscribe(this.draw.bind(this));
+    this.mediaService.onMediaLoaded.pipe(takeUntil(this.destroyed$)).subscribe(x => this.mediaLoaded = x);
+    this.displayService.onRedraw.pipe(takeUntil(this.destroyed$)).subscribe(this.draw.bind(this));
     // this.displayService.onStart.subscribe(this.init.bind(this));
   }
 
   ngOnDestroy(): void {
+    this.destroyed$.next(true);
+    this.destroyed$.complete();
   }
 
   // init() {
@@ -94,7 +98,7 @@ export class NoteLaneComponent implements OnInit, OnDestroy {
         this.ctx.fillStyle = "white";
         this.ctx.fillText("H", x + halfNoteSize, y + ninthNoteSize, this.displayService.displayOptions.noteSize);
         break;
-      case NoteType.TAIL:
+      case NoteType.HOLD_ROLL_TAIL:
         this.ctx.strokeRect(x, y, this.displayService.displayOptions.noteSize, this.displayService.displayOptions.noteSize);
         break;
       case NoteType.ROLL_HEAD:
@@ -163,13 +167,13 @@ export class NoteLaneComponent implements OnInit, OnDestroy {
       if (currentNote.time < leastTime) {
         if (currentNote.type === NoteType.HOLD_HEAD || currentNote.type === NoteType.ROLL_HEAD) {
           noteStack.push(currentNote);
-        } else if (currentNote.type === NoteType.TAIL) {
+        } else if (currentNote.type === NoteType.HOLD_ROLL_TAIL) {
           noteStack.pop();
         }
       } else if (currentNote.time < greatestTime) {
         if (currentNote.type === NoteType.HOLD_HEAD || currentNote.type === NoteType.ROLL_HEAD) {
           noteStack.push(currentNote);
-        } else if (currentNote.type === NoteType.TAIL) {
+        } else if (currentNote.type === NoteType.HOLD_ROLL_TAIL) {
           let startNote = noteStack.pop();
           let endNote = currentNote;
           if (startNote != undefined && endNote != undefined) {
@@ -182,7 +186,7 @@ export class NoteLaneComponent implements OnInit, OnDestroy {
         }
         if (currentNote.type === NoteType.HOLD_HEAD || currentNote.type === NoteType.ROLL_HEAD) {
           noteStack.push(currentNote);
-        } else if (currentNote.type === NoteType.TAIL) {
+        } else if (currentNote.type === NoteType.HOLD_ROLL_TAIL) {
           let startNote = noteStack.pop();
           let endNote = currentNote;
           if (startNote != undefined && endNote != undefined) {

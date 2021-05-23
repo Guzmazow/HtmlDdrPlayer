@@ -9,7 +9,7 @@ import { KeyboardService } from './keyboard.service';
   providedIn: 'root'
 })
 export class JudgementService {
-  startedJudging = false;
+  gameInProgress = false;
 
   onJudged = new Subject<{ judgement: Judgement, precision: number, key: Key }>();
 
@@ -24,9 +24,9 @@ export class JudgementService {
     [0.180000, Judgement.MISS],
   ]);
 
-  // TimingWindowSecondsHold=0.250000
-  // TimingWindowSecondsMine=0.075000
-  // TimingWindowSecondsRoll=0.500000
+  TimingWindowSecondsHold = 0.250000
+  TimingWindowSecondsMine = 0.075000
+  TimingWindowSecondsRoll = 0.500000
 
   constructor(private displayService: DisplayService, private keyboardService: KeyboardService, private router: Router) {
     const judgeScale = 2;
@@ -39,9 +39,9 @@ export class JudgementService {
     }
     this.judgePrecision = judgePrecision;
     this.keyboardService.onPress.subscribe(x => this.judgePress(x.key, x.state))
-    this.displayService.onGamePlayStateChange.subscribe(playing => { this.startedJudging = playing; })
+    this.displayService.onGamePlayStateChange.subscribe(playing => { this.gameInProgress = playing; })
     this.keyboardService.onLongPress.subscribe(key => this.longPress(key))
-    this.displayService.onRedraw.subscribe(() => this.judgeMisses())
+    this.displayService.onRedraw.subscribe(() => this.judgeMissesAndMines())
 
   }
 
@@ -49,20 +49,40 @@ export class JudgementService {
     console.log('long pressed', key);
   }
 
-  judgeMisses() {
-    if (!this.startedJudging) return;
-    for (let track of this.displayService.gameRequest.playableSimfileMode.tracks) {
+  judgeMissesAndMines() {
+    if (!this.gameInProgress) return;
+    for (let trackIndex = 0; trackIndex < this.displayService.gameRequest.playableSimfileMode.tracks.length; trackIndex++) {
+      let track = this.displayService.gameRequest.playableSimfileMode.tracks[trackIndex];
       let unhittable = track.filter(x => x.type == NoteType.NORMAL && !x.judged && x.time < (this.displayService.currentTime - this.errorLimit))
-      if (unhittable.length) {
-        unhittable.forEach(x => { x.judged = true; x.judgement = Judgement.MISS, x.precision = this.errorLimit })
-        this.onJudged.next({ judgement: Judgement.MISS, precision: -this.errorLimit, key: Key.NONE });
+      for (let missNote of unhittable) {
+        missNote.judged = true;
+        missNote.judgement = Judgement.MISS;
+        missNote.precision = -this.errorLimit;
+        this.onJudged.next({
+          judgement: missNote.judgement,
+          precision: missNote.precision,
+          key: trackIndex
+        });
+      }
+
+      let hittableMines = track.filter(x => x.type == NoteType.MINE && !x.judged && x.time > (this.displayService.currentTime - this.TimingWindowSecondsMine) && x.time < (this.displayService.currentTime + this.TimingWindowSecondsMine))
+      for (let mineNote of hittableMines) {
+        if (this.keyboardService.keyState.get(trackIndex)) {
+          mineNote.judged = true;
+          mineNote.judgement = Judgement.MINEHIT;
+          mineNote.precision = this.errorLimit;
+          this.onJudged.next({
+            judgement: Judgement.MINEHIT,
+            precision: mineNote.time - this.displayService.currentTime,
+            key: trackIndex
+          });
+        }
       }
     }
-
   }
 
   judgePress(key: Key, keyPressed: boolean) {
-    if (!this.startedJudging) return;
+    if (!this.gameInProgress) return;
     if (keyPressed) {
       let track = this.displayService.gameRequest.playableSimfileMode.tracks[key];
       if (track) {

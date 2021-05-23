@@ -35,9 +35,10 @@ export enum NoteType {
     EMPTY = 0,
     NORMAL = 1,
     HOLD_HEAD = 2,
-    TAIL = 3,
-    ROLL_HEAD = 4,
-    MINE = 5
+    ROLL_HEAD = 3,      
+    HOLD_ROLL_BODY = 4,
+    HOLD_ROLL_TAIL = 5,  
+    MINE = 6,
 }
 
 
@@ -67,7 +68,10 @@ export enum Direction {
 export const AllDirections = [Direction.DOWN, Direction.LEFT, Direction.UP, Direction.RIGHT];
 
 export enum Judgement {
-    ALL = -2,
+    ALL = -5,
+    ROLLRELEASE = -4,
+    HOLDRELEASE = -3,
+    MINEHIT = -2,
     NONE = -1,
     MARVELOUS = 0,
     PERFECT = 1,

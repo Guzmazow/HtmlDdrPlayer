@@ -18,6 +18,7 @@ export class DisplayService {
   onSetup = new Subject();
   
   onGamePlayStateChange = new BehaviorSubject(false);
+  onGameFinished = new Subject();
 
   displayOptions: DisplayOptions = new DisplayOptions(0, 0, 0);
   gameRequest!: GameRequest;
@@ -76,6 +77,7 @@ export class DisplayService {
 
   end(){
     cancelAnimationFrame(this.lastframe);
+    this.onGameFinished.next();
     this.onGamePlayStateChange.next(false);
     this.router.navigate(['/']);  
   }

@@ -9,8 +9,8 @@ export class ParsedSimfile implements SimfileRegistryEntry {
   filename: string;
   status?: string;
   youtubeVideos: SimfileRegistryYoutubeInfo[];
-  score?: number;
-  displayScore?: string;
+  scores?: number[];
+  displayScores?: string;
 
   loaded: boolean = false;
   title: string = "";

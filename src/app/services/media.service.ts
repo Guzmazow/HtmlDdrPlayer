@@ -41,12 +41,17 @@ export class MediaService {
   rollCapActiveImageCache?: HTMLCanvasElement;
   rollCapInactiveImageCache?: HTMLCanvasElement;
 
+
   mineImageCache = new Map<Direction, Map<Number, HTMLCanvasElement>>([
     [Direction.LEFT, new Map<Number, HTMLCanvasElement>()],
     [Direction.DOWN, new Map<Number, HTMLCanvasElement>()],
     [Direction.UP, new Map<Number, HTMLCanvasElement>()],
     [Direction.RIGHT, new Map<Number, HTMLCanvasElement>()]
   ]);
+
+  mineHitSoundCache?: HTMLAudioElement;
+
+  mineHitSoundLoad = this.loadAudio("/assets/Sounds/MineHit.ogg");
 
   arrowImageLoad = this.loadImage("/assets/Images/Arrow.png");
   arrowGlowImageLoad = this.loadImage("/assets/Images/ArrowGlow.png");
@@ -98,46 +103,50 @@ export class MediaService {
       rollCapActive: this.rollCapActiveLoad,
       rollCapInactive: this.rollCapInactiveLoad,
       mine: this.mineImageLoad,
-    }).subscribe(images => {
+      mineHit: this.mineHitSoundLoad,
+    }).subscribe(media => {
+      this.mineHitSoundCache = media.mineHit;
+      this.mineHitSoundCache.volume = 0.5;
+
       for (let direction of AllDirections) {
         let arrowImageDirectionCache = this.arrowImageCache.get(direction);
         if (arrowImageDirectionCache) {
           for (let index = 0; index < AllNoteQuantizations.length; index++) {
             let quantization = AllNoteQuantizations[index];
-            arrowImageDirectionCache.set(quantization, this.adjustImage(images.arrow, noteSize, 0, images.arrow.height / 8 * index, images.arrow.width, images.arrow.height / 8, this.directionToRadians(direction)));
+            arrowImageDirectionCache.set(quantization, this.adjustImage(media.arrow, noteSize, 0, media.arrow.height / 8 * index, media.arrow.width, media.arrow.height / 8, this.directionToRadians(direction)));
           }
         }
 
-        this.receptorImageCache.set(direction, this.adjustImage(images.receptor, noteSize, 0, 0, images.receptor.width, images.receptor.height, this.directionToRadians(direction)));
-        this.receptorFlashImageCache.set(direction, this.adjustImage(images.receptorFlash, noteSize, 0, 0, images.receptorFlash.width, images.receptorFlash.height, this.directionToRadians(direction)));
+        this.receptorImageCache.set(direction, this.adjustImage(media.receptor, noteSize, 0, 0, media.receptor.width, media.receptor.height, this.directionToRadians(direction)));
+        this.receptorFlashImageCache.set(direction, this.adjustImage(media.receptorFlash, noteSize, 0, 0, media.receptorFlash.width, media.receptorFlash.height, this.directionToRadians(direction)));
         let arrowGlowImageDirectionCache = this.arrowGlowImageCache.get(direction);
         if (arrowGlowImageDirectionCache) {
           for (let judgement of AllJudgements) {
-            arrowGlowImageDirectionCache.set(judgement, this.adjustImage(images.arrowGlow, noteSize, 0, 0, images.arrowGlow.width, images.arrowGlow.height, this.directionToRadians(direction), judgement));
+            arrowGlowImageDirectionCache.set(judgement, this.adjustImage(media.arrowGlow, noteSize, 0, 0, media.arrowGlow.width, media.arrowGlow.height, this.directionToRadians(direction), judgement));
           }
         }
         let mineImageDirectionCache = this.mineImageCache.get(direction);
         if (mineImageDirectionCache) {
           for (let angle = 0; angle < 360; angle++) {
-            mineImageDirectionCache.set(angle, this.adjustImage(images.mine, noteSize, 0, images.mine.width / 4 * direction, images.mine.width / 4, images.mine.height / 2, angle * Math.PI / 180));
+            mineImageDirectionCache.set(angle, this.adjustImage(media.mine, noteSize, 0, media.mine.width / 4 * direction, media.mine.width / 4, media.mine.height / 2, angle * Math.PI / 180));
           }
         }
       }
 
-      this.holdBodyActiveImageCache = this.adjustImage(images.holdBodyActive, noteSize);
-      this.holdBodyInactiveImageCache = this.adjustImage(images.holdBodyInactive, noteSize);
-      this.holdCapActiveImageCache = this.adjustImage(images.holdCapActive, noteSize);
-      this.holdCapInactiveImageCache = this.adjustImage(images.holdCapInactive, noteSize);
-      this.rollBodyActiveImageCache = this.adjustImage(images.rollBodyActive, noteSize);
-      this.rollBodyInactiveImageCache = this.adjustImage(images.rollBodyInactive, noteSize);
-      this.rollCapActiveImageCache = this.adjustImage(images.rollCapActive, noteSize);
-      this.rollCapInactiveImageCache = this.adjustImage(images.rollCapInactive, noteSize);
+      this.holdBodyActiveImageCache = this.adjustImage(media.holdBodyActive, noteSize);
+      this.holdBodyInactiveImageCache = this.adjustImage(media.holdBodyInactive, noteSize);
+      this.holdCapActiveImageCache = this.adjustImage(media.holdCapActive, noteSize);
+      this.holdCapInactiveImageCache = this.adjustImage(media.holdCapInactive, noteSize);
+      this.rollBodyActiveImageCache = this.adjustImage(media.rollBodyActive, noteSize);
+      this.rollBodyInactiveImageCache = this.adjustImage(media.rollBodyInactive, noteSize);
+      this.rollCapActiveImageCache = this.adjustImage(media.rollCapActive, noteSize);
+      this.rollCapInactiveImageCache = this.adjustImage(media.rollCapInactive, noteSize);
 
 
 
 
       for (let judgement of AllJudgements) {
-        this.judgementImageCache.set(judgement, this.adjustImage(images.judgement, null, 0, judgement * images.judgement.height / 6, images.judgement.width, images.judgement.height / 6).toDataURL());
+        this.judgementImageCache.set(judgement, this.adjustImage(media.judgement, null, 0, judgement * media.judgement.height / 6, media.judgement.width, media.judgement.height / 6).toDataURL());
       }
       console.log('MEDIA images ready');
       this.onMediaLoaded.next(true);
@@ -160,6 +169,16 @@ export class MediaService {
       img.onload = () => resolve(img);
       img.onerror = reject;
       img.src = src;
+    })
+  }
+
+  loadAudio(src: string) {
+    return new Promise<HTMLAudioElement>((resolve, reject) => {
+      let audio = new Audio();
+      audio.oncanplaythrough = () => resolve(audio);
+      audio.onerror = reject;
+      audio.src = src;
+      audio.load();
     })
   }
 

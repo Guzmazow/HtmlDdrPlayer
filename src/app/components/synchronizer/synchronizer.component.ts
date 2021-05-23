@@ -4,9 +4,9 @@ import { MatTabChangeEvent } from '@angular/material/tabs';
 import { ActivatedRoute } from '@angular/router';
 import { ParsedSimfile } from '@models/parsed-simfile';
 import { SimfileRegistryYoutubeInfo } from '@models/simfile-registry-youtube-info';
-import { componentDestroyed } from '@other/untilDestroyed';
 import { SimfileLoaderService } from '@services/simfile-loader.service';
 import { NgxY2PlayerComponent, NgxY2PlayerOptions } from 'ngx-y2-player';
+import { ReplaySubject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 
 @Component({
@@ -15,6 +15,8 @@ import { takeUntil } from 'rxjs/operators';
   styleUrls: ['./synchronizer.component.css']
 })
 export class SynchronizerComponent implements OnInit, OnDestroy {
+
+  destroyed$ = new ReplaySubject<boolean>(1);
 
   youtubeVideoForm?: FormGroup;
   get youtubeVideoFormSkips(): FormArray {
@@ -75,7 +77,7 @@ export class SynchronizerComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    this.s1imfileLoaderService.parsedSimfilesLoaded.pipe(takeUntil(componentDestroyed(this))).subscribe((loaded) => {
+    this.s1imfileLoaderService.parsedSimfilesLoaded.pipe(takeUntil(this.destroyed$)).subscribe((loaded) => {
       if (!loaded) return;
       this.selectedSimfile = this.s1imfileLoaderService.simfileRegistryFolders?.get(this.route.snapshot.paramMap.get('foldername') || '')?.parsedSimfiles?.get(this.route.snapshot.paramMap.get('filename') || '');
       if (this.selectedSimfile && this.selectedSimfile.youtubeVideos.length > 0)
@@ -85,6 +87,8 @@ export class SynchronizerComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
+    this.destroyed$.next(true);
+    this.destroyed$.complete();
     cancelAnimationFrame(this.lastFrame);
   }
 
@@ -101,7 +105,7 @@ export class SynchronizerComponent implements OnInit, OnDestroy {
 
     this.youtubeVideoForm?.setValue(youtubeVideo);
 
-    this.youtubeVideoForm?.valueChanges.pipe(takeUntil(componentDestroyed(this))).subscribe(newValue => {
+    this.youtubeVideoForm?.valueChanges.pipe(takeUntil(this.destroyed$)).subscribe(newValue => {
       Object.assign(this.selectedVideo, newValue);
     });
   }
