@@ -44,13 +44,8 @@ export class JudgementService {
     this.judgePrecision = judgePrecision;
     this.keyboardService.onPress.subscribe(x => this.judgePress(x.key, x.state))
     this.displayService.onGamePlayStateChange.subscribe(playing => { this.gameInProgress = playing; })
-    this.keyboardService.onLongPress.subscribe(key => this.longPress(key))
     this.displayService.onRedraw.subscribe(() => this.passiveJudge())
 
-  }
-
-  longPress(key: Key): void {
-    console.log('long pressed', key);
   }
 
   passiveJudge() {
@@ -102,7 +97,7 @@ export class JudgementService {
           key: trackIndex
         });
         this.rollState.set(trackIndex, undefined);
-        console.log("roll finished " + trackIndex)
+        //console.log("roll finished " + trackIndex)
       }
       let holdState = this.holdState.get(trackIndex)
       if (holdState && holdState.note.related && holdState.note.related.time < this.displayService.currentTime) {
@@ -115,7 +110,7 @@ export class JudgementService {
           key: trackIndex
         });
         this.holdState.set(trackIndex, undefined);
-        console.log("hold finished " + trackIndex)
+        //console.log("hold finished " + trackIndex)
       }
 
     }
@@ -170,9 +165,9 @@ export class JudgementService {
     let state = this.rollState.get(direction);
     if (state) {
       state.note.stateChangeTime = this.displayService.currentTime;
-      console.log("clearing timer " + state.timer)
+      //console.log("clearing timer " + state.timer)
       if (state.timer) {
-        console.log("clear timer " + state.timer)
+        //console.log("clear timer " + state.timer)
         clearTimeout(state.timer);
       }
       state.timer = setTimeout(() => {
@@ -184,9 +179,9 @@ export class JudgementService {
           precision: this.TimingWindowSecondsRoll,
           key: +direction
         });
-        console.log("roll failed " + direction)
+        //console.log("roll failed " + direction)
       }, this.TimingWindowSecondsRoll * 1000);
-      console.log("set timer " + state.timer)
+      //.log("set timer " + state.timer)
     }
   }
 
@@ -211,7 +206,7 @@ export class JudgementService {
           precision: this.TimingWindowSecondsHold,
           key: +direction
         });
-        console.log("hold failed " + direction)
+        //console.log("hold failed " + direction)
       }, this.TimingWindowSecondsHold * 1000);
     }
   }
