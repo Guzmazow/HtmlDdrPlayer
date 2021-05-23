@@ -1,5 +1,9 @@
 # HtmlDdrPlayer
 
+[![Angular CI](https://github.com/Guzmazow/HtmlDdrPlayer/actions/workflows/angular.yml/badge.svg)](https://github.com/Guzmazow/HtmlDdrPlayer/actions/workflows/angular.yml)
+
+DEMO: https://guzmazow.github.io/
+
 ### Things TODO
 - [ ] Basic play
     - [x] Normal arrows
@@ -10,9 +14,9 @@
         - [X] Quantization
     - [ ] Mines
         - [X] Add built-in noteskin load
-        - [ ] Draw
+        - [X] Draw
         - [ ] Judgement
-        - [ ] Rotation
+        - [X] Rotation
     - [ ] Holds
         - [X] Add built-in noteskin load   
         - [ ] Draw 
