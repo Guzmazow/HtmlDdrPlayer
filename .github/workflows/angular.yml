@@ -12,6 +12,8 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - name: All things angular
+      env:
+        GITHUB_TOKEN: ${{ secrets.PAGES_PAT }}
       uses: Guzmazow/angular-deploy-gh-pages-actions@v1.3.5 ## replace by latest version without it you will see Expected format {org}/{repo}[/path]@ref. Actual 'AhsanAyaz/angular-deploy-gh-pages-actions',Input string was not in a correct format.
       with:
         github_access_token: ${{ secrets.PAGES_PAT }} # see the Configuration section for how you can create secrets
