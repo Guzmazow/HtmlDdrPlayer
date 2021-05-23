@@ -134,7 +134,8 @@ export class JudgementService {
           hittable.sort(x => x.time);
           let hit = hittable[0];
           let timeDifference = hit.time - this.displayService.currentTime;
-          let precisionKey = Array.from(this.judgePrecision.keys()).reduce((a, b) => Math.abs(a - timeDifference) < Math.abs(b - timeDifference) ? a : b)
+          let timeModule = Math.abs(timeDifference);
+          let precisionKey = Array.from(this.judgePrecision.keys()).reduce((a, b) => Math.abs(a - timeModule) < Math.abs(b - timeModule) ? a : b)
           let judgement = this.judgePrecision.get(precisionKey) ?? Judgement.NONE;
           if (hit.type == NoteType.ROLL_HEAD || hit.type == NoteType.HOLD_HEAD) {
             hit.startedJudging = true;
