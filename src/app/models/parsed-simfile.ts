@@ -1,5 +1,6 @@
-import { Difficulty, GameMode, GameModeType } from "./enums";
+import { Difficulty, GameMode, GameModeType, NoteType } from "./enums";
 import { ParsedSimfileMode } from "./parsed-simfile-mode";
+import { PlayableSimfileMode } from "./playable-simfile-mode";
 import { SimfileRegistryEntry } from "./simfile-registry-entry";
 import { SimfileRegistryFolder } from "./simfile-registry-folder";
 import { SimfileRegistryYoutubeInfo } from "./simfile-registry-youtube-info";
@@ -65,8 +66,8 @@ export class ParsedSimfile implements SimfileRegistryEntry {
     this.credit = this.rawMetaData.get("CREDIT") ?? "";
     this.banner = this.rawMetaData.get("BANNER") ?? "";
     this.background = this.rawMetaData.get("BACKGROUND") ?? "";
-    this.jacket =  this.rawMetaData.get("JACKET") ?? "";
-    this.lyricsPath =  this.rawMetaData.get("LYRICSPATH") ?? "";
+    this.jacket = this.rawMetaData.get("JACKET") ?? "";
+    this.lyricsPath = this.rawMetaData.get("LYRICSPATH") ?? "";
     this.cdTitle = this.rawMetaData.get("CDTITLE") ?? "";
     this.music = this.rawMetaData.get("MUSIC") ?? "";
     this.offset = parseFloat(this.rawMetaData.get("OFFSET") ?? "0");
@@ -91,9 +92,9 @@ export class ParsedSimfile implements SimfileRegistryEntry {
         difficulty: Difficulty[(mode.get("difficulty") ?? "").toUpperCase() as keyof typeof Difficulty] ?? Difficulty.NONE,
         meter: parseInt(mode.get("meter") ?? "0"),
         radar: mode.get("radar") ?? "",
-        notes: mode.get("notes") ?? ""
+        notes: mode.get("notes") ?? "",
+        stats: ""
       });
-
     }
     this.modes.sort((a, b) => {
       if (a.gameMode > b.gameMode)
@@ -113,6 +114,22 @@ export class ParsedSimfile implements SimfileRegistryEntry {
       else
         return 0;
     });
+    this.modes.forEach(mode => {
+      let playable = new PlayableSimfileMode(this, mode);
+      let allNotes = playable.tracks.reduce((prev, curr) => prev.concat(curr), []);
+      let rollCount = 0;
+      let holdCount = 0;
+      let noteCount = 0;
+      for (let note of allNotes) {
+        switch(note.type){
+          case NoteType.ROLL_HEAD: rollCount++; break;
+          case NoteType.HOLD_HEAD: holdCount++; break;
+          case NoteType.NORMAL: noteCount++; break;
+        }
+      }
+      
+      mode.stats = `N:${noteCount} R:${rollCount} H:${holdCount}`
+    })
     this.loaded = true;
   }
 

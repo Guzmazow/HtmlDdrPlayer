@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { Direction, Judgement, Key, NoteType } from '@models/enums';
+import { AllDirections, Direction, Judgement, Key, NoteType } from '@models/enums';
+import { Note } from '@models/note';
 import { Subject } from 'rxjs';
 import { DisplayService } from './display.service';
 import { KeyboardService } from './keyboard.service';
@@ -28,6 +29,9 @@ export class JudgementService {
   TimingWindowSecondsMine = 0.075000
   TimingWindowSecondsRoll = 0.500000
 
+  rollState = new Map<Direction, { note: Note, timer?: ReturnType<typeof setTimeout> } | undefined>();
+  holdState = new Map<Direction, { note: Note, timer?: ReturnType<typeof setTimeout> } | undefined>();
+
   constructor(private displayService: DisplayService, private keyboardService: KeyboardService, private router: Router) {
     const judgeScale = 2;
     let judgePrecision = new Map<number, Judgement>();
@@ -41,7 +45,7 @@ export class JudgementService {
     this.keyboardService.onPress.subscribe(x => this.judgePress(x.key, x.state))
     this.displayService.onGamePlayStateChange.subscribe(playing => { this.gameInProgress = playing; })
     this.keyboardService.onLongPress.subscribe(key => this.longPress(key))
-    this.displayService.onRedraw.subscribe(() => this.judgeMissesAndMines())
+    this.displayService.onRedraw.subscribe(() => this.passiveJudge())
 
   }
 
@@ -49,11 +53,14 @@ export class JudgementService {
     console.log('long pressed', key);
   }
 
-  judgeMissesAndMines() {
+  passiveJudge() {
     if (!this.gameInProgress) return;
     for (let trackIndex = 0; trackIndex < this.displayService.gameRequest.playableSimfileMode.tracks.length; trackIndex++) {
       let track = this.displayService.gameRequest.playableSimfileMode.tracks[trackIndex];
-      let unhittable = track.filter(x => x.type == NoteType.NORMAL && !x.judged && x.time < (this.displayService.currentTime - this.errorLimit))
+      let unhittable = track.filter(x => 
+        (x.type == NoteType.NORMAL || x.type == NoteType.ROLL_HEAD || x.type == NoteType.HOLD_HEAD) &&
+        !x.judged && !x.startedJudging &&
+        x.time < (this.displayService.currentTime - this.errorLimit))
       for (let missNote of unhittable) {
         missNote.judged = true;
         missNote.judgement = Judgement.MISS;
@@ -65,7 +72,11 @@ export class JudgementService {
         });
       }
 
-      let hittableMines = track.filter(x => x.type == NoteType.MINE && !x.judged && x.time > (this.displayService.currentTime - this.TimingWindowSecondsMine) && x.time < (this.displayService.currentTime + this.TimingWindowSecondsMine))
+      let hittableMines = track.filter(x =>
+        x.type == NoteType.MINE &&
+        !x.judged &&
+        (this.displayService.currentTime + this.TimingWindowSecondsMine) > x.time && x.time > (this.displayService.currentTime - this.TimingWindowSecondsMine)
+      )
       for (let mineNote of hittableMines) {
         if (this.keyboardService.keyState.get(trackIndex)) {
           mineNote.judged = true;
@@ -78,17 +89,50 @@ export class JudgementService {
           });
         }
       }
+
+
+      let rollState = this.rollState.get(trackIndex)
+      if (rollState && rollState.note.related && rollState.note.related.time < this.displayService.currentTime) {
+        if (rollState.timer)
+          clearTimeout(rollState.timer);
+        rollState.note.judged = true;
+        this.onJudged.next({
+          judgement: Judgement.ROLLFINISHED,
+          precision: 0,
+          key: trackIndex
+        });
+        this.rollState.set(trackIndex, undefined);
+        console.log("roll finished " + trackIndex)
+      }
+      let holdState = this.holdState.get(trackIndex)
+      if (holdState && holdState.note.related && holdState.note.related.time < this.displayService.currentTime) {
+        if (holdState.timer)
+          clearTimeout(holdState.timer);
+        holdState.note.judged = true;
+        this.onJudged.next({
+          judgement: Judgement.HOLDFINISHED,
+          precision: 0,
+          key: trackIndex
+        });
+        this.holdState.set(trackIndex, undefined);
+        console.log("hold finished " + trackIndex)
+      }
+
     }
   }
 
   judgePress(key: Key, keyPressed: boolean) {
     if (!this.gameInProgress) return;
     if (keyPressed) {
+      this.rearmRoll(+key);
+      this.unarmHold(+key);
+
+
       let track = this.displayService.gameRequest.playableSimfileMode.tracks[key];
       if (track) {
         let hittable = track.filter(x =>
-          x.type == NoteType.NORMAL &&
-          !x.judged &&
+          (x.type == NoteType.NORMAL || x.type == NoteType.ROLL_HEAD || x.type == NoteType.HOLD_HEAD) &&
+          !x.judged && !x.startedJudging &&
           (this.displayService.currentTime + this.errorLimit) > x.time && x.time > (this.displayService.currentTime - this.errorLimit)
         )
         if (hittable.length) {
@@ -97,12 +141,78 @@ export class JudgementService {
           let timeDifference = hit.time - this.displayService.currentTime;
           let precisionKey = Array.from(this.judgePrecision.keys()).reduce((a, b) => Math.abs(a - timeDifference) < Math.abs(b - timeDifference) ? a : b)
           let judgement = this.judgePrecision.get(precisionKey) ?? Judgement.NONE;
-          hit.judged = true;
+          if (hit.type == NoteType.ROLL_HEAD || hit.type == NoteType.HOLD_HEAD) {
+            hit.startedJudging = true;
+          } else {
+            hit.judged = true;
+          }
           hit.precision = timeDifference;
           hit.judgement = judgement;
+          if (hit.type == NoteType.ROLL_HEAD) {
+            this.rollState.set(+key, { note: hit, timer: undefined });
+            this.rearmRoll(+key);
+          }
+          if (hit.type == NoteType.HOLD_HEAD) {
+            this.holdState.set(+key, { note: hit, timer: undefined });
+          }
           this.onJudged.next({ judgement: judgement, precision: timeDifference, key: key });
         }
       }
+    } else {
+      let holdState = this.holdState.get(+key);
+      if (holdState) {
+        this.armHold(+key);
+      }
+    }
+  }
+
+  rearmRoll(direction: Direction) {
+    let state = this.rollState.get(direction);
+    if (state) {
+      state.note.stateChangeTime = this.displayService.currentTime;
+      console.log("clearing timer " + state.timer)
+      if (state.timer) {
+        console.log("clear timer " + state.timer)
+        clearTimeout(state.timer);
+      }
+      state.timer = setTimeout(() => {
+        if (state)
+          state.note.judged = true;
+        this.rollState.set(direction, undefined);
+        this.onJudged.next({
+          judgement: Judgement.ROLLFAILED,
+          precision: this.TimingWindowSecondsRoll,
+          key: +direction
+        });
+        console.log("roll failed " + direction)
+      }, this.TimingWindowSecondsRoll * 1000);
+      console.log("set timer " + state.timer)
+    }
+  }
+
+  unarmHold(direction: Direction) {
+    let state = this.holdState.get(direction);
+    if (state && state.timer) {
+      state.note.stateChangeTime = 0;
+      clearTimeout(state.timer);
+    }
+  }
+
+  armHold(direction: Direction) {
+    let state = this.holdState.get(direction);
+    if (state) {
+      state.note.stateChangeTime = this.displayService.currentTime;
+      state.timer = setTimeout(() => {
+        if (state)
+          state.note.judged = true;
+        this.holdState.set(direction, undefined);
+        this.onJudged.next({
+          judgement: Judgement.HOLDFAILED,
+          precision: this.TimingWindowSecondsHold,
+          key: +direction
+        });
+        console.log("hold failed " + direction)
+      }, this.TimingWindowSecondsHold * 1000);
     }
   }
 

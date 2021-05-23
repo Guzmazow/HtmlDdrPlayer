@@ -113,16 +113,16 @@ export class MediaService {
         if (arrowImageDirectionCache) {
           for (let index = 0; index < AllNoteQuantizations.length; index++) {
             let quantization = AllNoteQuantizations[index];
-            arrowImageDirectionCache.set(quantization, this.adjustImage(media.arrow, noteSize, 0, media.arrow.height / 8 * index, media.arrow.width, media.arrow.height / 8, this.directionToRadians(direction)));
+            arrowImageDirectionCache.set(quantization, this.adjustImage(media.arrow, noteSize, 0, media.arrow.height / 8 * index, undefined, media.arrow.height / 8, this.directionToRadians(direction)));
           }
         }
 
-        this.receptorImageCache.set(direction, this.adjustImage(media.receptor, noteSize, 0, 0, media.receptor.width, media.receptor.height, this.directionToRadians(direction)));
-        this.receptorFlashImageCache.set(direction, this.adjustImage(media.receptorFlash, noteSize, 0, 0, media.receptorFlash.width, media.receptorFlash.height, this.directionToRadians(direction)));
+        this.receptorImageCache.set(direction, this.adjustImage(media.receptor, noteSize, 0, 0, undefined, undefined, this.directionToRadians(direction)));
+        this.receptorFlashImageCache.set(direction, this.adjustImage(media.receptorFlash, noteSize, 0, 0, undefined, undefined, this.directionToRadians(direction)));
         let arrowGlowImageDirectionCache = this.arrowGlowImageCache.get(direction);
         if (arrowGlowImageDirectionCache) {
           for (let judgement of AllJudgements) {
-            arrowGlowImageDirectionCache.set(judgement, this.adjustImage(media.arrowGlow, noteSize, 0, 0, media.arrowGlow.width, media.arrowGlow.height, this.directionToRadians(direction), judgement));
+            arrowGlowImageDirectionCache.set(judgement, this.adjustImage(media.arrowGlow, noteSize, 0, 0, undefined, undefined, this.directionToRadians(direction), judgement));
           }
         }
         let mineImageDirectionCache = this.mineImageCache.get(direction);
@@ -133,14 +133,14 @@ export class MediaService {
         }
       }
 
-      this.holdBodyActiveImageCache = this.adjustImage(media.holdBodyActive, noteSize);
-      this.holdBodyInactiveImageCache = this.adjustImage(media.holdBodyInactive, noteSize);
-      this.holdCapActiveImageCache = this.adjustImage(media.holdCapActive, noteSize);
-      this.holdCapInactiveImageCache = this.adjustImage(media.holdCapInactive, noteSize);
-      this.rollBodyActiveImageCache = this.adjustImage(media.rollBodyActive, noteSize);
-      this.rollBodyInactiveImageCache = this.adjustImage(media.rollBodyInactive, noteSize);
-      this.rollCapActiveImageCache = this.adjustImage(media.rollCapActive, noteSize);
-      this.rollCapInactiveImageCache = this.adjustImage(media.rollCapInactive, noteSize);
+      this.holdBodyActiveImageCache = this.adjustImage(media.holdBodyActive, noteSize, undefined, undefined, undefined, undefined, undefined, undefined, Math.round(media.holdBodyActive.height * noteSize / 100));
+      this.holdBodyInactiveImageCache = this.adjustImage(media.holdBodyInactive, noteSize, undefined, undefined, undefined, undefined, undefined, undefined, Math.round(media.holdBodyInactive.height * noteSize / 100));
+      this.holdCapActiveImageCache = this.adjustImage(media.holdCapActive, noteSize, undefined, undefined, undefined, undefined, undefined, undefined, Math.round(media.holdCapActive.height * noteSize / 100));
+      this.holdCapInactiveImageCache = this.adjustImage(media.holdCapInactive, noteSize, undefined, undefined, undefined, undefined, undefined, undefined, Math.round(media.holdCapInactive.height * noteSize / 100));
+      this.rollBodyActiveImageCache = this.adjustImage(media.rollBodyActive, noteSize, undefined, undefined, undefined, undefined, undefined, undefined, Math.round(media.rollBodyActive.height * noteSize / 100));
+      this.rollBodyInactiveImageCache = this.adjustImage(media.rollBodyInactive, noteSize, undefined, undefined, undefined, undefined, undefined, undefined, Math.round(media.rollBodyInactive.height * noteSize / 100));
+      this.rollCapActiveImageCache = this.adjustImage(media.rollCapActive, noteSize, undefined, undefined, undefined, undefined, undefined, undefined, Math.round(media.rollCapActive.height * noteSize / 100));
+      this.rollCapInactiveImageCache = this.adjustImage(media.rollCapInactive, noteSize, undefined, undefined, undefined, undefined, undefined, undefined, Math.round(media.rollCapInactive.height * noteSize / 100));
 
 
 
@@ -183,7 +183,7 @@ export class MediaService {
   }
 
 
-  adjustImage(image: HTMLImageElement, noteSize: number | null, clipStartX: number = 0, clipStartY: number = 0, clipWidth: number = image.width, clipHeight: number = image.height, rotateByRadians: number = 0, colorByJudgement: Judgement = Judgement.NONE) {
+  adjustImage(image: HTMLImageElement, noteSize: number | null = null, clipStartX: number = 0, clipStartY: number = 0, clipWidth: number = image.width, clipHeight: number = image.height, rotateByRadians: number = 0, colorByJudgement: Judgement = Judgement.NONE, noteHeight: number | null = noteSize) {
 
     var canvas = document.createElement('canvas');
     var ctx = canvas.getContext('2d');
@@ -193,7 +193,7 @@ export class MediaService {
     ctx.imageSmoothingEnabled = false;
 
     canvas.width = noteSize ?? clipWidth;
-    canvas.height = noteSize ?? clipHeight;
+    canvas.height = noteHeight ?? clipHeight;
 
     var halfWidth = canvas.width / 2;
     var halfHeight = canvas.height / 2;

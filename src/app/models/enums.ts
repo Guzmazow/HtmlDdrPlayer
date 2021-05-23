@@ -3,20 +3,20 @@
 export enum NoteQuantization {
     NONE = -1,
     Q4 = 4,
-    Q8 = 8,   
-    Q12 = 12,  
-    Q16 = 16,  
-    Q24 = 24,  
-    Q32 = 32,  
-    Q48 = 48,  
-    Q64 = 64,  
+    Q8 = 8,
+    Q12 = 12,
+    Q16 = 16,
+    Q24 = 24,
+    Q32 = 32,
+    Q48 = 48,
+    Q64 = 64,
     Q128 = 128,
     Q256 = 256,
-    Q512 = 512 
+    Q512 = 512
 }
 
 //Only the ones that can't be divided by 3
-export const AllNoteQuantizations = [NoteQuantization.Q4, NoteQuantization.Q8, NoteQuantization.Q16, NoteQuantization.Q32, NoteQuantization.Q64, NoteQuantization.Q128 , NoteQuantization.Q256, NoteQuantization.Q512];
+export const AllNoteQuantizations = [NoteQuantization.Q4, NoteQuantization.Q8, NoteQuantization.Q16, NoteQuantization.Q32, NoteQuantization.Q64, NoteQuantization.Q128, NoteQuantization.Q256, NoteQuantization.Q512];
 export const BadNoteQuantizations = [NoteQuantization.Q12, NoteQuantization.Q24, NoteQuantization.Q48];
 
 
@@ -35,10 +35,12 @@ export enum NoteType {
     EMPTY = 0,
     NORMAL = 1,
     HOLD_HEAD = 2,
-    ROLL_HEAD = 3,      
-    HOLD_ROLL_BODY = 4,
-    HOLD_ROLL_TAIL = 5,  
-    MINE = 6,
+    //HOLD_BODY = 3,
+    HOLD_TAIL = 4,
+    ROLL_HEAD = 5,
+    //ROLL_BODY = 6,
+    ROLL_TAIL = 7,
+    MINE = 8,
 }
 
 
@@ -68,9 +70,11 @@ export enum Direction {
 export const AllDirections = [Direction.DOWN, Direction.LEFT, Direction.UP, Direction.RIGHT];
 
 export enum Judgement {
-    ALL = -5,
-    ROLLRELEASE = -4,
-    HOLDRELEASE = -3,
+    ALL = -7,
+    ROLLFINISHED = -6,
+    ROLLFAILED = -5,
+    HOLDFINISHED = -4,
+    HOLDFAILED = -3,
     MINEHIT = -2,
     NONE = -1,
     MARVELOUS = 0,

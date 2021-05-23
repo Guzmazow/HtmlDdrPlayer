@@ -1,5 +1,5 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-import { AllDirections, Direction, Judgement, Key } from '@models/enums';
+import { AllDirections, AllJudgements, Direction, Judgement, Key } from '@models/enums';
 import { DisplayService } from '@services/display.service';
 import { JudgementService } from '@services/judgement.service';
 import { KeyboardService } from '@services/keyboard.service';
@@ -75,7 +75,8 @@ export class ReceptorComponent implements OnInit {
             this.mediaService.mineHitSoundCache.play();
           }
         } else {
-          this.receptorGlowVisibilityFramesLeft.set(judged.key, { judgemnet: judged.judgement, framesLeft: 20 })
+          if (AllJudgements.indexOf(judged.judgement) > -1)
+            this.receptorGlowVisibilityFramesLeft.set(judged.key, { judgemnet: judged.judgement, framesLeft: 20 })
         }
       });
     });

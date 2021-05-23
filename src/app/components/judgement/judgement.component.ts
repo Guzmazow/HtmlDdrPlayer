@@ -1,5 +1,5 @@
 import { Component, ElementRef, HostListener, OnDestroy, OnInit, ViewChild } from '@angular/core';
-import { Judgement, Direction } from '@models/enums';
+import { Judgement, Direction, AllJudgements } from '@models/enums';
 import { DisplayService } from '@services/display.service';
 import { JudgementService } from '@services/judgement.service';
 import { MediaService } from '@services/media.service';
@@ -37,19 +37,24 @@ export class JudgementComponent implements OnInit, OnDestroy {
     this.displayService.onGameFinished.pipe(takeUntil(this.destroyed$)).subscribe(() => {
       if (this.displayService.gameRequest) {
         let scores: { [folderName: string]: { [filename: string]: number[] } } = JSON.parse(localStorage.getItem('ScorePercentage') || '{}');
-        if(!scores[this.displayService.gameRequest.simfileFolder.location]){
+        if (!scores[this.displayService.gameRequest.simfileFolder.location]) {
           scores[this.displayService.gameRequest.simfileFolder.location] = {};
         }
         let folderScores = scores[this.displayService.gameRequest.simfileFolder.location];
-        if(!folderScores[this.displayService.gameRequest.parsedSimfile.filename]){
+        if (!folderScores[this.displayService.gameRequest.parsedSimfile.filename]) {
           folderScores[this.displayService.gameRequest.parsedSimfile.filename] = [];
         }
         let currentHistory = folderScores[this.displayService.gameRequest.parsedSimfile.filename];
-        
+
         let total = Array.from(this.judgementCounts.values()).reduce((total, num) => total + num, 0);
-        let actual = total - (this.judgementCounts.get(Judgement.MINEHIT) ?? 0) - (this.judgementCounts.get(Judgement.BAD) ?? 0) - (this.judgementCounts.get(Judgement.MISS) ?? 0)
+        let actual = total
+          - (this.judgementCounts.get(Judgement.HOLDFAILED) ?? 0)
+          - (this.judgementCounts.get(Judgement.ROLLFAILED) ?? 0)
+          - (this.judgementCounts.get(Judgement.MINEHIT) ?? 0)
+          - (this.judgementCounts.get(Judgement.BAD) ?? 0)
+          - (this.judgementCounts.get(Judgement.MISS) ?? 0);
         currentHistory.unshift(Math.round(actual / total * 100))
-        
+
         localStorage.setItem('ScorePercentage', JSON.stringify(scores));
       }
     });
@@ -67,7 +72,7 @@ export class JudgementComponent implements OnInit, OnDestroy {
       let currentNonePrecision = this.precisionSums.get(Judgement.ALL) ?? 0;
       this.precisionSums.set(Judgement.ALL, currentNonePrecision + Math.abs(judgementContext.precision))
 
-      if (this.mediaLoaded) {
+      if (this.mediaLoaded && AllJudgements.indexOf(judgementContext.judgement) > -1) {
         //judgement
         this.lastJudgementImageDataUrl = this.mediaService.judgementImageCache.get(judgementContext.judgement) ?? "";
       }

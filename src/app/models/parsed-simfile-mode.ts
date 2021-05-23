@@ -8,4 +8,5 @@ export interface ParsedSimfileMode {
     meter: number;
     radar: string;
     notes: string;
+    stats: string;
 }

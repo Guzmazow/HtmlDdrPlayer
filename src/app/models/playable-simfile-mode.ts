@@ -12,11 +12,11 @@ export class PlayableSimfileMode {
     constructor(simfile: ParsedSimfile, simfileMode: ParsedSimfileMode) {
         let measures = this.getMeasures(simfileMode.notes.split("\n"));
         let beatsAndLines = this.getBeatInfoByLine(measures);
-        let cleanedBeatsAndLines = this.removeBlankLines(beatsAndLines);
+        //let cleanedBeatsAndLines = this.removeBlankLines(beatsAndLines);
 
         this.bpms = this.parseBPMS(simfile.bpms);
         this.stops = this.parseStops(simfile.stops);
-        this.tracks = this.getTracksFromLines(this.getTimeInfoByLine(cleanedBeatsAndLines, simfile.offset, this.bpms, this.stops));
+        this.tracks = this.getTracksFromLines(this.getTimeInfoByLine(beatsAndLines, simfile.offset, this.bpms, this.stops));
     }
 
     getMeasures(unparsedArray: string[]) {
@@ -83,25 +83,25 @@ export class PlayableSimfileMode {
         return beatsAndLines;
     }
 
-    removeBlankLines(beatsAndLines: { quantization: NoteQuantization, totalBeat: number, lineInfo: string }[]) {
-        let cleanedBeatsAndLines = [];
-        for (let i = 0; i < beatsAndLines.length; i++) {
-            let line = beatsAndLines[i];
-            if (!this.isAllEmpty(line.lineInfo)) {
-                cleanedBeatsAndLines.push(line);
-            }
-        }
-        return cleanedBeatsAndLines;
-    }
+    // removeBlankLines(beatsAndLines: { quantization: NoteQuantization, totalBeat: number, lineInfo: string }[]) {
+    //     let cleanedBeatsAndLines = [];
+    //     for (let i = 0; i < beatsAndLines.length; i++) {
+    //         let line = beatsAndLines[i];
+    //         if (!this.isAllEmpty(line.lineInfo)) {
+    //             cleanedBeatsAndLines.push(line);
+    //         }
+    //     }
+    //     return cleanedBeatsAndLines;
+    // }
 
-    isAllEmpty(string: string) {
-        for (let i = 0; i < string.length; i++) {
-            if (<SimfileNoteType>string.charAt(i) != SimfileNoteType.EMPTY) {
-                return false;
-            }
-        }
-        return true;
-    }
+    // isAllEmpty(string: string) {
+    //     for (let i = 0; i < string.length; i++) {
+    //         if (<SimfileNoteType>string.charAt(i) != SimfileNoteType.EMPTY) {
+    //             return false;
+    //         }
+    //     }
+    //     return true;
+    // }
 
     getTimeInfoByLine(
         infoByLine: { quantization: NoteQuantization, totalBeat: number, lineInfo: string }[],
@@ -171,12 +171,41 @@ export class PlayableSimfileMode {
         for (let i = 0; i < numTracks; i++) {
             tracks.push([]);
         }
-        for (let i = 0; i < timesBeatsAndLines.length; i++) {
-            let line = timesBeatsAndLines[i];
-            for (let j = 0; j < line.lineInfo.length; j++) {
-                let simfileNoteType = <SimfileNoteType>line.lineInfo.charAt(j);
+        for (let line of timesBeatsAndLines) {
+            for (let i = 0; i < line.lineInfo.length; i++) {
+                let simfileNoteType = <SimfileNoteType>line.lineInfo.charAt(i);
                 if (simfileNoteType != SimfileNoteType.EMPTY) {
-                    tracks[j].push(new Note(simfileNoteType, line.time, line.quantization, line.totalBeat));
+                    let newNote = new Note(NoteType.NONE, line.time, line.quantization, line.totalBeat, undefined);
+                    if (simfileNoteType == SimfileNoteType.TAIL) {
+                        // let bodyNotes: Note[] = [];
+                        // for (let reversedIndex = tracks[i].length - 1; reversedIndex >= 0; reversedIndex--) {
+                        //     let prevNote = tracks[i][reversedIndex];
+                        //     switch (prevNote.type) {
+                        //         case NoteType.EMPTY:
+                        //             bodyNotes.push(prevNote);
+                        //             break;
+                        //         case NoteType.HOLD_HEAD:
+                        //         case NoteType.ROLL_HEAD:
+                        //             parent = prevNote;
+                        //             break;
+                        //     }
+                        //     if (parent) break;
+                        // }
+                        //bodyNotes.forEach(x => { x.parent = parent; x.type = parent?.type == NoteType.HOLD_HEAD ? NoteType.HOLD_BODY : NoteType.ROLL_BODY });
+                        newNote.related = tracks[i][tracks[i].length - 1];
+                        newNote.related.related = newNote;
+                        newNote.type = newNote.related.type == NoteType.HOLD_HEAD ? NoteType.HOLD_TAIL : NoteType.ROLL_TAIL
+                        continue;
+                    } else {
+                        switch (simfileNoteType) {
+                            //case SimfileNoteType.EMPTY: type = NoteType.EMPTY; break;
+                            case SimfileNoteType.NORMAL: newNote.type = NoteType.NORMAL; break;
+                            case SimfileNoteType.HOLD_HEAD: newNote.type = NoteType.HOLD_HEAD; break;
+                            case SimfileNoteType.ROLL_HEAD: newNote.type = NoteType.ROLL_HEAD; break;
+                            case SimfileNoteType.MINE: newNote.type = NoteType.MINE; break;
+                        }
+                    }
+                    tracks[i].push(newNote);
                 }
             }
         }
