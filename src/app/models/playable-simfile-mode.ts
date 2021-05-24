@@ -4,12 +4,17 @@ import { ParsedSimfile } from "./parsed-simfile";
 import { ParsedSimfileMode } from "./parsed-simfile-mode";
 
 export class PlayableSimfileMode {
+    simfile: ParsedSimfile;
+    simfileMode: ParsedSimfileMode;
 
     bpms: { beat: number; bpm: number }[] = [];
     stops: { stopDuration: number; beat: number }[] = [];
     tracks: Note[][] = [];
 
     constructor(simfile: ParsedSimfile, simfileMode: ParsedSimfileMode) {
+        this.simfile = simfile;
+        this.simfileMode = simfileMode;
+
         let measures = this.getMeasures(simfileMode.notes.split("\n"));
         let beatsAndLines = this.getBeatInfoByLine(measures);
         //let cleanedBeatsAndLines = this.removeBlankLines(beatsAndLines);
@@ -68,13 +73,13 @@ export class PlayableSimfileMode {
             let quantizationCount = Math.round(Math.log2(beatsPerMeasure)) - 1;// 1, 2, 3, 4, 5, 6 | 3, 4, 5 (round compensates the threeNoteRepeatCycle)
             let quantizationIndex = threeNoteRepeatCycle ? BadNoteQuantizations.indexOf(beatsPerMeasure) : AllNoteQuantizations.indexOf(beatsPerMeasure);
             if (quantizationIndex == -1) {
-                console.warn(`quantization not found for beats per measure: ${beatsPerMeasure}`);
+                console.warn(`quantization not found for beats per measure: ${beatsPerMeasure}, for song: ${this.simfile.filename}, for mode: ${this.simfileMode.meter}`);
             }
             for (let j = 0; j < measure.length; j++) {
                 let noteQuantizationIndex = j % beatStep % quantizationCount; // 0-quantizationCount / 0-quantizationCount
                 let noteQuantization = AllNoteQuantizations[noteQuantizationIndex];
                 if (!noteQuantization) {
-                    console.warn(`missing quantization for beatStep: ${beatStepFraction}`)
+                    console.warn(`missing quantization for beatStep: ${beatStepFraction}, for song: ${this.simfile.filename}, for mode: ${this.simfileMode.meter}`)
                 }
                 beatsAndLines.push({ quantization: noteQuantization ?? NoteQuantization.Q512, totalBeat: currentBeat, lineInfo: measure[j] });
                 currentBeat += beatStepFraction;

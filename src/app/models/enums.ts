@@ -10,14 +10,17 @@ export enum NoteQuantization {
     Q32 = 32,
     Q48 = 48,
     Q64 = 64,
+    Q96 = 96,
     Q128 = 128,
+    Q192 = 192,
     Q256 = 256,
+    Q384 = 384,
     Q512 = 512
 }
 
 //Only the ones that can't be divided by 3
 export const AllNoteQuantizations = [NoteQuantization.Q4, NoteQuantization.Q8, NoteQuantization.Q16, NoteQuantization.Q32, NoteQuantization.Q64, NoteQuantization.Q128, NoteQuantization.Q256, NoteQuantization.Q512];
-export const BadNoteQuantizations = [NoteQuantization.Q12, NoteQuantization.Q24, NoteQuantization.Q48];
+export const BadNoteQuantizations = [NoteQuantization.Q12, NoteQuantization.Q24, NoteQuantization.Q48, NoteQuantization.Q96, NoteQuantization.Q192, NoteQuantization.Q384];
 
 
 
