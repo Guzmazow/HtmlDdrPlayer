@@ -1,0 +1,31 @@
+@import "~@angular/material/theming";
+
+@mixin row-select($config) {
+    $background: map-get($config, background);
+    .mat-row.hovered {
+        cursor: pointer;
+        &:hover,
+        &:focus {
+            background: mat-color($background, "hover");
+        }
+    }
+    
+    .mat-row.highlighted {
+        &,
+        &:hover,
+        &:focus {
+            background: mat-color($background, hover, 0.12);
+        }
+    }
+}
+
+@mixin row-select-theme($theme) {
+    // Extracts the color and typography configurations from the theme.
+    $color: mat-get-color-config($theme);
+
+    // Do not generate styles if configurations for individual theming
+    // systems have been explicitly set to `null`.
+    @if $color != null {
+        @include row-select($color);
+    }
+}
