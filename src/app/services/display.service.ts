@@ -69,13 +69,17 @@ export class DisplayService {
 
 
   endGameIfEndKey(key: Key): void {
-    console.log('long pressed', key);
+    //console.log('long pressed', key);
     if (key == Key.CANCEL || key == Key.START || key == Key.SELECT) {
       this.end();
     }
   }
 
   end(){
+    if (document.fullscreenElement && document.exitFullscreen) {
+      document.exitFullscreen();
+    }
+
     cancelAnimationFrame(this.lastframe);
     this.onGameFinished.next();
     this.onGamePlayStateChange.next(false);
@@ -83,6 +87,9 @@ export class DisplayService {
   }
 
   play() {
+    if (!document.fullscreenElement && document.documentElement.requestFullscreen) {
+      document.documentElement.requestFullscreen();
+    }
     this.gameRequest.youtubeVideo.skips.forEach(x => x.skipped = false)
     this.onGamePlayStateChange.next(true);
     this.tick();
@@ -108,7 +115,7 @@ export class DisplayService {
           if (skip.to === null) {
             this.mediaService.video.stopVideo();
             skip.skipped = true;
-            console.log("ending", skip.from);
+            //console.log("ending", skip.from);
             return;
           }
           // if (this.currentPlayerTime < skip.to) {
@@ -116,7 +123,7 @@ export class DisplayService {
           this.mediaService.video.playVideo();
           this.skipedPlayeTimeUntilNow += (skip.to - skip.from);
           skip.skipped = true;
-          console.log("skipping", skip.from, skip.to);
+          //console.log("skipping", skip.from, skip.to);
           // }
         }
       }

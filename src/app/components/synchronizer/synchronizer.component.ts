@@ -132,7 +132,7 @@ export class SynchronizerComponent implements OnInit, OnDestroy {
     const element = event.currentTarget as HTMLInputElement;
     let fileList: FileList | null = element.files;
     if (fileList && fileList.length == 1) {
-      console.log("FileUpload -> files", fileList);
+      //console.log("FileUpload -> files", fileList);
 
       if (this.audioPlayer) {
         this.audioPlayer.src = URL.createObjectURL(fileList[0]);

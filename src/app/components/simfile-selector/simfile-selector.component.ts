@@ -90,7 +90,7 @@ export class SimfileSelectorComponent implements OnInit, OnDestroy {
       this.antiGlitch();
     });
     this.keyboardService.onPress.pipe(takeUntil(this.destroyed$)).subscribe((keyEv) => {
-      console.log("still checking")
+      //console.log("still checking")
       if (keyEv.state) {
         switch (keyEv.key) {
           case Key.UP:

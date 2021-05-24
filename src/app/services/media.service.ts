@@ -148,7 +148,7 @@ export class MediaService {
       for (let judgement of AllJudgements) {
         this.judgementImageCache.set(judgement, this.adjustImage(media.judgement, null, 0, judgement * media.judgement.height / 6, media.judgement.width, media.judgement.height / 6).toDataURL());
       }
-      console.log('MEDIA images ready');
+      //console.log('MEDIA images ready');
       this.onMediaLoaded.next(true);
     })
   }

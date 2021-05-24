@@ -19,6 +19,6 @@ export class YoutubeVideoComponent implements OnInit {
 
 
   onVideoReady(event: YT.PlayerEvent) {
-    console.log("Video ready", event.target);
+    //console.log("Video ready", event.target);
   }
 }
