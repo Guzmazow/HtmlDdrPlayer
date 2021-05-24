@@ -9,4 +9,6 @@ export interface ParsedSimfileMode {
     radar: string;
     notes: string;
     stats: string;
+    scores?: number[];
+    displayScores?: string;
 }

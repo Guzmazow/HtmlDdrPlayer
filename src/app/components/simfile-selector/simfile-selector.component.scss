@@ -1,8 +1,53 @@
+@import "../../../theme.scss";
+
 :host mat-drawer-container {
     height: 100%;
 }
 
-td, th {
+td,
+th {
     max-width: 600px;
     word-break: break-all;
+}
+
+$config: mat-get-color-config($theme);
+$background: map-get($config, background);
+$foreground: map-get($config, foreground);
+
+#mode-table {
+    width: 100%;
+}
+
+.mat-column-meter {
+    text-align: center;
+    min-width: 50px;
+    flex: 0 0 5%;
+    justify-content: center;
+}
+.mat-column-difficulty {
+    text-align: right;
+    min-width: 85px;
+    flex: 0 0 10%;
+    justify-content: flex-end;
+}
+
+.mat-column-stats {
+    min-width: 150px;
+    flex: 0 0 10%;
+}
+
+.mat-row.hovered {
+    cursor: pointer;
+    &:hover,
+    &:focus {
+        background: mat-color($background, "hover");
+    }
+}
+
+.mat-row.highlighted {
+    &,
+    &:hover,
+    &:focus {
+        background: mat-color($background, hover, 0.12);
+    }
 }

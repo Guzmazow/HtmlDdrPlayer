@@ -1,5 +1,6 @@
 import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { SimfileRegistryYoutubeInfo } from '@models/simfile-registry-youtube-info';
+import { Log } from '@services/log.service';
 import { NgxY2PlayerComponent, NgxY2PlayerOptions } from 'ngx-y2-player';
 
 @Component({
@@ -19,6 +20,6 @@ export class YoutubeVideoComponent implements OnInit {
 
 
   onVideoReady(event: YT.PlayerEvent) {
-    //console.log("Video ready", event.target);
+    Log.debug("Video ready");
   }
 }

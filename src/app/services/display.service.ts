@@ -7,6 +7,7 @@ import { GameRequest } from '@models/game-request';
 import { KeyboardService } from './keyboard.service';
 import { Key } from '@models/enums';
 import { Router } from '@angular/router';
+import { Log } from './log.service';
 
 
 @Injectable({
@@ -69,7 +70,7 @@ export class DisplayService {
 
 
   endGameIfEndKey(key: Key): void {
-    //console.log('long pressed', key);
+    Log.debug(`long pressed ${key}`);
     if (key == Key.CANCEL || key == Key.START || key == Key.SELECT) {
       this.end();
     }
@@ -115,7 +116,7 @@ export class DisplayService {
           if (skip.to === null) {
             this.mediaService.video.stopVideo();
             skip.skipped = true;
-            //console.log("ending", skip.from);
+            Log.debug(`ending ${skip.from}`);
             return;
           }
           // if (this.currentPlayerTime < skip.to) {
@@ -123,7 +124,7 @@ export class DisplayService {
           this.mediaService.video.playVideo();
           this.skipedPlayeTimeUntilNow += (skip.to - skip.from);
           skip.skipped = true;
-          //console.log("skipping", skip.from, skip.to);
+          Log.debug(`skipping: ${skip.from} to ${skip.to}`);
           // }
         }
       }

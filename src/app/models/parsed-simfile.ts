@@ -10,8 +10,6 @@ export class ParsedSimfile implements SimfileRegistryEntry {
   filename: string;
   status?: string;
   youtubeVideos: SimfileRegistryYoutubeInfo[];
-  scores?: number[];
-  displayScores?: string;
 
   loaded: boolean = false;
   title: string = "";
@@ -85,16 +83,20 @@ export class ParsedSimfile implements SimfileRegistryEntry {
     this.rawModes = this.getModesInfoAsStrings(simfileContent);
     for (let mode of this.rawModes) {
       let type = mode.get("type") ?? "";
-      this.modes.push({
-        gameMode: GameMode[type.split('-')[0].toUpperCase() as keyof typeof GameMode] ?? GameMode.NONE,
-        gameModeType: GameModeType[type.split('-')[1].toUpperCase() as keyof typeof GameModeType] ?? GameModeType.NONE,
-        descAuthor: mode.get("desc/author") ?? "",
-        difficulty: Difficulty[(mode.get("difficulty") ?? "").toUpperCase() as keyof typeof Difficulty] ?? Difficulty.NONE,
-        meter: parseInt(mode.get("meter") ?? "0"),
-        radar: mode.get("radar") ?? "",
-        notes: mode.get("notes") ?? "",
-        stats: ""
-      });
+      let gameMode = GameMode[type.split('-')[0].toUpperCase() as keyof typeof GameMode] ?? GameMode.NONE;
+      let gameModeType = GameModeType[type.split('-')[1].toUpperCase() as keyof typeof GameModeType] ?? GameModeType.NONE;
+      if (gameMode == GameMode.DANCE && gameModeType == GameModeType.SINGLE) {
+        this.modes.push({
+          gameMode: gameMode,
+          gameModeType: gameModeType,
+          descAuthor: mode.get("desc/author") ?? "",
+          difficulty: Difficulty[(mode.get("difficulty") ?? "").toUpperCase() as keyof typeof Difficulty] ?? Difficulty.NONE,
+          meter: parseInt(mode.get("meter") ?? "0"),
+          radar: mode.get("radar") ?? "",
+          notes: mode.get("notes") ?? "",
+          stats: ""
+        });
+      }
     }
     this.modes.sort((a, b) => {
       if (a.gameMode > b.gameMode)
@@ -121,13 +123,13 @@ export class ParsedSimfile implements SimfileRegistryEntry {
       let holdCount = 0;
       let noteCount = 0;
       for (let note of allNotes) {
-        switch(note.type){
+        switch (note.type) {
           case NoteType.ROLL_HEAD: rollCount++; break;
           case NoteType.HOLD_HEAD: holdCount++; break;
           case NoteType.NORMAL: noteCount++; break;
         }
       }
-      
+
       mode.stats = `N:${noteCount} R:${rollCount} H:${holdCount}`
     })
     this.loaded = true;

@@ -4,6 +4,7 @@ import { MatTabChangeEvent } from '@angular/material/tabs';
 import { ActivatedRoute } from '@angular/router';
 import { ParsedSimfile } from '@models/parsed-simfile';
 import { SimfileRegistryYoutubeInfo } from '@models/simfile-registry-youtube-info';
+import { Log } from '@services/log.service';
 import { SimfileLoaderService } from '@services/simfile-loader.service';
 import { NgxY2PlayerComponent, NgxY2PlayerOptions } from 'ngx-y2-player';
 import { ReplaySubject } from 'rxjs';
@@ -132,7 +133,7 @@ export class SynchronizerComponent implements OnInit, OnDestroy {
     const element = event.currentTarget as HTMLInputElement;
     let fileList: FileList | null = element.files;
     if (fileList && fileList.length == 1) {
-      //console.log("FileUpload -> files", fileList);
+      Log.debug("FileUpload -> files");
 
       if (this.audioPlayer) {
         this.audioPlayer.src = URL.createObjectURL(fileList[0]);

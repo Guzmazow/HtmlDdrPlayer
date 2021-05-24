@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Direction, Key } from '@models/enums';
 import { Subject } from 'rxjs';
 import { DisplayService } from './display.service';
+import { Log } from './log.service';
 
 @Injectable({
   providedIn: 'root'
@@ -57,7 +58,7 @@ export class KeyboardService {
   ]);
 
   constructor() {
-    //console.log('started listening keys');
+    Log.debug('started listening keys');
     window.addEventListener('keyup', this.onKeyHandler.bind(this));
     window.addEventListener('keydown', this.onKeyHandler.bind(this));
     //this.displayService.onStart.subscribe(x => this.listenStarted = true);
@@ -70,7 +71,7 @@ export class KeyboardService {
     if (systemKey === undefined) return;
     let keyState = this.keyState.get(systemKey);
     if (isKeyDown != keyState) {
-      //console.log("KeyState change", event.code || event.key, isKeyDown)
+      Log.debug(`KeyState change: ${event.code || event.key}, ${isKeyDown}`)
       this.keyState.set(systemKey, isKeyDown);
       this.onPress.next({ key: systemKey, state: isKeyDown });
       if (isKeyDown) {

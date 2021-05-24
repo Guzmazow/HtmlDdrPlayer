@@ -17,6 +17,9 @@ import { MatExpansionModule } from '@angular/material/expansion';
 import { MatListModule } from '@angular/material/list';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatInputModule } from '@angular/material/input';
+import { MatTableModule } from '@angular/material/table';
+import { MatRippleModule } from '@angular/material/core';
+import { MatDialogModule } from '@angular/material/dialog';
 
 import { DdrPlayerComponent } from '@components/ddr-player/ddr-player.component';
 import { NoteLaneComponent } from '@components/note-lane/note-lane.component';
@@ -54,6 +57,9 @@ import { SynchronizerComponent } from './components/synchronizer/synchronizer.co
     MatSidenavModule,
     MatCardModule,
     MatExpansionModule,
+    MatTableModule,
+    MatRippleModule,
+    MatDialogModule,
     NgxY2PlayerModule,
     MatListModule,
     MatTabsModule,

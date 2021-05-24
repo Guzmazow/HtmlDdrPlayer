@@ -5,6 +5,7 @@ import { Note } from '@models/note';
 import { Subject } from 'rxjs';
 import { DisplayService } from './display.service';
 import { KeyboardService } from './keyboard.service';
+import { Log } from './log.service';
 
 @Injectable({
   providedIn: 'root'
@@ -97,7 +98,7 @@ export class JudgementService {
           key: trackIndex
         });
         this.rollState.set(trackIndex, undefined);
-        //console.log("roll finished " + trackIndex)
+        Log.debug("roll finished " + trackIndex)
       }
       let holdState = this.holdState.get(trackIndex)
       if (holdState && holdState.note.related && holdState.note.related.time < this.displayService.currentTime) {
@@ -110,7 +111,7 @@ export class JudgementService {
           key: trackIndex
         });
         this.holdState.set(trackIndex, undefined);
-        //console.log("hold finished " + trackIndex)
+        Log.debug("hold finished " + trackIndex)
       }
 
     }
@@ -166,9 +167,9 @@ export class JudgementService {
     let state = this.rollState.get(direction);
     if (state) {
       state.note.stateChangeTime = this.displayService.currentTime;
-      //console.log("clearing timer " + state.timer)
+      Log.debug("clearing timer " + state.timer)
       if (state.timer) {
-        //console.log("clear timer " + state.timer)
+        Log.debug("clear timer " + state.timer)
         clearTimeout(state.timer);
       }
       state.timer = setTimeout(() => {
@@ -180,7 +181,7 @@ export class JudgementService {
           precision: this.TimingWindowSecondsRoll,
           key: +direction
         });
-        //console.log("roll failed " + direction)
+        Log.debug("roll failed " + direction)
       }, this.TimingWindowSecondsRoll * 1000);
       //.log("set timer " + state.timer)
     }
@@ -207,7 +208,7 @@ export class JudgementService {
           precision: this.TimingWindowSecondsHold,
           key: +direction
         });
-        //console.log("hold failed " + direction)
+        Log.debug("hold failed " + direction)
       }, this.TimingWindowSecondsHold * 1000);
     }
   }

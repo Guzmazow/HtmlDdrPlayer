@@ -1,5 +1,5 @@
 import { Component, ElementRef, HostListener, OnDestroy, OnInit, ViewChild } from '@angular/core';
-import { Judgement, Direction, AllJudgements } from '@models/enums';
+import { Judgement, Direction, AllJudgements, Difficulty } from '@models/enums';
 import { DisplayService } from '@services/display.service';
 import { JudgementService } from '@services/judgement.service';
 import { MediaService } from '@services/media.service';
@@ -36,15 +36,22 @@ export class JudgementComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.displayService.onGameFinished.pipe(takeUntil(this.destroyed$)).subscribe(() => {
       if (this.displayService.gameRequest) {
-        let scores: { [folderName: string]: { [filename: string]: number[] } } = JSON.parse(localStorage.getItem('ScorePercentage') || '{}');
-        if (!scores[this.displayService.gameRequest.simfileFolder.location]) {
-          scores[this.displayService.gameRequest.simfileFolder.location] = {};
+        let folder = this.displayService.gameRequest.simfileFolder;
+        let file = this.displayService.gameRequest.parsedSimfile;
+        let mode = this.displayService.gameRequest.parsedSimfileMode;
+        let scores: { [folderName: string]: { [filename: string]: { [mode: string]: number[] } } } = JSON.parse(localStorage.getItem('ScorePercentage') || '{}');
+        if (!scores[folder.location]) {
+          scores[folder.location] = {};
         }
-        let folderScores = scores[this.displayService.gameRequest.simfileFolder.location];
-        if (!folderScores[this.displayService.gameRequest.parsedSimfile.filename]) {
-          folderScores[this.displayService.gameRequest.parsedSimfile.filename] = [];
+        let folderScores = scores[folder.location];
+        if (!folderScores[file.filename]) {
+          folderScores[file.filename] = {};
         }
-        let currentHistory = folderScores[this.displayService.gameRequest.parsedSimfile.filename];
+        let fileScores = folderScores[file.filename];
+        if (!fileScores[Difficulty[mode.difficulty]]) {
+          fileScores[Difficulty[mode.difficulty]] = [];
+        }
+        let currentHistory = fileScores[Difficulty[mode.difficulty]];
 
         let total = Array.from(this.judgementCounts.values()).reduce((total, num) => total + num, 0);
         let actual = total

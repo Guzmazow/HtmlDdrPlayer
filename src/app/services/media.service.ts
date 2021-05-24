@@ -1,6 +1,7 @@
 import { EventEmitter, Injectable } from '@angular/core';
 import { AllDirections, AllJudgements, AllNoteQuantizations, Direction, Judgement, NoteQuantization } from '@models/enums';
 import { BehaviorSubject, forkJoin } from 'rxjs';
+import { Log } from './log.service';
 
 @Injectable({
   providedIn: 'root'
@@ -148,7 +149,7 @@ export class MediaService {
       for (let judgement of AllJudgements) {
         this.judgementImageCache.set(judgement, this.adjustImage(media.judgement, null, 0, judgement * media.judgement.height / 6, media.judgement.width, media.judgement.height / 6).toDataURL());
       }
-      //console.log('MEDIA images ready');
+      Log.debug('MEDIA images ready');
       this.onMediaLoaded.next(true);
     })
   }
