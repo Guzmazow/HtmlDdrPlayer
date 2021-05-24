@@ -103,19 +103,21 @@ export class NoteLaneComponent implements OnInit, OnDestroy {
         if (note.startedJudging && note.time < this.displayService.currentTime) {
           y = this.displayService.getNoteY(this.displayService.currentTime);
         }
-        let isHoldActive = note.stateChangeTime == 0; //note.stateChangeTime + 0.01 < this.displayService.currentTime;
+        
+        if (y2 > y + halfNoteSize) {
+          let isHoldActive = note.startedJudging && note.stateChangeTime == 0; //note.stateChangeTime + 0.01 < this.displayService.currentTime;
+          this.ctx.beginPath();
+          let holdPattern = this.ctx.createPattern(isHoldActive ? this.mediaService.holdBodyActiveImageCache! : this.mediaService.holdBodyInactiveImageCache!, 'repeat-y')!;
+          this.ctx.fillStyle = holdPattern
+          let holdBodySize = y2 - y - halfNoteSize + 2;
+          this.ctx.rect(x, y2 + 2, noteSize, -holdBodySize);
+          this.ctx.setTransform(1, 0, 0, 1, x, y2 + 2);
+          this.ctx.fill();
+          this.ctx.setTransform(1, 0, 0, 1, 1, 1);
 
-        let holdPattern = this.ctx.createPattern(isHoldActive ? this.mediaService.holdBodyActiveImageCache! : this.mediaService.holdBodyInactiveImageCache!, 'repeat-y')!;
-        this.ctx.beginPath();
-        this.ctx.fillStyle = holdPattern
-        this.ctx.rect(x, y + halfNoteSize, noteSize, this.displayService.getNoteY(note.related?.time ?? 0) - y - halfNoteSize + 2);
-        this.ctx.setTransform(1, 0, 0, 1, x, y + halfNoteSize);
-        this.ctx.fill();
-        this.ctx.setTransform(1, 0, 0, 1, 1, 1);
-
-        let holdCapImage = isHoldActive ? this.mediaService.holdCapActiveImageCache! : this.mediaService.holdCapInactiveImageCache!;
-        this.ctx.drawImage(holdCapImage, x, y2, noteSize, holdCapImage.height);
-
+          let holdCapImage = isHoldActive ? this.mediaService.holdCapActiveImageCache! : this.mediaService.holdCapInactiveImageCache!;
+          this.ctx.drawImage(holdCapImage, x, y2, noteSize, holdCapImage.height);
+        }
         this.ctx.drawImage(this.mediaService.arrowImageCache.get(direction)?.get(note.quantization)!, x, y, noteSize, noteSize);
         break;
       // case NoteType.HOLD_TAIL:
@@ -131,21 +133,23 @@ export class NoteLaneComponent implements OnInit, OnDestroy {
         // this.ctx.fillText("R", x + halfNoteSize, y + ninthNoteSize, noteSize);
 
         if (note.startedJudging && note.time < this.displayService.currentTime) {
-          y = this.displayService.getNoteY(this.displayService.currentTime) - halfNoteSize;
+          y = this.displayService.getNoteY(this.displayService.currentTime);
         }
-        let isRollActive = note.stateChangeTime + 0.1 < this.displayService.currentTime;
+        
+        if (y2 > y + halfNoteSize) {
+          let isRollActive = note.stateChangeTime + 0.1 < this.displayService.currentTime;
+          let rollPattern = this.ctx.createPattern(isRollActive ? this.mediaService.rollBodyActiveImageCache! : this.mediaService.rollBodyInactiveImageCache!, 'repeat-y')!;
+          this.ctx.beginPath();
+          this.ctx.fillStyle = rollPattern
+          let holdBodySize = y2 - y - halfNoteSize + 2;
+          this.ctx.rect(x, y2 + 2, noteSize, -holdBodySize);
+          this.ctx.setTransform(1, 0, 0, 1, x, y2 + 2);
+          this.ctx.fill();
+          this.ctx.setTransform(1, 0, 0, 1, 1, 1);
 
-        let rollPattern = this.ctx.createPattern(isRollActive ? this.mediaService.rollBodyActiveImageCache! : this.mediaService.rollBodyInactiveImageCache!, 'repeat-y')!;
-        this.ctx.beginPath();
-        this.ctx.fillStyle = rollPattern
-        this.ctx.rect(x, y + halfNoteSize, noteSize, this.displayService.getNoteY(note.related?.time ?? 0) - y - halfNoteSize + 2);
-        this.ctx.setTransform(1, 0, 0, 1, x, y + halfNoteSize);
-        this.ctx.fill();
-        this.ctx.setTransform(1, 0, 0, 1, 1, 1);
-
-        let rollCapImage = isRollActive ? this.mediaService.rollCapActiveImageCache! : this.mediaService.rollCapInactiveImageCache!;
-        this.ctx.drawImage(rollCapImage, x, y2, noteSize, rollCapImage.height);
-
+          let rollCapImage = isRollActive ? this.mediaService.rollCapActiveImageCache! : this.mediaService.rollCapInactiveImageCache!;
+          this.ctx.drawImage(rollCapImage, x, y2, noteSize, rollCapImage.height);
+        }
         this.ctx.drawImage(this.mediaService.arrowImageCache.get(direction)?.get(note.quantization)!, x, y, noteSize, noteSize);
         break;
       case NoteType.MINE:
