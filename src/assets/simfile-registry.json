@@ -3249,25 +3249,39 @@
                 "filename": "Heartbreak Headlines.sm",
                 "youtubeVideos": [
                     {
-                        "id": "XXX",
-                        "skips": []
+                        "id": "Q7KBdr_kwJc",
+                        "skips": [
+                          {
+                            "from": 84,
+                            "to": 153.6,
+                            "skipped": false
+                          }
+                        ]
                     }
                 ]
             },
             {
                 "filename": "Highsense Nonsense.sm",
+                "status": "Not worth cutting",
                 "youtubeVideos": [
                     {
-                        "id": "XXX",
-                        "skips": []
+                        "id": "vhZxpvx57ao",
+                        "skips": [
+                          {
+                            "from": 0,
+                            "to": 2.6,
+                            "skipped": false
+                          }
+                        ]
                     }
                 ]
             },
             {
                 "filename": "Hope for Azure Sky.sm",
+                "status":"Not worth cutting",
                 "youtubeVideos": [
                     {
-                        "id": "XXX",
+                        "id": "awlRkiPPiuI",
                         "skips": []
                     }
                 ]
@@ -3276,8 +3290,14 @@
                 "filename": "Ievan Polkka.sm",
                 "youtubeVideos": [
                     {
-                        "id": "XXX",
-                        "skips": []
+                        "id": "ZjDZrReZ4EI",
+                        "skips": [
+                          {
+                            "from": 0,
+                            "to": 1.98,
+                            "skipped": false
+                          }
+                        ]
                     }
                 ]
             },
@@ -3285,8 +3305,24 @@
                 "filename": "Ikasama Life Game.sm",
                 "youtubeVideos": [
                     {
-                        "id": "XXX",
-                        "skips": []
+                        "id": "B1v_Q9QHbtY",
+                        "skips": [
+                          {
+                            "from": 0,
+                            "to": 10.9,
+                            "skipped": false
+                          },
+                          {
+                            "from": 78,
+                            "to": 135.6,
+                            "skipped": false
+                          },
+                          {
+                            "from": 179,
+                            "to": 198.25,
+                            "skipped": false
+                          }
+                        ]
                     }
                 ]
             },
@@ -3294,8 +3330,34 @@
                 "filename": "Imagination Forest.sm",
                 "youtubeVideos": [
                     {
-                        "id": "XXX",
-                        "skips": []
+                        "id": "lfq7T0H6cCI",
+                        "skips": [
+                          {
+                            "from": 0,
+                            "to": 1.4674,
+                            "skipped": false
+                          },
+                          {
+                            "from": 12,
+                            "to": 33.3,
+                            "skipped": false
+                          },
+                          {
+                            "from": 65,
+                            "to": 130.3,
+                            "skipped": false
+                          },
+                          {
+                            "from": 173.5,
+                            "to": 196.2,
+                            "skipped": false
+                          },
+                          {
+                            "from": 228,
+                            "to": 238.65,
+                            "skipped": false
+                          }
+                        ]
                     }
                 ]
             },
@@ -3303,8 +3365,14 @@
                 "filename": "It's a Wonderful Cat's Life.sm",
                 "youtubeVideos": [
                     {
-                        "id": "XXX",
-                        "skips": []
+                        "id": "FaiU_sSifGc",
+                        "skips": [
+                          {
+                            "from": 128,
+                            "to": 210.4,
+                            "skipped": false
+                          }
+                        ]
                     }
                 ]
             },
@@ -3312,8 +3380,14 @@
                 "filename": "Kagamine Rin & Len - Trick & Treat.sm",
                 "youtubeVideos": [
                     {
-                        "id": "XXX",
-                        "skips": []
+                        "id": "EEPdHJxJCrA",
+                        "skips": [
+                          {
+                            "from": 106.6,
+                            "to": 199.1,
+                            "skipped": false
+                          }
+                        ]
                     }
                 ]
             },
@@ -3321,8 +3395,29 @@
                 "filename": "Kagerou Daze.sm",
                 "youtubeVideos": [
                     {
-                        "id": "XXX",
-                        "skips": []
+                        "id": "A7KNYk4f3XQ",
+                        "skips": [
+                          {
+                            "from": 0,
+                            "to": 0.75,
+                            "skipped": false
+                          },
+                          {
+                            "from": 20,
+                            "to": 20,
+                            "skipped": false
+                          },
+                          {
+                            "from": 78,
+                            "to": 145.2,
+                            "skipped": false
+                          },
+                          {
+                            "from": 164,
+                            "to": 183.1,
+                            "skipped": false
+                          }
+                        ]
                     }
                 ]
             },
@@ -3330,8 +3425,19 @@
                 "filename": "Kimagure Mercy.sm",
                 "youtubeVideos": [
                     {
-                        "id": "XXX",
-                        "skips": []
+                        "id": "o1iz4L-5zkQ",
+                        "skips": [
+                          {
+                            "from": 0,
+                            "to": 3.6,
+                            "skipped": false
+                          },
+                          {
+                            "from": 85,
+                            "to": 139,
+                            "skipped": false
+                          }
+                        ]
                     }
                 ]
             },
@@ -3339,8 +3445,19 @@
                 "filename": "Kisaragi Attention.sm",
                 "youtubeVideos": [
                     {
-                        "id": "XXX",
-                        "skips": []
+                        "id": "RkT3UP9oNzA",
+                        "skips": [
+                          {
+                            "from": 0,
+                            "to": 0.7,
+                            "skipped": false
+                          },
+                          {
+                            "from": 93,
+                            "to": 195.05,
+                            "skipped": false
+                          }
+                        ]
                     }
                 ]
             },
@@ -3348,8 +3465,14 @@
                 "filename": "Kokoro-Game-Box.sm",
                 "youtubeVideos": [
                     {
-                        "id": "XXX",
-                        "skips": []
+                        "id": "2GS_KeZa0Vc",
+                        "skips": [
+                          {
+                            "from": 99.7,
+                            "to": 146.36,
+                            "skipped": false
+                          }
+                        ]
                     }
                 ]
             },
@@ -3357,8 +3480,19 @@
                 "filename": "Kuru Kuru Pa.sm",
                 "youtubeVideos": [
                     {
-                        "id": "XXX",
-                        "skips": []
+                        "id": "o-SgFHED_2E",
+                        "skips": [
+                          {
+                            "from": 0,
+                            "to": 1.48,
+                            "skipped": false
+                          },
+                          {
+                            "from": 107.85,
+                            "to": 193,
+                            "skipped": false
+                          }
+                        ]
                     }
                 ]
             },
@@ -3366,8 +3500,19 @@
                 "filename": "Life Reset Button.sm",
                 "youtubeVideos": [
                     {
-                        "id": "XXX",
-                        "skips": []
+                        "id": "IN3kbST908c",
+                        "skips": [
+                          {
+                            "from": 0,
+                            "to": 1.1,
+                            "skipped": false
+                          },
+                          {
+                            "from": 68.2,
+                            "to": 161.5,
+                            "skipped": false
+                          }
+                        ]
                     }
                 ]
             },
@@ -3375,8 +3520,19 @@
                 "filename": "Loop.sm",
                 "youtubeVideos": [
                     {
-                        "id": "XXX",
-                        "skips": []
+                        "id": "GLYQiri4siM",
+                        "skips": [
+                          {
+                            "from": 0,
+                            "to": 0.5,
+                            "skipped": false
+                          },
+                          {
+                            "from": 120,
+                            "to": 262,
+                            "skipped": false
+                          }
+                        ]
                     }
                 ]
             },
@@ -3384,8 +3540,24 @@
                 "filename": "Love Hero.sm",
                 "youtubeVideos": [
                     {
-                        "id": "XXX",
-                        "skips": []
+                        "id": "zoHdlSfP2jo",
+                        "skips": [
+                          {
+                            "from": 0,
+                            "to": 15.85,
+                            "skipped": false
+                          },
+                          {
+                            "from": 98.8,
+                            "to": 230.2,
+                            "skipped": false
+                          },
+                          {
+                            "from": 245.907829,
+                            "to": 256,
+                            "skipped": false
+                          }
+                        ]
                     }
                 ]
             },
@@ -3393,8 +3565,19 @@
                 "filename": "Lucky Orb.sm",
                 "youtubeVideos": [
                     {
-                        "id": "XXX",
-                        "skips": []
+                        "id": "AufydOsiD6M",
+                        "skips": [
+                          {
+                            "from": 0,
+                            "to": 18.8,
+                            "skipped": false
+                          },
+                          {
+                            "from": 167,
+                            "to": 254.6,
+                            "skipped": false
+                          }
+                        ]
                     }
                 ]
             },
@@ -3402,8 +3585,24 @@
                 "filename": "LUVORATORRRRRY!.sm",
                 "youtubeVideos": [
                     {
-                        "id": "XXX",
-                        "skips": []
+                        "id": "p-o_bMkzOW0",
+                        "skips": [
+                          {
+                            "from": 0,
+                            "to": 1.7,
+                            "skipped": false
+                          },
+                          {
+                            "from": 61.8,
+                            "to": 61.8,
+                            "skipped": false
+                          },
+                          {
+                            "from": 137,
+                            "to": null,
+                            "skipped": false
+                          }
+                        ]
                     }
                 ]
             },
