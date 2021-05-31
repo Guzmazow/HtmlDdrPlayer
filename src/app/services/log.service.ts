@@ -5,7 +5,7 @@ export class Log {
 
   public static debug(message: any) {
     //if (!environment.production)
-    //  console.debug(message);
+      console.debug(message);
   }
 
   public static info(message: any) {
