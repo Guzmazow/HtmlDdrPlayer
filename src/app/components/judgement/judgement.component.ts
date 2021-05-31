@@ -55,9 +55,9 @@ export class JudgementComponent implements OnInit, OnDestroy {
 
         let total = Array.from(this.judgementCounts.values()).reduce((total, num) => total + num, 0);
         let actual = total
-          - (this.judgementCounts.get(Judgement.GREAT) ?? 0) * 0.1 //10% loss
-          - (this.judgementCounts.get(Judgement.GOOD) ?? 0) * 0.2 //20% loss
-          - (this.judgementCounts.get(Judgement.BAD) ?? 0) * 0.4 //40% loss
+          - (this.judgementCounts.get(Judgement.GREAT) ?? 0) * 0.2 //20% loss
+          - (this.judgementCounts.get(Judgement.GOOD) ?? 0) * 0.4 //40% loss
+          - (this.judgementCounts.get(Judgement.BAD) ?? 0) * 0.8 //80% loss
           - (this.judgementCounts.get(Judgement.MISS) ?? 0) //100% loss
           - (this.judgementCounts.get(Judgement.HOLDFAILED) ?? 0)
           - (this.judgementCounts.get(Judgement.ROLLFAILED) ?? 0)
