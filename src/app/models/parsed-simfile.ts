@@ -130,7 +130,10 @@ export class ParsedSimfile implements SimfileRegistryEntry {
         }
       }
 
-      mode.stats = `N:${noteCount} R:${rollCount} H:${holdCount}`
+      let totalTime = allNotes[allNotes.length-1].time;
+      let NPS = (allNotes.length / totalTime);
+      
+      mode.stats = `N:${noteCount} R:${rollCount} H:${holdCount}\nT:${totalTime.toFixed(2)} NPS: ${NPS.toFixed(2)}`
     })
     this.loaded = true;
   }
