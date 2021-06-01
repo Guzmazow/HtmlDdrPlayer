@@ -10,7 +10,8 @@
             "name": "Launch Edge against localhost",
             "url": "http://localhost:4200",
             "webRoot": "${workspaceFolder}",
-            "userDataDir": false
+            "runtimeArgs": ["--profile-directory=Default"],
+            "userDataDir": false,
         }
     ]
 }

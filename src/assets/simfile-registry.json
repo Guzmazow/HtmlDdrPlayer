@@ -3318,14 +3318,21 @@
             },
             {
                 "filename": "It's a Wonderful Cat's Life.sm",
+                "status": "need recut",
                 "youtubeVideos": [
                     {
                         "id": "FaiU_sSifGc",
                         "skips": [
-                            {
-                                "from": 128,
-                                "to": 210.4
-                            }
+                          {
+                            "from": 0,
+                            "to": 0.8,
+                            "skipped": false
+                          },
+                          {
+                            "from": 128,
+                            "to": 209.7,
+                            "skipped": false
+                          }
                         ]
                     }
                 ]
