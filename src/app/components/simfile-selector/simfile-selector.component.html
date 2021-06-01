@@ -4,8 +4,12 @@
             (selectionChange)="onSimfileFolderSelectionChange($event); folderDrawerContainer.updateContentMargins()">
             <mat-list-option *ngFor="let folder of simfileFolders" [value]="folder"
                 [selected]="selectedSimfileFolder == folder">
-                {{folder.title}}
-                <span style="font-size: x-small;">{{folder.location}} ({{(folder.simfiles.length)}})</span>
+                <div>
+                    <div class="list-elem">
+                        {{folder.title}}
+                    </div>
+                    <div class="small-list-elem">{{folder.location}} ({{(folder.simfiles.length)}})</div>
+                </div>
             </mat-list-option>
         </mat-selection-list>
     </mat-drawer>
@@ -16,9 +20,13 @@
                     (selectionChange)="onSimfileSelectionChange($event); simfileDrawerContainer.updateContentMargins()">
                     <mat-list-option *ngFor="let simfile of simfilesInSelectedFolder" [value]="simfile"
                         [selected]="selectedSimfile == simfile">
-                        {{simfile.titleTranslit || simfile.title}}
-                        <ng-container *ngIf="simfile.status">({{simfile.status}})</ng-container>
-                        <span style="font-size: x-small;">{{simfile.artistTranslit || simfile.artist}}</span>
+                        <div>
+                            <div class="large-list-elem" [class.mat-error]="simfile.status" [title]="(simfile.titleTranslit || simfile.title) + (simfile.status ? ' (' + simfile.status + ')' : '')">
+                                {{simfile.titleTranslit || simfile.title}}
+                                <ng-container *ngIf="simfile.status">({{simfile.status}})</ng-container>
+                            </div>
+                            <div class="small-list-elem">{{simfile.artistTranslit || simfile.artist}}</div>
+                        </div>
                     </mat-list-option>
                 </mat-selection-list>
             </mat-drawer>

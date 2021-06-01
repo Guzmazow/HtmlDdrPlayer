@@ -17,6 +17,12 @@ button {
   margin: 8px 8px 8px 0px !important;
 }
 
+.mat-list-base .mat-list-item.mat-list-option {
+  height: auto;
+  padding-top: 0.5em;
+  padding-bottom: 0.5em;
+}
+
 $sizes: 6;
 
 @mixin margin-classes {
