@@ -5,7 +5,9 @@
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build",
-    "build prod": "ng build --prod"
+    "build prod": "ng build --prod",
+    "bundle-report-build": "ng build --prod --stats-json",
+    "bundle-report-analyze": "webpack-bundle-analyzer dist/HtmlDdrPlayer/stats.json"
   },
   "private": true,
   "dependencies": {
@@ -31,6 +33,7 @@
     "@types/node": "^12.11.1",
     "codelyzer": "^6.0.0",
     "ts-node": "~8.3.0",
-    "typescript": "~4.1.5"
+    "typescript": "~4.1.5",
+    "webpack-bundle-analyzer": "^4.4.2"
   }
 }
