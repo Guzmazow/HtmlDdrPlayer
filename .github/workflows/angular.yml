@@ -27,7 +27,7 @@ jobs:
     - name: npm install and npm run build
       run: |
         npm i
-        npm run build prod
+        npm run 'build prod'
         
     - name: GitHub Pages
       uses: crazy-max/ghaction-github-pages@v2.5.0
