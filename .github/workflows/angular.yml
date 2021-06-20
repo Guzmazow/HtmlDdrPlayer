@@ -24,11 +24,10 @@ jobs:
       uses: actions/setup-node@v1
       with:
         node-version: '14.x'
-    - name: npm install and npm run build
-      run: |
-        npm i
-        npm run 'build prod'
-        
+    - name: npm install
+      run: npm i
+    - name: npm build prod
+      run: npm run 'build prod'        
     - name: GitHub Pages
       uses: crazy-max/ghaction-github-pages@v2.5.0
       with:
