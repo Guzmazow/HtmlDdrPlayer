@@ -11,16 +11,43 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
+    #  with:
+    #    token: ${{ secrets.PAGES_PAT }}
+    - name: Cache node modules
+      uses: actions/cache@v1
       with:
-        token: ${{ secrets.PAGES_PAT }}
-    - name: All things angular
-      uses: Guzmazow/angular-deploy-gh-pages-actions@v1.3.5 ## replace by latest version without it you will see Expected format {org}/{repo}[/path]@ref. Actual 'AhsanAyaz/angular-deploy-gh-pages-actions',Input string was not in a correct format.
+        path: ~/.npm
+        key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+        restore-keys: |
+          ${{ runner.os }}-node-
+    - name: Node ${{ matrix.node-version }}
+      uses: actions/setup-node@v1
+      with:
+        node-version: '14.x'
+    - name: npm install and npm run build
+      run: |
+        npm i
+        npm run build prod
+        
+    - name: GitHub Pages
+      uses: crazy-max/ghaction-github-pages@v2.5.0
+      with:
+        repo: Guzmazow/Guzmazow.github.io
+        target_branch: master
+        allow_empty_commit: false
+        build_dir: dist/HtmlDdrPlayer
       env:
-        ACTIONS_ALLOW_UNSECURE_COMMANDS: true
-      with:
-        github_access_token: ${{ secrets.PAGES_PAT }} # see the Configuration section for how you can create secrets
-        build_configuration: production # The build environment for the app. please look configurations in your angular.json
-        base_href: /  # make sure this corresponds to https://<your_username>.github.io/<base_href>/
-        deploy_repository: Guzmazow/Guzmazow.github.io
-        deploy_branch: master # The branch the action should deploy to.
-        angular_dist_build_folder: dist/HtmlDdrPlayer # The folder where your project is supposed to be after running ng build by the action.
+        GITHUB_TOKEN: ${{ secrets.PAGES_PAT }}
+
+      
+    #- name: All things angular
+    #  uses: Guzmazow/angular-deploy-gh-pages-actions@v1.3.5 ## replace by latest version without it you will see Expected format {org}/{repo}[/path]@ref. Actual 'AhsanAyaz/angular-deploy-gh-pages-actions',Input string was not in a correct format.
+    #  env:
+    #    ACTIONS_ALLOW_UNSECURE_COMMANDS: true
+    #  with:
+    #    github_access_token: ${{ secrets.PAGES_PAT }} # see the Configuration section for how you can create secrets
+    #    build_configuration: production # The build environment for the app. please look configurations in your angular.json
+    #    base_href: /  # make sure this corresponds to https://<your_username>.github.io/<base_href>/
+    #    deploy_repository: Guzmazow/Guzmazow.github.io
+    #    deploy_branch: master # The branch the action should deploy to.
+    #    angular_dist_build_folder: dist/HtmlDdrPlayer # The folder where your project is supposed to be after running ng build by the action.
