@@ -5,28 +5,14 @@
 DEMO: https://guzmazow.github.io/
 
 ### Things TODO
-- [ ] Basic play
+- [X] Basic play
     - [x] Normal arrows
-        - [x] Add built-in noteskin load
-        - [x] Judgement
-    - [X] Colored arrows
-        - [X] Add built-in noteskin load
-        - [X] Quantization
-    - [ ] Mines
-        - [X] Add built-in noteskin load
-        - [X] Draw
-        - [ ] Judgement
-        - [X] Rotation
-    - [ ] Holds
-        - [X] Add built-in noteskin load   
-        - [ ] Draw 
-        - [ ] Judgement
-    - [ ] Rols
-        - [X] Add built-in noteskin load
-        - [ ] Draw
-        - [ ] Judgement
+    - [X] Colored arrows (quantization)
+    - [X] Mines
+    - [X] Holds
+    - [X] Rols
     - [ ] Post-game screen
-        - [ ] Save played game stats
+        - [X] Save played game stats
 - [ ] Advanced play
     - [ ] Auto-generate simfile
         - [ ] Beat
@@ -47,12 +33,16 @@ DEMO: https://guzmazow.github.io/
 - [ ] Simfile folder support
 - [ ] Configure built-in packs (skips/offsets)
     - [x] Otaku's Dream Mix
-    - [ ] Vocaloid Pad Pack
-    - [ ] Sudziosis
-    - [ ] chewi's simfiles
-    - [ ] Fraxtil
-    - [ ] Valex's Magical 4-Arrow Adventure
-    - [ ] Other
+    - [x] Vocaloid Pad Pack
+    - [x] Sudziosis
+    - [x] chewi's simfiles
+    - [x] Fraxtil
+    - [x] Valex's Magical 4-Arrow Adventure
+    - [x] Other
+- [ ] Fix
+    - [ ] Mines going off without reason
+    - [ ] Resync some songs
+    - [ ] Upload missing songs without video to youtube
 - [ ] Find followers (No need for this wile i'm alone 😭)
     - [ ] Make a post on flashflashrevolution.com
     - [ ] Make a post on reddit
