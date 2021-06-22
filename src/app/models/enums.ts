@@ -73,11 +73,12 @@ export enum Direction {
 export const AllDirections = [Direction.DOWN, Direction.LEFT, Direction.UP, Direction.RIGHT];
 
 export enum Judgement {
-    ALL = -7,
-    ROLLFINISHED = -6,
-    ROLLFAILED = -5,
-    HOLDFINISHED = -4,
-    HOLDFAILED = -3,
+    ALL = -8,
+    ROLLFINISHED = -7,
+    ROLLFAILED = -6,
+    HOLDFINISHED = -5,
+    HOLDFAILED = -4,
+    MINEMISS = -3,
     MINEHIT = -2,
     NONE = -1,
     MARVELOUS = 0,

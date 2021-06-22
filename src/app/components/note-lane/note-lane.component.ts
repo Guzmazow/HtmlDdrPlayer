@@ -161,7 +161,9 @@ export class NoteLaneComponent implements OnInit, OnDestroy {
         // this.ctx.textAlign = "center";
         // this.ctx.fillStyle = "white";
         // this.ctx.fillText("M", x + halfNoteSize, y + ninthNoteSize, noteSize);
-        this.ctx.drawImage(this.mediaService.mineImageCache.get(direction)?.get(Math.round(new Date().getMilliseconds() / 2 * 359 / 1000))!, x, y, noteSize, noteSize);
+        let currentTime = new Date();
+        currentTime.setMilliseconds(currentTime.getMilliseconds() + note.mineDisplayRotationOffset);
+        this.ctx.drawImage(this.mediaService.mineImageCache?.get(Math.round(currentTime.getMilliseconds() / 2 * 359 / 1000))!, x, y, noteSize, noteSize);
         break;
       default:
         this.ctx.strokeRect(x, y, noteSize, noteSize);

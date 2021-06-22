@@ -1,4 +1,4 @@
-import { Judgement, NoteQuantization, NoteType, SimfileNoteType } from './enums';
+import { Judgement, NoteQuantization, NoteType } from './enums';
 
 export class Note {
     type: NoteType;
@@ -13,6 +13,7 @@ export class Note {
     precision: number | null = null;
     //For hold/roll body/tail
     related?: Note;
+    mineDisplayRotationOffset = Math.round(Math.random()*1000);
 
     constructor(type: NoteType, time: number, quantization: NoteQuantization, totalBeat: number, related: Note | undefined) {
         this.type = type;

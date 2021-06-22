@@ -43,13 +43,7 @@ export class MediaService {
   rollCapInactiveImageCache?: HTMLCanvasElement;
 
 
-  mineImageCache = new Map<Direction, Map<Number, HTMLCanvasElement>>([
-    [Direction.LEFT, new Map<Number, HTMLCanvasElement>()],
-    [Direction.DOWN, new Map<Number, HTMLCanvasElement>()],
-    [Direction.UP, new Map<Number, HTMLCanvasElement>()],
-    [Direction.RIGHT, new Map<Number, HTMLCanvasElement>()]
-  ]);
-
+  mineImageCache = new Map<Number, HTMLCanvasElement>()
   mineHitSoundCache?: HTMLAudioElement;
 
   mineHitSoundLoad = this.loadAudio("/assets/Sounds/MineHit.ogg");
@@ -126,12 +120,12 @@ export class MediaService {
             arrowGlowImageDirectionCache.set(judgement, this.adjustImage(media.arrowGlow, noteSize, 0, 0, undefined, undefined, this.directionToRadians(direction), judgement));
           }
         }
-        let mineImageDirectionCache = this.mineImageCache.get(direction);
-        if (mineImageDirectionCache) {
-          for (let angle = 0; angle < 360; angle++) {
-            mineImageDirectionCache.set(angle, this.adjustImage(media.mine, noteSize, 0, media.mine.width / 4 * direction, media.mine.width / 4, media.mine.height / 2, angle * Math.PI / 180));
-          }
-        }
+   
+
+      }
+
+      for (let angle = 0; angle < 360; angle++) {
+        this.mineImageCache.set(angle, this.adjustImage(media.mine, noteSize, 0, 0, media.mine.height / 2, media.mine.width / 4, angle * Math.PI / 180));
       }
 
       this.holdBodyActiveImageCache = this.adjustImage(media.holdBodyActive, noteSize, undefined, undefined, undefined, undefined, undefined, undefined, Math.round(media.holdBodyActive.height * noteSize / 100));

@@ -53,7 +53,7 @@ export class JudgementService {
     if (!this.gameInProgress) return;
     for (let trackIndex = 0; trackIndex < this.displayService.gameRequest.playableSimfileMode.tracks.length; trackIndex++) {
       let track = this.displayService.gameRequest.playableSimfileMode.tracks[trackIndex];
-      let unhittable = track.filter(x => 
+      let unhittable = track.filter(x =>
         (x.type == NoteType.NORMAL || x.type == NoteType.ROLL_HEAD || x.type == NoteType.HOLD_HEAD) &&
         !x.judged && !x.startedJudging &&
         x.time < (this.displayService.currentTime - this.errorLimit))
@@ -66,6 +66,15 @@ export class JudgementService {
           precision: missNote.precision,
           key: trackIndex
         });
+      }
+
+      let unhittableMines = track.filter(x =>
+        (x.type == NoteType.MINE) &&
+        !x.judged &&
+        x.time < (this.displayService.currentTime - this.errorLimit))
+      for (let missMine of unhittableMines) {
+        missMine.judged = true;
+        missMine.judgement = Judgement.MINEMISS;
       }
 
       let hittableMines = track.filter(x =>
