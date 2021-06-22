@@ -1,5 +1,1715 @@
 [
     {
+        "title": "Ace Of Arrows",
+        "location": "Ace Of Arrows",
+        "simfiles": [
+            {
+                "filename": "8-Bit Adventurer.sm",
+                "youtubeVideos": [
+                    {
+                        "id": "SC0zj9gaEPs",
+                        "offset": 0.1,
+                        "skips": []
+                    }
+                ]
+            },
+            {
+                "filename": "A Wandering Melody of Love.sm",
+                "youtubeVideos": [
+                    {
+                        "id": "89XlgYsu1Kg",
+                        "offset": 0.1,
+                        "skips": []
+                    }
+                ]
+            },
+            {
+                "filename": "Again.sm",
+                "youtubeVideos": [
+                    {
+                        "id": "BFqA16sYJc4",
+                        "skips": [
+                            {
+                                "from": 0,
+                                "to": 0.09,
+                                "skipped": false
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "filename": "Ageage Again.sm",
+                "youtubeVideos": [
+                    {
+                        "id": "uwwU55zBYlQ",
+                        "offset": 0.4,
+                        "skips": []
+                    }
+                ]
+            },
+            {
+                "filename": "Ahoy!!.sm",
+                "youtubeVideos": [
+                    {
+                        "id": "e7VK3pne8N4",
+                        "offset": 0.1,
+                        "skips": []
+                    }
+                ]
+            },
+            {
+                "filename": "Aka no Sora.sm",
+                "youtubeVideos": [
+                    {
+                        "id": "6Nb0EJI2vlU",
+                        "skips": [
+                            {
+                                "from": 0,
+                                "to": 0.1,
+                                "skipped": false
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "filename": "Alchemy.sm",
+                "youtubeVideos": [
+                    {
+                        "id": "_L4kHv5CsC4",
+                        "offset": 0,
+                        "skips": [
+                            {
+                                "from": 0,
+                                "to": 7.8,
+                                "skipped": false
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "filename": "All I Want For Christmas (Nightcore Mix).sm",
+                "status": "Cannot find correct remix",
+                "youtubeVideos": [
+                    {
+                        "id": "XXX",
+                        "offset": 0,
+                        "skips": []
+                    }
+                ]
+            },
+            {
+                "filename": "Alola!!.sm",
+                "youtubeVideos": [
+                    {
+                        "id": "dz_l1byP3eI",
+                        "offset": 0,
+                        "skips": [
+                            {
+                                "from": 0,
+                                "to": 0.5,
+                                "skipped": false
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "filename": "Angel Dream.sm",
+                "youtubeVideos": [
+                    {
+                        "id": "d3vOWteq-gg",
+                        "offset": 0,
+                        "skips": [
+                            {
+                                "from": 0,
+                                "to": 0.5,
+                                "skipped": false
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "filename": "Angel of Darkness (Nightcore Mix).sm",
+                "youtubeVideos": [
+                    {
+                        "id": "xbBk37X_GVk",
+                        "offset": 0,
+                        "skips": [
+                            {
+                                "from": 0,
+                                "to": 0.2,
+                                "skipped": false
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "filename": "Angel's Eyes.sm",
+                "youtubeVideos": [
+                    {
+                        "id": "6YWcPn3KDBY",
+                        "offset": 0,
+                        "skips": [
+                            {
+                                "from": 0,
+                                "to": 0.1,
+                                "skipped": false
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "filename": "Animals.sm",
+                "youtubeVideos": [
+                    {
+                        "id": "DLYwwtPA49w",
+                        "offset": 0.3,
+                        "skips": []
+                    }
+                ]
+            },
+            {
+                "filename": "Animaniacs Theme.sm",
+                "youtubeVideos": [
+                    {
+                        "id": "whUOy_q7_vA",
+                        "offset": 0,
+                        "skips": [
+                            {
+                                "from": 0,
+                                "to": 0.5,
+                                "skipped": false
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "filename": "Any Way You Want It.sm",
+                "youtubeVideos": [
+                    {
+                        "id": "atxUuldUcfI",
+                        "offset": 0,
+                        "skips": [
+                            {
+                                "from": 0,
+                                "to": 36.9,
+                                "skipped": false
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "filename": "Ben 10.sm",
+                "youtubeVideos": [
+                    {
+                        "id": "97dwYLnbW4E",
+                        "offset": 0.15,
+                        "skips": []
+                    }
+                ]
+            },
+            {
+                "filename": "Black Apple.sm",
+                "youtubeVideos": [
+                    {
+                        "id": "LAbadzhTVsM",
+                        "offset": 0,
+                        "skips": []
+                    }
+                ]
+            },
+            {
+                "filename": "Blackest Luxury Car.sm",
+                "youtubeVideos": [
+                    {
+                        "id": "AuLite5KHH0",
+                        "offset": 0,
+                        "skips": [
+                            {
+                                "from": 0,
+                                "to": 0.1,
+                                "skipped": false
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "filename": "Brand-New World.sm",
+                "youtubeVideos": [
+                    {
+                        "id": "RV0uFMZiM48",
+                        "offset": 1.2,
+                        "skips": []
+                    }
+                ]
+            },
+            {
+                "filename": "Break Down!.sm",
+                "youtubeVideos": [
+                    {
+                        "id": "8jSuFBfyXlw",
+                        "offset": 1,
+                        "skips": []
+                    }
+                ]
+            },
+            {
+                "filename": "Break It Down.sm",
+                "status": "Unavailable online",
+                "youtubeVideos": [
+                    {
+                        "id": "XXX",
+                        "offset": 0,
+                        "skips": []
+                    }
+                ]
+            },
+            {
+                "filename": "Break Out Of.sm",
+                "youtubeVideos": [
+                    {
+                        "id": "9nFlMdyUktU",
+                        "offset": 0,
+                        "skips": [
+                          {
+                            "from": 0,
+                            "to": 0.06,
+                            "skipped": false
+                          }
+                        ]
+                    }
+                ]
+            },
+            {
+                "filename": "Breathless.sm",
+                "youtubeVideos": [
+                    {
+                        "id": "vzerbXFwGCE",
+                        "offset": 0,
+                        "skips": [
+                          {
+                            "from": 0,
+                            "to": 4.2,
+                            "skipped": false
+                          }
+                        ]
+                      }
+                ]
+            },
+            {
+                "filename": "Butterfly.sm",
+                "youtubeVideos": [
+                    {
+                        "id": "QzcvRDWgRIE",
+                        "offset": 0,
+                        "skips": [
+                          {
+                            "from": 0,
+                            "to": 8.7,
+                            "skipped": false
+                          }
+                        ]
+                      }
+                ]
+            },
+            {
+                "filename": "Caramelldancing.sm",
+                "youtubeVideos": [
+                    {
+                        "id": "A67ZkAd1wmI",
+                        "offset": 0,
+                        "skips": [
+                          {
+                            "from": 0,
+                            "to": 0.3,
+                            "skipped": false
+                          }
+                        ]
+                    }
+                ]
+            },
+            {
+                "filename": "Catch Me If You Can.sm",
+                "youtubeVideos": [
+                    {
+                        "from": 0,
+                        "to": 0.28,
+                        "skipped": false
+                    }
+                ]
+            },
+            {
+                "filename": "Catch the Wave.sm",
+                "youtubeVideos": [
+                    {
+                        "id": "XXX",
+                        "offset": 0,
+                        "skips": []
+                    }
+                ]
+            },
+            {
+                "filename": "Change!!.sm",
+                "youtubeVideos": [
+                    {
+                        "id": "XXX",
+                        "offset": 0,
+                        "skips": []
+                    }
+                ]
+            },
+            {
+                "filename": "Cheer! ~Makkana Kimochi~.sm",
+                "youtubeVideos": [
+                    {
+                        "id": "XXX",
+                        "offset": 0,
+                        "skips": []
+                    }
+                ]
+            },
+            {
+                "filename": "Christmas For You!.sm",
+                "youtubeVideos": [
+                    {
+                        "id": "XXX",
+                        "offset": 0,
+                        "skips": []
+                    }
+                ]
+            },
+            {
+                "filename": "Christmas Memories.sm",
+                "youtubeVideos": [
+                    {
+                        "id": "XXX",
+                        "offset": 0,
+                        "skips": []
+                    }
+                ]
+            },
+            {
+                "filename": "City Escape.sm",
+                "youtubeVideos": [
+                    {
+                        "id": "XXX",
+                        "offset": 0,
+                        "skips": []
+                    }
+                ]
+            },
+            {
+                "filename": "Club-Rockin' Steps.sm",
+                "youtubeVideos": [
+                    {
+                        "id": "XXX",
+                        "offset": 0,
+                        "skips": []
+                    }
+                ]
+            },
+            {
+                "filename": "Colorful Precious Stepcharts.sm",
+                "youtubeVideos": [
+                    {
+                        "id": "XXX",
+                        "offset": 0,
+                        "skips": []
+                    }
+                ]
+            },
+            {
+                "filename": "Connect.sm",
+                "youtubeVideos": [
+                    {
+                        "id": "XXX",
+                        "offset": 0,
+                        "skips": []
+                    }
+                ]
+            },
+            {
+                "filename": "Continuing Dream.sm",
+                "youtubeVideos": [
+                    {
+                        "id": "XXX",
+                        "offset": 0,
+                        "skips": []
+                    }
+                ]
+            },
+            {
+                "filename": "Cotton-Eye Joe.sm",
+                "youtubeVideos": [
+                    {
+                        "id": "XXX",
+                        "offset": 0,
+                        "skips": []
+                    }
+                ]
+            },
+            {
+                "filename": "Cruel Angel's Thesis.sm",
+                "youtubeVideos": [
+                    {
+                        "id": "XXX",
+                        "offset": 0,
+                        "skips": []
+                    }
+                ]
+            },
+            {
+                "filename": "Dairokuten Maou.sm",
+                "youtubeVideos": [
+                    {
+                        "id": "XXX",
+                        "offset": 0,
+                        "skips": []
+                    }
+                ]
+            },
+            {
+                "filename": "Dangerous.sm",
+                "youtubeVideos": [
+                    {
+                        "id": "XXX",
+                        "offset": 0,
+                        "skips": []
+                    }
+                ]
+            },
+            {
+                "filename": "Darkwing Duck Theme.sm",
+                "youtubeVideos": [
+                    {
+                        "id": "XXX",
+                        "offset": 0,
+                        "skips": []
+                    }
+                ]
+            },
+            {
+                "filename": "Death Row - Assault.sm",
+                "youtubeVideos": [
+                    {
+                        "id": "XXX",
+                        "offset": 0,
+                        "skips": []
+                    }
+                ]
+            },
+            {
+                "filename": "Decisive Battle - Ho-Oh!.sm",
+                "youtubeVideos": [
+                    {
+                        "id": "XXX",
+                        "offset": 0,
+                        "skips": []
+                    }
+                ]
+            },
+            {
+                "filename": "Dimension Tripper.sm",
+                "youtubeVideos": [
+                    {
+                        "id": "XXX",
+                        "offset": 0,
+                        "skips": []
+                    }
+                ]
+            },
+            {
+                "filename": "Discotheque.sm",
+                "youtubeVideos": [
+                    {
+                        "id": "XXX",
+                        "offset": 0,
+                        "skips": []
+                    }
+                ]
+            },
+            {
+                "filename": "Doki Doki.sm",
+                "youtubeVideos": [
+                    {
+                        "id": "XXX",
+                        "offset": 0,
+                        "skips": []
+                    }
+                ]
+            },
+            {
+                "filename": "Dolphin and Broadcast.sm",
+                "youtubeVideos": [
+                    {
+                        "id": "XXX",
+                        "offset": 0,
+                        "skips": []
+                    }
+                ]
+            },
+            {
+                "filename": "Dum Dadi Do.sm",
+                "youtubeVideos": [
+                    {
+                        "id": "XXX",
+                        "offset": 0,
+                        "skips": []
+                    }
+                ]
+            },
+            {
+                "filename": "Electric Love.sm",
+                "youtubeVideos": [
+                    {
+                        "id": "XXX",
+                        "offset": 0,
+                        "skips": []
+                    }
+                ]
+            },
+            {
+                "filename": "Every Morning.sm",
+                "youtubeVideos": [
+                    {
+                        "id": "XXX",
+                        "offset": 0,
+                        "skips": []
+                    }
+                ]
+            },
+            {
+                "filename": "Fate Runners.sm",
+                "youtubeVideos": [
+                    {
+                        "id": "XXX",
+                        "offset": 0,
+                        "skips": []
+                    }
+                ]
+            },
+            {
+                "filename": "Fear.sm",
+                "youtubeVideos": [
+                    {
+                        "id": "XXX",
+                        "offset": 0,
+                        "skips": []
+                    }
+                ]
+            },
+            {
+                "filename": "Festival of Ghost 2.sm",
+                "youtubeVideos": [
+                    {
+                        "id": "XXX",
+                        "offset": 0,
+                        "skips": []
+                    }
+                ]
+            },
+            {
+                "filename": "First Kiss -Fandub-.sm",
+                "youtubeVideos": [
+                    {
+                        "id": "XXX",
+                        "offset": 0,
+                        "skips": []
+                    }
+                ]
+            },
+            {
+                "filename": "Fly Away.sm",
+                "youtubeVideos": [
+                    {
+                        "id": "XXX",
+                        "offset": 0,
+                        "skips": []
+                    }
+                ]
+            },
+            {
+                "filename": "Follow Me.sm",
+                "youtubeVideos": [
+                    {
+                        "id": "XXX",
+                        "offset": 0,
+                        "skips": []
+                    }
+                ]
+            },
+            {
+                "filename": "Freely Tomorrow.sm",
+                "youtubeVideos": [
+                    {
+                        "id": "XXX",
+                        "offset": 0,
+                        "skips": []
+                    }
+                ]
+            },
+            {
+                "filename": "Fukkireta ~HoloLive All-Stars Version~.sm",
+                "youtubeVideos": [
+                    {
+                        "id": "XXX",
+                        "offset": 0,
+                        "skips": []
+                    }
+                ]
+            },
+            {
+                "filename": "Furifuri Norinori.sm",
+                "youtubeVideos": [
+                    {
+                        "id": "XXX",
+                        "offset": 0,
+                        "skips": []
+                    }
+                ]
+            },
+            {
+                "filename": "Galaxias.sm",
+                "youtubeVideos": [
+                    {
+                        "id": "XXX",
+                        "offset": 0,
+                        "skips": []
+                    }
+                ]
+            },
+            {
+                "filename": "Gimme Chocolate!.sm",
+                "youtubeVideos": [
+                    {
+                        "id": "XXX",
+                        "offset": 0,
+                        "skips": []
+                    }
+                ]
+            },
+            {
+                "filename": "Go My Way.sm",
+                "youtubeVideos": [
+                    {
+                        "id": "XXX",
+                        "offset": 0,
+                        "skips": []
+                    }
+                ]
+            },
+            {
+                "filename": "God Knows (English Fandub).sm",
+                "youtubeVideos": [
+                    {
+                        "id": "XXX",
+                        "offset": 0,
+                        "skips": []
+                    }
+                ]
+            },
+            {
+                "filename": "Groovin' Beats.sm",
+                "youtubeVideos": [
+                    {
+                        "id": "XXX",
+                        "offset": 0,
+                        "skips": []
+                    }
+                ]
+            },
+            {
+                "filename": "Guruppo.sm",
+                "youtubeVideos": [
+                    {
+                        "id": "XXX",
+                        "offset": 0,
+                        "skips": []
+                    }
+                ]
+            },
+            {
+                "filename": "Hajimari no Toki.sm",
+                "youtubeVideos": [
+                    {
+                        "id": "XXX",
+                        "offset": 0,
+                        "skips": []
+                    }
+                ]
+            },
+            {
+                "filename": "Hardware Store.sm",
+                "youtubeVideos": [
+                    {
+                        "id": "XXX",
+                        "offset": 0,
+                        "skips": []
+                    }
+                ]
+            },
+            {
+                "filename": "Hare Hare Yukai.sm",
+                "youtubeVideos": [
+                    {
+                        "id": "XXX",
+                        "offset": 0,
+                        "skips": []
+                    }
+                ]
+            },
+            {
+                "filename": "Heart-Pounding Flight.sm",
+                "youtubeVideos": [
+                    {
+                        "id": "XXX",
+                        "offset": 0,
+                        "skips": []
+                    }
+                ]
+            },
+            {
+                "filename": "Heathcliff Theme.sm",
+                "youtubeVideos": [
+                    {
+                        "id": "XXX",
+                        "offset": 0,
+                        "skips": []
+                    }
+                ]
+            },
+            {
+                "filename": "Heel and Toe.sm",
+                "youtubeVideos": [
+                    {
+                        "id": "XXX",
+                        "offset": 0,
+                        "skips": []
+                    }
+                ]
+            },
+            {
+                "filename": "Hot Pot.sm",
+                "youtubeVideos": [
+                    {
+                        "id": "XXX",
+                        "offset": 0,
+                        "skips": []
+                    }
+                ]
+            },
+            {
+                "filename": "Hyadain no Jyoujo Yujo.sm",
+                "youtubeVideos": [
+                    {
+                        "id": "XXX",
+                        "offset": 0,
+                        "skips": []
+                    }
+                ]
+            },
+            {
+                "filename": "Hyadain no Kakakata Kataomoi -English Dub-.sm",
+                "youtubeVideos": [
+                    {
+                        "id": "XXX",
+                        "offset": 0,
+                        "skips": []
+                    }
+                ]
+            },
+            {
+                "filename": "Hyakka Ryouran.sm",
+                "youtubeVideos": [
+                    {
+                        "id": "XXX",
+                        "offset": 0,
+                        "skips": []
+                    }
+                ]
+            },
+            {
+                "filename": "I Can Take Off My Panties.sm",
+                "youtubeVideos": [
+                    {
+                        "id": "XXX",
+                        "offset": 0,
+                        "skips": []
+                    }
+                ]
+            },
+            {
+                "filename": "If Heaven Were to Fall (Nightcore Mix).sm",
+                "youtubeVideos": [
+                    {
+                        "id": "XXX",
+                        "offset": 0,
+                        "skips": []
+                    }
+                ]
+            },
+            {
+                "filename": "Ike Ike.sm",
+                "youtubeVideos": [
+                    {
+                        "id": "XXX",
+                        "offset": 0,
+                        "skips": []
+                    }
+                ]
+            },
+            {
+                "filename": "Imagination.sm",
+                "youtubeVideos": [
+                    {
+                        "id": "XXX",
+                        "offset": 0,
+                        "skips": []
+                    }
+                ]
+            },
+            {
+                "filename": "In a Skyforged Dream.sm",
+                "youtubeVideos": [
+                    {
+                        "id": "XXX",
+                        "offset": 0,
+                        "skips": []
+                    }
+                ]
+            },
+            {
+                "filename": "Ko-Ki-Ku-Kuru-Kuru-Kure-Ko!.sm",
+                "youtubeVideos": [
+                    {
+                        "id": "XXX",
+                        "offset": 0,
+                        "skips": []
+                    }
+                ]
+            },
+            {
+                "filename": "Koisuru Fortune Cookie.sm",
+                "youtubeVideos": [
+                    {
+                        "id": "XXX",
+                        "offset": 0,
+                        "skips": []
+                    }
+                ]
+            },
+            {
+                "filename": "Kokoro Gamebox.sm",
+                "youtubeVideos": [
+                    {
+                        "id": "XXX",
+                        "offset": 0,
+                        "skips": []
+                    }
+                ]
+            },
+            {
+                "filename": "Lazy Generation.sm",
+                "youtubeVideos": [
+                    {
+                        "id": "XXX",
+                        "offset": 0,
+                        "skips": []
+                    }
+                ]
+            },
+            {
+                "filename": "Let Me Be With You.sm",
+                "youtubeVideos": [
+                    {
+                        "id": "XXX",
+                        "offset": 0,
+                        "skips": []
+                    }
+                ]
+            },
+            {
+                "filename": "Let's Just Live.sm",
+                "youtubeVideos": [
+                    {
+                        "id": "XXX",
+                        "offset": 0,
+                        "skips": []
+                    }
+                ]
+            },
+            {
+                "filename": "Live Again.sm",
+                "youtubeVideos": [
+                    {
+                        "id": "XXX",
+                        "offset": 0,
+                        "skips": []
+                    }
+                ]
+            },
+            {
+                "filename": "Lollipop.sm",
+                "youtubeVideos": [
+                    {
+                        "id": "XXX",
+                        "offset": 0,
+                        "skips": []
+                    }
+                ]
+            },
+            {
+                "filename": "Look At Me.sm",
+                "youtubeVideos": [
+                    {
+                        "id": "XXX",
+                        "offset": 0,
+                        "skips": []
+                    }
+                ]
+            },
+            {
+                "filename": "Love Fighter.sm",
+                "youtubeVideos": [
+                    {
+                        "id": "XXX",
+                        "offset": 0,
+                        "skips": []
+                    }
+                ]
+            },
+            {
+                "filename": "Marisa Stole The Precious Thing.sm",
+                "youtubeVideos": [
+                    {
+                        "id": "XXX",
+                        "offset": 0,
+                        "skips": []
+                    }
+                ]
+            },
+            {
+                "filename": "Megalovania.sm",
+                "youtubeVideos": [
+                    {
+                        "id": "XXX",
+                        "offset": 0,
+                        "skips": []
+                    }
+                ]
+            },
+            {
+                "filename": "MJG Recruitment Song.sm",
+                "youtubeVideos": [
+                    {
+                        "id": "XXX",
+                        "offset": 0,
+                        "skips": []
+                    }
+                ]
+            },
+            {
+                "filename": "Moshi Moshi.sm",
+                "youtubeVideos": [
+                    {
+                        "id": "XXX",
+                        "offset": 0,
+                        "skips": []
+                    }
+                ]
+            },
+            {
+                "filename": "Motteke Sailor Fuku -Metabo Taisaku Mix-.sm",
+                "youtubeVideos": [
+                    {
+                        "id": "XXX",
+                        "offset": 0,
+                        "skips": []
+                    }
+                ]
+            },
+            {
+                "filename": "Mr. Raindrop.sm",
+                "youtubeVideos": [
+                    {
+                        "id": "XXX",
+                        "offset": 0,
+                        "skips": []
+                    }
+                ]
+            },
+            {
+                "filename": "My Kitten.sm",
+                "youtubeVideos": [
+                    {
+                        "id": "XXX",
+                        "offset": 0,
+                        "skips": []
+                    }
+                ]
+            },
+            {
+                "filename": "My Skateboard Will Go On.sm",
+                "youtubeVideos": [
+                    {
+                        "id": "XXX",
+                        "offset": 0,
+                        "skips": []
+                    }
+                ]
+            },
+            {
+                "filename": "Nanairo Nadeshiko.sm",
+                "youtubeVideos": [
+                    {
+                        "id": "XXX",
+                        "offset": 0,
+                        "skips": []
+                    }
+                ]
+            },
+            {
+                "filename": "Nasty Girl.sm",
+                "youtubeVideos": [
+                    {
+                        "id": "XXX",
+                        "offset": 0,
+                        "skips": []
+                    }
+                ]
+            },
+            {
+                "filename": "Never Gonna Give You Up.sm",
+                "youtubeVideos": [
+                    {
+                        "id": "XXX",
+                        "offset": 0,
+                        "skips": []
+                    }
+                ]
+            },
+            {
+                "filename": "Next-Color Planet.sm",
+                "youtubeVideos": [
+                    {
+                        "id": "XXX",
+                        "offset": 0,
+                        "skips": []
+                    }
+                ]
+            },
+            {
+                "filename": "Oath Sign.sm",
+                "youtubeVideos": [
+                    {
+                        "id": "XXX",
+                        "offset": 0,
+                        "skips": []
+                    }
+                ]
+            },
+            {
+                "filename": "Overall.sm",
+                "youtubeVideos": [
+                    {
+                        "id": "XXX",
+                        "offset": 0,
+                        "skips": []
+                    }
+                ]
+            },
+            {
+                "filename": "Passionate Starmine.sm",
+                "youtubeVideos": [
+                    {
+                        "id": "XXX",
+                        "offset": 0,
+                        "skips": []
+                    }
+                ]
+            },
+            {
+                "filename": "Pastel Flags.sm",
+                "youtubeVideos": [
+                    {
+                        "id": "XXX",
+                        "offset": 0,
+                        "skips": []
+                    }
+                ]
+            },
+            {
+                "filename": "Peach Fuzz.sm",
+                "youtubeVideos": [
+                    {
+                        "id": "XXX",
+                        "offset": 0,
+                        "skips": []
+                    }
+                ]
+            },
+            {
+                "filename": "Peter Pan.sm",
+                "youtubeVideos": [
+                    {
+                        "id": "XXX",
+                        "offset": 0,
+                        "skips": []
+                    }
+                ]
+            },
+            {
+                "filename": "Pina Colada Boy (Nightcore Mix).sm",
+                "youtubeVideos": [
+                    {
+                        "id": "XXX",
+                        "offset": 0,
+                        "skips": []
+                    }
+                ]
+            },
+            {
+                "filename": "Pretty Dreamer.sm",
+                "youtubeVideos": [
+                    {
+                        "id": "XXX",
+                        "offset": 0,
+                        "skips": []
+                    }
+                ]
+            },
+            {
+                "filename": "Princess Bride -Rock Mix-.sm",
+                "youtubeVideos": [
+                    {
+                        "id": "XXX",
+                        "offset": 0,
+                        "skips": []
+                    }
+                ]
+            },
+            {
+                "filename": "Prism.sm",
+                "youtubeVideos": [
+                    {
+                        "id": "XXX",
+                        "offset": 0,
+                        "skips": []
+                    }
+                ]
+            },
+            {
+                "filename": "Pure Pure Heart.sm",
+                "youtubeVideos": [
+                    {
+                        "id": "XXX",
+                        "offset": 0,
+                        "skips": []
+                    }
+                ]
+            },
+            {
+                "filename": "Pyramid Treasure.sm",
+                "youtubeVideos": [
+                    {
+                        "id": "XXX",
+                        "offset": 0,
+                        "skips": []
+                    }
+                ]
+            },
+            {
+                "filename": "Rabucchu Chireiden.sm",
+                "youtubeVideos": [
+                    {
+                        "id": "XXX",
+                        "offset": 0,
+                        "skips": []
+                    }
+                ]
+            },
+            {
+                "filename": "Ready Steady Go! (Afterglow Cover).sm",
+                "youtubeVideos": [
+                    {
+                        "id": "XXX",
+                        "offset": 0,
+                        "skips": []
+                    }
+                ]
+            },
+            {
+                "filename": "Ready!!.sm",
+                "youtubeVideos": [
+                    {
+                        "id": "XXX",
+                        "offset": 0,
+                        "skips": []
+                    }
+                ]
+            },
+            {
+                "filename": "Recall.sm",
+                "youtubeVideos": [
+                    {
+                        "id": "XXX",
+                        "offset": 0,
+                        "skips": []
+                    }
+                ]
+            },
+            {
+                "filename": "Recommended Spell.sm",
+                "youtubeVideos": [
+                    {
+                        "id": "XXX",
+                        "offset": 0,
+                        "skips": []
+                    }
+                ]
+            },
+            {
+                "filename": "Requiem of the Angels with Broken Wings.sm",
+                "youtubeVideos": [
+                    {
+                        "id": "XXX",
+                        "offset": 0,
+                        "skips": []
+                    }
+                ]
+            },
+            {
+                "filename": "Ride On Shooting Star.sm",
+                "youtubeVideos": [
+                    {
+                        "id": "XXX",
+                        "offset": 0,
+                        "skips": []
+                    }
+                ]
+            },
+            {
+                "filename": "Say!.sm",
+                "youtubeVideos": [
+                    {
+                        "id": "XXX",
+                        "offset": 0,
+                        "skips": []
+                    }
+                ]
+            },
+            {
+                "filename": "Senbonzakura.sm",
+                "youtubeVideos": [
+                    {
+                        "id": "XXX",
+                        "offset": 0,
+                        "skips": []
+                    }
+                ]
+            },
+            {
+                "filename": "Sentimental Generation.sm",
+                "youtubeVideos": [
+                    {
+                        "id": "XXX",
+                        "offset": 0,
+                        "skips": []
+                    }
+                ]
+            },
+            {
+                "filename": "Shake It!.sm",
+                "youtubeVideos": [
+                    {
+                        "id": "XXX",
+                        "offset": 0,
+                        "skips": []
+                    }
+                ]
+            },
+            {
+                "filename": "Shiguang Tuya.sm",
+                "youtubeVideos": [
+                    {
+                        "id": "XXX",
+                        "offset": 0,
+                        "skips": []
+                    }
+                ]
+            },
+            {
+                "filename": "Shiny Smily Story.sm",
+                "youtubeVideos": [
+                    {
+                        "id": "XXX",
+                        "offset": 0,
+                        "skips": []
+                    }
+                ]
+            },
+            {
+                "filename": "Shokuza Belladonna.sm",
+                "youtubeVideos": [
+                    {
+                        "id": "XXX",
+                        "offset": 0,
+                        "skips": []
+                    }
+                ]
+            },
+            {
+                "filename": "Shut Up and Dance.sm",
+                "youtubeVideos": [
+                    {
+                        "id": "XXX",
+                        "offset": 0,
+                        "skips": []
+                    }
+                ]
+            },
+            {
+                "filename": "Soyokaze Life.sm",
+                "youtubeVideos": [
+                    {
+                        "id": "XXX",
+                        "offset": 0,
+                        "skips": []
+                    }
+                ]
+            },
+            {
+                "filename": "Star Driver.sm",
+                "youtubeVideos": [
+                    {
+                        "id": "XXX",
+                        "offset": 0,
+                        "skips": []
+                    }
+                ]
+            },
+            {
+                "filename": "Star Sphere Poems.sm",
+                "youtubeVideos": [
+                    {
+                        "id": "XXX",
+                        "offset": 0,
+                        "skips": []
+                    }
+                ]
+            },
+            {
+                "filename": "Starstrukk.sm",
+                "youtubeVideos": [
+                    {
+                        "id": "XXX",
+                        "offset": 0,
+                        "skips": []
+                    }
+                ]
+            },
+            {
+                "filename": "Step!.sm",
+                "youtubeVideos": [
+                    {
+                        "id": "XXX",
+                        "offset": 0,
+                        "skips": []
+                    }
+                ]
+            },
+            {
+                "filename": "Stress-Free Style.sm",
+                "youtubeVideos": [
+                    {
+                        "id": "XXX",
+                        "offset": 0,
+                        "skips": []
+                    }
+                ]
+            },
+            {
+                "filename": "Summer Void.sm",
+                "youtubeVideos": [
+                    {
+                        "id": "XXX",
+                        "offset": 0,
+                        "skips": []
+                    }
+                ]
+            },
+            {
+                "filename": "Sunny Starry Carnival.sm",
+                "youtubeVideos": [
+                    {
+                        "id": "XXX",
+                        "offset": 0,
+                        "skips": []
+                    }
+                ]
+            },
+            {
+                "filename": "Super Affection.sm",
+                "youtubeVideos": [
+                    {
+                        "id": "XXX",
+                        "offset": 0,
+                        "skips": []
+                    }
+                ]
+            },
+            {
+                "filename": "Suppuration -Core-.sm",
+                "youtubeVideos": [
+                    {
+                        "id": "XXX",
+                        "offset": 0,
+                        "skips": []
+                    }
+                ]
+            },
+            {
+                "filename": "Sweet Bitter Beauty Song.sm",
+                "youtubeVideos": [
+                    {
+                        "id": "XXX",
+                        "offset": 0,
+                        "skips": []
+                    }
+                ]
+            },
+            {
+                "filename": "Sweet Dream.sm",
+                "youtubeVideos": [
+                    {
+                        "id": "XXX",
+                        "offset": 0,
+                        "skips": []
+                    }
+                ]
+            },
+            {
+                "filename": "Sweet Magic.sm",
+                "youtubeVideos": [
+                    {
+                        "id": "XXX",
+                        "offset": 0,
+                        "skips": []
+                    }
+                ]
+            },
+            {
+                "filename": "Take On Me.sm",
+                "youtubeVideos": [
+                    {
+                        "id": "XXX",
+                        "offset": 0,
+                        "skips": []
+                    }
+                ]
+            },
+            {
+                "filename": "Talk 2 U.sm",
+                "youtubeVideos": [
+                    {
+                        "id": "XXX",
+                        "offset": 0,
+                        "skips": []
+                    }
+                ]
+            },
+            {
+                "filename": "Tech Lab.sm",
+                "youtubeVideos": [
+                    {
+                        "id": "XXX",
+                        "offset": 0,
+                        "skips": []
+                    }
+                ]
+            },
+            {
+                "filename": "The Fine Stepcharts.sm",
+                "youtubeVideos": [
+                    {
+                        "id": "XXX",
+                        "offset": 0,
+                        "skips": []
+                    }
+                ]
+            },
+            {
+                "filename": "The Great YuruYuri Incident (Pastel Palettes Cover).sm",
+                "youtubeVideos": [
+                    {
+                        "id": "XXX",
+                        "offset": 0,
+                        "skips": []
+                    }
+                ]
+            },
+            {
+                "filename": "The Pineapple Song.sm",
+                "youtubeVideos": [
+                    {
+                        "id": "XXX",
+                        "offset": 0,
+                        "skips": []
+                    }
+                ]
+            },
+            {
+                "filename": "This Will Be The Day.sm",
+                "youtubeVideos": [
+                    {
+                        "id": "XXX",
+                        "offset": 0,
+                        "skips": []
+                    }
+                ]
+            },
+            {
+                "filename": "Timeline.sm",
+                "youtubeVideos": [
+                    {
+                        "id": "XXX",
+                        "offset": 0,
+                        "skips": []
+                    }
+                ]
+            },
+            {
+                "filename": "To the Beginning.sm",
+                "youtubeVideos": [
+                    {
+                        "id": "XXX",
+                        "offset": 0,
+                        "skips": []
+                    }
+                ]
+            },
+            {
+                "filename": "Two-Faced Stepcharts.sm",
+                "youtubeVideos": [
+                    {
+                        "id": "XXX",
+                        "offset": 0,
+                        "skips": []
+                    }
+                ]
+            },
+            {
+                "filename": "U Can Stop.sm",
+                "youtubeVideos": [
+                    {
+                        "id": "XXX",
+                        "offset": 0,
+                        "skips": []
+                    }
+                ]
+            },
+            {
+                "filename": "Unhappy Refrain.sm",
+                "youtubeVideos": [
+                    {
+                        "id": "XXX",
+                        "offset": 0,
+                        "skips": []
+                    }
+                ]
+            },
+            {
+                "filename": "Vanilla Mate.sm",
+                "youtubeVideos": [
+                    {
+                        "id": "XXX",
+                        "offset": 0,
+                        "skips": []
+                    }
+                ]
+            },
+            {
+                "filename": "Vertical Horizon.sm",
+                "youtubeVideos": [
+                    {
+                        "id": "XXX",
+                        "offset": 0,
+                        "skips": []
+                    }
+                ]
+            },
+            {
+                "filename": "We Are.sm",
+                "youtubeVideos": [
+                    {
+                        "id": "XXX",
+                        "offset": 0,
+                        "skips": []
+                    }
+                ]
+            },
+            {
+                "filename": "Wonderful Stepcharts.sm",
+                "youtubeVideos": [
+                    {
+                        "id": "XXX",
+                        "offset": 0,
+                        "skips": []
+                    }
+                ]
+            },
+            {
+                "filename": "World's End Dancehall.sm",
+                "youtubeVideos": [
+                    {
+                        "id": "XXX",
+                        "offset": 0,
+                        "skips": []
+                    }
+                ]
+            },
+            {
+                "filename": "Yellow Steps.sm",
+                "youtubeVideos": [
+                    {
+                        "id": "XXX",
+                        "offset": 0,
+                        "skips": []
+                    }
+                ]
+            },
+            {
+                "filename": "Yume to Tsuki.sm",
+                "youtubeVideos": [
+                    {
+                        "id": "XXX",
+                        "offset": 0,
+                        "skips": []
+                    }
+                ]
+            },
+            {
+                "filename": "Zen Zen Zense.sm",
+                "youtubeVideos": [
+                    {
+                        "id": "XXX",
+                        "offset": 0,
+                        "skips": []
+                    }
+                ]
+            }
+        ]
+    },
+    {
         "title": "chewi's simfiles",
         "location": "chewi's simfiles",
         "simfiles": [
@@ -3322,16 +5032,16 @@
                     {
                         "id": "FaiU_sSifGc",
                         "skips": [
-                          {
-                            "from": 0,
-                            "to": 0.8,
-                            "skipped": false
-                          },
-                          {
-                            "from": 128,
-                            "to": 209.7,
-                            "skipped": false
-                          }
+                            {
+                                "from": 0,
+                                "to": 0.8,
+                                "skipped": false
+                            },
+                            {
+                                "from": 128,
+                                "to": 209.7,
+                                "skipped": false
+                            }
                         ]
                     }
                 ]
