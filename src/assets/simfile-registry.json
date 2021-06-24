@@ -341,9 +341,15 @@
                 "filename": "Catch the Wave.sm",
                 "youtubeVideos": [
                     {
-                        "id": "XXX",
+                        "id": "pqiJ7krbEDM",
                         "offset": 0,
-                        "skips": []
+                        "skips": [
+                            {
+                                "from": 0,
+                                "to": 0.1,
+                                "skipped": false
+                            }
+                        ]
                     }
                 ]
             },
@@ -351,9 +357,15 @@
                 "filename": "Change!!.sm",
                 "youtubeVideos": [
                     {
-                        "id": "XXX",
+                        "id": "MtNUUUiI17w",
                         "offset": 0,
-                        "skips": []
+                        "skips": [
+                            {
+                                "from": 0,
+                                "to": 3,
+                                "skipped": false
+                            }
+                        ]
                     }
                 ]
             },
@@ -361,9 +373,15 @@
                 "filename": "Cheer! ~Makkana Kimochi~.sm",
                 "youtubeVideos": [
                     {
-                        "id": "XXX",
+                        "id": "X1i-wIJeMYY",
                         "offset": 0,
-                        "skips": []
+                        "skips": [
+                            {
+                                "from": 0,
+                                "to": 0.06,
+                                "skipped": false
+                            }
+                        ]
                     }
                 ]
             },
@@ -371,14 +389,21 @@
                 "filename": "Christmas For You!.sm",
                 "youtubeVideos": [
                     {
-                        "id": "XXX",
+                        "id": "m5tYO4Tskdk",
                         "offset": 0,
-                        "skips": []
+                        "skips": [
+                            {
+                                "from": 0,
+                                "to": 30.4,
+                                "skipped": false
+                            }
+                        ]
                     }
                 ]
             },
             {
                 "filename": "Christmas Memories.sm",
+                "status": "Unavailable online",
                 "youtubeVideos": [
                     {
                         "id": "XXX",
@@ -391,9 +416,15 @@
                 "filename": "City Escape.sm",
                 "youtubeVideos": [
                     {
-                        "id": "XXX",
+                        "id": "XmVagnlM-Ys",
                         "offset": 0,
-                        "skips": []
+                        "skips": [
+                            {
+                                "from": 0,
+                                "to": 0.2,
+                                "skipped": false
+                            }
+                        ]
                     }
                 ]
             },
@@ -401,8 +432,8 @@
                 "filename": "Club-Rockin' Steps.sm",
                 "youtubeVideos": [
                     {
-                        "id": "XXX",
-                        "offset": 0,
+                        "id": "3JAZuc4_eXM",
+                        "offset": 0.1,
                         "skips": []
                     }
                 ]
@@ -411,9 +442,15 @@
                 "filename": "Colorful Precious Stepcharts.sm",
                 "youtubeVideos": [
                     {
-                        "id": "XXX",
+                        "id": "Yipp0cCc4Mo",
                         "offset": 0,
-                        "skips": []
+                        "skips": [
+                            {
+                                "from": 0,
+                                "to": 0.1,
+                                "skipped": false
+                            }
+                        ]
                     }
                 ]
             },
@@ -421,9 +458,15 @@
                 "filename": "Connect.sm",
                 "youtubeVideos": [
                     {
-                        "id": "XXX",
+                        "id": "OrgpX-_bFqM",
                         "offset": 0,
-                        "skips": []
+                        "skips": [
+                            {
+                                "from": 0,
+                                "to": 0.16,
+                                "skipped": false
+                            }
+                        ]
                     }
                 ]
             },
@@ -431,8 +474,8 @@
                 "filename": "Continuing Dream.sm",
                 "youtubeVideos": [
                     {
-                        "id": "XXX",
-                        "offset": 0,
+                        "id": "Q5FyKlgizAY",
+                        "offset": 0.08,
                         "skips": []
                     }
                 ]
@@ -441,8 +484,8 @@
                 "filename": "Cotton-Eye Joe.sm",
                 "youtubeVideos": [
                     {
-                        "id": "XXX",
-                        "offset": 0,
+                        "id": "mOYZaiDZ7BM",
+                        "offset": 0.03,
                         "skips": []
                     }
                 ]
@@ -451,9 +494,14 @@
                 "filename": "Cruel Angel's Thesis.sm",
                 "youtubeVideos": [
                     {
-                        "id": "XXX",
+                        "id": "nU21rCWkuJw",
                         "offset": 0,
-                        "skips": []
+                        "skips": [
+                            {
+                                "from": 0,
+                                "to": 0.8
+                            }
+                        ]
                     }
                 ]
             },
@@ -461,9 +509,14 @@
                 "filename": "Dairokuten Maou.sm",
                 "youtubeVideos": [
                     {
-                        "id": "XXX",
+                        "id": "dHmkoeUw7RA",
                         "offset": 0,
-                        "skips": []
+                        "skips": [
+                            {
+                                "from": 0,
+                                "to": 6.7
+                            }
+                        ]
                     }
                 ]
             },
@@ -471,9 +524,14 @@
                 "filename": "Dangerous.sm",
                 "youtubeVideos": [
                     {
-                        "id": "XXX",
+                        "id": "90SGLQywYwY",
                         "offset": 0,
-                        "skips": []
+                        "skips": [
+                            {
+                                "from": 0,
+                                "to": 0.2
+                            }
+                        ]
                     }
                 ]
             },
@@ -481,9 +539,14 @@
                 "filename": "Darkwing Duck Theme.sm",
                 "youtubeVideos": [
                     {
-                        "id": "XXX",
+                        "id": "tMWRSa0Y4Qo",
                         "offset": 0,
-                        "skips": []
+                        "skips": [
+                            {
+                                "from": 0,
+                                "to": 1.8
+                            }
+                        ]
                     }
                 ]
             },
@@ -491,9 +554,14 @@
                 "filename": "Death Row - Assault.sm",
                 "youtubeVideos": [
                     {
-                        "id": "XXX",
-                        "offset": 0,
-                        "skips": []
+                        "id": "0jEq8-YtFw8",
+                        "offset": 0.03,
+                        "skips": [
+                            {
+                                "from": 57,
+                                "to": 221.6
+                            }
+                        ]
                     }
                 ]
             },
@@ -501,9 +569,14 @@
                 "filename": "Decisive Battle - Ho-Oh!.sm",
                 "youtubeVideos": [
                     {
-                        "id": "XXX",
+                        "id": "5i-kRg7yNis",
                         "offset": 0,
-                        "skips": []
+                        "skips": [
+                            {
+                                "from": 0,
+                                "to": 0.1
+                            }
+                        ]
                     }
                 ]
             },
@@ -511,8 +584,8 @@
                 "filename": "Dimension Tripper.sm",
                 "youtubeVideos": [
                     {
-                        "id": "XXX",
-                        "offset": 0,
+                        "id": "0Q94mEs-1NM",
+                        "offset": 6.3,
                         "skips": []
                     }
                 ]
@@ -521,7 +594,7 @@
                 "filename": "Discotheque.sm",
                 "youtubeVideos": [
                     {
-                        "id": "XXX",
+                        "id": "FHojVhh6k40",
                         "offset": 0,
                         "skips": []
                     }
@@ -531,9 +604,14 @@
                 "filename": "Doki Doki.sm",
                 "youtubeVideos": [
                     {
-                        "id": "XXX",
-                        "offset": 0,
-                        "skips": []
+                        "id": "jSXKhQ-d5ro",
+                        "offset": 0.1,
+                        "skips": [
+                            {
+                                "from": 18,
+                                "to": 18
+                            }
+                        ]
                     }
                 ]
             },
@@ -541,7 +619,7 @@
                 "filename": "Dolphin and Broadcast.sm",
                 "youtubeVideos": [
                     {
-                        "id": "XXX",
+                        "id": "hbB0OIDx2go",
                         "offset": 0,
                         "skips": []
                     }
@@ -551,8 +629,8 @@
                 "filename": "Dum Dadi Do.sm",
                 "youtubeVideos": [
                     {
-                        "id": "XXX",
-                        "offset": 0,
+                        "id": "6SCQyBcHeDg",
+                        "offset": 0.07,
                         "skips": []
                     }
                 ]
