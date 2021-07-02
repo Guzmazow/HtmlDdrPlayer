@@ -639,8 +639,8 @@
                 "filename": "Electric Love.sm",
                 "youtubeVideos": [
                     {
-                        "id": "XXX",
-                        "offset": 0,
+                        "id": "ogm0olcsh0c",
+                        "offset": 0.13,
                         "skips": []
                     }
                 ]
@@ -649,9 +649,15 @@
                 "filename": "Every Morning.sm",
                 "youtubeVideos": [
                     {
-                        "id": "XXX",
+                        "id": "GaLuc56wHi8",
                         "offset": 0,
-                        "skips": []
+                        "skips": [
+                            {
+                                "from": 0,
+                                "to": 1.42,
+                                "skipped": false
+                            }
+                        ]
                     }
                 ]
             },
@@ -659,8 +665,8 @@
                 "filename": "Fate Runners.sm",
                 "youtubeVideos": [
                     {
-                        "id": "XXX",
-                        "offset": 0,
+                        "id": "Dwlsq2xl3sI",
+                        "offset": 0.1,
                         "skips": []
                     }
                 ]
@@ -669,7 +675,7 @@
                 "filename": "Fear.sm",
                 "youtubeVideos": [
                     {
-                        "id": "XXX",
+                        "id": "4-mKu-KQ8tI",
                         "offset": 0,
                         "skips": []
                     }
@@ -677,6 +683,7 @@
             },
             {
                 "filename": "Festival of Ghost 2.sm",
+                "status": "Cannot find correct remix",
                 "youtubeVideos": [
                     {
                         "id": "XXX",
@@ -687,10 +694,11 @@
             },
             {
                 "filename": "First Kiss -Fandub-.sm",
+                "status": "",
                 "youtubeVideos": [
                     {
-                        "id": "XXX",
-                        "offset": 0,
+                        "id": "6amn4tQOA00",
+                        "offset": 4.5,
                         "skips": []
                     }
                 ]
@@ -699,9 +707,15 @@
                 "filename": "Fly Away.sm",
                 "youtubeVideos": [
                     {
-                        "id": "XXX",
+                        "id": "YpYHCRgV_Nk",
                         "offset": 0,
-                        "skips": []
+                        "skips": [
+                            {
+                                "from": 0,
+                                "to": 4.8,
+                                "skipped": false
+                            }
+                        ]
                     }
                 ]
             },
@@ -709,8 +723,8 @@
                 "filename": "Follow Me.sm",
                 "youtubeVideos": [
                     {
-                        "id": "XXX",
-                        "offset": 0,
+                        "id": "e2XXTzYm0-s",
+                        "offset": 0.35,
                         "skips": []
                     }
                 ]
@@ -719,7 +733,7 @@
                 "filename": "Freely Tomorrow.sm",
                 "youtubeVideos": [
                     {
-                        "id": "XXX",
+                        "id": "KmvydnVTriE",
                         "offset": 0,
                         "skips": []
                     }
@@ -729,8 +743,8 @@
                 "filename": "Fukkireta ~HoloLive All-Stars Version~.sm",
                 "youtubeVideos": [
                     {
-                        "id": "XXX",
-                        "offset": 0,
+                        "id": "9kQ2GtvDV3s",
+                        "offset": 0.06,
                         "skips": []
                     }
                 ]
@@ -739,8 +753,8 @@
                 "filename": "Furifuri Norinori.sm",
                 "youtubeVideos": [
                     {
-                        "id": "XXX",
-                        "offset": 0,
+                        "id": "vlKAVFZaSIA",
+                        "offset": 0.06,
                         "skips": []
                     }
                 ]
@@ -749,9 +763,15 @@
                 "filename": "Galaxias.sm",
                 "youtubeVideos": [
                     {
-                        "id": "XXX",
+                        "id": "30j2uT-A22k",
                         "offset": 0,
-                        "skips": []
+                        "skips": [
+                            {
+                                "from": 0,
+                                "to": 0.1,
+                                "skipped": false
+                            }
+                        ]
                     }
                 ]
             },
@@ -759,9 +779,30 @@
                 "filename": "Gimme Chocolate!.sm",
                 "youtubeVideos": [
                     {
-                        "id": "XXX",
-                        "offset": 0,
-                        "skips": []
+                        "id": "nL8gvqzEnHg",
+                        "offset": 0.1,
+                        "skips": [
+                            {
+                                "from": 70,
+                                "to": 113.65,
+                                "skipped": false
+                            },
+                            {
+                                "from": 157,
+                                "to": 165.7,
+                                "skipped": false
+                            },
+                            {
+                                "from": 175,
+                                "to": 192.4,
+                                "skipped": false
+                            },
+                            {
+                                "from": 214,
+                                "to": 222.8,
+                                "skipped": false
+                            }
+                        ]
                     }
                 ]
             },
@@ -769,19 +810,15 @@
                 "filename": "Go My Way.sm",
                 "youtubeVideos": [
                     {
-                        "id": "XXX",
-                        "offset": 0,
-                        "skips": []
-                    }
-                ]
-            },
-            {
-                "filename": "God Knows (English Fandub).sm",
-                "youtubeVideos": [
-                    {
-                        "id": "XXX",
-                        "offset": 0,
-                        "skips": []
+                        "id": "g_PGcBvsQeo",
+                        "offset": 2.7,
+                        "skips": [
+                            {
+                                "from": 120,
+                                "to": 120,
+                                "skipped": false
+                            }
+                        ]
                     }
                 ]
             },
@@ -789,8 +826,8 @@
                 "filename": "Groovin' Beats.sm",
                 "youtubeVideos": [
                     {
-                        "id": "XXX",
-                        "offset": 0,
+                        "id": "afXl2o82mmA",
+                        "offset": 0.6,
                         "skips": []
                     }
                 ]
@@ -799,8 +836,8 @@
                 "filename": "Guruppo.sm",
                 "youtubeVideos": [
                     {
-                        "id": "XXX",
-                        "offset": 0,
+                        "id": "MXjzojgWHCc",
+                        "offset": 1.1,
                         "skips": []
                     }
                 ]
@@ -809,19 +846,14 @@
                 "filename": "Hajimari no Toki.sm",
                 "youtubeVideos": [
                     {
-                        "id": "XXX",
-                        "offset": 0,
-                        "skips": []
-                    }
-                ]
-            },
-            {
-                "filename": "Hardware Store.sm",
-                "youtubeVideos": [
-                    {
-                        "id": "XXX",
-                        "offset": 0,
-                        "skips": []
+                        "id": "lDm8nqQV-NE",
+                        "offset": 0.3,
+                        "skips": [
+                            {
+                                "from": 60,
+                                "to": 60
+                            }
+                        ]
                     }
                 ]
             },
