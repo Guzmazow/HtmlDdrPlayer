@@ -27,7 +27,12 @@ jobs:
     - name: npm install (from package.lock.json)
       run: npm ci
     - name: npm build prod
-      run: npm run 'build prod'        
+      run: npm run 'build prod'     
+    - name: Copy file
+      uses: canastro/copy-action@0.0.2
+      with:
+        source: dist/HtmlDdrPlayer/index.html
+        target: dist/HtmlDdrPlayer/404.html
     - name: GitHub Pages
       uses: crazy-max/ghaction-github-pages@v2.5.0
       with:
