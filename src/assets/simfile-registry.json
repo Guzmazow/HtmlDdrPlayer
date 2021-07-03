@@ -866,8 +866,7 @@
                         "skips": [
                           {
                             "from": 0,
-                            "to": 0.4,
-                            "skipped": false
+                            "to": 0.4
                           }
                         ]
                       }
@@ -883,8 +882,7 @@
                         "skips": [
                           {
                             "from": 0,
-                            "to": null,
-                            "skipped": false
+                            "to": null
                           }
                         ]
                       }
@@ -899,8 +897,7 @@
                         "skips": [
                           {
                             "from": 0,
-                            "to": 0.1,
-                            "skipped": false
+                            "to": 0.1
                           }
                         ]
                       }
@@ -948,8 +945,7 @@
                         "skips": [
                           {
                             "from": 0,
-                            "to": 2.1,
-                            "skipped": false
+                            "to": 2.1
                           }
                         ]
                       }
@@ -964,8 +960,7 @@
                         "skips": [
                           {
                             "from": 0,
-                            "to": 0.02,
-                            "skipped": false
+                            "to": 0.02
                           }
                         ]
                       }
@@ -981,8 +976,7 @@
                         "skips": [
                           {
                             "from": 0,
-                            "to": 0.1,
-                            "skipped": false
+                            "to": 0.1
                           }
                         ]
                       }
@@ -998,13 +992,11 @@
                         "skips": [
                           {
                             "from": 0,
-                            "to": 0.4,
-                            "skipped": false
+                            "to": 0.4
                           },
                           {
                             "from": 17.2,
-                            "to": 23.35,
-                            "skipped": false
+                            "to": 23.35
                           }
                         ]
                       }
