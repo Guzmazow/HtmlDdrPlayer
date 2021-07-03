@@ -861,44 +861,54 @@
                 "filename": "Hare Hare Yukai.sm",
                 "youtubeVideos": [
                     {
-                        "id": "XXX",
+                        "id": "ZCbUUgpKn00",
                         "offset": 0,
-                        "skips": []
-                    }
+                        "skips": [
+                          {
+                            "from": 0,
+                            "to": 0.4,
+                            "skipped": false
+                          }
+                        ]
+                      }
+                      
                 ]
             },
             {
                 "filename": "Heart-Pounding Flight.sm",
                 "youtubeVideos": [
                     {
-                        "id": "XXX",
+                        "id": "cOh3xriUotw",
                         "offset": 0,
-                        "skips": []
-                    }
-                ]
-            },
-            {
-                "filename": "Heathcliff Theme.sm",
-                "youtubeVideos": [
-                    {
-                        "id": "XXX",
-                        "offset": 0,
-                        "skips": []
-                    }
+                        "skips": [
+                          {
+                            "from": 0,
+                            "to": null,
+                            "skipped": false
+                          }
+                        ]
+                      }
                 ]
             },
             {
                 "filename": "Heel and Toe.sm",
                 "youtubeVideos": [
                     {
-                        "id": "XXX",
+                        "id": "5nT8NUstwtg",
                         "offset": 0,
-                        "skips": []
-                    }
+                        "skips": [
+                          {
+                            "from": 0,
+                            "to": 0.1,
+                            "skipped": false
+                          }
+                        ]
+                      }
                 ]
             },
             {
                 "filename": "Hot Pot.sm",
+                "status": "Not worth cutting",
                 "youtubeVideos": [
                     {
                         "id": "XXX",
@@ -911,84 +921,119 @@
                 "filename": "Hyadain no Jyoujo Yujo.sm",
                 "youtubeVideos": [
                     {
-                        "id": "XXX",
-                        "offset": 0,
+                        "id": "SuI1g911ens",
+                        "offset": 0.05,
                         "skips": []
-                    }
+                      }
+                      
                 ]
             },
             {
                 "filename": "Hyadain no Kakakata Kataomoi -English Dub-.sm",
                 "youtubeVideos": [
                     {
-                        "id": "XXX",
+                        "id": "IGtfDaMmLUs",
                         "offset": 0,
                         "skips": []
-                    }
+                      }
+                      
                 ]
             },
             {
                 "filename": "Hyakka Ryouran.sm",
                 "youtubeVideos": [
                     {
-                        "id": "XXX",
+                        "id": "vSmzuqFFkXc",
                         "offset": 0,
-                        "skips": []
-                    }
+                        "skips": [
+                          {
+                            "from": 0,
+                            "to": 2.1,
+                            "skipped": false
+                          }
+                        ]
+                      }
                 ]
             },
             {
                 "filename": "I Can Take Off My Panties.sm",
                 "youtubeVideos": [
                     {
-                        "id": "XXX",
+                        "id": "Gi3JB3SrArA",
                         "offset": 0,
-                        "skips": []
-                    }
+                        "skips": [
+                          {
+                            "from": 0,
+                            "to": 0.02,
+                            "skipped": false
+                          }
+                        ]
+                      }
+                      
                 ]
             },
             {
                 "filename": "If Heaven Were to Fall (Nightcore Mix).sm",
                 "youtubeVideos": [
                     {
-                        "id": "XXX",
+                        "id": "6iX7W-myxxI",
                         "offset": 0,
-                        "skips": []
-                    }
+                        "skips": [
+                          {
+                            "from": 0,
+                            "to": 0.1,
+                            "skipped": false
+                          }
+                        ]
+                      }
+                      
                 ]
             },
             {
                 "filename": "Ike Ike.sm",
                 "youtubeVideos": [
                     {
-                        "id": "XXX",
+                        "id": "Jmne2HZXB_s",
                         "offset": 0,
-                        "skips": []
-                    }
+                        "skips": [
+                          {
+                            "from": 0,
+                            "to": 0.4,
+                            "skipped": false
+                          },
+                          {
+                            "from": 17.2,
+                            "to": 23.35,
+                            "skipped": false
+                          }
+                        ]
+                      }
                 ]
             },
             {
                 "filename": "Imagination.sm",
                 "youtubeVideos": [
                     {
-                        "id": "XXX",
-                        "offset": 0,
+                        "id": "Acxj37_OPeg",
+                        "offset": 1.3,
                         "skips": []
-                    }
+                      }
                 ]
             },
             {
                 "filename": "In a Skyforged Dream.sm",
                 "youtubeVideos": [
                     {
-                        "id": "XXX",
-                        "offset": 0,
+                        "id": "yxRZ6InS2FI",
+                        "offset": 0.1,
                         "skips": []
-                    }
+                      }
+                      
                 ]
             },
             {
                 "filename": "Ko-Ki-Ku-Kuru-Kuru-Kure-Ko!.sm",
+                "status": "Unavailable online",
                 "youtubeVideos": [
                     {
                         "id": "XXX",
@@ -999,6 +1044,7 @@
             },
             {
                 "filename": "Koisuru Fortune Cookie.sm",
+                "status": "Cannot find correct remix",
                 "youtubeVideos": [
                     {
                         "id": "XXX",
@@ -1011,10 +1057,10 @@
                 "filename": "Kokoro Gamebox.sm",
                 "youtubeVideos": [
                     {
-                        "id": "XXX",
-                        "offset": 0,
+                        "id": "K908exWpSco",
+                        "offset": 0.15,
                         "skips": []
-                    }
+                      }
                 ]
             },
             {
