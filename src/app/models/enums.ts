@@ -125,3 +125,16 @@ export enum Difficulty {
     CHALLENGE = 5,
     EDIT = 6
 }
+
+
+export enum DirectionFlag {
+    NONE = 0,//0
+    UP = 1 << 0,  //1
+    DOWN = 1 << 1,  //2
+    LEFT = 1 << 2,  //4
+    RIGHT = 1 << 3,  //8
+    START = 1 << 4, //16
+    SELECT = 1 << 5 //32
+};
+
+export const AllDirectionFlags = [DirectionFlag.UP, DirectionFlag.DOWN, DirectionFlag.LEFT, DirectionFlag.RIGHT, DirectionFlag.START, DirectionFlag.SELECT];

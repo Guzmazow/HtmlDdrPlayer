@@ -20,6 +20,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatTableModule } from '@angular/material/table';
 import { MatRippleModule } from '@angular/material/core';
 import { MatDialogModule } from '@angular/material/dialog';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 import { DdrPlayerComponent } from '@components/ddr-player/ddr-player.component';
 import { NoteLaneComponent } from '@components/note-lane/note-lane.component';
@@ -31,6 +32,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { KeyboardService } from '@services/keyboard.service';
 import { YoutubeVideoComponent } from './components/youtube-video/youtube-video.component';
 import { SynchronizerComponent } from './components/synchronizer/synchronizer.component';
+import { SerialComponent } from './components/serial/serial.component';
 
 
 @NgModule({
@@ -43,7 +45,8 @@ import { SynchronizerComponent } from './components/synchronizer/synchronizer.co
     ReceptorComponent,
     SimfileSelectorComponent,
     YoutubeVideoComponent,
-    SynchronizerComponent
+    SynchronizerComponent,
+    SerialComponent
   ],
   imports: [
     BrowserModule,
@@ -64,6 +67,7 @@ import { SynchronizerComponent } from './components/synchronizer/synchronizer.co
     MatListModule,
     MatTabsModule,
     MatInputModule,
+    MatSnackBarModule,
     ReactiveFormsModule
   ],
   providers: [KeyboardService],
