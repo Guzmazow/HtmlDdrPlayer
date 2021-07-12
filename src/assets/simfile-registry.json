@@ -346,8 +346,7 @@
                         "skips": [
                             {
                                 "from": 0,
-                                "to": 0.1,
-                                "skipped": false
+                                "to": 0.1
                             }
                         ]
                     }
@@ -362,8 +361,7 @@
                         "skips": [
                             {
                                 "from": 0,
-                                "to": 3,
-                                "skipped": false
+                                "to": 3
                             }
                         ]
                     }
@@ -378,8 +376,7 @@
                         "skips": [
                             {
                                 "from": 0,
-                                "to": 0.06,
-                                "skipped": false
+                                "to": 0.06
                             }
                         ]
                     }
@@ -394,8 +391,7 @@
                         "skips": [
                             {
                                 "from": 0,
-                                "to": 30.4,
-                                "skipped": false
+                                "to": 30.4
                             }
                         ]
                     }
@@ -421,8 +417,7 @@
                         "skips": [
                             {
                                 "from": 0,
-                                "to": 0.2,
-                                "skipped": false
+                                "to": 0.2
                             }
                         ]
                     }
@@ -447,8 +442,7 @@
                         "skips": [
                             {
                                 "from": 0,
-                                "to": 0.1,
-                                "skipped": false
+                                "to": 0.1
                             }
                         ]
                     }
@@ -463,8 +457,7 @@
                         "skips": [
                             {
                                 "from": 0,
-                                "to": 0.16,
-                                "skipped": false
+                                "to": 0.16
                             }
                         ]
                     }
@@ -654,8 +647,7 @@
                         "skips": [
                             {
                                 "from": 0,
-                                "to": 1.42,
-                                "skipped": false
+                                "to": 1.42
                             }
                         ]
                     }
@@ -712,8 +704,7 @@
                         "skips": [
                             {
                                 "from": 0,
-                                "to": 4.8,
-                                "skipped": false
+                                "to": 4.8
                             }
                         ]
                     }
@@ -768,8 +759,7 @@
                         "skips": [
                             {
                                 "from": 0,
-                                "to": 0.1,
-                                "skipped": false
+                                "to": 0.1
                             }
                         ]
                     }
@@ -784,23 +774,19 @@
                         "skips": [
                             {
                                 "from": 70,
-                                "to": 113.65,
-                                "skipped": false
+                                "to": 113.65
                             },
                             {
                                 "from": 157,
-                                "to": 165.7,
-                                "skipped": false
+                                "to": 165.7
                             },
                             {
                                 "from": 175,
-                                "to": 192.4,
-                                "skipped": false
+                                "to": 192.4
                             },
                             {
                                 "from": 214,
-                                "to": 222.8,
-                                "skipped": false
+                                "to": 222.8
                             }
                         ]
                     }
@@ -815,8 +801,7 @@
                         "skips": [
                             {
                                 "from": 120,
-                                "to": 120,
-                                "skipped": false
+                                "to": 120
                             }
                         ]
                     }
@@ -864,13 +849,12 @@
                         "id": "ZCbUUgpKn00",
                         "offset": 0,
                         "skips": [
-                          {
-                            "from": 0,
-                            "to": 0.4
-                          }
+                            {
+                                "from": 0,
+                                "to": 0.4
+                            }
                         ]
-                      }
-                      
+                    }
                 ]
             },
             {
@@ -880,12 +864,12 @@
                         "id": "cOh3xriUotw",
                         "offset": 0,
                         "skips": [
-                          {
-                            "from": 0,
-                            "to": null
-                          }
+                            {
+                                "from": 0,
+                                "to": null
+                            }
                         ]
-                      }
+                    }
                 ]
             },
             {
@@ -895,12 +879,12 @@
                         "id": "5nT8NUstwtg",
                         "offset": 0,
                         "skips": [
-                          {
-                            "from": 0,
-                            "to": 0.1
-                          }
+                            {
+                                "from": 0,
+                                "to": 0.1
+                            }
                         ]
-                      }
+                    }
                 ]
             },
             {
@@ -921,8 +905,7 @@
                         "id": "SuI1g911ens",
                         "offset": 0.05,
                         "skips": []
-                      }
-                      
+                    }
                 ]
             },
             {
@@ -932,8 +915,7 @@
                         "id": "IGtfDaMmLUs",
                         "offset": 0,
                         "skips": []
-                      }
-                      
+                    }
                 ]
             },
             {
@@ -943,12 +925,12 @@
                         "id": "vSmzuqFFkXc",
                         "offset": 0,
                         "skips": [
-                          {
-                            "from": 0,
-                            "to": 2.1
-                          }
+                            {
+                                "from": 0,
+                                "to": 2.1
+                            }
                         ]
-                      }
+                    }
                 ]
             },
             {
@@ -958,13 +940,12 @@
                         "id": "Gi3JB3SrArA",
                         "offset": 0,
                         "skips": [
-                          {
-                            "from": 0,
-                            "to": 0.02
-                          }
+                            {
+                                "from": 0,
+                                "to": 0.02
+                            }
                         ]
-                      }
-                      
+                    }
                 ]
             },
             {
@@ -974,13 +955,12 @@
                         "id": "6iX7W-myxxI",
                         "offset": 0,
                         "skips": [
-                          {
-                            "from": 0,
-                            "to": 0.1
-                          }
+                            {
+                                "from": 0,
+                                "to": 0.1
+                            }
                         ]
-                      }
-                      
+                    }
                 ]
             },
             {
@@ -990,16 +970,16 @@
                         "id": "Jmne2HZXB_s",
                         "offset": 0,
                         "skips": [
-                          {
-                            "from": 0,
-                            "to": 0.4
-                          },
-                          {
-                            "from": 17.2,
-                            "to": 23.35
-                          }
+                            {
+                                "from": 0,
+                                "to": 0.4
+                            },
+                            {
+                                "from": 17.2,
+                                "to": 23.35
+                            }
                         ]
-                      }
+                    }
                 ]
             },
             {
@@ -1009,7 +989,7 @@
                         "id": "Acxj37_OPeg",
                         "offset": 1.3,
                         "skips": []
-                      }
+                    }
                 ]
             },
             {
@@ -1019,8 +999,7 @@
                         "id": "yxRZ6InS2FI",
                         "offset": 0.1,
                         "skips": []
-                      }
-                      
+                    }
                 ]
             },
             {
@@ -1052,15 +1031,15 @@
                         "id": "K908exWpSco",
                         "offset": 0.15,
                         "skips": []
-                      }
+                    }
                 ]
             },
             {
                 "filename": "Lazy Generation.sm",
                 "youtubeVideos": [
                     {
-                        "id": "XXX",
-                        "offset": 0,
+                        "id": "7jJjjXajr3E",
+                        "offset": 0.4,
                         "skips": []
                     }
                 ]
@@ -1069,8 +1048,8 @@
                 "filename": "Let Me Be With You.sm",
                 "youtubeVideos": [
                     {
-                        "id": "XXX",
-                        "offset": 0,
+                        "id": "yy1NsG7Dg3Y",
+                        "offset": 0.7,
                         "skips": []
                     }
                 ]
@@ -1079,8 +1058,8 @@
                 "filename": "Let's Just Live.sm",
                 "youtubeVideos": [
                     {
-                        "id": "XXX",
-                        "offset": 0,
+                        "id": "wAbwhVOwJQw",
+                        "offset": 0.08,
                         "skips": []
                     }
                 ]
@@ -1089,7 +1068,7 @@
                 "filename": "Live Again.sm",
                 "youtubeVideos": [
                     {
-                        "id": "XXX",
+                        "id": "h-LOlueKCtk",
                         "offset": 0,
                         "skips": []
                     }
@@ -1099,9 +1078,14 @@
                 "filename": "Lollipop.sm",
                 "youtubeVideos": [
                     {
-                        "id": "XXX",
+                        "id": "6md5RSnVUuo",
                         "offset": 0,
-                        "skips": []
+                        "skips": [
+                            {
+                                "from": 0,
+                                "to": 10.1
+                            }
+                        ]
                     }
                 ]
             },
@@ -1109,8 +1093,8 @@
                 "filename": "Look At Me.sm",
                 "youtubeVideos": [
                     {
-                        "id": "XXX",
-                        "offset": 0,
+                        "id": "BefoEnOBIvc",
+                        "offset": 2.2,
                         "skips": []
                     }
                 ]
@@ -1119,9 +1103,14 @@
                 "filename": "Love Fighter.sm",
                 "youtubeVideos": [
                     {
-                        "id": "XXX",
+                        "id": "9emH2GTGCNw",
                         "offset": 0,
-                        "skips": []
+                        "skips": [
+                            {
+                                "from": 0,
+                                "to": 0.03
+                            }
+                        ]
                     }
                 ]
             },
@@ -1129,8 +1118,13 @@
                 "filename": "Marisa Stole The Precious Thing.sm",
                 "youtubeVideos": [
                     {
-                        "id": "XXX",
-                        "offset": 0,
+                        "id": "fVLDpb0G6Fc",
+                        "offset": 1.3,
+                        "skips": []
+                    },
+                    {
+                        "id": "1pDM6fQUfJs",
+                        "offset": 0.95,
                         "skips": []
                     }
                 ]
@@ -1139,14 +1133,15 @@
                 "filename": "Megalovania.sm",
                 "youtubeVideos": [
                     {
-                        "id": "XXX",
-                        "offset": 0,
+                        "id": "0FCvzsVlXpQ",
+                        "offset": 0.15,
                         "skips": []
                     }
                 ]
             },
             {
                 "filename": "MJG Recruitment Song.sm",
+                "status": "Unavailable online",
                 "youtubeVideos": [
                     {
                         "id": "XXX",
@@ -1159,14 +1154,15 @@
                 "filename": "Moshi Moshi.sm",
                 "youtubeVideos": [
                     {
-                        "id": "XXX",
-                        "offset": 0,
+                        "id": "keAy8uVjTv8",
+                        "offset": 0.5,
                         "skips": []
                     }
                 ]
             },
             {
                 "filename": "Motteke Sailor Fuku -Metabo Taisaku Mix-.sm",
+                "status": "Cannot find correct remix",
                 "youtubeVideos": [
                     {
                         "id": "XXX",
@@ -1179,9 +1175,14 @@
                 "filename": "Mr. Raindrop.sm",
                 "youtubeVideos": [
                     {
-                        "id": "XXX",
+                        "id": "vnU81QnWhXA",
                         "offset": 0,
-                        "skips": []
+                        "skips": [
+                            {
+                                "from": 0,
+                                "to": 1.05
+                            }
+                        ]
                     }
                 ]
             },
@@ -1189,9 +1190,14 @@
                 "filename": "My Kitten.sm",
                 "youtubeVideos": [
                     {
-                        "id": "XXX",
+                        "id": "VuxgJIfEXIM",
                         "offset": 0,
-                        "skips": []
+                        "skips": [
+                            {
+                                "from": 0,
+                                "to": 0.05
+                            }
+                        ]
                     }
                 ]
             },
@@ -1199,8 +1205,8 @@
                 "filename": "My Skateboard Will Go On.sm",
                 "youtubeVideos": [
                     {
-                        "id": "XXX",
-                        "offset": 0,
+                        "id": "iCNfYjZ26ow",
+                        "offset": 0.1,
                         "skips": []
                     }
                 ]
@@ -1209,7 +1215,7 @@
                 "filename": "Nanairo Nadeshiko.sm",
                 "youtubeVideos": [
                     {
-                        "id": "XXX",
+                        "id": "Ud7nRsrgnl0",
                         "offset": 0,
                         "skips": []
                     }
@@ -1219,9 +1225,14 @@
                 "filename": "Nasty Girl.sm",
                 "youtubeVideos": [
                     {
-                        "id": "XXX",
+                        "id": "cHrPY7qycqE",
                         "offset": 0,
-                        "skips": []
+                        "skips": [
+                            {
+                                "from": 0,
+                                "to": 0.04
+                            }
+                        ]
                     }
                 ]
             },
@@ -1229,7 +1240,7 @@
                 "filename": "Never Gonna Give You Up.sm",
                 "youtubeVideos": [
                     {
-                        "id": "XXX",
+                        "id": "dQw4w9WgXcQ",
                         "offset": 0,
                         "skips": []
                     }
@@ -1239,8 +1250,8 @@
                 "filename": "Next-Color Planet.sm",
                 "youtubeVideos": [
                     {
-                        "id": "XXX",
-                        "offset": 0,
+                        "id": "vQHVGXdcqEQ",
+                        "offset": 0.1,
                         "skips": []
                     }
                 ]
@@ -1249,14 +1260,20 @@
                 "filename": "Oath Sign.sm",
                 "youtubeVideos": [
                     {
-                        "id": "XXX",
+                        "id": "_Mv-3V3MaDE",
                         "offset": 0,
-                        "skips": []
+                        "skips": [
+                            {
+                                "from": 0,
+                                "to": 0.3
+                            }
+                        ]
                     }
                 ]
             },
             {
                 "filename": "Overall.sm",
+                "status": "Cannot find correct remix",
                 "youtubeVideos": [
                     {
                         "id": "XXX",
@@ -1267,6 +1284,7 @@
             },
             {
                 "filename": "Passionate Starmine.sm",
+                "status": "Cannot find correct remix",
                 "youtubeVideos": [
                     {
                         "id": "XXX",
@@ -1279,8 +1297,8 @@
                 "filename": "Pastel Flags.sm",
                 "youtubeVideos": [
                     {
-                        "id": "XXX",
-                        "offset": 0,
+                        "id": "fxyBXiNRaWs",
+                        "offset": 0.04,
                         "skips": []
                     }
                 ]
@@ -1289,9 +1307,14 @@
                 "filename": "Peach Fuzz.sm",
                 "youtubeVideos": [
                     {
-                        "id": "XXX",
-                        "offset": 0,
-                        "skips": []
+                        "id": "0tGTID-raZM",
+                        "offset": 2.8,
+                        "skips": [
+                            {
+                                "from": 100,
+                                "to": 94.7
+                            }
+                        ]
                     }
                 ]
             },
