@@ -77,9 +77,9 @@ export class DisplayService {
   }
 
   end(){
-    if (document.fullscreenElement && document.exitFullscreen) {
-      document.exitFullscreen();
-    }
+    // if (document.fullscreenElement && document.exitFullscreen) {
+    //   document.exitFullscreen();
+    // }
 
     cancelAnimationFrame(this.lastframe);
     this.onGameFinished.next();

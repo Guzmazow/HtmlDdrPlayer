@@ -34,14 +34,24 @@
     <div class="my2">
         <button mat-raised-button (click)="fileInput.click()">File</button>
         <input hidden type="file" accept="audio/*" #fileInput (change)="audioSelected($event)" />
-        <button mat-raised-button (click)="reset(); play()">Reset & Play</button>
-        <button mat-raised-button (click)="play()">Play</button>
-        <button mat-raised-button (click)="reset()">Reset</button>
-        <button mat-raised-button (click)="pause()">Pause</button>
-        <button mat-raised-button (click)="pause10msAudio()">Pause 10ms audio</button>
-        <button mat-raised-button (click)="pause10msVideo()">Pause 10ms video</button>
-        <button mat-raised-button (click)="play10msAudio()">play 10ms audio</button>
-        <button mat-raised-button (click)="play10msVideo()">play 10ms video</button>
+        <button mat-raised-button (click)="reset(); play()"><mat-icon>replay</mat-icon><mat-icon>play_arrow</mat-icon></button>
+        <button mat-raised-button (click)="play()"><mat-icon>play_arrow</mat-icon></button>
+        <button mat-raised-button (click)="reset()"><mat-icon>replay</mat-icon></button>
+        <button mat-raised-button (click)="pause()"><mat-icon>pause</mat-icon></button>
+    </div>
+    <div>
+        Audio
+        <button mat-raised-button (click)="unplay10msAudio()"><mat-icon>fast_rewind</mat-icon></button>
+        <button mat-raised-button (click)="playAudio()"><mat-icon>play_arrow</mat-icon></button>
+        <button mat-raised-button (click)="pauseAudio()"><mat-icon>pause</mat-icon></button>
+        <button mat-raised-button (click)="play10msAudio()"><mat-icon>fast_forward</mat-icon></button>
+    </div>
+    <div>
+        Video
+        <button mat-raised-button (click)="unplay10msVideo()"><mat-icon>fast_rewind</mat-icon></button>
+        <button mat-raised-button (click)="playVideo()"><mat-icon>play_arrow</mat-icon></button>
+        <button mat-raised-button (click)="pauseVideo()"><mat-icon>pause</mat-icon></button>
+        <button mat-raised-button (click)="play10msVideo()"><mat-icon>fast_forward</mat-icon></button>
     </div>
 
     <div>

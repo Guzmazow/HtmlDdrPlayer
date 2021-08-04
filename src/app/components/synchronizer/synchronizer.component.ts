@@ -67,14 +67,14 @@ export class SynchronizerComponent implements OnInit, OnDestroy {
   };
 
   constructor(private route: ActivatedRoute, private s1imfileLoaderService: SimfileLoaderService) {
-    
+
   }
 
   matchLocation() {
     this.audioLocation = this.audioPlayer?.currentTime ?? 0;
     if (this.video?.videoPlayer?.getCurrentTime)
       this.videoLocation = this.video?.videoPlayer.getCurrentTime() ?? 0;
-      this.lastFrame = requestAnimationFrame(this.matchLocation.bind(this));
+    this.lastFrame = requestAnimationFrame(this.matchLocation.bind(this));
   }
 
   ngOnInit() {
@@ -160,47 +160,70 @@ export class SynchronizerComponent implements OnInit, OnDestroy {
 
   }
 
-  pause() {
-    this.audioPlayer?.pause();
+  pauseVideo() {
     this.video?.videoPlayer.pauseVideo();
   }
 
-  play() {
-    if (this.audioPlayer && this.audioPlayer.duration && this.video) {
-      // if (this.offset != 0) {
-      //   setTimeout(() => {
-      //     this.video?.videoPlayer.playVideo();
-      //   }, this.offset);
-      // } else {
-
+  playVideo() {
       this.video?.videoPlayer.playVideo();
-      //}
+    
+  }
+
+  pauseAudio() {
+    this.audioPlayer?.pause();
+  }
+
+  playAudio() {
+    if (this.audioPlayer && this.audioPlayer.duration) {
       this.audioPlayer.play();
     }
   }
-  pause10msAudio() {
-    this.audioPlayer?.pause();
-    setTimeout(() => {
-      this.audioPlayer?.play();
-    }, 10);
+
+  pause() {
+    this.pauseVideo();
+    this.pauseAudio;
   }
 
-  pause10msVideo() {
-    this.video?.videoPlayer.pauseVideo();
-    setTimeout(() => {
-      this.video?.videoPlayer.playVideo();
-    }, 10);
+  play() {
+    this.playVideo();
+    this.playAudio;
   }
+
+  unplay10msAudio() {
+    if (this.audioPlayer) {
+      this.audioPlayer.currentTime = this.audioPlayer.currentTime - 0.01;
+    }
+  }
+
+  unplay10msVideo() {
+    if (this.video) {
+      this.video.videoPlayer.seekTo(this.video.videoPlayer.getCurrentTime() - 0.01, true);
+    }
+  }
+
+  // pause10msAudio() {
+  //   this.audioPlayer?.pause();
+  //   setTimeout(() => {
+  //     this.audioPlayer?.play();
+  //   }, 10);
+  // }
+
+  // pause10msVideo() {
+  //   this.video?.videoPlayer.pauseVideo();
+  //   setTimeout(() => {
+  //     this.video?.videoPlayer.playVideo();
+  //   }, 10);
+  // }
 
   play10msAudio() {
     this.audioPlayer?.play();
-    setTimeout(() => {      
+    setTimeout(() => {
       this.audioPlayer?.pause();
     }, 10);
   }
 
   play10msVideo() {
-    this.video?.videoPlayer.playVideo();    
+    this.video?.videoPlayer.playVideo();
     setTimeout(() => {
       this.video?.videoPlayer.pauseVideo();
     }, 10);
