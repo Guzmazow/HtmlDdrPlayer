@@ -181,7 +181,7 @@ export class SynchronizerComponent implements OnInit, OnDestroy {
 
   pause() {
     this.pauseVideo();
-    this.pauseAudio;
+    this.pauseAudio();
   }
 
   play() {
