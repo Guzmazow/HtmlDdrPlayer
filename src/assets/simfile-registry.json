@@ -1575,8 +1575,7 @@
                         "skips": [
                             {
                                 "from": 0,
-                                "to": 14.9,
-                                "skipped": false
+                                "to": 14.9
                             }
                         ]
                     }
@@ -1612,8 +1611,7 @@
                         "skips": [
                             {
                                 "from": 0,
-                                "to": 0.13,
-                                "skipped": false
+                                "to": 0.13
                             }
                         ]
                     }
@@ -1648,8 +1646,7 @@
                         "skips": [
                             {
                                 "from": 0,
-                                "to": 0.7,
-                                "skipped": false
+                                "to": 0.7
                             }
                         ]
                     }
@@ -1664,8 +1661,7 @@
                         "skips": [
                             {
                                 "from": 0,
-                                "to": 0.1,
-                                "skipped": false
+                                "to": 0.1
                             }
                         ]
                     }
@@ -1680,8 +1676,7 @@
                         "skips": [
                             {
                                 "from": 0,
-                                "to": 0.7,
-                                "skipped": false
+                                "to": 0.7
                             }
                         ]
                     }
@@ -1716,8 +1711,7 @@
                         "skips": [
                             {
                                 "from": 0,
-                                "to": 7.2,
-                                "skipped": false
+                                "to": 7.2
                             }
                         ]
                     }
@@ -1732,8 +1726,7 @@
                         "skips": [
                             {
                                 "from": 0,
-                                "to": 1.4,
-                                "skipped": false
+                                "to": 1.4
                             }
                         ]
                     }
@@ -1768,8 +1761,7 @@
                         "skips": [
                             {
                                 "from": 0,
-                                "to": 4.5,
-                                "skipped": false
+                                "to": 4.5
                             }
                         ]
                     }
@@ -1794,8 +1786,7 @@
                         "skips": [
                             {
                                 "from": 0,
-                                "to": 0.1,
-                                "skipped": false
+                                "to": 0.1
                             }
                         ]
                     }
@@ -1810,8 +1801,7 @@
                         "skips": [
                             {
                                 "from": 0,
-                                "to": 2.5,
-                                "skipped": false
+                                "to": 2.5
                             }
                         ]
                     }
@@ -1836,8 +1826,7 @@
                         "skips": [
                             {
                                 "from": 0,
-                                "to": 0.55,
-                                "skipped": false
+                                "to": 0.55
                             }
                         ]
                     }
@@ -1852,8 +1841,7 @@
                         "skips": [
                             {
                                 "from": 0,
-                                "to": 4.3,
-                                "skipped": false
+                                "to": 4.3
                             }
                         ]
                     }
@@ -1868,8 +1856,7 @@
                         "skips": [
                             {
                                 "from": 0,
-                                "to": 0.1,
-                                "skipped": false
+                                "to": 0.1
                             }
                         ]
                     }
@@ -1884,8 +1871,7 @@
                         "skips": [
                             {
                                 "from": 0,
-                                "to": 3.8,
-                                "skipped": false
+                                "to": 3.8
                             }
                         ]
                     },
@@ -1895,8 +1881,7 @@
                         "skips": [
                             {
                                 "from": 0,
-                                "to": 3.6,
-                                "skipped": false
+                                "to": 3.6
                             }
                         ]
                     }
@@ -1909,13 +1894,12 @@
                         "id": "d3GFE05UrBA",
                         "offset": 0,
                         "skips": [
-                          {
-                            "from": 0,
-                            "to": 7.75,
-                            "skipped": false
-                          }
+                            {
+                                "from": 0,
+                                "to": 7.75
+                            }
                         ]
-                      }
+                    }
                 ]
             },
             {
