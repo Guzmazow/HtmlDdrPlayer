@@ -1553,8 +1553,7 @@
                         "id": "RrsGNMMghKM",
                         "offset": 0.1,
                         "skips": []
-                      }
-                      
+                    }
                 ]
             },
             {
@@ -1564,7 +1563,7 @@
                         "id": "OQU-HH6t034",
                         "offset": 0.1,
                         "skips": []
-                      }
+                    }
                 ]
             },
             {
@@ -1574,20 +1573,20 @@
                         "id": "6JCLY0Rlx6Q",
                         "offset": 0,
                         "skips": [
-                          {
-                            "from": 0,
-                            "to": 14.9,
-                            "skipped": false
-                          }
+                            {
+                                "from": 0,
+                                "to": 14.9,
+                                "skipped": false
+                            }
                         ]
-                      }
+                    }
                 ]
             },
             {
                 "filename": "Star Driver.sm",
                 "youtubeVideos": [
                     {
-                        "id": "XXX",
+                        "id": "HRNdFHe6cKU",
                         "offset": 0,
                         "skips": []
                     }
@@ -1595,6 +1594,7 @@
             },
             {
                 "filename": "Star Sphere Poems.sm",
+                "status": "Unavailable online",
                 "youtubeVideos": [
                     {
                         "id": "XXX",
@@ -1607,9 +1607,15 @@
                 "filename": "Starstrukk.sm",
                 "youtubeVideos": [
                     {
-                        "id": "XXX",
+                        "id": "5YvCIADwfZM",
                         "offset": 0,
-                        "skips": []
+                        "skips": [
+                            {
+                                "from": 0,
+                                "to": 0.13,
+                                "skipped": false
+                            }
+                        ]
                     }
                 ]
             },
@@ -1617,8 +1623,8 @@
                 "filename": "Step!.sm",
                 "youtubeVideos": [
                     {
-                        "id": "XXX",
-                        "offset": 0,
+                        "id": "S1W93_J3MH8",
+                        "offset": 0.05,
                         "skips": []
                     }
                 ]
@@ -1627,8 +1633,8 @@
                 "filename": "Stress-Free Style.sm",
                 "youtubeVideos": [
                     {
-                        "id": "XXX",
-                        "offset": 0,
+                        "id": "zhwJAZlAoI4",
+                        "offset": 0.08,
                         "skips": []
                     }
                 ]
@@ -1637,9 +1643,15 @@
                 "filename": "Summer Void.sm",
                 "youtubeVideos": [
                     {
-                        "id": "XXX",
+                        "id": "daBQV5XJzwg",
                         "offset": 0,
-                        "skips": []
+                        "skips": [
+                            {
+                                "from": 0,
+                                "to": 0.7,
+                                "skipped": false
+                            }
+                        ]
                     }
                 ]
             },
@@ -1647,9 +1659,15 @@
                 "filename": "Sunny Starry Carnival.sm",
                 "youtubeVideos": [
                     {
-                        "id": "XXX",
+                        "id": "r003_qhhHUk",
                         "offset": 0,
-                        "skips": []
+                        "skips": [
+                            {
+                                "from": 0,
+                                "to": 0.1,
+                                "skipped": false
+                            }
+                        ]
                     }
                 ]
             },
@@ -1657,19 +1675,15 @@
                 "filename": "Super Affection.sm",
                 "youtubeVideos": [
                     {
-                        "id": "XXX",
+                        "id": "62c7_zKoSV8",
                         "offset": 0,
-                        "skips": []
-                    }
-                ]
-            },
-            {
-                "filename": "Suppuration -Core-.sm",
-                "youtubeVideos": [
-                    {
-                        "id": "XXX",
-                        "offset": 0,
-                        "skips": []
+                        "skips": [
+                            {
+                                "from": 0,
+                                "to": 0.7,
+                                "skipped": false
+                            }
+                        ]
                     }
                 ]
             },
@@ -1677,8 +1691,8 @@
                 "filename": "Sweet Bitter Beauty Song.sm",
                 "youtubeVideos": [
                     {
-                        "id": "XXX",
-                        "offset": 0,
+                        "id": "AclHnprntqY",
+                        "offset": 0.4,
                         "skips": []
                     }
                 ]
@@ -1687,7 +1701,7 @@
                 "filename": "Sweet Dream.sm",
                 "youtubeVideos": [
                     {
-                        "id": "XXX",
+                        "id": "arwHkPWRqak",
                         "offset": 0,
                         "skips": []
                     }
@@ -1697,9 +1711,15 @@
                 "filename": "Sweet Magic.sm",
                 "youtubeVideos": [
                     {
-                        "id": "XXX",
+                        "id": "xWjnpLwfjLs",
                         "offset": 0,
-                        "skips": []
+                        "skips": [
+                            {
+                                "from": 0,
+                                "to": 7.2,
+                                "skipped": false
+                            }
+                        ]
                     }
                 ]
             },
@@ -1707,9 +1727,15 @@
                 "filename": "Take On Me.sm",
                 "youtubeVideos": [
                     {
-                        "id": "XXX",
+                        "id": "djV11Xbc914",
                         "offset": 0,
-                        "skips": []
+                        "skips": [
+                            {
+                                "from": 0,
+                                "to": 1.4,
+                                "skipped": false
+                            }
+                        ]
                     }
                 ]
             },
@@ -1717,8 +1743,8 @@
                 "filename": "Talk 2 U.sm",
                 "youtubeVideos": [
                     {
-                        "id": "XXX",
-                        "offset": 0,
+                        "id": "mHl-BnviucE",
+                        "offset": 0.45,
                         "skips": []
                     }
                 ]
@@ -1727,38 +1753,8 @@
                 "filename": "Tech Lab.sm",
                 "youtubeVideos": [
                     {
-                        "id": "XXX",
-                        "offset": 0,
-                        "skips": []
-                    }
-                ]
-            },
-            {
-                "filename": "The Fine Stepcharts.sm",
-                "youtubeVideos": [
-                    {
-                        "id": "XXX",
-                        "offset": 0,
-                        "skips": []
-                    }
-                ]
-            },
-            {
-                "filename": "The Great YuruYuri Incident (Pastel Palettes Cover).sm",
-                "youtubeVideos": [
-                    {
-                        "id": "XXX",
-                        "offset": 0,
-                        "skips": []
-                    }
-                ]
-            },
-            {
-                "filename": "The Pineapple Song.sm",
-                "youtubeVideos": [
-                    {
-                        "id": "XXX",
-                        "offset": 0,
+                        "id": "za0dHqdOPcg",
+                        "offset": 0.1,
                         "skips": []
                     }
                 ]
@@ -1767,9 +1763,15 @@
                 "filename": "This Will Be The Day.sm",
                 "youtubeVideos": [
                     {
-                        "id": "XXX",
+                        "id": "_x9zjk2MgVQ",
                         "offset": 0,
-                        "skips": []
+                        "skips": [
+                            {
+                                "from": 0,
+                                "to": 4.5,
+                                "skipped": false
+                            }
+                        ]
                     }
                 ]
             },
@@ -1777,8 +1779,8 @@
                 "filename": "Timeline.sm",
                 "youtubeVideos": [
                     {
-                        "id": "XXX",
-                        "offset": 0,
+                        "id": "cc5ztSgji4Y",
+                        "offset": 0.1,
                         "skips": []
                     }
                 ]
@@ -1787,9 +1789,15 @@
                 "filename": "To the Beginning.sm",
                 "youtubeVideos": [
                     {
-                        "id": "XXX",
+                        "id": "O5uYQF4R-jo",
                         "offset": 0,
-                        "skips": []
+                        "skips": [
+                            {
+                                "from": 0,
+                                "to": 0.1,
+                                "skipped": false
+                            }
+                        ]
                     }
                 ]
             },
@@ -1797,9 +1805,15 @@
                 "filename": "Two-Faced Stepcharts.sm",
                 "youtubeVideos": [
                     {
-                        "id": "XXX",
+                        "id": "RbVH-nvFGuk",
                         "offset": 0,
-                        "skips": []
+                        "skips": [
+                            {
+                                "from": 0,
+                                "to": 2.5,
+                                "skipped": false
+                            }
+                        ]
                     }
                 ]
             },
@@ -1807,7 +1821,7 @@
                 "filename": "U Can Stop.sm",
                 "youtubeVideos": [
                     {
-                        "id": "XXX",
+                        "id": "95kbymaMb9A",
                         "offset": 0,
                         "skips": []
                     }
@@ -1817,19 +1831,15 @@
                 "filename": "Unhappy Refrain.sm",
                 "youtubeVideos": [
                     {
-                        "id": "XXX",
+                        "id": "cviXlP3MdWs",
                         "offset": 0,
-                        "skips": []
-                    }
-                ]
-            },
-            {
-                "filename": "Vanilla Mate.sm",
-                "youtubeVideos": [
-                    {
-                        "id": "XXX",
-                        "offset": 0,
-                        "skips": []
+                        "skips": [
+                            {
+                                "from": 0,
+                                "to": 0.55,
+                                "skipped": false
+                            }
+                        ]
                     }
                 ]
             },
@@ -1837,9 +1847,15 @@
                 "filename": "Vertical Horizon.sm",
                 "youtubeVideos": [
                     {
-                        "id": "XXX",
+                        "id": "Xtlg3Lck5R4",
                         "offset": 0,
-                        "skips": []
+                        "skips": [
+                            {
+                                "from": 0,
+                                "to": 4.3,
+                                "skipped": false
+                            }
+                        ]
                     }
                 ]
             },
@@ -1847,19 +1863,15 @@
                 "filename": "We Are.sm",
                 "youtubeVideos": [
                     {
-                        "id": "XXX",
+                        "id": "CFM_zypYFHM",
                         "offset": 0,
-                        "skips": []
-                    }
-                ]
-            },
-            {
-                "filename": "Wonderful Stepcharts.sm",
-                "youtubeVideos": [
-                    {
-                        "id": "XXX",
-                        "offset": 0,
-                        "skips": []
+                        "skips": [
+                            {
+                                "from": 0,
+                                "to": 0.1,
+                                "skipped": false
+                            }
+                        ]
                     }
                 ]
             },
@@ -1867,9 +1879,26 @@
                 "filename": "World's End Dancehall.sm",
                 "youtubeVideos": [
                     {
-                        "id": "XXX",
+                        "id": "mXyv8ET3AJM",
                         "offset": 0,
-                        "skips": []
+                        "skips": [
+                            {
+                                "from": 0,
+                                "to": 3.8,
+                                "skipped": false
+                            }
+                        ]
+                    },
+                    {
+                        "id": "0y6J7kqc9_4",
+                        "offset": 0,
+                        "skips": [
+                            {
+                                "from": 0,
+                                "to": 3.6,
+                                "skipped": false
+                            }
+                        ]
                     }
                 ]
             },
@@ -1877,24 +1906,21 @@
                 "filename": "Yellow Steps.sm",
                 "youtubeVideos": [
                     {
-                        "id": "XXX",
+                        "id": "d3GFE05UrBA",
                         "offset": 0,
-                        "skips": []
-                    }
+                        "skips": [
+                          {
+                            "from": 0,
+                            "to": 7.75,
+                            "skipped": false
+                          }
+                        ]
+                      }
                 ]
             },
             {
                 "filename": "Yume to Tsuki.sm",
-                "youtubeVideos": [
-                    {
-                        "id": "XXX",
-                        "offset": 0,
-                        "skips": []
-                    }
-                ]
-            },
-            {
-                "filename": "Zen Zen Zense.sm",
+                "status": "Unavailable online",
                 "youtubeVideos": [
                     {
                         "id": "XXX",
