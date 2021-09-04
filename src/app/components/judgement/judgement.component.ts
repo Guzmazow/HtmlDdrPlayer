@@ -13,6 +13,14 @@ import { takeUntil } from 'rxjs/operators';
 })
 export class JudgementComponent implements OnInit, OnDestroy {
 
+  startTime: Date = new Date();
+
+  get timeElapsed() {
+    var dif = this.startTime.getTime() - new Date().getTime();
+    var Seconds_from_T1_to_T2 = dif / 1000;
+    return Math.abs(Seconds_from_T1_to_T2);    
+  }
+
   destroyed$ = new ReplaySubject<boolean>(1);
 
   Judgement = Judgement;
@@ -32,8 +40,12 @@ export class JudgementComponent implements OnInit, OnDestroy {
     this.missLimitTime = judgementService.errorLimit;
   }
 
-
   ngOnInit(): void {
+    this.displayService.onGamePlayStateChange.pipe(takeUntil(this.destroyed$)).subscribe(started => {
+      if(started){
+        this.startTime = new Date();
+      }
+    });
     this.displayService.onGameFinished.pipe(takeUntil(this.destroyed$)).subscribe(() => {
       if (this.displayService.gameRequest) {
         let folder = this.displayService.gameRequest.simfileFolder;

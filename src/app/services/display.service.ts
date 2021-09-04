@@ -25,7 +25,7 @@ export class DisplayService {
   gameRequest!: GameRequest;
   currentTime: number = 0;
   currentPlayerTime: number = 0;
-  skipedPlayeTimeUntilNow: number = 0;
+  skipedPlayTimeUntilNow: number = 0;
 
   lastframe: number = 0;
 
@@ -54,7 +54,7 @@ export class DisplayService {
       this.gameRequest = r;
       this.currentTime = 0;
       this.currentPlayerTime = 0;
-      this.skipedPlayeTimeUntilNow = 0;
+      this.skipedPlayTimeUntilNow = 0;
       this.displayOptions = new DisplayOptions(700, r.playableSimfileMode.tracks.length, 0.001);
       this.mediaService.prepareMedia(this.displayOptions.noteSize);
       this.mediaService.onMediaLoaded.subscribe(() => {
@@ -122,15 +122,15 @@ export class DisplayService {
           // if (this.currentPlayerTime < skip.to) {
           this.mediaService.video.seekTo(skip.to, true);
           this.mediaService.video.playVideo();
-          this.skipedPlayeTimeUntilNow += (skip.to - skip.from);
+          this.skipedPlayTimeUntilNow += (skip.to - skip.from);
           skip.skipped = true;
           Log.debug(`skipping: ${skip.from} to ${skip.to}`);
           // }
         }
       }
 
-      var newTime = Math.round((this.currentPlayerTime - this.skipedPlayeTimeUntilNow /*+ (this.gameRequest.parsedSimfile.offset ?? 0) simfile parsing applies this*/ + (this.gameRequest.youtubeVideo.offset ?? 0)) * 1000) / 1000;;
-      if (this.currentTime != newTime) {
+      var newTime = Math.round((this.currentPlayerTime - this.skipedPlayTimeUntilNow /*+ (this.gameRequest.parsedSimfile.offset ?? 0) simfile parsing applies this*/ + (this.gameRequest.youtubeVideo.offset ?? 0)) * 1000) / 1000;
+      if (this.currentTime != newTime && newTime > 0) {
         this.currentTime = newTime;
         this.onRedraw.next();
       }
