@@ -863,12 +863,7 @@
                     {
                         "id": "cOh3xriUotw",
                         "offset": 0,
-                        "skips": [
-                            {
-                                "from": 0,
-                                "to": null
-                            }
-                        ]
+                        "skips": []
                     }
                 ]
             },
@@ -3505,13 +3500,8 @@
                 "youtubeVideos": [
                     {
                         "id": "cXabZ_-QPb0",
-                        "offset": 0.9,
-                        "skips": [
-                            {
-                                "from": 0,
-                                "to": null
-                            }
-                        ]
+                        "offset": 0.94,
+                        "skips": []
                     }
                 ]
             },
