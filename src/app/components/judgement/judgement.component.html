@@ -1,63 +1,68 @@
-<div id="precision-level-container">
-    <!--Etterna blinks splitter of appropriate color in correct spot on every hit-->
-    <div class="precision-level-parent horizontal-reverse">
-        <div class="precision-level" [style.width.%]="lastPrecisionNegative ? lastPrecision*100/missLimitTime : 0">
+<div class="faded-background-container">
+    <div class="mx6 my2">
+        <mat-progress-bar mode="determinate" [value]="displayService.elapsedTimePercentage"></mat-progress-bar>
+    </div>
+    <div id="precision-level-container" class="mx6 my0">
+        <!--Etterna blinks splitter of appropriate color in correct spot on every hit-->
+        <div class="precision-level-parent horizontal-reverse">
+            <div class="precision-level" [style.width.%]="lastPrecisionNegative ? (lastPrecision * 100 / missLimitTime) : 0">
+            </div>
+        </div>
+        <div id="precision-level-splitter"></div>
+        <div class="precision-level-parent">
+            <div class="precision-level" [style.width.%]="lastPrecisionNegative ? 0 : (lastPrecision * 100 / missLimitTime)"></div>
         </div>
     </div>
-    <div id="precision-level-splitter"></div>
-    <div class="precision-level-parent">
-        <div class="precision-level" [style.width.%]="lastPrecisionNegative ? 0 :lastPrecision*100/missLimitTime"></div>
+    <div>
+        <img id="judgement-image" [src]="lastJudgementImageDataUrl" />
     </div>
 </div>
-<div>
-    <img id="judgement-image" [src]="lastJudgementImageDataUrl" />
-</div>
-<div>
+<div class="faded-background-container my2">
     <table id="judgement-count-table">
         <tr>
             <th>Judgement</th>
             <th>Count</th>
-            <th>Precision</th>
+            <!-- <th>Precision</th> -->
         </tr>
         <tr>
             <td>TOTAL</td>
             <td>{{judgementCounts.get(Judgement.ALL)}}</td>
-            <td>{{precisionSums.get(Judgement.ALL) | number: '1.3-3'}}</td>
+            <!-- <td>{{precisionSums.get(Judgement.ALL) | number: '1.3-3'}}</td> -->
         </tr>
         <tr>
             <td>MARVELOUS</td>
             <td>{{judgementCounts.get(Judgement.MARVELOUS)}}</td>
-            <td>{{precisionSums.get(Judgement.MARVELOUS) | number: '1.3-3'}}</td>
+            <!-- <td>{{precisionSums.get(Judgement.MARVELOUS) | number: '1.3-3'}}</td> -->
         </tr>
         <tr>
             <td>PERFECT</td>
             <td>{{judgementCounts.get(Judgement.PERFECT)}}</td>
-            <td>{{precisionSums.get(Judgement.PERFECT) | number: '1.3-3'}}</td>
+            <!-- <td>{{precisionSums.get(Judgement.PERFECT) | number: '1.3-3'}}</td> -->
         </tr>
         <tr>
             <td>GREAT</td>
             <td>{{judgementCounts.get(Judgement.GREAT)}}</td>
-            <td>{{precisionSums.get(Judgement.GREAT) | number: '1.3-3'}}</td>
+            <!-- <td>{{precisionSums.get(Judgement.GREAT) | number: '1.3-3'}}</td> -->
         </tr>
         <tr>
             <td>GOOD</td>
             <td>{{judgementCounts.get(Judgement.GOOD)}}</td>
-            <td>{{precisionSums.get(Judgement.GOOD) | number: '1.3-3'}}</td>
+            <!-- <td>{{precisionSums.get(Judgement.GOOD) | number: '1.3-3'}}</td> -->
         </tr>
         <tr>
             <td>BAD</td>
             <td>{{judgementCounts.get(Judgement.BAD)}}</td>
-            <td>{{precisionSums.get(Judgement.BAD) | number: '1.3-3'}}</td>
+            <!-- <td>{{precisionSums.get(Judgement.BAD) | number: '1.3-3'}}</td> -->
         </tr>
         <tr>
             <td>MISS</td>
             <td>{{judgementCounts.get(Judgement.MISS)}}</td>
-            <td>{{precisionSums.get(Judgement.MISS) | number: '1.3-3'}}</td>
+            <!-- <td>{{precisionSums.get(Judgement.MISS) | number: '1.3-3'}}</td> -->
         </tr>
         <tr>
             <td>MINE</td>
             <td>{{judgementCounts.get(Judgement.MINEHIT)}}</td>
-            <td>{{precisionSums.get(Judgement.MINEHIT) | number: '1.3-3'}}</td>
+            <!-- <td>{{precisionSums.get(Judgement.MINEHIT) | number: '1.3-3'}}</td> -->
         </tr>
     </table>
     <!-- <pre style="font-family: 'Courier New', monospace;">

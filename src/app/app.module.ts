@@ -21,6 +21,8 @@ import { MatTableModule } from '@angular/material/table';
 import { MatRippleModule } from '@angular/material/core';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
+
 
 import { DdrPlayerComponent } from '@components/ddr-player/ddr-player.component';
 import { NoteLaneComponent } from '@components/note-lane/note-lane.component';
@@ -68,6 +70,7 @@ import { SerialComponent } from './components/serial/serial.component';
     MatTabsModule,
     MatInputModule,
     MatSnackBarModule,
+    MatProgressBarModule,
     ReactiveFormsModule
   ],
   providers: [KeyboardService],

@@ -46,6 +46,7 @@ export class JudgementComponent implements OnInit, OnDestroy {
         this.startTime = new Date();
       }
     });
+
     this.displayService.onGameFinished.pipe(takeUntil(this.destroyed$)).subscribe(() => {
       if (this.displayService.gameRequest) {
         let folder = this.displayService.gameRequest.simfileFolder;

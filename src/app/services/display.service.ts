@@ -17,13 +17,14 @@ export class DisplayService {
 
   onRedraw = new Subject();
   onSetup = new Subject();
-  
+
   onGamePlayStateChange = new BehaviorSubject(false);
   onGameFinished = new Subject();
 
   displayOptions: DisplayOptions = new DisplayOptions(0, 0, 0);
   gameRequest!: GameRequest;
   currentTime: number = 0;
+  elapsedTimePercentage: number = 0;
   currentPlayerTime: number = 0;
   skipedPlayTimeUntilNow: number = 0;
 
@@ -76,7 +77,7 @@ export class DisplayService {
     }
   }
 
-  end(){
+  end() {
     // if (document.fullscreenElement && document.exitFullscreen) {
     //   document.exitFullscreen();
     // }
@@ -84,7 +85,7 @@ export class DisplayService {
     cancelAnimationFrame(this.lastframe);
     this.onGameFinished.next();
     this.onGamePlayStateChange.next(false);
-    this.router.navigate(['/']);  
+    this.router.navigate(['/']);
   }
 
   play() {
@@ -98,6 +99,9 @@ export class DisplayService {
 
   tick() {
     if (this.gameRequest?.parsedSimfile) {
+      if (this.mediaService.video.getDuration() > 0) {
+        this.elapsedTimePercentage = this.mediaService.video.getCurrentTime() / this.mediaService.video.getDuration() * 100;
+      }
       if (this.mediaService.video.getDuration() <= this.mediaService.video.getCurrentTime() + 2) {
         setTimeout(() => {
           this.end();

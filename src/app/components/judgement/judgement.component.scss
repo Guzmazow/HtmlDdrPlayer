@@ -2,10 +2,14 @@
     position: absolute;
     left: 0px;
     top: 10%;
-    padding: 10px;
     margin: 10px;
+}
+
+.faded-background-container {
     background-color: rgba(20, 20, 20, 0.80);
     border-radius: 10px;
+    padding: 10px;
+    width: fit-content;
 }
 
 #judgement-image {
@@ -29,7 +33,6 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    margin: 0px 50px;
     padding: 0px 1%;
 
     & > .precision-level-parent {
@@ -44,7 +47,7 @@
 
         & > .precision-level {
             background-color: #424242;
-            height: 70%;
+            height: 69%;
             width: 10%;
         }
     }
