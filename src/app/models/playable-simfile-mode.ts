@@ -66,8 +66,9 @@ export class PlayableSimfileMode {
             let measure = measures[i];
             let beatsPerMeasure = measure.length;
             let threeNoteRepeatCycle = beatsPerMeasure % 3 == 0;
-            let beatCycle = threeNoteRepeatCycle ? 3 : 4;
-            let beatStepFraction = beatCycle / beatsPerMeasure; // 1, 0.5, 0.25, 0.125, 0.0625 | 0.25, 0.125, 0.0625
+            //beatCycle is either 4*(4*X) or 3*(4*X)
+            let beatCycle = 4//threeNoteRepeatCycle ? 3 : 4;
+            let beatStepFraction = beatCycle / beatsPerMeasure; // 1, 0.5, 0.25, 0.125, 0.0625 | 0.33333, 0.16666, 0.083333
             let beatStep = beatsPerMeasure / beatCycle; // 1, 2, 4, 8, 16, 32 | 4, 8, 16
             //let beatCycleStep = (beatStep-1) * beatCycle; // 4, 8, 16, 32, 64, 128 | 12, 24, 48
             let quantizationCount = Math.round(Math.log2(beatsPerMeasure)) - 1;// 1, 2, 3, 4, 5, 6 | 3, 4, 5 (round compensates the threeNoteRepeatCycle)
