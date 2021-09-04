@@ -50,6 +50,7 @@ export class DisplayService {
     private router: Router
   ) {
     this.keyboardService.onLongPress.subscribe(key => this.endGameIfEndKey(key))
+    this.keyboardService.onPress.subscribe(e => e.state && this.pauseIfTestKey(e.key))
     this.simfileLoaderService.gameRequested.subscribe(r => {
       if (!r) return;
       this.gameRequest = r;
@@ -63,12 +64,15 @@ export class DisplayService {
       });
     })
   }
-
-  index = 0
-
-
-
-
+  pauseIfTestKey(key: Key): void {
+    if (key == Key.TEST) {
+      if (this.mediaService.video.getPlayerState() == YT.PlayerState.PAUSED) {
+        this.mediaService.video.playVideo();
+      } else {
+        this.mediaService.video.pauseVideo();
+      }
+    }
+  }
 
   endGameIfEndKey(key: Key): void {
     Log.debug(`long pressed ${key}`);

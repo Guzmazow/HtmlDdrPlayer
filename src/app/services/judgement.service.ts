@@ -145,8 +145,18 @@ export class JudgementService {
           let hit = hittable[0];
           let timeDifference = hit.time - this.displayService.currentTime;
           let timeModule = Math.abs(timeDifference);
-          let precisionKey = Array.from(this.judgePrecision.keys()).reduce((a, b) => Math.abs(a - timeModule) < Math.abs(b - timeModule) ? a : b)
+          let judgePrecisionKeys = Array.from(this.judgePrecision.keys());
+          let precisionKey = judgePrecisionKeys[judgePrecisionKeys.slice(1).findIndex(x => x > timeModule)]
           let judgement = this.judgePrecision.get(precisionKey) ?? Judgement.NONE;
+          
+          // console.log("hit",{
+          //   noteTime: hit.time,
+          //   currentTime: this.displayService.currentTime,
+          //   timeDifference: timeDifference,
+          //   timeModule: timeModule,
+          //   precisionKey: precisionKey
+          // })
+          
           if (hit.type == NoteType.ROLL_HEAD || hit.type == NoteType.HOLD_HEAD) {
             hit.startedJudging = true;
           } else {

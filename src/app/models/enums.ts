@@ -48,6 +48,7 @@ export enum NoteType {
 
 
 export enum Key {
+    TEST = -2,
     NONE = -1, //has to correspond to Direction
     LEFT = 0, //has to correspond to Direction
     DOWN = 1, //has to correspond to Direction

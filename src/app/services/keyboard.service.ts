@@ -26,6 +26,7 @@ export class KeyboardService {
     ["Space", Key.START],
     ["Enter", Key.SELECT],
     ["Escape", Key.CANCEL],
+    ["KeyT", Key.TEST]
   ]);
 
   //setTimeout handles
