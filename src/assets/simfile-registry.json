@@ -2168,43 +2168,19 @@
             },
             {
                 "filename": "Automagic.sm",
-                "status": "Not worth cutting",
                 "youtubeVideos": [
                     {
-                        "id": "PBamMMeXdMk",
-                        "skips": [
-                            {
-                                "from": 0,
-                                "to": 0.58
-                            },
-                            {
-                                "from": 16.8,
-                                "to": 24.52
-                            },
-                            {
-                                "from": 32.4,
-                                "to": 47.85
-                            },
-                            {
-                                "from": 70.2,
-                                "to": 85.4
-                            }
-                        ]
+                        "id": "4OqH6azVqn4",
+                        "skips": []
                     }
                 ]
             },
             {
                 "filename": "Bitch Clap.sm",
-                "status": "Not worth cutting",
                 "youtubeVideos": [
                     {
-                        "id": "YH3wBtVAND0",
-                        "skips": [
-                            {
-                                "from": 0,
-                                "to": 0.4
-                            }
-                        ]
+                        "id": "Bz7rppcU4WA",
+                        "skips": []
                     }
                 ]
             },
@@ -2212,100 +2188,79 @@
                 "filename": "Call Me Maybe (Remix).sm",
                 "youtubeVideos": [
                     {
-                        "id": "95i7ZT5YpAw",
-                        "skips": [
-                            {
-                                "from": 0,
-                                "to": 0.04
-                            },
-                            {
-                                "from": 101,
-                                "to": 170.75
-                            },
-                            {
-                                "from": 201.4,
-                                "to": 216.9
-                            }
-                        ]
+                        "id": "LXNrEHqpqnU",
+                        "skips": []
                     }
                 ]
             },
             {
                 "filename": "Crazy.sm",
-                "status": "Not worth cutting",
                 "youtubeVideos": [
                     {
-                        "id": "shyCLiVJXWM",
+                        "id": "6RyhaUzlVcU",
                         "skips": []
                     }
                 ]
             },
             {
                 "filename": "Deal With It.sm",
-                "status": "Not worth cutting",
                 "youtubeVideos": [
                     {
-                        "id": "XXX",
+                        "id": "q9miPLjxvUQ",
                         "skips": []
                     }
                 ]
             },
             {
                 "filename": "Girls.sm",
-                "status": "Not worth cutting",
                 "youtubeVideos": [
                     {
-                        "id": "XXX",
+                        "id": "0OWkw0v1XDg",
                         "skips": []
                     }
                 ]
             },
             {
                 "filename": "Goodbye (2012 Mix).sm",
-                "status": "Not worth cutting",
                 "youtubeVideos": [
                     {
-                        "id": "XXX",
+                        "id": "yQdVCOv5SP0",
                         "skips": []
                     }
                 ]
             },
             {
                 "filename": "Lightspeed (Remix).sm",
-                "status": "Not worth cutting",
                 "youtubeVideos": [
                     {
-                        "id": "XXX",
+                        "id": "0gqObxNggpg",
                         "skips": []
                     }
                 ]
             },
             {
                 "filename": "Pain Game.sm",
-                "status": "Not worth cutting",
                 "youtubeVideos": [
                     {
-                        "id": "XXX",
+                        "id": "5jJh8qx4iHI",
                         "skips": []
                     }
                 ]
             },
             {
                 "filename": "Peacock.sm",
-                "status": "Not worth cutting",
                 "youtubeVideos": [
                     {
-                        "id": "XXX",
+                        "id": "B1D77iLqK0I",
                         "skips": []
                     }
                 ]
             },
             {
                 "filename": "Trap.sm",
-                "status": "Not worth cutting",
                 "youtubeVideos": [
                     {
-                        "id": "XXX",
+                        "id": "VQDZA-h2N9Y",
                         "skips": []
                     }
                 ]
@@ -3399,29 +3354,18 @@
         "simfiles": [
             {
                 "filename": "Bambous.sm",
-                "status": "Not worth cutting",
                 "youtubeVideos": [
                     {
-                        "id": "vtTiY6c6cqg",
-                        "skips": [
-                            {
-                                "from": 0,
-                                "to": 7.828
-                            },
-                            {
-                                "from": 60,
-                                "to": 89.78
-                            }
-                        ]
+                        "id": "utXGM_aosXI",
+                        "skips": []
                     }
                 ]
             },
             {
                 "filename": "D.A.N.C.E..sm",
-                "status": "Not worth cutting",
                 "youtubeVideos": [
                     {
-                        "id": "XXX",
+                        "id": "VQpXH7c2nQE",
                         "skips": []
                     }
                 ]
@@ -3469,10 +3413,9 @@
             },
             {
                 "filename": "Dustup.sm",
-                "status": "Not worth cutting",
                 "youtubeVideos": [
                     {
-                        "id": "XXX",
+                        "id": "n_p3WWGz4Jo",
                         "skips": []
                     }
                 ]
@@ -3544,10 +3487,9 @@
             },
             {
                 "filename": "Movin' Too Fast.sm",
-                "status": "Not worth cutting",
                 "youtubeVideos": [
                     {
-                        "id": "XXX",
+                        "id": "9Xaz6JOLy_4",
                         "skips": []
                     }
                 ]
@@ -3738,6 +3680,7 @@
             },
             {
                 "filename": "Sneakman.sm",
+                "status": "recut needed",
                 "youtubeVideos": [
                     {
                         "id": "SL_jZSRZ_Bo",
@@ -3906,6 +3849,7 @@
             },
             {
                 "filename": "Death by Robot.sm",
+                "status": "recut needed",
                 "youtubeVideos": [
                     {
                         "id": "eAjiFcAnkp8",
