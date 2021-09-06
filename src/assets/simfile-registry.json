@@ -1961,20 +1961,18 @@
             },
             {
                 "filename": "DANCE (MSTRKRFT Remix).sm",
-                "status": "Not worth cutting",
                 "youtubeVideos": [
                     {
-                        "id": "XXX",
+                        "id": "0B-gC3O5kLA",
                         "skips": []
                     }
                 ]
             },
             {
                 "filename": "Different World.sm",
-                "status": "Unavailable online",
                 "youtubeVideos": [
                     {
-                        "id": "XXX",
+                        "id": "1fpPTmAOdlA",
                         "skips": []
                     }
                 ]
@@ -3637,10 +3635,9 @@
             },
             {
                 "filename": "Here to Stay.sm",
-                "status": "Not worth cutting",
                 "youtubeVideos": [
                     {
-                        "id": "v0vJFQxlmOU",
+                        "id": "zqxcmjO9iP4",
                         "skips": []
                     }
                 ]
@@ -3661,10 +3658,9 @@
             },
             {
                 "filename": "Martyr.sm",
-                "status": "Not worth cutting",
                 "youtubeVideos": [
                     {
-                        "id": "G1x3wmbsZDU",
+                        "id": "ETTPLtbCUa4",
                         "skips": []
                     }
                 ]
@@ -3680,60 +3676,19 @@
             },
             {
                 "filename": "Sneakman.sm",
-                "status": "recut needed",
                 "youtubeVideos": [
                     {
-                        "id": "SL_jZSRZ_Bo",
-                        "offset": 0.2,
-                        "skips": [
-                            {
-                                "from": 14.65,
-                                "to": 27
-                            },
-                            {
-                                "from": 60.8,
-                                "to": 73.2
-                            },
-                            {
-                                "from": 110,
-                                "to": 122.4
-                            },
-                            {
-                                "from": 140.2,
-                                "to": 152.6
-                            },
-                            {
-                                "from": 165,
-                                "to": 205.3
-                            }
-                        ]
+                        "id": "mZxGDKpXUpc",
+                        "skips": []
                     }
                 ]
             },
             {
                 "filename": "Synthesizers.sm",
-                "status": "Not worth cutting",
                 "youtubeVideos": [
                     {
-                        "id": "W43NIe79vZM",
-                        "skips": [
-                            {
-                                "from": 0,
-                                "to": 0.53
-                            },
-                            {
-                                "from": 4.5,
-                                "to": 12.35
-                            },
-                            {
-                                "from": 31.6,
-                                "to": 47.55
-                            },
-                            {
-                                "from": 95,
-                                "to": 96.15
-                            }
-                        ]
+                        "id": "BuWcGJ6BQH4",
+                        "skips": []
                     }
                 ]
             }
