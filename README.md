@@ -7,10 +7,10 @@
 - Use arrow keys. Or connect using serial port and receive byte flag
 - Connect using serial port (button right the corner of the website navigation bar) and continuously receive integer value that indicates pressed keys.
   - 16 bit array (Uint8array) aka usinged int
-    | index | 15 |  14  |  13  |   12  |   11  |   10   |  9  |  8  |  7  |  6  |   5  |   4  |   3  |   2  |   1   |   0   |
-    |:-----:|:--:|:----:|:----:|:-----:|:-----:|:------:|:---:|:---:|:---:|:---:|:----:|:----:|:----:|:----:|:-----:|:-----:|
-    |  key  | UP | DOWN | LEFT | RIGHT | START | SELECT | N/A | N/A | N/A | N/A |  N/A |  N/A |  N/A |  N/A |  N/A  |  N/A  |
-    | value |  1 |   2  |   4  |   8   |   16  |   32   |  64 | 128 | 256 | 512 | 1024 | 2048 | 4096 | 8192 | 16384 | 32768 |
+    | index | 15 |  14  |  13  |   12  |   11  |   10   |    9 .. 0    |
+    |:-----:|:--:|:----:|:----:|:-----:|:-----:|:------:|:------------:|
+    |  key  | UP | DOWN | LEFT | RIGHT | START | SELECT |      N/A     |
+    | value |  1 |   2  |   4  |   8   |   16  |   32   |  64 .. 32768 |
 ### Things TODO moved to an issue
 
 ### Goals of this project
