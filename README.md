@@ -4,9 +4,9 @@
 
 ### DEMO: https://guzmazow.github.io/
 #### How to play?:
-- Use arrow keys. Or connect using serial port and receive byte flag
-- Connect using serial port (button right the corner of the website navigation bar) and continuously receive integer value that indicates pressed keys.
-  - 16 bit array (Uint8array) aka usinged int
+- Use arrow keys
+- Connect using serial port (button right the corner of the website navigation bar) and continuously receive integer value that indicates pressed keys
+  - 16 bit array (Uint8array) aka usinged int:
     | index | 15 |  14  |  13  |   12  |   11  |   10   |    9 .. 0    |
     |:-----:|:--:|:----:|:----:|:-----:|:-----:|:------:|:------------:|
     |  key  | UP | DOWN | LEFT | RIGHT | START | SELECT |      N/A     |
