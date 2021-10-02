@@ -18,5 +18,6 @@
     - Serverless
     - Fast loading
     - Media (songs, videos) stored on 3rd party servers
+      - keeping media on youtube servers seams a lot more legal
     - Play the standard simfile (.SM) format to leverage existing song base
 
