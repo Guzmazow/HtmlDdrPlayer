@@ -1,6 +1,6 @@
 <div class="faded-background-container">
     <div class="mx6 my2">
-        <mat-progress-bar mode="determinate" [value]="displayService.elapsedTimePercentage"></mat-progress-bar>
+        <mat-progress-bar mode="determinate" [value]="displayService.onCurrentTimePercentageChange.value"></mat-progress-bar>
     </div>
     <div id="precision-level-container" class="mx6 my0">
         <!--Etterna blinks splitter of appropriate color in correct spot on every hit-->

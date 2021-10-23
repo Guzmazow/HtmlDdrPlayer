@@ -3,7 +3,7 @@ import { Judgement, Direction, AllJudgements, Difficulty } from '@models/enums';
 import { DisplayService } from '@services/display.service';
 import { JudgementService } from '@services/judgement.service';
 import { MediaService } from '@services/media.service';
-import { ReplaySubject } from 'rxjs';
+import { BehaviorSubject, ReplaySubject, Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 
 @Component({
@@ -21,7 +21,7 @@ export class JudgementComponent implements OnInit, OnDestroy {
     return Math.abs(Seconds_from_T1_to_T2);    
   }
 
-  destroyed$ = new ReplaySubject<boolean>(1);
+  destroyed$ = new Subject<void>();
 
   Judgement = Judgement;
 
@@ -36,7 +36,11 @@ export class JudgementComponent implements OnInit, OnDestroy {
   mediaLoaded: boolean = false;
 
 
-  constructor(private mediaService: MediaService, private judgementService: JudgementService, public displayService: DisplayService) {
+  constructor(
+    private mediaService: MediaService, 
+    private judgementService: JudgementService, 
+    public displayService: DisplayService
+  ) {
     this.missLimitTime = judgementService.errorLimit;
   }
 
@@ -47,11 +51,11 @@ export class JudgementComponent implements OnInit, OnDestroy {
       }
     });
 
-    this.displayService.onGameFinished.pipe(takeUntil(this.destroyed$)).subscribe(() => {
-      if (this.displayService.gameRequest) {
-        let folder = this.displayService.gameRequest.simfileFolder;
-        let file = this.displayService.gameRequest.parsedSimfile;
-        let mode = this.displayService.gameRequest.parsedSimfileMode;
+    this.displayService.onGamePlayStateChange.pipe(takeUntil(this.destroyed$)).subscribe((state) => {
+      if (!state && this.displayService.requestedGame) {
+        let folder = this.displayService.requestedGame.simfileFolder;
+        let file = this.displayService.requestedGame.parsedSimfile;
+        let mode = this.displayService.requestedGame.parsedSimfileMode;
         let scores: { [folderName: string]: { [filename: string]: { [mode: string]: number[] } } } = JSON.parse(localStorage.getItem('ScorePercentage') || '{}');
         if (!scores[folder.location]) {
           scores[folder.location] = {};
@@ -108,7 +112,7 @@ export class JudgementComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.destroyed$.next(true);
+    this.destroyed$.next();
     this.destroyed$.complete();
   }
 

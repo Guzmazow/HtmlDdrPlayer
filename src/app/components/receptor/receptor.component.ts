@@ -4,7 +4,7 @@ import { DisplayService } from '@services/display.service';
 import { JudgementService } from '@services/judgement.service';
 import { KeyboardService } from '@services/keyboard.service';
 import { MediaService } from '@services/media.service';
-import { ReplaySubject } from 'rxjs';
+import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 
 @Component({
@@ -14,7 +14,7 @@ import { takeUntil } from 'rxjs/operators';
 })
 export class ReceptorComponent implements OnInit {
 
-  destroyed$ = new ReplaySubject<boolean>(1);
+  destroyed$ = new Subject<void>();
 
   @ViewChild("receptorCanvas", { static: true }) canvasEl?: ElementRef;
   canvas!: HTMLCanvasElement;
@@ -42,7 +42,7 @@ export class ReceptorComponent implements OnInit {
     private keyboardService: KeyboardService,
     private mediaService: MediaService,
     private displayService: DisplayService,
-    private judgementService: JudgementService,
+    private judgementService: JudgementService
   ) { }
 
 
@@ -58,11 +58,12 @@ export class ReceptorComponent implements OnInit {
     //   this.canvas.width = this.displayService.displayOptions.noteLaneWidth;
     // });
 
+
     this.displayService.onGamePlayStateChange.pipe(takeUntil(this.destroyed$)).subscribe(playing => {
       if (!playing) return;
 
       this.mediaService.onMediaLoaded.pipe(takeUntil(this.destroyed$)).subscribe(x => this.mediaLoaded = x);
-      this.displayService.onRedraw.pipe(takeUntil(this.destroyed$)).subscribe(this.drawReceptors.bind(this));
+      this.displayService.onCurrentTimeSecondsChange.pipe(takeUntil(this.destroyed$)).subscribe(this.drawReceptors.bind(this));
 
       this.keyboardService.onPress.pipe(takeUntil(this.destroyed$)).subscribe(press => {
         this.receptorFlashVisibilityState.set(press.key, press.state);
@@ -84,7 +85,7 @@ export class ReceptorComponent implements OnInit {
   }
 
   ngOnDestroy(): void {
-    this.destroyed$.next(true);
+    this.destroyed$.next();
     this.destroyed$.complete();
   }
 

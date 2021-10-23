@@ -117,23 +117,8 @@ export class ParsedSimfile implements SimfileRegistryEntry {
         return 0;
     });
     this.modes.forEach(mode => {
-      let playable = new PlayableSimfileMode(this, mode);
-      let allNotes = playable.tracks.reduce((prev, curr) => prev.concat(curr), []);
-      let rollCount = 0;
-      let holdCount = 0;
-      let noteCount = 0;
-      for (let note of allNotes) {
-        switch (note.type) {
-          case NoteType.ROLL_HEAD: rollCount++; break;
-          case NoteType.HOLD_HEAD: holdCount++; break;
-          case NoteType.NORMAL: noteCount++; break;
-        }
-      }
-
-      let totalTime = allNotes[allNotes.length-1].time;
-      let NPS = (allNotes.length / totalTime);
-      
-      mode.stats = `N:${noteCount} R:${rollCount} H:${holdCount}\nT:${totalTime.toFixed(2)} NPS: ${NPS.toFixed(2)}`
+      let playable = new PlayableSimfileMode(this, mode);      
+      mode.stats = `N:${playable.noteCount} R:${playable.rollCount} H:${playable.holdCount}\nT:${playable.totalTime.toFixed(2)} NPS: ${playable.NPS.toFixed(2)}`
     })
     this.loaded = true;
   }

@@ -6,7 +6,7 @@
 			"script": "start",
 			"problemMatcher": [],
 			"label": "npm: ng serve",
-			"detail": "ng serve",
+			"detail": "ng serve -c development",
 			"group": {
 				"kind": "build",
 				"isDefault": true

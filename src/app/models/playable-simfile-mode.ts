@@ -10,18 +10,37 @@ export class PlayableSimfileMode {
     bpms: { beat: number; bpm: number }[] = [];
     stops: { stopDuration: number; beat: number }[] = [];
     tracks: Note[][] = [];
+    allNotes: Note[] = [];
+    
+    totalTime: number = 0;
+    NPS: number = 0;
+    rollCount: number = 0;
+    holdCount: number = 0;
+    noteCount: number = 0;
 
     constructor(simfile: ParsedSimfile, simfileMode: ParsedSimfileMode) {
         this.simfile = simfile;
         this.simfileMode = simfileMode;
 
+        //PARSING
         let measures = this.getMeasures(simfileMode.notes.split("\n"));
         let beatsAndLines = this.getBeatInfoByLine(measures);
         //let cleanedBeatsAndLines = this.removeBlankLines(beatsAndLines);
-
         this.bpms = this.parseBPMS(simfile.bpms);
         this.stops = this.parseStops(simfile.stops);
         this.tracks = this.getTracksFromLines(this.getTimeInfoByLine(beatsAndLines, simfile.offset, this.bpms, this.stops));
+
+        //STATS
+        this.allNotes = this.tracks.reduce((prev, curr) => prev.concat(curr), []).sort((a, b) => a.time - b.time);
+        this.totalTime = this.allNotes[this.allNotes.length - 1].time;
+        this.NPS = (this.allNotes.length / this.totalTime);
+        for (let note of this.allNotes) {
+            switch (note.type) {
+                case NoteType.ROLL_HEAD: this.rollCount++; break;
+                case NoteType.HOLD_HEAD: this.holdCount++; break;
+                case NoteType.NORMAL: this.noteCount++; break;
+            }
+        }
     }
 
     getMeasures(unparsedArray: string[]) {

@@ -13,7 +13,7 @@ import { MatDrawerContainer } from '@angular/material/sidenav';
 import { SimfileRegistryYoutubeInfo } from '@models/simfile-registry-youtube-info';
 import { SimfileRegistryFolder } from '@models/simfile-registry-folder';
 import { takeUntil } from 'rxjs/operators';
-import { ReplaySubject } from 'rxjs';
+import { Subject } from 'rxjs';
 import { Log } from '@services/log.service';
 import { MatDialog } from '@angular/material/dialog';
 
@@ -24,7 +24,7 @@ import { MatDialog } from '@angular/material/dialog';
 })
 export class SimfileSelectorComponent implements OnInit, OnDestroy {
 
-  destroyed$ = new ReplaySubject<boolean>(1);
+  destroyed$ = new Subject<void>();
 
   GameMode = GameMode;
   GameModeType = GameModeType;
@@ -163,7 +163,7 @@ export class SimfileSelectorComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.destroyed$.next(true);
+    this.destroyed$.next();
     this.destroyed$.complete();
   }
 

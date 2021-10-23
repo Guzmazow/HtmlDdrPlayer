@@ -4,7 +4,9 @@ import { NoteQuantization, NoteType } from '@models/enums';
 import { DisplayService } from '@services/display.service';
 import { MediaService } from '@services/media.service';
 import { takeUntil } from 'rxjs/operators';
-import { ReplaySubject } from 'rxjs';
+import { Subject } from 'rxjs';
+import { SimfileLoaderService } from '@services/simfile-loader.service';
+import { GameRequest } from '@models/game-request';
 
 @Component({
   selector: 'app-note-lane',
@@ -13,7 +15,7 @@ import { ReplaySubject } from 'rxjs';
 })
 export class NoteLaneComponent implements OnInit, OnDestroy {
 
-  destroyed$ = new ReplaySubject<boolean>(1);
+  destroyed$ = new Subject<void>();
 
   @ViewChild("noteLaneCanvas", { static: true }) canvasEl?: ElementRef;
   canvas!: HTMLCanvasElement;
@@ -33,17 +35,19 @@ export class NoteLaneComponent implements OnInit, OnDestroy {
     //   this.canvas.width = this.displayService.displayOptions.noteLaneWidth;
     // });
     this.mediaService.onMediaLoaded.pipe(takeUntil(this.destroyed$)).subscribe(x => this.mediaLoaded = x);
-    this.displayService.onRedraw.pipe(takeUntil(this.destroyed$)).subscribe(this.draw.bind(this));
+    this.displayService.onCurrentTimeSecondsChange.pipe(takeUntil(this.destroyed$)).subscribe(this.draw.bind(this));
     // this.displayService.onStart.subscribe(this.init.bind(this));
   }
 
   ngOnDestroy(): void {
-    this.destroyed$.next(true);
+    this.destroyed$.next();
     this.destroyed$.complete();
   }
 
   // init() {
   // }
+
+
 
   draw() {
     if (!this.mediaLoaded) return;
@@ -52,16 +56,17 @@ export class NoteLaneComponent implements OnInit, OnDestroy {
   }
 
   drawNotesAndConnectors() {
-    let leastTime = this.displayService.currentTime;
+    let leastTime = this.displayService.onCurrentTimeSecondsChange.value;
     let greatestTime = leastTime + this.canvas.height * this.displayService.displayOptions.secondsPerPixel;
     //this.drawAllConnectors(leastTime, greatestTime);
     this.drawAllNotes(leastTime, greatestTime);
   }
 
   drawAllNotes(leastTime: number, greatestTime: number) {
-    for (let i = 0; i < this.displayService.gameRequest.playableSimfileMode.tracks.length; i++) {
-      this.drawNotesInTrack(leastTime, greatestTime, this.displayService.gameRequest.playableSimfileMode.tracks[i], i,
-        this.displayService.gameRequest.playableSimfileMode.tracks.length);
+    if(!this.displayService.requestedGame) return;
+    for (let i = 0; i < this.displayService.requestedGame.playableSimfileMode.tracks.length; i++) {
+      this.drawNotesInTrack(leastTime, greatestTime, this.displayService.requestedGame.playableSimfileMode.tracks[i], i,
+        this.displayService.requestedGame.playableSimfileMode.tracks.length);
     }
   }
 
@@ -100,8 +105,8 @@ export class NoteLaneComponent implements OnInit, OnDestroy {
         // this.ctx.fillStyle = "white";
         // this.ctx.fillText("H", x + halfNoteSize, y + ninthNoteSize, noteSize);
 
-        if (note.startedJudging && note.time < this.displayService.currentTime) {
-          y = this.displayService.getNoteY(this.displayService.currentTime);
+        if (note.startedJudging && note.time < this.displayService.onCurrentTimeSecondsChange.value) {
+          y = this.displayService.getNoteY(this.displayService.onCurrentTimeSecondsChange.value);
         }
         
         if (y2 > y + halfNoteSize) {
@@ -132,12 +137,12 @@ export class NoteLaneComponent implements OnInit, OnDestroy {
         // this.ctx.fillStyle = "white";
         // this.ctx.fillText("R", x + halfNoteSize, y + ninthNoteSize, noteSize);
 
-        if (note.startedJudging && note.time < this.displayService.currentTime) {
-          y = this.displayService.getNoteY(this.displayService.currentTime);
+        if (note.startedJudging && note.time < this.displayService.onCurrentTimeSecondsChange.value) {
+          y = this.displayService.getNoteY(this.displayService.onCurrentTimeSecondsChange.value);
         }
         
         if (y2 > y + halfNoteSize) {
-          let isRollActive = note.stateChangeTime + 0.1 < this.displayService.currentTime;
+          let isRollActive = note.stateChangeTime + 0.1 < this.displayService.onCurrentTimeSecondsChange.value;
           let rollPattern = this.ctx.createPattern(isRollActive ? this.mediaService.rollBodyActiveImageCache! : this.mediaService.rollBodyInactiveImageCache!, 'repeat-y')!;
           this.ctx.beginPath();
           this.ctx.fillStyle = rollPattern

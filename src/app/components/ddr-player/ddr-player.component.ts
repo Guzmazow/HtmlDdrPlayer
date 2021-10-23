@@ -4,7 +4,7 @@ import { MediaService } from '@services/media.service';
 import { NgxY2PlayerComponent, NgxY2PlayerOptions } from 'ngx-y2-player';
 import { SimfileLoaderService } from '@services/simfile-loader.service';
 import { takeUntil } from 'rxjs/operators';
-import { ReplaySubject } from 'rxjs';
+import { Subject } from 'rxjs';
 
 @Component({
   selector: 'app-ddr-player',
@@ -13,11 +13,10 @@ import { ReplaySubject } from 'rxjs';
 })
 export class DdrPlayerComponent implements OnInit, OnDestroy {
 
-  destroyed$ = new ReplaySubject<boolean>(1);
+  destroyed$ = new Subject<void>();
 
   screenWidth: number = screen.width;
   screenHeight: number = screen.height;
-  startedPlaying: boolean = false;
 
   videoId: string = "";
 
@@ -55,9 +54,7 @@ export class DdrPlayerComponent implements OnInit, OnDestroy {
   onVideoReady(event: YT.PlayerEvent) {
     if(!this.video) return;
     this.mediaService.setPlayer(event.target);
-    this.displayService.play();
     this.video.videoPlayer.playVideo();
-    this.startedPlaying = true;
   }
 
   constructor(
@@ -71,7 +68,7 @@ export class DdrPlayerComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.destroyed$.next(true);
+    this.destroyed$.next();
     this.destroyed$.complete();
   }
 

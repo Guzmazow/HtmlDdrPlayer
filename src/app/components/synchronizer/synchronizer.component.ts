@@ -7,7 +7,7 @@ import { SimfileRegistryYoutubeInfo } from '@models/simfile-registry-youtube-inf
 import { Log } from '@services/log.service';
 import { SimfileLoaderService } from '@services/simfile-loader.service';
 import { NgxY2PlayerComponent, NgxY2PlayerOptions } from 'ngx-y2-player';
-import { ReplaySubject } from 'rxjs';
+import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 
 @Component({
@@ -17,7 +17,7 @@ import { takeUntil } from 'rxjs/operators';
 })
 export class SynchronizerComponent implements OnInit, OnDestroy {
 
-  destroyed$ = new ReplaySubject<boolean>(1);
+  destroyed$ = new Subject<void>();
 
   youtubeVideoForm?: FormGroup;
   get youtubeVideoFormSkips(): FormArray {
@@ -88,7 +88,7 @@ export class SynchronizerComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.destroyed$.next(true);
+    this.destroyed$.next();
     this.destroyed$.complete();
     cancelAnimationFrame(this.lastFrame);
   }

@@ -1,8 +1,8 @@
 <!-- <button mat-raised-button (click)="play()">Play</button> -->
-<div id="note-lane-container" [hidden]="!startedPlaying" [style.height.px]="screenHeight"
+<div id="note-lane-container" [style.height.px]="screenHeight"
     [style.width.px]="screenWidth">
-    <ngx-y2-player *ngIf="videoId" #video [videoId]="videoId || ''" [playerOptions]="playerOptions" (ready)="onVideoReady($event)">
-    </ngx-y2-player>
+    <!-- <ngx-y2-player *ngIf="videoId" #video [videoId]="videoId || ''" [playerOptions]="playerOptions" (ready)="onVideoReady($event)">
+    </ngx-y2-player> -->
 
     <app-judgement></app-judgement>
     <app-receptor></app-receptor>

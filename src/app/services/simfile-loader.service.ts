@@ -13,7 +13,7 @@ import { map } from 'rxjs/operators';
 export class SimfileLoaderService {
   simfileRegistryFolders?: Map<string, SimfileRegistryFolder>;
   parsedSimfilesLoaded = new BehaviorSubject(false);
-  gameRequested = new BehaviorSubject<GameRequest | undefined>(undefined);
+  gameRequested = new BehaviorSubject<GameRequest | null>(null);
 
   constructor(private http: HttpClient, private router: Router) {
     this.http.get<SimfileRegistryFolder[]>("/assets/simfile-registry.json", { responseType: "json" }).subscribe(registry => {
