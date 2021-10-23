@@ -15,11 +15,11 @@ import { Log } from './log.service';
 })
 export class DisplayService {
 
-  onRedraw = new Subject();
-  onSetup = new Subject();
+  onRedraw = new Subject<void>();
+  onSetup = new Subject<void>();
 
   onGamePlayStateChange = new BehaviorSubject(false);
-  onGameFinished = new Subject();
+  onGameFinished = new Subject<void>();
 
   displayOptions: DisplayOptions = new DisplayOptions(0, 0, 0);
   gameRequest!: GameRequest;

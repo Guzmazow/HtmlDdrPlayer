@@ -77,6 +77,7 @@ export class KeyboardService {
       this.onPress.next({ key: systemKey, state: isKeyDown });
       if (isKeyDown) {
         this.keyLongPressState.set(systemKey, setTimeout(() => {
+          if (systemKey === undefined) return;
           this.onLongPress.next(systemKey);
         }, 1000));
       } else {
