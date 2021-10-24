@@ -92,7 +92,7 @@ export class YoutubeVideoComponent implements OnDestroy {
             if (!this.video) return;
             this.syncing = false;
             this.lastSyncOffset += YoutubeVideoComponent.defaultSyncOffset /* Sync search speed TODO:config */ * (timeDiff > 0 || this.video.videoPlayer.getPlayerState() != YT.PlayerState.PLAYING ? 1 : -1);
-          }, 150 /* Time between sync attempts TODO:config */);
+          }, Math.max(150, this.lastSyncOffset * 1000) /* Time between sync attempts TODO:config */);
         }
       }
 
