@@ -7,6 +7,7 @@ import { takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs';
 import { SimfileLoaderService } from '@services/simfile-loader.service';
 import { GameRequest } from '@models/game-request';
+import { Log } from '@services/log.service';
 
 @Component({
   selector: 'app-note-lane',
@@ -20,11 +21,20 @@ export class NoteLaneComponent implements OnInit, OnDestroy {
   @ViewChild("noteLaneCanvas", { static: true }) canvasEl?: ElementRef;
   canvas!: HTMLCanvasElement;
   ctx!: CanvasRenderingContext2D;
-  mediaLoaded: boolean = false;
 
   constructor(private displayService: DisplayService, private mediaService: MediaService) { }
 
   ngOnInit(): void {
+    if(!this.displayService.onGamePlayStateChange.value){
+      Log.error("NoteLaneComponent", "Game not yet started!");
+      window.location.href = "/";
+    }
+
+    if(!this.mediaService.onMediaLoaded.value){
+      Log.error("NoteLaneComponent", "Media not yet loaded!");
+      return;
+    }
+
     this.canvas = <HTMLCanvasElement>this.canvasEl?.nativeElement;
     this.ctx = this.canvas.getContext('2d')!;
     this.ctx.imageSmoothingEnabled = false;
@@ -34,7 +44,6 @@ export class NoteLaneComponent implements OnInit, OnDestroy {
     //   this.canvas.height = screen.height;
     //   this.canvas.width = this.displayService.displayOptions.noteLaneWidth;
     // });
-    this.mediaService.onMediaLoaded.pipe(takeUntil(this.destroyed$)).subscribe(x => this.mediaLoaded = x);
     this.displayService.onCurrentTimeSecondsChange.pipe(takeUntil(this.destroyed$)).subscribe(this.draw.bind(this));
     // this.displayService.onStart.subscribe(this.init.bind(this));
   }
@@ -50,28 +59,20 @@ export class NoteLaneComponent implements OnInit, OnDestroy {
 
 
   draw() {
-    if (!this.mediaLoaded) return;
-    this.clear();
-    this.drawNotesAndConnectors();
+    this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+    this.drawAllNotes();
   }
 
-  drawNotesAndConnectors() {
+  drawAllNotes() {
+    if(!this.displayService.requestedGame) return;
     let leastTime = this.displayService.onCurrentTimeSecondsChange.value;
     let greatestTime = leastTime + this.canvas.height * this.displayService.displayOptions.secondsPerPixel;
-    //this.drawAllConnectors(leastTime, greatestTime);
-    this.drawAllNotes(leastTime, greatestTime);
-  }
-
-  drawAllNotes(leastTime: number, greatestTime: number) {
-    if(!this.displayService.requestedGame) return;
     for (let i = 0; i < this.displayService.requestedGame.playableSimfileMode.tracks.length; i++) {
-      this.drawNotesInTrack(leastTime, greatestTime, this.displayService.requestedGame.playableSimfileMode.tracks[i], i,
-        this.displayService.requestedGame.playableSimfileMode.tracks.length);
+      this.drawNotesInTrack(leastTime, greatestTime, this.displayService.requestedGame.playableSimfileMode.tracks[i], i);
     }
   }
 
-  drawNotesInTrack(leastTime: number, greatestTime: number, track: Note[], trackNumber: number,
-    numTracks: number) {
+  drawNotesInTrack(leastTime: number, greatestTime: number, track: Note[], trackNumber: number) {
     let bounds = this.getFirstAndLastNotes(leastTime, greatestTime, track);
     for (let i = bounds.start; i <= bounds.stop; i++) {
       this.drawNote(track[i], trackNumber);
@@ -125,11 +126,6 @@ export class NoteLaneComponent implements OnInit, OnDestroy {
         }
         this.ctx.drawImage(this.mediaService.arrowImageCache.get(direction)?.get(note.quantization)!, x, y, noteSize, noteSize);
         break;
-      // case NoteType.HOLD_TAIL:
-      //   //this.ctx.strokeRect(x, y, noteSize, noteSize);
-      //   let image = this.mediaService.holdCapInactiveImageCache!;
-      //   this.ctx.drawImage(image, x, y, noteSize, image.height);
-      //   break;
       case NoteType.ROLL_HEAD:
         // this.ctx.fillRect(x, y, noteSize, noteSize);
         // this.ctx.font = `${noteSize}px Arial`;
@@ -170,17 +166,20 @@ export class NoteLaneComponent implements OnInit, OnDestroy {
         currentTime.setMilliseconds(currentTime.getMilliseconds() + note.mineDisplayRotationOffset);
         this.ctx.drawImage(this.mediaService.mineImageCache?.get(Math.round(currentTime.getMilliseconds() / 2 * 359 / 1000))!, x, y, noteSize, noteSize);
         break;
+      case NoteType.HOLD_TAIL:
+      case NoteType.ROLL_TAIL:   
+        break;
       default:
         this.ctx.strokeRect(x, y, noteSize, noteSize);
         this.ctx.font = `${noteSize}px Arial`;
         this.ctx.textAlign = "center";
         this.ctx.fillText("?", x + halfNoteSize, y + ninthNoteSize, noteSize);
+        Log.debug("NoteLaneComponent", `Missing renderer info for type ${note.type}`, note);
         break;
     }
     this.ctx.restore();
   }
 
-  //TODO: properly indicate when there are NO notes to draw
   getFirstAndLastNotes(leastTime: number, greatestTime: number, track: Note[]) {
     let i;
     for (i = 0; i < track.length; i++) {
@@ -198,80 +197,4 @@ export class NoteLaneComponent implements OnInit, OnDestroy {
     j = Math.max(0, j - 1);
     return { start: i, stop: j };
   }
-
-  clear() {
-    this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
-
-    // //Display where are arrows judged
-    // this.ctx.fillStyle = "white";
-    // this.ctx.fillRect(0,this.displayService.getNoteY(this.displayService.currentTime),this.canvas.width, 5)
-  }
-
-  // drawAllConnectors(leastTime: number, greatestTime: number) {
-  //   for (let i = 0; i < this.displayService.gameRequest.playableSimfileMode.tracks.length; i++) {
-  //     this.drawConnectorsInTrack(leastTime, greatestTime, this.displayService.gameRequest.playableSimfileMode.tracks[i], i,
-  //       this.displayService.gameRequest.playableSimfileMode.tracks.length);
-  //   }
-  // }
-
-  // drawConnectorsInTrack(leastTime: number, greatestTime: number, track: Note[], trackNumber: number,
-  //   numTracks: number) {
-  //   let noteStack: Note[] = [];
-  //   for (let i = 0; i < track.length; i++) {
-  //     let currentNote: Note = track[i];
-  //     if (currentNote.time < leastTime) { //Suscpicious
-  //       if (currentNote.type === NoteType.HOLD_HEAD || currentNote.type === NoteType.ROLL_HEAD) {
-  //         noteStack.push(currentNote);
-  //       } else if (currentNote.type === NoteType.HOLD_ROLL_TAIL) {
-  //         noteStack.pop();
-  //       }
-  //     } else if (currentNote.time < greatestTime) {
-  //       if (currentNote.type === NoteType.HOLD_HEAD || currentNote.type === NoteType.ROLL_HEAD) {
-  //         noteStack.push(currentNote);
-  //       } else if (currentNote.type === NoteType.HOLD_ROLL_TAIL) {
-  //         let startNote = noteStack.pop();
-  //         let endNote = currentNote;
-  //         if (startNote != undefined && endNote != undefined) {
-  //           this.drawConnector(startNote, endNote, trackNumber, numTracks);
-  //         }
-  //       }
-  //     } else {
-  //       if (noteStack.length == 0) {
-  //         break;
-  //       }
-  //       if (currentNote.type === NoteType.HOLD_HEAD || currentNote.type === NoteType.ROLL_HEAD) {
-  //         noteStack.push(currentNote);
-  //       } else if (currentNote.type === NoteType.HOLD_ROLL_TAIL) {
-  //         let startNote = noteStack.pop();
-  //         let endNote = currentNote;
-  //         if (startNote != undefined && endNote != undefined) {
-  //           this.drawConnector(startNote, endNote, trackNumber, numTracks);
-  //         }
-  //       }
-  //     }
-  //   }
-  // }
-
-  // drawConnector(startNote: Note, endNote: Note, trackNumber: number, numTracks: number) {
-  //   let x = this.displayService.getNoteX(trackNumber);
-  //   let startY = this.displayService.getNoteY(startNote.time);
-  //   let endY = this.displayService.getNoteY(endNote.time);
-  //   //new HoldConnector(x, startY, endY, startNote).draw(this.displayService);
-  //   this.ctx.save();
-  //   switch (startNote.type) {
-  //     case NoteType.HOLD_HEAD:
-  //       this.ctx.fillStyle = "orange";
-  //       break;
-  //     case NoteType.ROLL_HEAD:
-  //       this.ctx.fillStyle = "green";
-  //       break;
-  //     default:
-  //       this.ctx.fillStyle = "black";
-  //       break;
-  //   }
-  //   this.ctx.fillRect(x + this.displayService.displayOptions.noteSize * 0.25, startY, this.displayService.displayOptions.noteSize * 0.5, endY - startY);
-  //   this.ctx.restore();
-  // }
-
-
 }

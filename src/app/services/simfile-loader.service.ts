@@ -6,6 +6,8 @@ import { ParsedSimfile } from '@models/parsed-simfile';
 import { SimfileRegistryFolder } from '@models/simfile-registry-folder';
 import { BehaviorSubject, concat, forkJoin, Subject } from 'rxjs';
 import { map } from 'rxjs/operators';
+import { DisplayService } from './display.service';
+import { Log } from './log.service';
 
 @Injectable({
   providedIn: 'root'
@@ -13,9 +15,12 @@ import { map } from 'rxjs/operators';
 export class SimfileLoaderService {
   simfileRegistryFolders?: Map<string, SimfileRegistryFolder>;
   parsedSimfilesLoaded = new BehaviorSubject(false);
-  gameRequested = new BehaviorSubject<GameRequest | null>(null);
 
-  constructor(private http: HttpClient, private router: Router) {
+  constructor(
+    private http: HttpClient, 
+    private router: Router,
+    private displayService: DisplayService
+  ) {
     this.http.get<SimfileRegistryFolder[]>("/assets/simfile-registry.json", { responseType: "json" }).subscribe(registry => {
       this.simfileRegistryFolders = new Map<string, SimfileRegistryFolder>(registry.map(folder => [folder.location, folder]));
       this.simfileRegistryFolders.forEach(folder => {
@@ -52,7 +57,7 @@ export class SimfileLoaderService {
   }
 
   requestGame(r: GameRequest) {
-    this.gameRequested.next(r);
-    this.router.navigate(['/ddr-player']);
+    Log.info("SimfileLoaderService", "Requesting game", r);
+    this.displayService.requestGame(r);
   }
 }

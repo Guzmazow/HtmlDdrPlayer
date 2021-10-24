@@ -3,6 +3,7 @@ import { AllDirections, AllJudgements, Direction, Judgement, Key } from '@models
 import { DisplayService } from '@services/display.service';
 import { JudgementService } from '@services/judgement.service';
 import { KeyboardService } from '@services/keyboard.service';
+import { Log } from '@services/log.service';
 import { MediaService } from '@services/media.service';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
@@ -19,7 +20,6 @@ export class ReceptorComponent implements OnInit {
   @ViewChild("receptorCanvas", { static: true }) canvasEl?: ElementRef;
   canvas!: HTMLCanvasElement;
   ctx!: CanvasRenderingContext2D;
-  mediaLoaded: boolean = false;
 
   get media() {
     return this.mediaService;
@@ -47,6 +47,15 @@ export class ReceptorComponent implements OnInit {
 
 
   ngOnInit(): void {
+    if(!this.displayService.onGamePlayStateChange.value){
+      Log.error("ReceptorComponent", "Game not yet started!");
+      return;
+    }
+    if(!this.mediaService.onMediaLoaded.value){
+      Log.error("ReceptorComponent", "Media not yet loaded!");
+      return;
+    }
+
     this.canvas = <HTMLCanvasElement>this.canvasEl?.nativeElement;
     this.ctx = this.canvas.getContext('2d')!;
     this.ctx.imageSmoothingEnabled = false;
@@ -58,30 +67,23 @@ export class ReceptorComponent implements OnInit {
     //   this.canvas.width = this.displayService.displayOptions.noteLaneWidth;
     // });
 
+    this.displayService.onCurrentTimeSecondsChange.pipe(takeUntil(this.destroyed$)).subscribe(this.drawReceptors.bind(this));
 
-    this.displayService.onGamePlayStateChange.pipe(takeUntil(this.destroyed$)).subscribe(playing => {
-      if (!playing) return;
-
-      this.mediaService.onMediaLoaded.pipe(takeUntil(this.destroyed$)).subscribe(x => this.mediaLoaded = x);
-      this.displayService.onCurrentTimeSecondsChange.pipe(takeUntil(this.destroyed$)).subscribe(this.drawReceptors.bind(this));
-
-      this.keyboardService.onPress.pipe(takeUntil(this.destroyed$)).subscribe(press => {
-        this.receptorFlashVisibilityState.set(press.key, press.state);
-      });
-
-      this.judgementService.onJudged.pipe(takeUntil(this.destroyed$)).subscribe(judged => {
-        if (judged.judgement == Judgement.MINEHIT) {
-          if (this.mediaService.mineHitSoundCache) {
-            this.mediaService.mineHitSoundCache.currentTime = 0;
-            this.mediaService.mineHitSoundCache.play();
-          }
-        } else {
-          if (AllJudgements.indexOf(judged.judgement) > -1)
-            this.receptorGlowVisibilityFramesLeft.set(judged.key, { judgemnet: judged.judgement, framesLeft: 20 })
-        }
-      });
+    this.keyboardService.onPress.pipe(takeUntil(this.destroyed$)).subscribe(press => {
+      this.receptorFlashVisibilityState.set(press.key, press.state);
     });
 
+    this.judgementService.onJudged.pipe(takeUntil(this.destroyed$)).subscribe(judged => {
+      if (judged.judgement == Judgement.MINEHIT) {
+        if (this.mediaService.mineHitSoundCache) {
+          this.mediaService.mineHitSoundCache.currentTime = 0;
+          this.mediaService.mineHitSoundCache.play();
+        }
+      } else {
+        if (AllJudgements.indexOf(judged.judgement) > -1)
+          this.receptorGlowVisibilityFramesLeft.set(judged.key, { judgemnet: judged.judgement, framesLeft: 20 })
+      }
+    });
   }
 
   ngOnDestroy(): void {
@@ -90,10 +92,9 @@ export class ReceptorComponent implements OnInit {
   }
 
   drawReceptors() {
-    if (!this.mediaLoaded) return;
     this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
     this.ctx.save();
-    this.ctx.fillStyle = "rgba(20,20,20,0.8)";
+    this.ctx.fillStyle = "rgba(20,20,20,0.8)"; //lane backdrop transperancy and color TODO:config
     this.ctx.fillRect(this.displayService.getTrackX(0), 0, this.displayService.displayOptions.noteLaneWidth, this.canvas.height)
     this.ctx.restore();
     for (let direction of AllDirections) {

@@ -220,7 +220,6 @@ export class PlayableSimfileMode {
                         newNote.related = tracks[i][tracks[i].length - 1];
                         newNote.related.related = newNote;
                         newNote.type = newNote.related.type == NoteType.HOLD_HEAD ? NoteType.HOLD_TAIL : NoteType.ROLL_TAIL
-                        continue;
                     } else {
                         switch (simfileNoteType) {
                             //case SimfileNoteType.EMPTY: type = NoteType.EMPTY; break;
