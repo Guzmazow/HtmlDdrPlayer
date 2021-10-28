@@ -50,6 +50,8 @@ export class ParsedSimfile implements SimfileRegistryEntry {
     this.youtubeVideos.forEach(y => {
       y.offset = y.offset ?? 0;
       y.skips = y.skips?.map(x => ({ from: x.from, to: x.to, skipped: false })) ?? [];
+      if (y.skips.length == 0 || y.skips.length > 0 && y.skips[0].from !== 0)
+        y.skips.unshift({ from: 0, to: 0, skipped: false });
     });
   }
 
@@ -117,7 +119,7 @@ export class ParsedSimfile implements SimfileRegistryEntry {
         return 0;
     });
     this.modes.forEach(mode => {
-      let playable = new PlayableSimfileMode(this, mode);      
+      let playable = new PlayableSimfileMode(this, mode);
       mode.stats = `N:${playable.noteCount} R:${playable.rollCount} H:${playable.holdCount}\nT:${playable.totalTime.toFixed(2)} NPS: ${playable.NPS.toFixed(2)}`
     })
     this.loaded = true;

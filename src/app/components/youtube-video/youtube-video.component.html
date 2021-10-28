@@ -1,2 +1,5 @@
-<ngx-y2-player *ngIf="youtubeVideoInfo.id" #video [videoId]="youtubeVideoInfo.id || ''" [playerOptions]="playerOptions" (ready)="onVideoReady($event)">
-</ngx-y2-player>
+<div [hidden]="i !== currentVideoIndex" *ngFor="let skip of youtubeVideoInfo.skips; index as i">
+    <ngx-y2-player #video [attr.data-index]="i" [videoId]="youtubeVideoInfo.id || ''" [playerOptions]="playerOptions"
+        (ready)="onVideoReady($event, i)">
+    </ngx-y2-player>
+</div>

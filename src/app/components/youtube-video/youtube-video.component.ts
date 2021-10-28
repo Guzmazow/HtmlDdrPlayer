@@ -1,4 +1,4 @@
-import { Component, Input, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { Component, Input, OnDestroy, OnInit, QueryList, ViewChildren } from '@angular/core';
 import { SimfileRegistryYoutubeInfo } from '@models/simfile-registry-youtube-info';
 import { DisplayService } from '@services/display.service';
 import { Log } from '@services/log.service';
@@ -19,91 +19,120 @@ export class YoutubeVideoComponent implements OnDestroy {
     skips: [],
     offset: 0
   };
-  private videoReady = false;
-  private videoStarted = false;
+  private videosReady = 0;
   private syncing = false;
+
+  currentVideoIndex: number = 0;
+  private currentVideo!: NgxY2PlayerComponent;
+
   private lastSyncOffset = 0.1;
-  private skippedUntilNow = 0;
   private static readonly defaultSyncOffset = 0.1;
+
+
   youtubeVideoInfo: SimfileRegistryYoutubeInfo = this.emptyVideoInfo;
   @Input() playerOptions: NgxY2PlayerOptions = {
     height: screen.height, // you can set 'auto', it will use container width to set size
     width: screen.width,
     playerVars: {
-      autoplay: 0,
+      autoplay: 1,
       disablekb: YT.KeyboardControls.Disable,
-      iv_load_policy: YT.IvLoadPolicy.Show,
+      iv_load_policy: YT.IvLoadPolicy.Hide,
       controls: YT.Controls.Hide,
       showinfo: YT.ShowInfo.Hide
     },
     // aspectRatio: (3 / 4), // you can set ratio of aspect ratio to auto resize with
   };
-  @ViewChild('video') video?: NgxY2PlayerComponent;
+  @ViewChildren(NgxY2PlayerComponent) videos!: QueryList<NgxY2PlayerComponent>;
   constructor(
     private mediaService: MediaService,
     private displayService: DisplayService
   ) {
     this.mediaService.onYTVideoLoaded.pipe(takeUntil(this.destroyed$)).subscribe((info) => {
       this.youtubeVideoInfo = info || this.emptyVideoInfo;
+      this.videosReady = 0;
       this.youtubeVideoInfo.skips.forEach(x => { x.skipped = false });
     });
     this.displayService.onCurrentTimeSecondsChange.pipe(takeUntil(this.destroyed$)).subscribe(displaySeconds => {
-      if (!this.video || !this.videoReady) return;
+      if (this.videosReady != this.youtubeVideoInfo.skips.length) return;
       //Math.round((this.currentPlayerTimeSeconds - this.skipedPlayTimeSecondsUntilNow /*+ (this.gameRequest.parsedSimfile.offset ?? 0) simfile parsing applies this*/ + (this.gameRequest.youtubeVideo.offset ?? 0)) * 1000) / 1000;
       var preYtSeconds = displaySeconds;
       preYtSeconds -= this.youtubeVideoInfo.offset ?? 0;
-      preYtSeconds += this.skippedUntilNow;
+      preYtSeconds += this.youtubeVideoInfo.skips.reduce((prev, elem) => { return prev + (!elem.skipped ? 0 : Math.abs((elem.to ?? 0) - elem.from)) }, 0);
+      if (preYtSeconds >= 0) {
+        if (!this.currentVideo) {
+          this.currentVideo = this.videos.first;
+        }
+        let state = this.currentVideo.videoPlayer.getPlayerState();
+        if(state == YT.PlayerState.ENDED) return;
+        if(state == YT.PlayerState.PAUSED) this.currentVideo.videoPlayer.playVideo();
 
-      if (!this.videoStarted && preYtSeconds >= YoutubeVideoComponent.defaultSyncOffset /* default video load offset TODO:config */) {
-        this.videoStarted = true;
-        this.video.videoPlayer.playVideo();
-      } else {
-        var YtSeconds = Math.round(this.video.videoPlayer.getCurrentTime() * 1000) / 1000;
+        var YtSeconds = Math.round(this.currentVideo.videoPlayer.getCurrentTime() * 1000) / 1000;
 
-        // Skip logic
-        for (let skip of this.youtubeVideoInfo.skips) {
+
+        // Skip/Start logic
+        for (let i = 0; i < this.youtubeVideoInfo.skips.length; i++) {
+          let skip = this.youtubeVideoInfo.skips[i];
           if (skip.skipped) continue;
           if (YtSeconds >= skip.from) {
+            this.currentVideo.videoPlayer.stopVideo();
+            this.lastSyncOffset = YoutubeVideoComponent.defaultSyncOffset;
+            this.currentVideoIndex = i;
+            let nextVideo = this.videos.find((element, index) => index === this.currentVideoIndex);
+            if (!nextVideo)
+              throw "video not found"
+            else
+              this.currentVideo = nextVideo;
+            this.currentVideo.videoPlayer.playVideo();
             if (skip.to === null) {
-              this.video.videoPlayer.stopVideo();
               skip.skipped = true;
               Log.debug(`ending video because of skip`);
               return;
             }
             this.syncing = true;
-            this.video.videoPlayer.seekTo(skip.to + YoutubeVideoComponent.defaultSyncOffset, true);
             setTimeout(() => {
               this.syncing = false;
-            }, 200);
-            this.skippedUntilNow += (skip.to - skip.from);
+            }, YoutubeVideoComponent.defaultSyncOffset * 1000 + 50);
             skip.skipped = true;
             Log.debug(`skipping: ${skip.from} to ${skip.to}`);
           }
+          return; //allows look skips
         }
 
         //Sync
         var timeDiff = preYtSeconds - YtSeconds;
-        if (Math.abs(timeDiff) > YoutubeVideoComponent.defaultSyncOffset /* Sync to decisecond TODO:config */ && !this.syncing && preYtSeconds > YoutubeVideoComponent.defaultSyncOffset /* default video load offset TODO:config */) {
-          Log.debug("YoutubeVideoComponent", "Out of sync... syncing");
+        if (YtSeconds > YoutubeVideoComponent.defaultSyncOffset &&
+          Math.abs(timeDiff) > YoutubeVideoComponent.defaultSyncOffset /* Sync to decisecond TODO:config */ &&
+          !this.syncing && preYtSeconds > YoutubeVideoComponent.defaultSyncOffset /* default video load offset TODO:config */) {
+          Log.debug("YoutubeVideoComponent", `Out of sync... syncing; Diff: ${timeDiff}; SimsS: ${displaySeconds}; PreYtS: ${preYtSeconds}; YtS: ${YtSeconds}`);
           this.syncing = true;
           //this.video.videoPlayer.stopVideo();
-          this.video.videoPlayer.seekTo(preYtSeconds + this.lastSyncOffset, true);
+          this.currentVideo.videoPlayer.seekTo(preYtSeconds + this.lastSyncOffset, true);
           setTimeout(() => {
-            if (!this.video) return;
+            if (!this.currentVideo) return;
             this.syncing = false;
-            this.lastSyncOffset += YoutubeVideoComponent.defaultSyncOffset /* Sync search speed TODO:config */ * (timeDiff > 0 || this.video.videoPlayer.getPlayerState() != YT.PlayerState.PLAYING ? 1 : -1);
-          }, Math.max(150, this.lastSyncOffset * 1000) /* Time between sync attempts TODO:config */);
+            this.lastSyncOffset += YoutubeVideoComponent.defaultSyncOffset /* Sync search speed TODO:config */ * (timeDiff > 0 || this.currentVideo.videoPlayer.getPlayerState() != YT.PlayerState.PLAYING ? 1 : -1);
+          }, Math.max(YoutubeVideoComponent.defaultSyncOffset, this.lastSyncOffset) * 1000 + 50 /* Time between sync attempts TODO:config */);
         }
       }
 
     });
   }
 
-  onVideoReady(event: YT.PlayerEvent) {
-    if (!this.video) return;
-    this.videoReady = true;
-    this.video.videoPlayer.playVideo();
-    this.video.videoPlayer.pauseVideo();
+  onVideoReady(event: YT.PlayerEvent, index: number) {
+    this.videosReady++;
+    let to = this.youtubeVideoInfo.skips[index].to;
+    if (to == null) return;
+    event.target.playVideo();
+    event.target.seekTo(to + YoutubeVideoComponent.defaultSyncOffset * 2, true);
+    if (to !== 0) {
+      let interval = setInterval(() => {
+        Log.debug('sync', to, event.target.getCurrentTime())
+        if (event.target.getCurrentTime() > 0) {
+          event.target.pauseVideo();
+          clearInterval(interval);
+        }
+      }, 100);
+    }
   }
 
   ngOnDestroy(): void {
