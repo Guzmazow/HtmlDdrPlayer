@@ -1,4 +1,4 @@
-import { Component, Input, OnDestroy, OnInit, QueryList, ViewChildren } from '@angular/core';
+import { Component, DefaultIterableDiffer, Input, OnDestroy, OnInit, QueryList, ViewChildren } from '@angular/core';
 import { SimfileRegistryYoutubeInfo } from '@models/simfile-registry-youtube-info';
 import { DisplayService } from '@services/display.service';
 import { Log } from '@services/log.service';
@@ -23,7 +23,7 @@ export class YoutubeVideoComponent implements OnDestroy {
   private syncing = false;
 
   currentVideoIndex: number = 0;
-  private currentVideo!: NgxY2PlayerComponent;
+  private currentVideo?: NgxY2PlayerComponent;
 
   private lastSyncOffset = 0.1;
   private static readonly defaultSyncOffset = 0.1;
@@ -63,8 +63,8 @@ export class YoutubeVideoComponent implements OnDestroy {
           this.currentVideo = this.videos.first;
         }
         let state = this.currentVideo.videoPlayer.getPlayerState();
-        if(state == YT.PlayerState.ENDED) return;
-        if(state == YT.PlayerState.PAUSED) this.currentVideo.videoPlayer.playVideo();
+        if (state == YT.PlayerState.ENDED) return;
+        if (state == YT.PlayerState.PAUSED) this.currentVideo.videoPlayer.playVideo();
 
         var YtSeconds = Math.round(this.currentVideo.videoPlayer.getCurrentTime() * 1000) / 1000;
 
@@ -85,7 +85,7 @@ export class YoutubeVideoComponent implements OnDestroy {
             this.currentVideo.videoPlayer.playVideo();
             if (skip.to === null) {
               skip.skipped = true;
-              Log.debug(`ending video because of skip`);
+              Log.info(`ending video because of skip`);
               return;
             }
             this.syncing = true;
@@ -104,15 +104,24 @@ export class YoutubeVideoComponent implements OnDestroy {
         if (YtSeconds > YoutubeVideoComponent.defaultSyncOffset &&
           Math.abs(timeDiff) > YoutubeVideoComponent.defaultSyncOffset /* Sync to decisecond TODO:config */ &&
           !this.syncing && preYtSeconds > YoutubeVideoComponent.defaultSyncOffset /* default video load offset TODO:config */) {
-          Log.debug("YoutubeVideoComponent", `Out of sync... syncing; Diff: ${timeDiff}; SimsS: ${displaySeconds}; PreYtS: ${preYtSeconds}; YtS: ${YtSeconds}`);
+          Log.warn("YoutubeVideoComponent", `Out of sync... syncing; Diff: ${timeDiff}; SimsS: ${displaySeconds}; PreYtS: ${preYtSeconds}; YtS: ${YtSeconds}`);
           this.syncing = true;
           //this.video.videoPlayer.stopVideo();
-          this.currentVideo.videoPlayer.seekTo(preYtSeconds + this.lastSyncOffset, true);
-          setTimeout(() => {
-            if (!this.currentVideo) return;
-            this.syncing = false;
-            this.lastSyncOffset += YoutubeVideoComponent.defaultSyncOffset /* Sync search speed TODO:config */ * (timeDiff > 0 || this.currentVideo.videoPlayer.getPlayerState() != YT.PlayerState.PLAYING ? 1 : -1);
-          }, Math.max(YoutubeVideoComponent.defaultSyncOffset, this.lastSyncOffset) * 1000 + 50 /* Time between sync attempts TODO:config */);
+          if (timeDiff > 0) {
+            this.currentVideo.videoPlayer.seekTo(preYtSeconds + this.lastSyncOffset, true);
+            this.lastSyncOffset += YoutubeVideoComponent.defaultSyncOffset; /* Sync search speed TODO:config */
+            let int = setInterval(() => {
+              if (!this.currentVideo || this.currentVideo.videoPlayer.getPlayerState() != YT.PlayerState.PLAYING) return;
+              clearInterval(int);
+              this.syncing = false;
+            }, 50);
+          }else{
+            this.currentVideo.videoPlayer.stopVideo();
+            setTimeout(() => {
+              if (!this.currentVideo) return;
+              this.currentVideo.videoPlayer.playVideo();
+            }, 0);
+          }
         }
       }
 
@@ -120,20 +129,20 @@ export class YoutubeVideoComponent implements OnDestroy {
   }
 
   onVideoReady(event: YT.PlayerEvent, index: number) {
-    this.videosReady++;
     let to = this.youtubeVideoInfo.skips[index].to;
     if (to == null) return;
     event.target.playVideo();
     event.target.seekTo(to + YoutubeVideoComponent.defaultSyncOffset * 2, true);
-    if (to !== 0) {
-      let interval = setInterval(() => {
-        Log.debug('sync', to, event.target.getCurrentTime())
-        if (event.target.getCurrentTime() > 0) {
-          event.target.pauseVideo();
-          clearInterval(interval);
-        }
-      }, 100);
-    }
+
+    let interval = setInterval(() => {
+      Log.debug('wait for video to load', to, event.target.getCurrentTime())
+      if (event.target.getCurrentTime() > 0) {
+        this.videosReady++;
+        event.target.pauseVideo();
+        clearInterval(interval);
+      }
+    }, 50);
+
   }
 
   ngOnDestroy(): void {
