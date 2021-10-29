@@ -122,6 +122,21 @@ export class ParsedSimfile implements SimfileRegistryEntry {
       let playable = new PlayableSimfileMode(this, mode);
       mode.stats = `N:${playable.noteCount} R:${playable.rollCount} H:${playable.holdCount}\nT:${playable.totalTime.toFixed(2)} NPS: ${playable.NPS.toFixed(2)}`
     })
+
+    this.youtubeVideos.forEach(y => {
+      y.previewOptions = {
+        height: 'auto',//screen.height, // you can set 'auto', it will use container width to set size
+        width: 'auto',//screen.width,
+        playerVars: {
+          start: Math.round(this.sampleStart - y.skips.reduce((prev, elem) => prev + (elem.from < this.sampleStart ? (elem.to ?? 0 - elem.from) : 0), 0)),
+          end: this.sampleLength ? Math.round(this.sampleStart + this.sampleLength ?? 0) : undefined,
+          autoplay: YT.AutoPlay.AutoPlay,
+          disablekb: YT.KeyboardControls.Disable
+        },
+
+        // aspectRatio: (3 / 4), // you can set ratio of aspect ratio to auto resize with
+      }
+    });
     this.loaded = true;
   }
 

@@ -67,7 +67,7 @@
                             *ngFor="let registryVideo of selectedSimfile.youtubeVideos">
                             <ng-template matTabContent>
                                 <div style="height: 100%; width: 750px;" #videoContainer>
-                                    <ngx-y2-player #video [videoId]="registryVideo.id" [playerOptions]="playerOptions"
+                                    <ngx-y2-player #video [videoId]="registryVideo.id" [playerOptions]="registryVideo.previewOptions ?? {}" (ready)="video.videoPlayer.setVolume(25)"
                                         [container]="videoContainer">
                                     </ngx-y2-player>
                                 </div>

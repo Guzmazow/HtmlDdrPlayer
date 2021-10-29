@@ -47,21 +47,6 @@ export class SimfileSelectorComponent implements OnInit, OnDestroy {
   @LocalStorage('', '') lastSelectedSimfileLocation!: string;
   @LocalStorage('', '') lastSelectedSimfileFolderLocation!: string;
 
-  playerOptions: NgxY2PlayerOptions = {
-    height: 'auto',//screen.height, // you can set 'auto', it will use container width to set size
-    width: 'auto',//screen.width,
-    playerVars: {
-      start: 0,
-      end: undefined,
-      autoplay: 0,
-      disablekb: YT.KeyboardControls.Disable,
-      iv_load_policy: YT.IvLoadPolicy.Show,
-      //controls: YT.Controls.Hide,
-      //showinfo: YT.ShowInfo.Hide
-    },
-    // aspectRatio: (3 / 4), // you can set ratio of aspect ratio to auto resize with
-  };
-
   constructor(
     private simfileLoaderService: SimfileLoaderService, 
     private keyboardService: KeyboardService, 
