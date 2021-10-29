@@ -94,8 +94,9 @@ export class YoutubeVideoComponent implements OnDestroy {
             }, YoutubeVideoComponent.defaultSyncOffset * 1000 + 50);
             skip.skipped = true;
             Log.debug(`skipping: ${skip.from} to ${skip.to}`);
+            return; //help for syncing
           }
-          return; //allows look skips
+          break; //allow loop skips
         }
 
         //Sync
