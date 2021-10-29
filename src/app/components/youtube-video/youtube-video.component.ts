@@ -119,6 +119,7 @@ export class YoutubeVideoComponent implements OnDestroy {
             this.currentVideo.videoPlayer.stopVideo();
             setTimeout(() => {
               if (!this.currentVideo) return;
+              this.syncing = false;
               this.currentVideo.videoPlayer.playVideo();
             }, 0);
           }
