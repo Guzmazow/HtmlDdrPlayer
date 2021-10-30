@@ -1,4 +1,4 @@
-import { Component, DefaultIterableDiffer, Input, OnDestroy, OnInit, QueryList, ViewChildren } from '@angular/core';
+import { Component, Input, OnDestroy, OnInit, QueryList, ViewChildren } from '@angular/core';
 import { SimfileRegistryYoutubeInfo } from '@models/simfile-registry-youtube-info';
 import { DisplayService } from '@services/display.service';
 import { Log } from '@services/log.service';
@@ -9,7 +9,7 @@ import { Subject, takeUntil } from 'rxjs';
 @Component({
   selector: 'app-youtube-video',
   templateUrl: './youtube-video.component.html',
-  styleUrls: ['./youtube-video.component.css']
+  styleUrls: ['./youtube-video.component.scss']
 })
 export class YoutubeVideoComponent implements OnDestroy {
 

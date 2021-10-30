@@ -13,7 +13,7 @@ import { takeUntil } from 'rxjs/operators';
 @Component({
   selector: 'app-synchronizer',
   templateUrl: './synchronizer.component.html',
-  styleUrls: ['./synchronizer.component.css']
+  styleUrls: ['./synchronizer.component.scss']
 })
 export class SynchronizerComponent implements OnInit, OnDestroy {
 

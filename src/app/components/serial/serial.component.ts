@@ -5,7 +5,7 @@ import { AllDirectionFlags, DirectionFlag } from '@models/enums';
 @Component({
   selector: 'app-serial',
   templateUrl: './serial.component.html',
-  styleUrls: ['./serial.component.css']
+  styleUrls: ['./serial.component.scss']
 })
 export class SerialComponent implements OnInit {
 
