@@ -5,7 +5,7 @@
 ### DEMO: https://guzmazow.github.io/
 #### How to play?:
 - Use arrow keys
-- Connect using serial port (button right the corner of the website navigation bar) and continuously receive integer value that indicates pressed keys
+- Connect using serial port (button at the right corner of the website navigation bar) and continuously receive integer value that indicates pressed keys
   - 16 bit array (Uint8array) aka usinged int:
     | index | 15 |  14  |  13  |   12  |   11  |   10   |    9 .. 0    |
     |:-----:|:--:|:----:|:----:|:-----:|:-----:|:------:|:------------:|

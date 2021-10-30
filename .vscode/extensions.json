@@ -3,6 +3,7 @@
         "angular.ng-template",
         "johnpapa.angular2",
         "herrherrmann.angular-bootstrap",
-        "msjsdiag.debugger-for-edge"
+        "msjsdiag.debugger-for-edge",
+        "aaron-bond.better-comments"
     ]
 }

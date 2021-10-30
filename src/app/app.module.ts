@@ -22,6 +22,7 @@ import { MatRippleModule } from '@angular/material/core';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { MatBadgeModule } from '@angular/material/badge';
 
 
 import { DdrPlayerComponent } from '@components/ddr-player/ddr-player.component';
@@ -35,6 +36,7 @@ import { KeyboardService } from '@services/keyboard.service';
 import { YoutubeVideoComponent } from './components/youtube-video/youtube-video.component';
 import { SynchronizerComponent } from './components/synchronizer/synchronizer.component';
 import { SerialComponent } from './components/serial/serial.component';
+import { StepCounterComponent } from './components/step-counter/step-counter.component';
 
 
 @NgModule({
@@ -48,7 +50,8 @@ import { SerialComponent } from './components/serial/serial.component';
     SimfileSelectorComponent,
     YoutubeVideoComponent,
     SynchronizerComponent,
-    SerialComponent
+    SerialComponent,
+    StepCounterComponent
   ],
   imports: [
     BrowserModule,
@@ -71,7 +74,8 @@ import { SerialComponent } from './components/serial/serial.component';
     MatInputModule,
     MatSnackBarModule,
     MatProgressBarModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    MatBadgeModule
   ],
   providers: [KeyboardService],
   bootstrap: [AppComponent]

@@ -91,6 +91,7 @@ export enum Judgement {
 }
 
 export const AllJudgements = [Judgement.MARVELOUS, Judgement.PERFECT, Judgement.GREAT, Judgement.GOOD, Judgement.BAD, Judgement.MISS]
+export const SuccessfullStepJudgements = [Judgement.MARVELOUS, Judgement.PERFECT, Judgement.GREAT, Judgement.GOOD, Judgement.BAD, Judgement.ROLLFINISHED, Judgement.HOLDFINISHED]
 
 export enum GameModeType {
     NONE = -1,

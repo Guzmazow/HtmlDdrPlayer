@@ -30,6 +30,7 @@ export class SimfileSelectorComponent implements OnInit, OnDestroy {
   GameModeType = GameModeType;
   Difficulty = Difficulty;
 
+  firstVideoStopped = false;
   simfileFolders: SimfileRegistryFolder[] = [];
   selectedSimfileFolder?: SimfileRegistryFolder;
   simfilesInSelectedFolder: ParsedSimfile[] = [];
@@ -170,6 +171,7 @@ export class SimfileSelectorComponent implements OnInit, OnDestroy {
     this.selectedSimfile = parsedSimfile;
     this.lastSelectedSimfileLocation = this.selectedSimfile.smFileLocation;
     let modes = this.selectedSimfile.modes;
+    this.selectedVideo = undefined;
     //select last selected difficulty orelse closest orelse last
     this.selectSimfileMode(modes.find(x => x.difficulty == this.lastSelectedSimfileDifficulty) ?? modes[this.lastSelectedSimfileDifficultyIndex - 1] ?? modes[modes.length - 1], false);
   }
@@ -191,6 +193,14 @@ export class SimfileSelectorComponent implements OnInit, OnDestroy {
   onVideoSelected(ev: MatTabChangeEvent) {
     this.selectedVideo = this.selectedSimfile?.youtubeVideos[ev.index];
   }
+
+  onVideoReady(ev: YT.PlayerEvent){
+    ev.target.setVolume(25);
+    if(!this.firstVideoStopped){
+      this.firstVideoStopped = true;
+      ev.target.stopVideo();
+    }
+  };
 
   playSelectedMode() {
     if (!this.selectedSimfileFolder || !this.selectedSimfile || !this.selectedSimfileMode)
