@@ -124,7 +124,7 @@ export class ParsedSimfile implements SimfileRegistryEntry {
     })
 
     this.youtubeVideos.forEach(y => {
-      let start = Math.round(this.sampleStart + y.skips.reduce((prev, elem) => prev + (elem.from < this.sampleStart ? (elem.to ?? 0 - elem.from) : 0), 0));
+      let start = Math.round(this.sampleStart + y.skips.reduce((prev, elem) => prev + (elem.from < this.sampleStart ? ((elem.to ?? 0) - elem.from) : 0), 0));
       let end = this.sampleLength ? (start + Math.round(this.sampleLength ?? 0)) : 10
       y.previewOptions = {
         height: 'auto',//screen.height, // you can set 'auto', it will use container width to set size
