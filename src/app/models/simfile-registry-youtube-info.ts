@@ -5,7 +5,7 @@ export interface SimfileRegistryYoutubeInfo {
     offset?: number,
     skips: {
         from: number,
-        to: number | null,
+        to: number,
         skipped?: boolean
     }[]
     previewOptions?: NgxY2PlayerOptions

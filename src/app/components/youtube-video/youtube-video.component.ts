@@ -20,6 +20,7 @@ export class YoutubeVideoComponent implements OnDestroy {
     offset: 0
   };
   private videosReady = 0;
+  private lastSyncTimestamp = 0;
   private syncing = false;
 
   currentVideoIndex: number = 0;
@@ -53,7 +54,7 @@ export class YoutubeVideoComponent implements OnDestroy {
       this.youtubeVideoInfo.skips.forEach(x => { x.skipped = false });
     });
     this.displayService.onCurrentTimeSecondsChange.pipe(takeUntil(this.destroyed$)).subscribe(displaySeconds => {
-      if (this.videosReady != this.youtubeVideoInfo.skips.length) return;
+      if (this.videosReady != this.youtubeVideoInfo.skips.length || this.syncing) return;
       //Math.round((this.currentPlayerTimeSeconds - this.skipedPlayTimeSecondsUntilNow /*+ (this.gameRequest.parsedSimfile.offset ?? 0) simfile parsing applies this*/ + (this.gameRequest.youtubeVideo.offset ?? 0)) * 1000) / 1000;
       var preYtSeconds = displaySeconds;
       preYtSeconds -= this.youtubeVideoInfo.offset ?? 0;
@@ -63,8 +64,11 @@ export class YoutubeVideoComponent implements OnDestroy {
           this.currentVideo = this.videos.first;
         }
         let state = this.currentVideo.videoPlayer.getPlayerState();
-        if (state == YT.PlayerState.ENDED) return;
-        if (state == YT.PlayerState.PAUSED) this.currentVideo.videoPlayer.playVideo();
+        if (state === YT.PlayerState.ENDED) return;
+        if (Date.now() > this.lastSyncTimestamp + 500 && (state === YT.PlayerState.PAUSED || state === YT.PlayerState.UNSTARTED)){
+          Log.debug('YoutubeVideoComponent', `Resuming pause state`, state);
+          this.playCurrentVideoWithSyncDebounce();
+        }
 
         var YtSeconds = Math.round(this.currentVideo.videoPlayer.getCurrentTime() * 1000) / 1000;
 
@@ -74,6 +78,11 @@ export class YoutubeVideoComponent implements OnDestroy {
           let skip = this.youtubeVideoInfo.skips[i];
           if (skip.skipped) continue;
           if (YtSeconds >= skip.from) {
+            if(skip.from == 0){
+              skip.skipped = true;
+              Log.debug('YoutubeVideoComponent', `skipping start skip: ${skip.from} to ${skip.to}`);
+              return; //first skip is the loaded one
+            }
             this.currentVideo.videoPlayer.stopVideo();
             this.lastSyncOffset = YoutubeVideoComponent.defaultSyncOffset;
             this.currentVideoIndex = i;
@@ -82,18 +91,10 @@ export class YoutubeVideoComponent implements OnDestroy {
               throw "video not found"
             else
               this.currentVideo = nextVideo;
-            this.currentVideo.videoPlayer.playVideo();
-            if (skip.to === null) {
-              skip.skipped = true;
-              Log.info(`ending video because of skip`);
-              return;
-            }
-            this.syncing = true;
-            setTimeout(() => {
-              this.syncing = false;
-            }, YoutubeVideoComponent.defaultSyncOffset * 1000 + 50);
+              
+            this.playCurrentVideoWithSyncDebounce();
             skip.skipped = true;
-            Log.debug(`skipping: ${skip.from} to ${skip.to}`);
+            Log.debug('YoutubeVideoComponent', `skipping: ${skip.from} to ${skip.to}`);
             return; //help for syncing
           }
           break; //allow loop skips
@@ -106,6 +107,7 @@ export class YoutubeVideoComponent implements OnDestroy {
           !this.syncing && preYtSeconds > YoutubeVideoComponent.defaultSyncOffset /* default video load offset TODO:config */) {
           Log.warn("YoutubeVideoComponent", `Out of sync... syncing; Diff: ${timeDiff}; SimsS: ${displaySeconds}; PreYtS: ${preYtSeconds}; YtS: ${YtSeconds}`);
           this.syncing = true;
+          this.lastSyncTimestamp = Date.now();
           //this.video.videoPlayer.stopVideo();
           if (timeDiff > 0) {
             this.currentVideo.videoPlayer.seekTo(preYtSeconds + this.lastSyncOffset, true);
@@ -115,13 +117,18 @@ export class YoutubeVideoComponent implements OnDestroy {
               clearInterval(int);
               this.syncing = false;
             }, 50);
+            this.syncing = false;
           }else{
-            this.currentVideo.videoPlayer.stopVideo();
+            this.currentVideo.videoPlayer.pauseVideo();
             setTimeout(() => {
-              if (!this.currentVideo) return;
+              if (this.currentVideo)
+                this.currentVideo.videoPlayer.playVideo();
+            }, 15);
+            let int = setInterval(() => {
+              if (!this.currentVideo || this.currentVideo.videoPlayer.getPlayerState() != YT.PlayerState.PLAYING) return;
+              clearInterval(int);
               this.syncing = false;
-              this.currentVideo.videoPlayer.playVideo();
-            }, 0);
+            }, 15);
           }
         }
       }
@@ -129,14 +136,21 @@ export class YoutubeVideoComponent implements OnDestroy {
     });
   }
 
+  private playCurrentVideoWithSyncDebounce(){
+    this.syncing = true;
+    Log.debug('YoutubeVideoComponent', `playing current video at ${this.currentVideo?.videoPlayer.getCurrentTime()}s`)
+    this.currentVideo?.videoPlayer.playVideo();
+    setTimeout(() => {
+      this.syncing = false;
+    }, YoutubeVideoComponent.defaultSyncOffset * 1000 + 50);
+  }
+
   onVideoReady(event: YT.PlayerEvent, index: number) {
     let to = this.youtubeVideoInfo.skips[index].to;
-    if (to == null) return;
-    event.target.playVideo();
     event.target.seekTo(to + YoutubeVideoComponent.defaultSyncOffset * 2, true);
-
+    event.target.playVideo();
     let interval = setInterval(() => {
-      Log.debug('wait for video to load', to, event.target.getCurrentTime())
+      Log.debug('YoutubeVideoComponent', 'wait for video to load', to, event.target.getCurrentTime())
       if (event.target.getCurrentTime() > 0) {
         this.videosReady++;
         event.target.pauseVideo();
