@@ -70,7 +70,7 @@ export class MediaService {
   judgementImage?: HTMLImageElement;
 
   constructor() {
-
+    this.loadMedia();
   }
 
   async loadMedia() {
@@ -91,6 +91,7 @@ export class MediaService {
       this.rollCapInactive = await this.loadImage("/assets/Images/RollCapInactive.png");
       this.mineImage = await this.loadImage("/assets/Images/Mine.png");
       this.judgementImage = await this.loadImage("/assets/Images/Judgement.png");
+      Log.debug('MediaService', 'Loaded media')
     }
     if (!this.arrowImage ||
       !this.arrowGlowImage ||

@@ -1,11 +1,14 @@
+import { Log } from "@services/log.service";
 import { Difficulty, GameMode, GameModeType, NoteType } from "./enums";
+import { ParsedSimfileFolder } from "./parsed-folder";
 import { ParsedSimfileMode } from "./parsed-simfile-mode";
-import { PlayableSimfileMode } from "./playable-simfile-mode";
 import { SimfileRegistryEntry } from "./simfile-registry-entry";
-import { SimfileRegistryFolder } from "./simfile-registry-folder";
 import { SimfileRegistryYoutubeInfo } from "./simfile-registry-youtube-info";
+import { b64_to_utf8 } from '@other/storage';
 
-export class ParsedSimfile implements SimfileRegistryEntry {
+export class ParsedSimfile {
+  folder: ParsedSimfileFolder;
+
   smFileLocation: string;
   filename: string;
   status?: string;
@@ -42,20 +45,17 @@ export class ParsedSimfile implements SimfileRegistryEntry {
   rawMetaData = new Map<string, string>();
   rawModes: Map<string, string>[] = [];
 
-  constructor(folderRegistryEntry: SimfileRegistryFolder, registryEntry: SimfileRegistryEntry) {
+  constructor(folder: ParsedSimfileFolder, registryEntry: SimfileRegistryEntry) {
+    this.folder = folder;
     this.filename = registryEntry.filename;
     this.status = registryEntry.status;
-    this.smFileLocation = `/assets/Simfiles/${folderRegistryEntry.location}/${registryEntry.filename}`;
-    this.youtubeVideos = registryEntry.youtubeVideos;
-    this.youtubeVideos.forEach(y => {
-      y.offset = y.offset ?? 0;
-      y.skips = y.skips?.map(x => ({ from: x.from, to: x.to, skipped: false })) ?? [];
-      if (y.skips.length == 0 || y.skips.length > 0 && y.skips[0].from !== 0)
-        y.skips.unshift({ from: 0, to: 0, skipped: false });
-    });
-  }
+    this.smFileLocation = `/assets/Simfiles/${folder.location}/${registryEntry.filename}`;
 
-  loadSimfile(simfileContent: string) {
+    if (!registryEntry.simfileDataBase64) {
+      throw `Missing ${this.smFileLocation} simfile base64 data!`;
+    }
+
+    let simfileContent = b64_to_utf8(registryEntry.simfileDataBase64);
     this.rawMetaData = this.getTopMetaDataAsStrings(simfileContent);
     this.title = this.rawMetaData.get("TITLE") ?? "";
     this.titleTranslit = this.rawMetaData.get("TITLETRANSLIT") ?? "";
@@ -83,47 +83,32 @@ export class ParsedSimfile implements SimfileRegistryEntry {
     this.attacks = this.rawMetaData.get("ATTACKS") ?? "";
 
     this.rawModes = this.getModesInfoAsStrings(simfileContent);
-    for (let mode of this.rawModes) {
-      let type = mode.get("type") ?? "";
-      let gameMode = GameMode[type.split('-')[0].toUpperCase() as keyof typeof GameMode] ?? GameMode.NONE;
-      let gameModeType = GameModeType[type.split('-')[1].toUpperCase() as keyof typeof GameModeType] ?? GameModeType.NONE;
-      if (gameMode == GameMode.DANCE && gameModeType == GameModeType.SINGLE) {
-        this.modes.push({
-          gameMode: gameMode,
-          gameModeType: gameModeType,
-          descAuthor: mode.get("desc/author") ?? "",
-          difficulty: Difficulty[(mode.get("difficulty") ?? "").toUpperCase() as keyof typeof Difficulty] ?? Difficulty.NONE,
-          meter: parseInt(mode.get("meter") ?? "0"),
-          radar: mode.get("radar") ?? "",
-          notes: mode.get("notes") ?? "",
-          stats: ""
-        });
+    for (let rawMode of this.rawModes) {
+      let mode = new ParsedSimfileMode(this, rawMode);
+      if (mode.gameMode == GameMode.DANCE && mode.gameModeType == GameModeType.SINGLE) {
+        this.modes.push(mode);
       }
     }
+
     this.modes.sort((a, b) => {
-      if (a.gameMode > b.gameMode)
-        return 1
-      else if (a.gameMode < b.gameMode)
-        return -1
+      if (a.gameMode > b.gameMode) return 1
+      else if (a.gameMode < b.gameMode) return -1
 
-      if (a.gameModeType > b.gameModeType)
-        return 1
-      else if (a.gameModeType < b.gameModeType)
-        return -1
+      if (a.gameModeType > b.gameModeType) return 1
+      else if (a.gameModeType < b.gameModeType) return -1
 
-      if (a.difficulty > b.difficulty)
-        return 1;
-      else if (a.difficulty < b.difficulty)
-        return -1;
-      else
-        return 0;
+      if (a.difficulty > b.difficulty) return 1;
+      else if (a.difficulty < b.difficulty) return -1;
+      else return 0;
     });
-    this.modes.forEach(mode => {
-      let playable = new PlayableSimfileMode(this, mode);
-      mode.stats = `N:${playable.noteCount} R:${playable.rollCount} H:${playable.holdCount}\nT:${playable.totalTime.toFixed(2)} NPS: ${playable.NPS.toFixed(2)}`
-    })
 
+    this.youtubeVideos = registryEntry.youtubeVideos;
     this.youtubeVideos.forEach(y => {
+      y.offset = y.offset ?? 0;
+      y.skips = y.skips?.map(x => ({ from: x.from, to: x.to, skipped: false })) ?? [];
+      if (y.skips.length == 0 || y.skips.length > 0 && y.skips[0].from !== 0)
+        y.skips.unshift({ from: 0, to: 0, skipped: false });
+
       let start = Math.round(this.sampleStart + y.skips.reduce((prev, elem) => prev + (elem.from < this.sampleStart ? ((elem.to ?? 0) - elem.from) : 0), 0));
       let end = this.sampleLength ? (start + Math.round(this.sampleLength ?? 0)) : 10
       y.previewOptions = {

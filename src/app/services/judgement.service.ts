@@ -53,8 +53,8 @@ export class JudgementService {
 
   passiveJudge() {
     if (!this.gameInProgress || !this.displayService.requestedGame) return;
-    for (let trackIndex = 0; trackIndex < this.displayService.requestedGame.playableSimfileMode.tracks.length; trackIndex++) {
-      let track = this.displayService.requestedGame.playableSimfileMode.tracks[trackIndex];
+    for (let trackIndex = 0; trackIndex < this.displayService.requestedGame.parsedSimfileMode.tracks.length; trackIndex++) {
+      let track = this.displayService.requestedGame.parsedSimfileMode.tracks[trackIndex];
       let unhittable = track.filter(x =>
         (x.type == NoteType.NORMAL || x.type == NoteType.ROLL_HEAD || x.type == NoteType.HOLD_HEAD) &&
         !x.judged && !x.startedJudging &&
@@ -135,7 +135,7 @@ export class JudgementService {
       this.unarmHold(+key);
 
 
-      let track = this.displayService.requestedGame.playableSimfileMode.tracks[key];
+      let track = this.displayService.requestedGame.parsedSimfileMode.tracks[key];
       if (track) {
         let hittable = track.filter(x =>
           (x.type == NoteType.NORMAL || x.type == NoteType.ROLL_HEAD || x.type == NoteType.HOLD_HEAD) &&

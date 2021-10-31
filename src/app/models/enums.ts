@@ -128,6 +128,16 @@ export enum Difficulty {
     EDIT = 6
 }
 
+export enum DifficultyShort {
+    NA = -1,
+    BG = 1,
+    EZ = 2,
+    MD = 3,
+    HD = 4,
+    CH = 5,
+    ED = 6
+}
+
 
 export enum DirectionFlag {
     NONE = 0,//0

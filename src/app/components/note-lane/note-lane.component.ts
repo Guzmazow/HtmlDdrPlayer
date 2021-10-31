@@ -67,8 +67,8 @@ export class NoteLaneComponent implements OnInit, OnDestroy {
     if(!this.displayService.requestedGame) return;
     let leastTime = this.displayService.onCurrentTimeSecondsChange.value;
     let greatestTime = leastTime + this.canvas.height * this.displayService.displayOptions.secondsPerPixel;
-    for (let i = 0; i < this.displayService.requestedGame.playableSimfileMode.tracks.length; i++) {
-      this.drawNotesInTrack(leastTime, greatestTime, this.displayService.requestedGame.playableSimfileMode.tracks[i], i);
+    for (let i = 0; i < this.displayService.requestedGame.parsedSimfileMode.tracks.length; i++) {
+      this.drawNotesInTrack(leastTime, greatestTime, this.displayService.requestedGame.parsedSimfileMode.tracks[i], i);
     }
   }
 

@@ -68,12 +68,12 @@ export class DisplayService {
     this.reset();
     this.displayOptions = new DisplayOptions(
       700,  //Note lane horizontal stretch TODO:config
-      r.playableSimfileMode.tracks.length, 
+      r.parsedSimfileMode.tracks.length, 
       0.001 //Note lane vertical time stretch TODO:config
     );
     this.mediaService.setYTVideo(this.requestedGame.youtubeVideo);
     this.mediaService.prepareMedia(this.displayOptions.noteSize).then(()=>{
-      this.startGame(r.playableSimfileMode.totalTime);
+      this.startGame(r.parsedSimfileMode.totalTime);
     });
   }
 

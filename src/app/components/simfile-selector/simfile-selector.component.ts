@@ -4,18 +4,18 @@ import { ParsedSimfile } from '@models/parsed-simfile';
 import { SimfileLoaderService } from '@services/simfile-loader.service';
 import { NgxY2PlayerOptions } from 'ngx-y2-player';
 import { ParsedSimfileMode } from '@models/parsed-simfile-mode';
-import { Difficulty, GameMode, GameModeType, Key } from '@models/enums';
+import { Difficulty, DifficultyShort, GameMode, GameModeType, Key } from '@models/enums';
 import { MatTabChangeEvent } from '@angular/material/tabs';
 import { GameRequest } from '@models/game-request';
 import { KeyboardService } from '@services/keyboard.service';
 import { LocalStorage } from '../../other/storage';
 import { MatDrawerContainer } from '@angular/material/sidenav';
 import { SimfileRegistryYoutubeInfo } from '@models/simfile-registry-youtube-info';
-import { SimfileRegistryFolder } from '@models/simfile-registry-folder';
 import { takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs';
 import { Log } from '@services/log.service';
 import { MatDialog } from '@angular/material/dialog';
+import { ParsedSimfileFolder } from '@models/parsed-folder';
 
 @Component({
   selector: 'app-simfile-selector',
@@ -28,11 +28,11 @@ export class SimfileSelectorComponent implements OnInit, OnDestroy {
 
   GameMode = GameMode;
   GameModeType = GameModeType;
-  Difficulty = Difficulty;
+  DifficultyShort = DifficultyShort;
 
   firstVideoStopped = false;
-  simfileFolders: SimfileRegistryFolder[] = [];
-  selectedSimfileFolder?: SimfileRegistryFolder;
+  simfileFolders: ParsedSimfileFolder[] = [];
+  selectedSimfileFolder?: ParsedSimfileFolder;
   simfilesInSelectedFolder: ParsedSimfile[] = [];
   selectedSimfile?: ParsedSimfile;
   selectedSimfileMode?: ParsedSimfileMode;
@@ -78,8 +78,8 @@ export class SimfileSelectorComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.simfileLoaderService.parsedSimfilesLoaded.pipe(takeUntil(this.destroyed$)).subscribe(loaded => {
       if (!loaded) return;
-      if (this.simfileLoaderService.simfileRegistryFolders) {
-        this.simfileFolders = Array.from(this.simfileLoaderService.simfileRegistryFolders.values());
+      if (this.simfileLoaderService.parsedSimfileFolders) {
+        this.simfileFolders = Array.from(this.simfileLoaderService.parsedSimfileFolders.values());
         this.loadScores();
         this.selectedSimfileFolder = this.simfileFolders.find(x => x.location == this.lastSelectedSimfileFolderLocation) ?? this.simfileFolders[0];
         this.simfilesInSelectedFolder = Array.from(this.selectedSimfileFolder?.parsedSimfiles?.values() ?? []);
@@ -135,17 +135,22 @@ export class SimfileSelectorComponent implements OnInit, OnDestroy {
     for (let folder of this.simfileFolders) {
       let folderScores = scores[folder.location];
       if (!folderScores) continue;
-      for (let simfile of folder.parsedSimfiles.values()) {
+      for (let simfile of (folder.parsedSimfiles ?? []).values()) {
         let simfileScores = folderScores[simfile.filename];
         if (!simfileScores) continue;
         for (let simfileMode of simfile.modes) {
           simfileMode.scores = simfileScores[Difficulty[simfileMode.difficulty]];
           if (simfileMode.scores) {
-            simfileMode.displayScores = simfileMode.scores.map(x => new Number(35 - Math.round(x * 25 / 100)).toString(36).toUpperCase()).join("; ");
+            simfileMode.displayScores = simfileMode.scores.map(x => this.numberScoreToLetterScore(x)).join("; ");            
+            simfileMode.bestScore = this.numberScoreToLetterScore(Math.max(...simfileMode.scores));
           }
         }
       }
     }
+  }
+
+  numberScoreToLetterScore(score: number){
+    return new Number(35 - Math.round(score * 25 / 100)).toString(36).toUpperCase();
   }
 
   ngOnDestroy(): void {
@@ -153,7 +158,7 @@ export class SimfileSelectorComponent implements OnInit, OnDestroy {
     this.destroyed$.complete();
   }
 
-  selectSimfileFolder(folder: SimfileRegistryFolder) {
+  selectSimfileFolder(folder: ParsedSimfileFolder) {
     this.selectedSimfileFolder = folder;
     this.lastSelectedSimfileFolderLocation = folder.location;
     this.simfilesInSelectedFolder = Array.from(this.selectedSimfileFolder?.parsedSimfiles?.values() ?? []);

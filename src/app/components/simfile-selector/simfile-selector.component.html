@@ -8,7 +8,7 @@
                     <div class="list-elem">
                         {{folder.title}}
                     </div>
-                    <div class="small-list-elem">{{folder.location}} ({{(folder.simfiles.length)}})</div>
+                    <div class="small-list-elem">{{folder.location}} ({{(folder.parsedSimfiles.size)}})</div>
                 </div>
             </mat-list-option>
         </mat-selection-list>
@@ -21,7 +21,8 @@
                     <mat-list-option *ngFor="let simfile of simfilesInSelectedFolder" [value]="simfile"
                         [selected]="selectedSimfile == simfile">
                         <div>
-                            <div class="large-list-elem" [class.mat-error]="simfile.status" [title]="(simfile.titleTranslit || simfile.title) + (simfile.status ? ' (' + simfile.status + ')' : '')">
+                            <div class="large-list-elem" [class.mat-error]="simfile.status"
+                                [title]="(simfile.titleTranslit || simfile.title) + (simfile.status ? ' (' + simfile.status + ')' : '')">
                                 {{simfile.titleTranslit || simfile.title}}
                                 <ng-container *ngIf="simfile.status">({{simfile.status}})</ng-container>
                             </div>
@@ -32,43 +33,66 @@
             </mat-drawer>
             <mat-drawer-content>
                 <div *ngIf="selectedSimfile">
-                    <div class="mx2">
-                        <button mat-raised-button (click)="playSelectedMode()">Play</button>
-                        <button mat-raised-button
-                            [routerLink]="['/synchronizer', selectedSimfileFolder?.location, selectedSimfile.filename]">Sync</button>
-                        <button mat-raised-button (click)="dialog.open(infoDialog)">Info</button>
+                    <div id="play-mode-info" class="p2">
+                        <table id="mode-table" mat-table [dataSource]="selectedSimfile.modes">
+                            <ng-container matColumnDef="meter">
+                                <mat-header-cell *matHeaderCellDef> Meter </mat-header-cell>
+                                <mat-cell *matCellDef="let item"> {{item.meter}} </mat-cell>
+                            </ng-container>
+                            <ng-container matColumnDef="difficulty">
+                                <mat-header-cell *matHeaderCellDef> Difficulty </mat-header-cell>
+                                <mat-cell *matCellDef="let item"> {{DifficultyShort[item.difficulty]}} </mat-cell>
+                            </ng-container>
+                            <ng-container matColumnDef="stats">
+                                <mat-header-cell *matHeaderCellDef> Stats </mat-header-cell>
+                                <mat-cell *matCellDef="let item"> {{item.stats}} </mat-cell>
+                            </ng-container>
+                            <ng-container matColumnDef="nps">
+                                <mat-header-cell *matHeaderCellDef> NPS </mat-header-cell>
+                                <mat-cell *matCellDef="let item"> {{ item.nps | number: '1.2-2'}} </mat-cell>
+                            </ng-container>
+                            <ng-container matColumnDef="scores">
+                                <mat-header-cell *matHeaderCellDef> Scores </mat-header-cell>
+                                <mat-cell *matCellDef="let item"> {{item.displayScores}} </mat-cell>
+                            </ng-container>
+                            <ng-container matColumnDef="bestscore">
+                                <mat-header-cell *matHeaderCellDef> Score </mat-header-cell>
+                                <mat-cell *matCellDef="let item"> {{item.bestScore}} </mat-cell>
+                            </ng-container>
+                            <mat-header-row *matHeaderRowDef="['difficulty', 'meter', 'nps', 'bestscore']">
+                            </mat-header-row>
+                            <mat-row *matRowDef="let row; columns: ['difficulty', 'meter', 'nps', 'bestscore'];"
+                                matRipple
+                                [ngClass]="{'hovered': row.hovered, 'highlighted': selectedSimfileMode == row}"
+                                (click)="selectSimfileMode(row)" (mouseover)="row.hovered = true"
+                                (mouseout)="row.hovered = false"></mat-row>
+                        </table>
+                        <mat-card>
+                            <mat-card-content>
+                                <div>Length: {{selectedSimfileMode?.totalTimeDisplay}}</div>
+                                <div>NPS: {{selectedSimfileMode?.nps | number: '1.2-2'}}</div>
+                                <div>Steps: {{selectedSimfileMode?.noteCount}}</div>
+                                <div>Rolls: {{selectedSimfileMode?.rollCount}}</div>
+                                <div>Holds: {{selectedSimfileMode?.holdCount}}</div>
+                                <div>Mines: {{selectedSimfileMode?.mineCount}}</div>
+                                <div>Scores: {{selectedSimfileMode?.displayScores ?? 'Not played'}}</div>
+                            </mat-card-content>
+                            <mat-card-actions>
+                                <button color="primary" mat-raised-button (click)="playSelectedMode()">Play</button>
+                                <button mat-raised-button
+                                    [routerLink]="['/synchronizer', selectedSimfileFolder?.location, selectedSimfile.filename]">Sync</button>
+                                <button mat-raised-button (click)="dialog.open(infoDialog)">Info</button>
+                            </mat-card-actions>
+                        </mat-card>
                     </div>
-                    <table id="mode-table" mat-table [dataSource]="selectedSimfile.modes">
-                        <ng-container matColumnDef="meter">
-                            <mat-header-cell *matHeaderCellDef> Meter </mat-header-cell>
-                            <mat-cell *matCellDef="let item"> {{item.meter}} </mat-cell>
-                        </ng-container>
-                        <ng-container matColumnDef="difficulty">
-                            <mat-header-cell *matHeaderCellDef> Difficulty </mat-header-cell>
-                            <mat-cell *matCellDef="let item"> {{Difficulty[item.difficulty]}} </mat-cell>
-                        </ng-container>
-                        <ng-container matColumnDef="stats">
-                            <mat-header-cell *matHeaderCellDef> Stats </mat-header-cell>
-                            <mat-cell *matCellDef="let item"> {{item.stats}} </mat-cell>
-                        </ng-container>
-                        <ng-container matColumnDef="scores">
-                            <mat-header-cell *matHeaderCellDef> Scores </mat-header-cell>
-                            <mat-cell *matCellDef="let item"> {{item.displayScores}} </mat-cell>
-                        </ng-container>
-                        <mat-header-row *matHeaderRowDef="['difficulty', 'meter', 'stats', 'scores']"></mat-header-row>
-                        <mat-row *matRowDef="let row; columns: ['difficulty', 'meter', 'stats', 'scores'];" matRipple
-                            [ngClass]="{'hovered': row.hovered, 'highlighted': selectedSimfileMode == row}"
-                            (click)="selectSimfileMode(row)" (mouseover)="row.hovered = true"
-                            (mouseout)="row.hovered = false"></mat-row>
-                    </table>
-
                     <mat-tab-group animationDuration="0ms" (selectedTabChange)="onVideoSelected($event)">
                         <mat-tab [label]="registryVideo.id" style="height: 300px;"
                             *ngFor="let registryVideo of selectedSimfile.youtubeVideos">
                             <ng-template matTabContent>
                                 <div style="height: 100%; width: 750px;" #videoContainer>
-                                    <ngx-y2-player #video [videoId]="registryVideo.id" [playerOptions]="registryVideo.previewOptions ?? {}" (ready)="onVideoReady($event)"
-                                        [container]="videoContainer">
+                                    <ngx-y2-player #video [videoId]="registryVideo.id"
+                                        [playerOptions]="registryVideo.previewOptions ?? {}"
+                                        (ready)="onVideoReady($event)" [container]="videoContainer">
                                     </ngx-y2-player>
                                 </div>
                             </ng-template>

@@ -123,7 +123,7 @@ export class YoutubeVideoComponent implements OnDestroy {
             setTimeout(() => {
               if (this.currentVideo)
                 this.currentVideo.videoPlayer.playVideo();
-            }, 15);
+            }, Math.max(15, Math.abs(timeDiff) * 1000 - 100));
             let int = setInterval(() => {
               if (!this.currentVideo || this.currentVideo.videoPlayer.getPlayerState() != YT.PlayerState.PLAYING) return;
               clearInterval(int);

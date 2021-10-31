@@ -22,4 +22,12 @@ export class Note {
         this.totalBeat = totalBeat;
         this.related = related;
     }
+
+    reset(){
+        this.startedJudging = false;
+        this.stateChangeTime = 0;
+        this.judged = false;
+        this.judgement = Judgement.NONE;
+        this.precision = null;
+    }
 }
