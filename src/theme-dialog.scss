@@ -1,0 +1,20 @@
+@import "~@angular/material/theming";
+
+@mixin dialog($config) {
+    $background: map-get($theme, background);
+
+    .mat-dialog-container {
+        background-color: mat-color($background, background);
+    }
+}
+
+@mixin dialog-theme($theme) {
+    // Extracts the color and typography configurations from the theme.
+    $color: mat-get-color-config($theme);
+
+    // Do not generate styles if configurations for individual theming
+    // systems have been explicitly set to `null`.
+    @if $color != null {
+        @include dialog($color);
+    }
+}

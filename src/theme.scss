@@ -3,6 +3,7 @@
 @import 'theme-scroll.scss';
 @import 'theme-selected-rows.scss';
 @import 'theme-badge.scss';
+@import 'theme-dialog.scss';
 // Plus imports for other components in your app.
 
 // Include the common styles for Angular Material. We include this here so that you only
@@ -39,3 +40,4 @@ $theme: mat-dark-theme((
 @include scroll-theme($theme);
 @include row-select-theme($theme);
 @include badge-theme($theme);
+@include dialog-theme($theme);

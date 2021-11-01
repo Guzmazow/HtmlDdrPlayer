@@ -37,6 +37,9 @@ import { YoutubeVideoComponent } from './components/youtube-video/youtube-video.
 import { SynchronizerComponent } from './components/synchronizer/synchronizer.component';
 import { SerialComponent } from './components/serial/serial.component';
 import { StepCounterComponent } from './components/step-counter/step-counter.component';
+import { PreferencesComponent } from './components/preferences/preferences.component';
+import { PreferencesDialogComponent } from './components/preferences/preferences-dialog.component';
+import { SelectableModesPipe } from './pipes/selectable-modes.pipe';
 
 
 @NgModule({
@@ -51,7 +54,10 @@ import { StepCounterComponent } from './components/step-counter/step-counter.com
     YoutubeVideoComponent,
     SynchronizerComponent,
     SerialComponent,
-    StepCounterComponent
+    StepCounterComponent,
+    PreferencesComponent,
+    PreferencesDialogComponent,
+    SelectableModesPipe
   ],
   imports: [
     BrowserModule,

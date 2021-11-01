@@ -1,0 +1,31 @@
+<h1 mat-dialog-title>Preferences</h1>
+<div mat-dialog-content>
+    <form [formGroup]="preferencesForm">
+        <mat-accordion>
+            <mat-expansion-panel formGroupName="NPSFilter" [expanded]="true">
+                <mat-expansion-panel-header>
+                    <mat-panel-title>
+                        Filter available modes by NPS
+                    </mat-panel-title>
+                    <!-- <mat-panel-description>
+                    Filter modes by NPS
+                    </mat-panel-description> -->
+                </mat-expansion-panel-header>
+                <mat-form-field appearance="fill">
+                    <mat-label>From</mat-label>
+                    <input matInput formControlName="from" type="number" min="0" max="999" step=0.01>
+                    <mat-hint>Minimum NPS</mat-hint>
+                  </mat-form-field>
+                  <mat-form-field appearance="fill">
+                    <mat-label>To</mat-label>
+                    <input matInput formControlName="to" type="number" min="0" max="999" step=0.01>
+                    <mat-hint>Maximum NPS</mat-hint>
+                  </mat-form-field>
+            </mat-expansion-panel>
+        </mat-accordion>
+    </form>
+</div>
+<div mat-dialog-actions align="end">
+    <button mat-raised-button (click)="onNoClick()">Cancel</button>
+    <button mat-raised-button color="primary" [mat-dialog-close]="preferencesForm.value" cdkFocusInitial>Save</button>
+</div>

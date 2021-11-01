@@ -16,6 +16,8 @@ import { Subject } from 'rxjs';
 import { Log } from '@services/log.service';
 import { MatDialog } from '@angular/material/dialog';
 import { ParsedSimfileFolder } from '@models/parsed-folder';
+import { SelectableModesPipe } from 'src/app/pipes/selectable-modes.pipe';
+import { PreferenceService } from '@services/preference.service';
 
 @Component({
   selector: 'app-simfile-selector',
@@ -49,11 +51,12 @@ export class SimfileSelectorComponent implements OnInit, OnDestroy {
   @LocalStorage('', '') lastSelectedSimfileFolderLocation!: string;
 
   constructor(
-    private simfileLoaderService: SimfileLoaderService, 
-    private keyboardService: KeyboardService, 
+    private simfileLoaderService: SimfileLoaderService,
+    private keyboardService: KeyboardService,
     private changeDetectorRef: ChangeDetectorRef,
-    public dialog: MatDialog
-    ) {
+    public dialog: MatDialog,
+    private preferenceService: PreferenceService
+  ) {
   }
 
   blurFix() {
@@ -84,7 +87,7 @@ export class SimfileSelectorComponent implements OnInit, OnDestroy {
         this.selectedSimfileFolder = this.simfileFolders.find(x => x.location == this.lastSelectedSimfileFolderLocation) ?? this.simfileFolders[0];
         this.simfilesInSelectedFolder = Array.from(this.selectedSimfileFolder?.parsedSimfiles?.values() ?? []);
         this.selectedSimfile = this.simfilesInSelectedFolder.find(x => x.smFileLocation == this.lastSelectedSimfileLocation);
-        this.selectedSimfileMode = this.selectedSimfile?.modes.find(x => x.difficulty == this.lastSelectedSimfileDifficulty);
+        this.selectedSimfileMode = this.selectableModes().find(x => x.difficulty == this.lastSelectedSimfileDifficulty);
       }
       this.antiGlitch();
     });
@@ -94,7 +97,7 @@ export class SimfileSelectorComponent implements OnInit, OnDestroy {
           case Key.UP:
           case Key.DOWN:
             if (this.selectedSimfile) {
-              let modes = this.selectedSimfile.modes;
+              let modes = this.selectableModes();
               let toSelect: ParsedSimfileMode = keyEv.key == Key.UP ? modes[modes.length - 1] : modes[0];
               if (this.selectedSimfileMode) {
                 let indexChange = keyEv.key == Key.UP ? -1 : 1;
@@ -141,7 +144,7 @@ export class SimfileSelectorComponent implements OnInit, OnDestroy {
         for (let simfileMode of simfile.modes) {
           simfileMode.scores = simfileScores[Difficulty[simfileMode.difficulty]];
           if (simfileMode.scores) {
-            simfileMode.displayScores = simfileMode.scores.map(x => this.numberScoreToLetterScore(x)).join("; ");            
+            simfileMode.displayScores = simfileMode.scores.map(x => this.numberScoreToLetterScore(x)).join("; ");
             simfileMode.bestScore = this.numberScoreToLetterScore(Math.max(...simfileMode.scores));
           }
         }
@@ -149,7 +152,7 @@ export class SimfileSelectorComponent implements OnInit, OnDestroy {
     }
   }
 
-  numberScoreToLetterScore(score: number){
+  numberScoreToLetterScore(score: number) {
     return new Number(35 - Math.round(score * 25 / 100)).toString(36).toUpperCase();
   }
 
@@ -172,12 +175,19 @@ export class SimfileSelectorComponent implements OnInit, OnDestroy {
     }
   }
 
+  selectableModes() {
+    const pipe = new SelectableModesPipe(this.preferenceService);
+    return pipe.transform(this.selectedSimfile?.modes ?? []);
+  }
+
   selectSimfile(parsedSimfile: ParsedSimfile) {
     this.selectedSimfile = parsedSimfile;
     this.lastSelectedSimfileLocation = this.selectedSimfile.smFileLocation;
-    let modes = this.selectedSimfile.modes;
+
+
     this.selectedVideo = undefined;
     //select last selected difficulty orelse closest orelse last
+    const modes = this.selectableModes();
     this.selectSimfileMode(modes.find(x => x.difficulty == this.lastSelectedSimfileDifficulty) ?? modes[this.lastSelectedSimfileDifficultyIndex - 1] ?? modes[modes.length - 1], false);
   }
 
@@ -191,7 +201,7 @@ export class SimfileSelectorComponent implements OnInit, OnDestroy {
     this.selectedSimfileMode = parsedSimfileMode;
     if (changeLastValues) {
       this.lastSelectedSimfileDifficulty = parsedSimfileMode.difficulty;
-      this.lastSelectedSimfileDifficultyIndex = this.selectedSimfile?.modes.indexOf(parsedSimfileMode) ?? 0;
+      this.lastSelectedSimfileDifficultyIndex = this.selectableModes().indexOf(parsedSimfileMode) ?? 0;
     }
   }
 
@@ -199,9 +209,9 @@ export class SimfileSelectorComponent implements OnInit, OnDestroy {
     this.selectedVideo = this.selectedSimfile?.youtubeVideos[ev.index];
   }
 
-  onVideoReady(ev: YT.PlayerEvent){
+  onVideoReady(ev: YT.PlayerEvent) {
     ev.target.setVolume(25);
-    if(!this.firstVideoStopped){
+    if (!this.firstVideoStopped) {
       this.firstVideoStopped = true;
       ev.target.stopVideo();
     }

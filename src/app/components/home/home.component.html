@@ -13,17 +13,18 @@
   </mat-drawer>
 
   <mat-toolbar color="primary">
-    <button mat-icon-button (click)="start.toggle()">
+    <button mat-icon-button mat-raised-button (click)="start.toggle()">
       <mat-icon>menu</mat-icon>
     </button>
     <span>DDR Player pre-ALPHA - simfile selector</span>
     <span class="example-spacer"></span>
     <app-step-counter></app-step-counter>
+    <app-preferences></app-preferences>
     <app-serial></app-serial>
-    <button mat-icon-button [routerLink]="['/']">
+    <button mat-icon-button mat-raised-button [routerLink]="['/']">
       <mat-icon>favorite</mat-icon>
     </button>
-    <button mat-icon-button>
+    <button mat-icon-button mat-raised-button>
       <mat-icon>share</mat-icon>
     </button>
   </mat-toolbar>

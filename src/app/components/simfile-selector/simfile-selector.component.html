@@ -34,7 +34,7 @@
             <mat-drawer-content>
                 <div *ngIf="selectedSimfile">
                     <div id="play-mode-info" class="p2">
-                        <table id="mode-table" mat-table [dataSource]="selectedSimfile.modes">
+                        <table id="mode-table" mat-table [dataSource]="selectedSimfile.modes | selectableModes">
                             <ng-container matColumnDef="meter">
                                 <mat-header-cell *matHeaderCellDef> Meter </mat-header-cell>
                                 <mat-cell *matCellDef="let item"> {{item.meter}} </mat-cell>
