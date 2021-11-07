@@ -137,7 +137,7 @@ export class DisplayService {
       let reversableToTime = isReversed ? fromTime : toTime;
       for (const bpm of bpms) {
         if (this.is_overlapping(reversableFromTime, reversableToTime, bpm.from, (bpm.to ?? reversableToTime))) {
-          distance += (isReversed ? -1 : 1) * this.overlap_amount(reversableFromTime, reversableToTime, bpm.from, (bpm.to ?? toTime)) * bpm.bpm * this.preferenceService.onPreferenceChange.value.play.xMod
+          distance += (isReversed ? -1 : 1) * this.overlap_amount(reversableFromTime, reversableToTime, bpm.from, (bpm.to ?? reversableToTime)) * bpm.bpm * this.preferenceService.onPreferenceChange.value.play.xMod
         }
       }
     }
