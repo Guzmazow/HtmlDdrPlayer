@@ -104,7 +104,7 @@ export class SynchronizerComponent implements OnInit, OnDestroy {
       })) ?? [])
     });
 
-    this.youtubeVideoForm?.setValue(youtubeVideo);
+    this.youtubeVideoForm?.patchValue(youtubeVideo);
 
     this.youtubeVideoForm?.valueChanges.pipe(takeUntil(this.destroyed$)).subscribe(newValue => {
       Object.assign(this.selectedVideo, newValue);
