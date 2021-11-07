@@ -4324,6 +4324,7 @@
                 "youtubeVideos": [
                     {
                         "id": "OLzOrik5YJ8",
+                        "offsset": 1.9,
                         "skips": [
                             {
                                 "from": 116,
