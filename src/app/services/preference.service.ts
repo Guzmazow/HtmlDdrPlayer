@@ -15,7 +15,11 @@ export class PreferenceService {
 
   onPreferenceChange = new BehaviorSubject<Preferences>(this.preferences);
 
-  constructor() { }
+  constructor() { 
+    //insert defaults if missing
+    this.preferences = new Preferences(this.preferences)
+    this.onPreferenceChange.next(this.preferences);
+  }
 
   save(pref: Preferences){
     this.preferences = pref;

@@ -14,13 +14,15 @@ export class Note {
     //For hold/roll body/tail
     related?: Note;
     mineDisplayRotationOffset = Math.round(Math.random()*1000);
+    trackIndex: number;
 
-    constructor(type: NoteType, time: number, quantization: NoteQuantization, totalBeat: number, related: Note | undefined) {
+    constructor(type: NoteType, time: number, quantization: NoteQuantization, totalBeat: number, related: Note | undefined, trackIndex: number) {
         this.type = type;
         this.time = time;
         this.quantization = quantization;
         this.totalBeat = totalBeat;
         this.related = related;
+        this.trackIndex = trackIndex;
     }
 
     reset(){

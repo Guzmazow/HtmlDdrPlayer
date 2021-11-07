@@ -1,13 +1,15 @@
 import { Injectable } from '@angular/core';
 import { MediaService } from './media.service';
 import { DisplayOptions } from '@models/display-options';
-import { BehaviorSubject, Subject, takeWhile } from 'rxjs';
+import { BehaviorSubject, first, Subject, takeWhile } from 'rxjs';
 import { SimfileLoaderService } from './simfile-loader.service';
 import { KeyboardService } from './keyboard.service';
 import { Key } from '@models/enums';
 import { Router } from '@angular/router';
 import { Log } from './log.service';
 import { GameRequest } from '@models/game-request';
+import { Note } from '@models/note';
+import { PreferenceService } from './preference.service';
 
 
 @Injectable({
@@ -20,7 +22,7 @@ export class DisplayService {
   onGamePlayStateChange = new BehaviorSubject(false);
 
   requestedGame?: GameRequest;
-  displayOptions: DisplayOptions = new DisplayOptions(0, 0, 0);
+  displayOptions: DisplayOptions = new DisplayOptions(0, 0);
 
   private startDateTime: Date = new Date();
   private endDateTime: Date = new Date();
@@ -41,7 +43,8 @@ export class DisplayService {
   constructor(
     private mediaService: MediaService,
     private keyboardService: KeyboardService,
-    private router: Router
+    private router: Router,
+    private preferenceService: PreferenceService
   ) {
     Log.debug("DisplayService", "constructor")
     this.keyboardService.onLongPress.subscribe(key => {
@@ -63,16 +66,15 @@ export class DisplayService {
     });
   }
 
-  requestGame(r: GameRequest){
+  requestGame(r: GameRequest) {
     this.requestedGame = r;
     this.reset();
     this.displayOptions = new DisplayOptions(
-      700,  //Note lane horizontal stretch TODO:config
-      r.parsedSimfileMode.tracks.length, 
-      0.001 //Note lane vertical time stretch TODO:config
+      this.preferenceService.onPreferenceChange.value.display.laneWidth,  //Note lane horizontal stretch TODO:config
+      r.parsedSimfileMode.tracks.length
     );
     this.mediaService.setYTVideo(this.requestedGame.youtubeVideo);
-    this.mediaService.prepareMedia(this.displayOptions.noteSize).then(()=>{
+    this.mediaService.prepareMedia(this.displayOptions.noteSize).then(() => {
       this.startGame(r.parsedSimfileMode.totalTime);
     });
   }
@@ -85,9 +87,62 @@ export class DisplayService {
     return Math.round(this.displayOptions.noteSpacingSize + trackNumber * this.displayOptions.trackSize);
   }
 
+  prevBPMMod = 0;
+
+
+  /**
+   * @description Checks overlap borrowed from https://stackoverflow.com/a/12888920/15874691
+   */
+  is_overlapping(x1: number, x2: number, y1: number, y2: number) {
+    return Math.max(x1, y1) <= Math.min(x2, y2)
+  }
+
+  /**
+ * @description Checks overlap borrowed from https://stackoverflow.com/a/12888920/15874691 comment
+ */
+  overlap_amount(x1: number, x2: number, y1: number, y2: number) {
+    return Math.min(x2, y2) - Math.max(x1, y1)
+  }
+
   getNoteY(noteTime: number) {
-    let timeDistance = noteTime - this.onCurrentTimeSecondsChange.value;
-    return Math.round((timeDistance / this.displayOptions.secondsPerPixel) + this.displayOptions.noteTopPadding);
+    let distance = this.displayOptions.noteTopPadding;
+    let fromTime = this.onCurrentTimeSecondsChange.value;
+    let toTime = noteTime;
+
+    //STOP logic
+    {
+      let toTimeWithStops = toTime;
+      let fromTimeWithStops = fromTime;
+      const stops = this.requestedGame?.parsedSimfile.stopsTime ?? [];
+      for (const stop of stops) {
+        const endOfStop = stop.time + stop.stopDuration;
+        if (this.is_overlapping(fromTime, toTime, endOfStop, endOfStop)) {
+          toTimeWithStops -= stop.stopDuration;
+        }
+        if (this.is_overlapping(fromTime, fromTime, stop.time, endOfStop)) {
+          //  stop.time <= newTimeSeconds && newTimeSeconds <= endOfStop) {
+          //Log.debug("NoteLaneComponent", `Keeping time (${newTimeSeconds}) stopped from ${stop.time} to ${endOfStop}`);
+          fromTimeWithStops = stop.time;
+        }
+      }
+      fromTime = fromTimeWithStops;
+      toTime = toTimeWithStops;
+    }
+
+    //BPM logic
+    {
+      const bpms = this.requestedGame?.parsedSimfile.bpmsTime ?? [];
+      const isReversed = toTime < fromTime;
+      let reversableFromTime = isReversed ? toTime : fromTime;
+      let reversableToTime = isReversed ? fromTime : toTime;
+      for (const bpm of bpms) {
+        if (this.is_overlapping(reversableFromTime, reversableToTime, bpm.from, (bpm.to ?? reversableToTime))) {
+          distance += (isReversed ? -1 : 1) * this.overlap_amount(reversableFromTime, reversableToTime, bpm.from, (bpm.to ?? toTime)) * bpm.bpm * this.preferenceService.onPreferenceChange.value.play.xMod
+        }
+      }
+    }
+
+    return Math.round(distance);
   }
 
   endGame() {
@@ -130,7 +185,7 @@ export class DisplayService {
       this.onCurrentTimeSecondsChange.next(newTimeSeconds);
       if (this.totalSeconds > 0) {
         this.onCurrentTimePercentageChange.next(newTimeSeconds / this.totalSeconds * 100);
-      }  
+      }
     }
 
     this.lastframe = requestAnimationFrame(this.tick.bind(this));

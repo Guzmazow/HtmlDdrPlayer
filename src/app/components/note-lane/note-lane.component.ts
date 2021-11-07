@@ -25,12 +25,12 @@ export class NoteLaneComponent implements OnInit, OnDestroy {
   constructor(private displayService: DisplayService, private mediaService: MediaService) { }
 
   ngOnInit(): void {
-    if(!this.displayService.onGamePlayStateChange.value){
+    if (!this.displayService.onGamePlayStateChange.value) {
       Log.error("NoteLaneComponent", "Game not yet started!");
       window.location.href = "/";
     }
 
-    if(!this.mediaService.onMediaLoaded.value){
+    if (!this.mediaService.onMediaLoaded.value) {
       Log.error("NoteLaneComponent", "Media not yet loaded!");
       return;
     }
@@ -64,28 +64,33 @@ export class NoteLaneComponent implements OnInit, OnDestroy {
   }
 
   drawAllNotes() {
-    if(!this.displayService.requestedGame) return;
-    let leastTime = this.displayService.onCurrentTimeSecondsChange.value;
-    let greatestTime = leastTime + this.canvas.height * this.displayService.displayOptions.secondsPerPixel;
-    for (let i = 0; i < this.displayService.requestedGame.parsedSimfileMode.tracks.length; i++) {
-      this.drawNotesInTrack(leastTime, greatestTime, this.displayService.requestedGame.parsedSimfileMode.tracks[i], i);
+    if (!this.displayService.requestedGame) return;
+    // let leastTime = this.displayService.onCurrentTimeSecondsChange.value;
+    // let greatestTime = leastTime + this.canvas.height * this.displayService.displayOptions.secondsPerPixel;
+    for (const track of this.displayService.requestedGame.parsedSimfileMode.tracks) {
+      for (const note of track) {
+        if (this.displayService.getNoteY(note.time) > screen.height)
+          break;
+        this.drawNote(note);
+      }
     }
+    // this.drawNotesInTrack(leastTime, greatestTime, this.displayService.requestedGame.parsedSimfileMode.tracks[i], i);
   }
 
-  drawNotesInTrack(leastTime: number, greatestTime: number, track: Note[], trackNumber: number) {
-    let bounds = this.getFirstAndLastNotes(leastTime, greatestTime, track);
-    for (let i = bounds.start; i <= bounds.stop; i++) {
-      this.drawNote(track[i], trackNumber);
-    }
-  }
+  // drawNotesInTrack(leastTime: number, greatestTime: number, track: Note[], trackNumber: number) {
+  //   let bounds = this.getFirstAndLastNotes(leastTime, greatestTime, track);
+  //   for (let i = bounds.start; i <= bounds.stop; i++) {
+  //     this.drawNote(track[i], trackNumber);
+  //   }
+  // }
 
-  drawNote(note: Note, trackNumber: number) {
+  drawNote(note: Note) {
     if (note.judged)
       return;
-    let x = this.displayService.getNoteX(trackNumber);
+    let x = this.displayService.getNoteX(note.trackIndex);
     let y = this.displayService.getNoteY(note.time);
-    let y2 = this.displayService.getNoteY(note.related?.time ?? 0);
-    let direction = trackNumber % 4;
+    let y2 = note.related ? this.displayService.getNoteY(note.related.time) : 0;
+    let direction = note.trackIndex % 4;
     //new NoteDisplay(x, y, note.type, trackNumber % 4).draw(this.displayService);
 
     this.ctx.save();
@@ -107,9 +112,9 @@ export class NoteLaneComponent implements OnInit, OnDestroy {
         // this.ctx.fillText("H", x + halfNoteSize, y + ninthNoteSize, noteSize);
 
         if (note.startedJudging && note.time < this.displayService.onCurrentTimeSecondsChange.value) {
-          y = this.displayService.getNoteY(this.displayService.onCurrentTimeSecondsChange.value);
+          y = this.displayService.displayOptions.noteTopPadding;
         }
-        
+
         if (y2 > y + halfNoteSize) {
           let isHoldActive = note.startedJudging && note.stateChangeTime == 0; //note.stateChangeTime + 0.01 < this.displayService.currentTime;
           this.ctx.beginPath();
@@ -134,9 +139,9 @@ export class NoteLaneComponent implements OnInit, OnDestroy {
         // this.ctx.fillText("R", x + halfNoteSize, y + ninthNoteSize, noteSize);
 
         if (note.startedJudging && note.time < this.displayService.onCurrentTimeSecondsChange.value) {
-          y = this.displayService.getNoteY(this.displayService.onCurrentTimeSecondsChange.value);
+          y = this.displayService.displayOptions.noteTopPadding;
         }
-        
+
         if (y2 > y + halfNoteSize) {
           let isRollActive = note.stateChangeTime + 0.1 < this.displayService.onCurrentTimeSecondsChange.value;
           let rollPattern = this.ctx.createPattern(isRollActive ? this.mediaService.rollBodyActiveImageCache! : this.mediaService.rollBodyInactiveImageCache!, 'repeat-y')!;
@@ -167,7 +172,7 @@ export class NoteLaneComponent implements OnInit, OnDestroy {
         this.ctx.drawImage(this.mediaService.mineImageCache?.get(Math.round(currentTime.getMilliseconds() / 2 * 359 / 1000))!, x, y, noteSize, noteSize);
         break;
       case NoteType.HOLD_TAIL:
-      case NoteType.ROLL_TAIL:   
+      case NoteType.ROLL_TAIL:
         break;
       default:
         this.ctx.strokeRect(x, y, noteSize, noteSize);
@@ -180,21 +185,21 @@ export class NoteLaneComponent implements OnInit, OnDestroy {
     this.ctx.restore();
   }
 
-  getFirstAndLastNotes(leastTime: number, greatestTime: number, track: Note[]) {
-    let i;
-    for (i = 0; i < track.length; i++) {
-      if (track[i].time > leastTime) {
-        break;
-      }
-    }
-    i = Math.max(0, i - 1);
-    let j;
-    for (j = i; j < track.length; j++) {
-      if (track[j].time > greatestTime) {
-        break;
-      }
-    }
-    j = Math.max(0, j - 1);
-    return { start: i, stop: j };
-  }
+  // getFirstAndLastNotes(leastTime: number, greatestTime: number, track: Note[]) {
+  //   let i;
+  //   for (i = 0; i < track.length; i++) {
+  //     if (track[i].time > leastTime) {
+  //       break;
+  //     }
+  //   }
+  //   i = Math.max(0, i - 1);
+  //   let j;
+  //   for (j = i; j < track.length; j++) {
+  //     if (track[j].time > greatestTime) {
+  //       break;
+  //     }
+  //   }
+  //   j = Math.max(0, j - 1);
+  //   return { start: i, stop: j };
+  // }
 }

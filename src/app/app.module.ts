@@ -40,6 +40,7 @@ import { StepCounterComponent } from './components/step-counter/step-counter.com
 import { PreferencesComponent } from './components/preferences/preferences.component';
 import { PreferencesDialogComponent } from './components/preferences/preferences-dialog.component';
 import { SelectableModesPipe } from './pipes/selectable-modes.pipe';
+import { MediaService } from '@services/media.service';
 
 
 @NgModule({
@@ -83,7 +84,7 @@ import { SelectableModesPipe } from './pipes/selectable-modes.pipe';
     ReactiveFormsModule,
     MatBadgeModule
   ],
-  providers: [KeyboardService],
+  providers: [KeyboardService, MediaService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

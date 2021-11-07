@@ -10,10 +10,10 @@ export class SelectableModesPipe implements PipeTransform {
   constructor(private preferenceService: PreferenceService) { }
 
   transform(allModes: ParsedSimfileMode[]) {
-    let NPSFilter = this.preferenceService.onPreferenceChange.value.NPSFilter;
+    let npsFilter = this.preferenceService.onPreferenceChange.value.npsFilter;
     return allModes.filter(mode =>
-      (!NPSFilter.from || mode.nps >= NPSFilter.from) &&
-      (!NPSFilter.to || mode.nps <= NPSFilter.to)
+      (!npsFilter.from || mode.nps >= npsFilter.from) &&
+      (!npsFilter.to || mode.nps <= npsFilter.to)
     );
   }
 

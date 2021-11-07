@@ -10,9 +10,15 @@ import { Preferences } from '@models/preferences';
 })
 export class PreferencesDialogComponent {
   preferencesForm = new FormGroup({
-    NPSFilter: new FormGroup({
+    npsFilter: new FormGroup({
       from: new FormControl(null),
       to: new FormControl(null),
+    }),
+    display: new FormGroup({
+      laneWidth: new FormControl(null),
+    }),
+    play: new FormGroup({
+      xMod: new FormControl(null)
     })
   });
 

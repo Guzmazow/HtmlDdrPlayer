@@ -15,30 +15,33 @@ export class ParsedSimfile {
   youtubeVideos: SimfileRegistryYoutubeInfo[];
 
   loaded: boolean = false;
-  title: string = "";
-  titleTranslit: string = "";
-  subtitle: string = "";
-  subtitleTranslit: string = "";
-  artist: string = "";
-  artistTranslit: string = "";
-  credit: string = ""; //Prefer one on difficulty mode because of collab
-  banner: string = ""; //Unused
-  background: string = ""; //Only youtube for now
-  jacket: string = ""; //WTF is this
-  lyricsPath: string = ""; //No idea how this works
-  cdTitle: string = "";
-  music: string = "";
-  offset: number = 0;
+  title: string;
+  titleTranslit: string;
+  subtitle: string;
+  subtitleTranslit: string;
+  artist: string;
+  artistTranslit: string;
+  credit: string; //Prefer one on difficulty mode because of collab
+  banner: string; //Unused
+  background: string; //Only youtube for now
+  jacket: string; //WTF is this
+  lyricsPath: string; //No idea how this works
+  cdTitle: string;
+  music: string;
+  offset: number;
   sampleStart: number = 0;
   sampleLength: number = 0;
   selectable: boolean = true;
-  listSort: string = ""; //WTF is this
-  bpms: string = "0-0";
-  stops: string = "";
-  tickCount: string = ""; //Probably relaease hold counter configuration for very short holds... otherwise no idea
-  bgChanges: string = "";
-  keySounds: string = ""; //Never seen this in use
-  attacks: string = ""; //Never seen this in use
+  listSort: string; //WTF is this
+  bpms: { beat: number; bpm: number; }[];
+  bpmsTime: { from: number; to: number | null; bpm: number; }[];
+  bpmReadable: string;
+  stops: { beat: number; stopDuration: number; }[];
+  stopsTime: { time: number; stopDuration: number; }[];
+  tickCount: string; //Probably relaease hold counter configuration for very short holds... otherwise no idea
+  bgChanges: string;
+  keySounds: string; //Never seen this in use
+  attacks: string; //Never seen this in use
 
   modes: ParsedSimfileMode[] = [];
 
@@ -75,8 +78,24 @@ export class ParsedSimfile {
     this.sampleLength = parseFloat(this.rawMetaData.get("SAMPLELENGTH") ?? "0");
     this.selectable = (this.rawMetaData.get("SELECTABLE") ?? "YES").toUpperCase() == "YES";
     this.listSort = this.rawMetaData.get("LISTSORT") ?? "";
-    this.bpms = this.rawMetaData.get("BPMS") ?? "";
-    this.stops = this.rawMetaData.get("STOPS") ?? "";
+
+    this.bpms = this.parseBPMS(this.rawMetaData.get("BPMS") ?? "");
+    this.bpmsTime = this.bpms.map(x => { return { from: this.getElapsedTime(0, x.beat), to: null, bpm: x.bpm } })
+    for (let index = 0; index < this.bpmsTime.length - 1; index++) {
+      this.bpmsTime[index].to = this.bpmsTime[index + 1].from;
+    }
+    if (this.bpms.length == 1) {
+      this.bpmReadable = `Static ${this.bpms[0].bpm}`
+    } else {
+      this.bpmReadable = `Variable(${this.bpms.length}) ${Math.min(...this.bpms.map(x => x.bpm))} - ${Math.max(...this.bpms.map(x => x.bpm))}`
+    }
+    if (this.bpms.find(x => x.bpm < 0)) {
+      this.bpmReadable += " NegBPM!";
+    }
+
+    this.stops = this.parseStops(this.rawMetaData.get("STOPS") ?? "");
+    this.stopsTime = this.stops.map(x => { return { time: this.getElapsedTime(0, x.beat, false), stopDuration: x.stopDuration } })
+
     this.tickCount = this.rawMetaData.get("TICKCOUNT") ?? "";
     this.bgChanges = this.rawMetaData.get("BGCHANGES") ?? "";
     this.keySounds = this.rawMetaData.get("KEYSOUNDS") ?? "";
@@ -170,5 +189,81 @@ export class ParsedSimfile {
 
   cleanMetaDataString(string: string): string {
     return string.trim().replace(/\n/g, "");
+  }
+
+  getElapsedTime(startBeat: number, endBeat: number, withStops = true) {
+    let currentBPMIndex: number = this.getStartBPMIndex(startBeat, this.bpms);
+    let earliestBeat: number = startBeat;
+    let elapsedTime: number = this.stops == null ? 0 : this.stoppedTime(startBeat, endBeat, this.stops);
+    do {
+      let nextBPMChange: number = this.getNextBPMChange(currentBPMIndex, this.bpms);
+      let nextBeat: number = Math.min(endBeat, nextBPMChange);
+      elapsedTime += (nextBeat - earliestBeat) / this.bpms[currentBPMIndex].bpm * 60;
+      earliestBeat = nextBeat;
+      currentBPMIndex++;
+    } while (earliestBeat < endBeat);
+    return elapsedTime;
+  }
+
+  getStartBPMIndex(startBeat: number, bpms: { beat: number, bpm: number }[]) {
+    let startBPMIndex = 0;
+    for (let i = 1; i < bpms.length; i++) {
+      if (bpms[i].beat < startBeat) {
+        startBPMIndex = i;
+      }
+    }
+    return startBPMIndex;
+  }
+
+  // does NOT snap to nearest 1/192nd of beat
+  stoppedTime(startBeat: number, endBeat: number, stops: { beat: number, stopDuration: number }[]) {
+    let time = 0;
+    for (let i = 0; i < stops.length; i++) {
+      let stopBeat = stops[i].beat;
+      if (startBeat <= stopBeat && stopBeat < endBeat) {
+        time += stops[i].stopDuration;
+      }
+    }
+    return time;
+  }
+
+  getNextBPMChange(currentBPMIndex: number, bpms: { beat: number, bpm: number }[]) {
+    if (currentBPMIndex + 1 < bpms.length) {
+      return bpms[currentBPMIndex + 1].beat;
+    }
+    return Number.POSITIVE_INFINITY;
+  }
+
+  parseBPMS(bpmString: string) {
+    if (bpmString == null) {
+      return [];
+    }
+    let bpmArray: [number, number][] = this.parseFloatEqualsFloatPattern(bpmString);
+    let bpms: { beat: number; bpm: number }[] = [];
+    for (let i = 0; i < bpmArray.length; i++) {
+      bpms.push({ beat: bpmArray[i][0], bpm: bpmArray[i][1] });
+    }
+    return bpms;
+  }
+
+  parseStops(stopsString: string) {
+    if (!stopsString) {
+      return [];
+    }
+    let stopsArray: [number, number][] = this.parseFloatEqualsFloatPattern(stopsString);
+    let stops: { stopDuration: number; beat: number }[] = [];
+    for (let i = 0; i < stopsArray.length; i++) {
+      stops.push({ beat: stopsArray[i][0], stopDuration: stopsArray[i][1] });
+    }
+    return stops;
+  }
+
+  parseFloatEqualsFloatPattern(string: string) {
+    let stringArray: string[][] = string.split(",").map(e => e.trim().split("="));
+    let array: [number, number][] = [];
+    for (let i = 0; i < stringArray.length; i++) {
+      array.push([parseFloat(stringArray[i][0]), parseFloat(stringArray[i][1])]);
+    }
+    return array;
   }
 }

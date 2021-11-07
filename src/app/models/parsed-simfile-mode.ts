@@ -13,8 +13,6 @@ export class ParsedSimfileMode {
     radar: string;
     rawNotes: string;
 
-    bpms: { beat: number; bpm: number }[] = [];
-    stops: { stopDuration: number; beat: number }[] = [];
     tracks: Note[][] = [];
 
     totalTime: number = 0;
@@ -46,9 +44,7 @@ export class ParsedSimfileMode {
         let measures = this.getMeasures(this.rawNotes.split("\n"));
         let beatsAndLines = this.getBeatInfoByLine(measures);
         //let cleanedBeatsAndLines = this.removeBlankLines(beatsAndLines);
-        this.bpms = this.parseBPMS(simfile.bpms);
-        this.stops = this.parseStops(simfile.stops);
-        this.tracks = this.getTracksFromLines(this.getTimeInfoByLine(beatsAndLines, simfile.offset, this.bpms, this.stops));
+        this.tracks = this.getTracksFromLines(this.getTimeInfoByLine(beatsAndLines));
 
         //STATS
         let allNotes = this.tracks.reduce((prev, curr) => prev.concat(curr), []).sort((a, b) => a.time - b.time);
@@ -165,65 +161,18 @@ export class ParsedSimfileMode {
     // }
 
     getTimeInfoByLine(
-        infoByLine: { quantization: NoteQuantization, totalBeat: number, lineInfo: string }[],
-        offset: number,
-        bpms: { beat: number, bpm: number }[],
-        stops: { beat: number, stopDuration: number }[]
+        infoByLine: { quantization: NoteQuantization, totalBeat: number, lineInfo: string }[]
     ) {
         let infoByLineWithTime: { time: number, quantization: NoteQuantization, totalBeat: number, lineInfo: string }[] = [];
-        let currentTime = -offset + this.getElapsedTime(0, infoByLine[0].totalBeat, bpms, stops);
+        let currentTime = -this.simfile.offset + this.simfile.getElapsedTime(0, infoByLine[0].totalBeat);
         infoByLineWithTime.push({ time: currentTime, quantization: infoByLine[0].quantization, totalBeat: infoByLine[0].totalBeat, lineInfo: infoByLine[0].lineInfo });
         for (let i = 1; i < infoByLine.length; i++) {
             let startBeat = infoByLine[i - 1].totalBeat;
             let endBeat = infoByLine[i].totalBeat;
-            currentTime += this.getElapsedTime(startBeat, endBeat, bpms, stops);
+            currentTime += this.simfile.getElapsedTime(startBeat, endBeat);
             infoByLineWithTime.push({ time: currentTime, quantization: infoByLine[i].quantization, totalBeat: infoByLine[i].totalBeat, lineInfo: infoByLine[i].lineInfo });
         }
         return infoByLineWithTime;
-    }
-
-    getElapsedTime(startBeat: number, endBeat: number, bpms: { beat: number, bpm: number }[],
-        stops: { beat: number, stopDuration: number }[]) {
-        let currentBPMIndex: number = this.getStartBPMIndex(startBeat, bpms);
-        let earliestBeat: number = startBeat;
-        let elapsedTime: number = stops == null ? 0 : this.stoppedTime(startBeat, endBeat, stops);
-        do {
-            let nextBPMChange: number = this.getNextBPMChange(currentBPMIndex, bpms);
-            let nextBeat: number = Math.min(endBeat, nextBPMChange);
-            elapsedTime += (nextBeat - earliestBeat) / bpms[currentBPMIndex].bpm * 60;
-            earliestBeat = nextBeat;
-            currentBPMIndex++;
-        } while (earliestBeat < endBeat);
-        return elapsedTime;
-    }
-
-    getStartBPMIndex(startBeat: number, bpms: { beat: number, bpm: number }[]) {
-        let startBPMIndex = 0;
-        for (let i = 1; i < bpms.length; i++) {
-            if (bpms[i].beat < startBeat) {
-                startBPMIndex = i;
-            }
-        }
-        return startBPMIndex;
-    }
-
-    // does NOT snap to nearest 1/192nd of beat
-    stoppedTime(startBeat: number, endBeat: number, stops: { beat: number, stopDuration: number }[]) {
-        let time = 0;
-        for (let i = 0; i < stops.length; i++) {
-            let stopBeat = stops[i].beat;
-            if (startBeat <= stopBeat && stopBeat < endBeat) {
-                time += stops[i].stopDuration;
-            }
-        }
-        return time;
-    }
-
-    getNextBPMChange(currentBPMIndex: number, bpms: { beat: number, bpm: number }[]) {
-        if (currentBPMIndex + 1 < bpms.length) {
-            return bpms[currentBPMIndex + 1].beat;
-        }
-        return Number.POSITIVE_INFINITY;
     }
 
     getTracksFromLines(timesBeatsAndLines: { time: number, quantization: NoteQuantization, totalBeat: number, lineInfo: string; }[]) {
@@ -236,7 +185,7 @@ export class ParsedSimfileMode {
             for (let i = 0; i < line.lineInfo.length; i++) {
                 let simfileNoteType = <SimfileNoteType>line.lineInfo.charAt(i);
                 if (simfileNoteType != SimfileNoteType.EMPTY) {
-                    let newNote = new Note(NoteType.NONE, line.time, line.quantization, line.totalBeat, undefined);
+                    let newNote = new Note(NoteType.NONE, line.time, line.quantization, line.totalBeat, undefined, i);
                     if (simfileNoteType == SimfileNoteType.TAIL) {
                         // let bodyNotes: Note[] = [];
                         // for (let reversedIndex = tracks[i].length - 1; reversedIndex >= 0; reversedIndex--) {
@@ -270,38 +219,5 @@ export class ParsedSimfileMode {
             }
         }
         return tracks;
-    }
-
-    parseBPMS(bpmString: string) {
-        if (bpmString == null) {
-            return [];
-        }
-        let bpmArray: [number, number][] = this.parseFloatEqualsFloatPattern(bpmString);
-        let bpms: { beat: number; bpm: number }[] = [];
-        for (let i = 0; i < bpmArray.length; i++) {
-            bpms.push({ beat: bpmArray[i][0], bpm: bpmArray[i][1] });
-        }
-        return bpms;
-    }
-
-    parseStops(stopsString: string) {
-        if (!stopsString) {
-            return [];
-        }
-        let stopsArray: [number, number][] = this.parseFloatEqualsFloatPattern(stopsString);
-        let stops: { stopDuration: number; beat: number }[] = [];
-        for (let i = 0; i < stopsArray.length; i++) {
-            stops.push({ beat: stopsArray[i][0], stopDuration: stopsArray[i][1] });
-        }
-        return stops;
-    }
-
-    parseFloatEqualsFloatPattern(string: string) {
-        let stringArray: string[][] = string.split(",").map(e => e.trim().split("="));
-        let array: [number, number][] = [];
-        for (let i = 0; i < stringArray.length; i++) {
-            array.push([parseFloat(stringArray[i][0]), parseFloat(stringArray[i][1])]);
-        }
-        return array;
     }
 }

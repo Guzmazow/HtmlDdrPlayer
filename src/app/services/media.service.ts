@@ -12,8 +12,6 @@ export class MediaService {
   onMediaLoaded = new BehaviorSubject(false);
   onYTVideoLoaded = new BehaviorSubject<SimfileRegistryYoutubeInfo | null>(null);
 
-  private unpreparedMediaLoaded = false;
-
   arrowImageCache = new Map<Direction, Map<NoteQuantization, HTMLCanvasElement>>([
     [Direction.LEFT, new Map<NoteQuantization, HTMLCanvasElement>()],
     [Direction.DOWN, new Map<NoteQuantization, HTMLCanvasElement>()],
@@ -47,85 +45,49 @@ export class MediaService {
   mineImageCache = new Map<Number, HTMLCanvasElement>()
   mineHitSoundCache?: HTMLAudioElement;
 
-  mineHitSound?: HTMLAudioElement;
+  mineHitSound!: HTMLAudioElement;
 
-  arrowImage?: HTMLImageElement;
-  arrowGlowImage?: HTMLImageElement;
+  arrowImage!: HTMLImageElement;
+  arrowGlowImage!: HTMLImageElement;
 
-  receptorImage?: HTMLImageElement;
-  receptorFlashImage?: HTMLImageElement;
+  receptorImage!: HTMLImageElement;
+  receptorFlashImage!: HTMLImageElement;
 
-  holdBodyActive?: HTMLImageElement;
-  holdBodyInactive?: HTMLImageElement;
-  holdCapActive?: HTMLImageElement;
-  holdCapInactive?: HTMLImageElement;
+  holdBodyActive!: HTMLImageElement;
+  holdBodyInactive!: HTMLImageElement;
+  holdCapActive!: HTMLImageElement;
+  holdCapInactive!: HTMLImageElement;
 
-  rollBodyActive?: HTMLImageElement;
-  rollBodyInactive?: HTMLImageElement;
-  rollCapActive?: HTMLImageElement;
-  rollCapInactive?: HTMLImageElement;
+  rollBodyActive!: HTMLImageElement;
+  rollBodyInactive!: HTMLImageElement;
+  rollCapActive!: HTMLImageElement;
+  rollCapInactive!: HTMLImageElement;
 
-  mineImage?: HTMLImageElement;
+  mineImage!: HTMLImageElement;
 
-  judgementImage?: HTMLImageElement;
+  judgementImage!: HTMLImageElement;
 
   constructor() {
     this.loadMedia();
   }
 
   async loadMedia() {
-    if (!this.unpreparedMediaLoaded) {
-      this.unpreparedMediaLoaded = true;
-      this.mineHitSound = await this.loadAudio("/assets/Sounds/MineHit.ogg");
-      this.arrowImage = await this.loadImage("/assets/Images/Arrow.png");
-      this.arrowGlowImage = await this.loadImage("/assets/Images/ArrowGlow.png");
-      this.receptorImage = await this.loadImage("/assets/Images/ArrowReceptor.png");
-      this.receptorFlashImage = await this.loadImage("/assets/Images/ArrowReceptorFlash.png");
-      this.holdBodyActive = await this.loadImage("/assets/Images/HoldBodyActive.png");
-      this.holdBodyInactive = await this.loadImage("/assets/Images/HoldBodyInactive.png");
-      this.holdCapActive = await this.loadImage("/assets/Images/HoldCapActive.png");
-      this.holdCapInactive = await this.loadImage("/assets/Images/HoldCapInactive.png");
-      this.rollBodyActive = await this.loadImage("/assets/Images/RollBodyActive.png");
-      this.rollBodyInactive = await this.loadImage("/assets/Images/RollBodyInactive.png");
-      this.rollCapActive = await this.loadImage("/assets/Images/RollCapActive.png");
-      this.rollCapInactive = await this.loadImage("/assets/Images/RollCapInactive.png");
-      this.mineImage = await this.loadImage("/assets/Images/Mine.png");
-      this.judgementImage = await this.loadImage("/assets/Images/Judgement.png");
-      Log.debug('MediaService', 'Loaded media')
-    }
-    if (!this.arrowImage ||
-      !this.arrowGlowImage ||
-      !this.receptorImage ||
-      !this.receptorFlashImage ||
-      !this.judgementImage ||
-      !this.holdBodyActive ||
-      !this.holdBodyInactive ||
-      !this.holdCapActive ||
-      !this.holdCapInactive ||
-      !this.rollBodyActive ||
-      !this.rollBodyInactive ||
-      !this.rollCapActive ||
-      !this.rollCapInactive ||
-      !this.mineImage ||
-      !this.mineHitSound) throw "NOT LOADED";
-
-    return {
-      arrow: this.arrowImage,
-      arrowGlow: this.arrowGlowImage,
-      receptor: this.receptorImage,
-      receptorFlash: this.receptorFlashImage,
-      judgement: this.judgementImage,
-      holdBodyActive: this.holdBodyActive,
-      holdBodyInactive: this.holdBodyInactive,
-      holdCapActive: this.holdCapActive,
-      holdCapInactive: this.holdCapInactive,
-      rollBodyActive: this.rollBodyActive,
-      rollBodyInactive: this.rollBodyInactive,
-      rollCapActive: this.rollCapActive,
-      rollCapInactive: this.rollCapInactive,
-      mine: this.mineImage,
-      mineHit: this.mineHitSound
-    }
+    this.mineHitSound = await this.loadAudio("/assets/Sounds/MineHit.ogg");
+    this.arrowImage = await this.loadImage("/assets/Images/Arrow.png");
+    this.arrowGlowImage = await this.loadImage("/assets/Images/ArrowGlow.png");
+    this.receptorImage = await this.loadImage("/assets/Images/ArrowReceptor.png");
+    this.receptorFlashImage = await this.loadImage("/assets/Images/ArrowReceptorFlash.png");
+    this.holdBodyActive = await this.loadImage("/assets/Images/HoldBodyActive.png");
+    this.holdBodyInactive = await this.loadImage("/assets/Images/HoldBodyInactive.png");
+    this.holdCapActive = await this.loadImage("/assets/Images/HoldCapActive.png");
+    this.holdCapInactive = await this.loadImage("/assets/Images/HoldCapInactive.png");
+    this.rollBodyActive = await this.loadImage("/assets/Images/RollBodyActive.png");
+    this.rollBodyInactive = await this.loadImage("/assets/Images/RollBodyInactive.png");
+    this.rollCapActive = await this.loadImage("/assets/Images/RollCapActive.png");
+    this.rollCapInactive = await this.loadImage("/assets/Images/RollCapInactive.png");
+    this.mineImage = await this.loadImage("/assets/Images/Mine.png");
+    this.judgementImage = await this.loadImage("/assets/Images/Judgement.png");
+    Log.debug('MEDIA images loaded');
   }
 
   setYTVideo(target: SimfileRegistryYoutubeInfo) {
@@ -136,12 +98,12 @@ export class MediaService {
     return new Promise<void>((resolve, reject) => {
       // let filename = this.parsingService.metaData.get("MUSIC");
       // if (filename) {
-      //   this.media.audio = new Audio(`${this.parsingService.smFileLocation.substring(0, this.parsingService.smFileLocation.lastIndexOf("/"))}/${filename}`);
-      //   this.media.audio.load();
+      //   this.this.audio = new Audio(`${this.parsingService.smFileLocation.substring(0, this.parsingService.smFileLocation.lastIndexOf("/"))}/${filename}`);
+      //   this.this.audio.load();
       // }
 
       this.loadMedia().then((media) => {
-        this.mineHitSoundCache = media.mineHit;
+        this.mineHitSoundCache = this.mineHitSound;
         this.mineHitSoundCache.volume = 0.5;
 
         for (let direction of AllDirections) {
@@ -149,16 +111,16 @@ export class MediaService {
           if (arrowImageDirectionCache) {
             for (let index = 0; index < AllNoteQuantizations.length; index++) {
               let quantization = AllNoteQuantizations[index];
-              arrowImageDirectionCache.set(quantization, this.adjustImage(media.arrow, noteSize, 0, media.arrow.height / 8 * index, undefined, media.arrow.height / 8, this.directionToRadians(direction)));
+              arrowImageDirectionCache.set(quantization, this.adjustImage(this.arrowImage, noteSize, 0, this.arrowImage.height / 8 * index, undefined, this.arrowImage.height / 8, this.directionToRadians(direction)));
             }
           }
 
-          this.receptorImageCache.set(direction, this.adjustImage(media.receptor, noteSize, 0, 0, undefined, undefined, this.directionToRadians(direction)));
-          this.receptorFlashImageCache.set(direction, this.adjustImage(media.receptorFlash, noteSize, 0, 0, undefined, undefined, this.directionToRadians(direction)));
+          this.receptorImageCache.set(direction, this.adjustImage(this.receptorImage, noteSize, 0, 0, undefined, undefined, this.directionToRadians(direction)));
+          this.receptorFlashImageCache.set(direction, this.adjustImage(this.receptorFlashImage, noteSize, 0, 0, undefined, undefined, this.directionToRadians(direction)));
           let arrowGlowImageDirectionCache = this.arrowGlowImageCache.get(direction);
           if (arrowGlowImageDirectionCache) {
             for (let judgement of AllJudgements) {
-              arrowGlowImageDirectionCache.set(judgement, this.adjustImage(media.arrowGlow, noteSize, 0, 0, undefined, undefined, this.directionToRadians(direction), judgement));
+              arrowGlowImageDirectionCache.set(judgement, this.adjustImage(this.arrowGlowImage, noteSize, 0, 0, undefined, undefined, this.directionToRadians(direction), judgement));
             }
           }
 
@@ -166,23 +128,23 @@ export class MediaService {
         }
 
         for (let angle = 0; angle < 360; angle++) {
-          this.mineImageCache.set(angle, this.adjustImage(media.mine, noteSize, 0, 0, media.mine.height / 2, media.mine.width / 4, angle * Math.PI / 180));
+          this.mineImageCache.set(angle, this.adjustImage(this.mineImage, noteSize, 0, 0, this.mineImage.height / 2, this.mineImage.width / 4, angle * Math.PI / 180));
         }
 
-        this.holdBodyActiveImageCache = this.adjustImage(media.holdBodyActive, noteSize, undefined, undefined, undefined, undefined, undefined, undefined, Math.round(media.holdBodyActive.height * noteSize / 100));
-        this.holdBodyInactiveImageCache = this.adjustImage(media.holdBodyInactive, noteSize, undefined, undefined, undefined, undefined, undefined, undefined, Math.round(media.holdBodyInactive.height * noteSize / 100));
-        this.holdCapActiveImageCache = this.adjustImage(media.holdCapActive, noteSize, undefined, undefined, undefined, undefined, undefined, undefined, Math.round(media.holdCapActive.height * noteSize / 100));
-        this.holdCapInactiveImageCache = this.adjustImage(media.holdCapInactive, noteSize, undefined, undefined, undefined, undefined, undefined, undefined, Math.round(media.holdCapInactive.height * noteSize / 100));
-        this.rollBodyActiveImageCache = this.adjustImage(media.rollBodyActive, noteSize, undefined, undefined, undefined, undefined, undefined, undefined, Math.round(media.rollBodyActive.height * noteSize / 100));
-        this.rollBodyInactiveImageCache = this.adjustImage(media.rollBodyInactive, noteSize, undefined, undefined, undefined, undefined, undefined, undefined, Math.round(media.rollBodyInactive.height * noteSize / 100));
-        this.rollCapActiveImageCache = this.adjustImage(media.rollCapActive, noteSize, undefined, undefined, undefined, undefined, undefined, undefined, Math.round(media.rollCapActive.height * noteSize / 100));
-        this.rollCapInactiveImageCache = this.adjustImage(media.rollCapInactive, noteSize, undefined, undefined, undefined, undefined, undefined, undefined, Math.round(media.rollCapInactive.height * noteSize / 100));
+        this.holdBodyActiveImageCache = this.adjustImage(this.holdBodyActive, noteSize, undefined, undefined, undefined, undefined, undefined, undefined, Math.round(this.holdBodyActive.height * noteSize / 100));
+        this.holdBodyInactiveImageCache = this.adjustImage(this.holdBodyInactive, noteSize, undefined, undefined, undefined, undefined, undefined, undefined, Math.round(this.holdBodyInactive.height * noteSize / 100));
+        this.holdCapActiveImageCache = this.adjustImage(this.holdCapActive, noteSize, undefined, undefined, undefined, undefined, undefined, undefined, Math.round(this.holdCapActive.height * noteSize / 100));
+        this.holdCapInactiveImageCache = this.adjustImage(this.holdCapInactive, noteSize, undefined, undefined, undefined, undefined, undefined, undefined, Math.round(this.holdCapInactive.height * noteSize / 100));
+        this.rollBodyActiveImageCache = this.adjustImage(this.rollBodyActive, noteSize, undefined, undefined, undefined, undefined, undefined, undefined, Math.round(this.rollBodyActive.height * noteSize / 100));
+        this.rollBodyInactiveImageCache = this.adjustImage(this.rollBodyInactive, noteSize, undefined, undefined, undefined, undefined, undefined, undefined, Math.round(this.rollBodyInactive.height * noteSize / 100));
+        this.rollCapActiveImageCache = this.adjustImage(this.rollCapActive, noteSize, undefined, undefined, undefined, undefined, undefined, undefined, Math.round(this.rollCapActive.height * noteSize / 100));
+        this.rollCapInactiveImageCache = this.adjustImage(this.rollCapInactive, noteSize, undefined, undefined, undefined, undefined, undefined, undefined, Math.round(this.rollCapInactive.height * noteSize / 100));
 
 
 
 
         for (let judgement of AllJudgements) {
-          this.judgementImageCache.set(judgement, this.adjustImage(media.judgement, null, 0, judgement * media.judgement.height / 6, media.judgement.width, media.judgement.height / 6).toDataURL());
+          this.judgementImageCache.set(judgement, this.adjustImage(this.judgementImage, null, 0, judgement * this.judgementImage.height / 6, this.judgementImage.width, this.judgementImage.height / 6).toDataURL());
         }
         Log.debug('MEDIA images ready');
         this.onMediaLoaded.next(true);
