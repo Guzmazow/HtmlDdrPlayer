@@ -21,6 +21,7 @@
     "@angular/platform-browser": "~12.2.11",
     "@angular/platform-browser-dynamic": "~12.2.11",
     "@angular/router": "~12.2.11",
+    "byte-base64": "^1.1.0",
     "ngx-y2-player": "^3.0.1",
     "rxjs": "~7.4.0",
     "tslib": "^2.3.1",

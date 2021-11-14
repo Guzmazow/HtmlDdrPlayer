@@ -87,9 +87,6 @@ export class DisplayService {
     return Math.round(this.displayOptions.noteSpacingSize + trackNumber * this.displayOptions.trackSize);
   }
 
-  prevBPMMod = 0;
-
-
   /**
    * @description Checks overlap borrowed from https://stackoverflow.com/a/12888920/15874691
    */
@@ -98,8 +95,8 @@ export class DisplayService {
   }
 
   /**
- * @description Checks overlap borrowed from https://stackoverflow.com/a/12888920/15874691 comment
- */
+   * @description Checks overlap borrowed from https://stackoverflow.com/a/12888920/15874691 comment
+   */
   overlap_amount(x1: number, x2: number, y1: number, y2: number) {
     return Math.min(x2, y2) - Math.max(x1, y1)
   }
@@ -114,35 +111,43 @@ export class DisplayService {
       let toTimeWithStops = toTime;
       let fromTimeWithStops = fromTime;
       const stops = this.requestedGame?.parsedSimfile.stopsTime ?? [];
+      let prevStops = 0;
       for (const stop of stops) {
         const endOfStop = stop.time + stop.stopDuration;
-        if (this.is_overlapping(fromTime, toTime, endOfStop, endOfStop)) {
+        if (this.is_overlapping(0, toTime, endOfStop, endOfStop)) {
           toTimeWithStops -= stop.stopDuration;
         }
         if (this.is_overlapping(fromTime, fromTime, stop.time, endOfStop)) {
-          //  stop.time <= newTimeSeconds && newTimeSeconds <= endOfStop) {
-          //Log.debug("NoteLaneComponent", `Keeping time (${newTimeSeconds}) stopped from ${stop.time} to ${endOfStop}`);
-          fromTimeWithStops = stop.time;
+          fromTimeWithStops = stop.time - prevStops;
+        } else {
+          if (this.is_overlapping(0, fromTime, endOfStop, endOfStop)) {
+            fromTimeWithStops -= stop.stopDuration;
+          }
         }
+        prevStops += stop.stopDuration;
       }
-      fromTime = fromTimeWithStops;
       toTime = toTimeWithStops;
+      fromTime = fromTimeWithStops;
     }
 
     //BPM logic
     {
       const bpms = this.requestedGame?.parsedSimfile.bpmsTime ?? [];
       const isReversed = toTime < fromTime;
-      let reversableFromTime = isReversed ? toTime : fromTime;
-      let reversableToTime = isReversed ? fromTime : toTime;
+      [fromTime, toTime] = [Math.min(toTime, fromTime), Math.max(toTime, fromTime)];
       for (const bpm of bpms) {
-        if (this.is_overlapping(reversableFromTime, reversableToTime, bpm.from, (bpm.to ?? reversableToTime))) {
-          distance += (isReversed ? -1 : 1) * this.overlap_amount(reversableFromTime, reversableToTime, bpm.from, (bpm.to ?? reversableToTime)) * bpm.bpm * this.preferenceService.onPreferenceChange.value.play.xMod
+        if (this.is_overlapping(fromTime, toTime, bpm.from, (bpm.to ?? toTime))) {
+          distance += (isReversed ? -1 : 1) * this.overlap_amount(fromTime, toTime, bpm.from, (bpm.to ?? toTime)) * bpm.bpm * this.preferenceService.onPreferenceChange.value.play.xMod
         }
       }
     }
 
-    return Math.round(distance);
+    return Math.round(distance * 100) / 100;
+
+    // CMod
+    // let timeDistance = toTime - fromTime;
+    // return Math.round((timeDistance / 0.001) + this.displayOptions.noteTopPadding);
+
   }
 
   endGame() {
@@ -180,6 +185,7 @@ export class DisplayService {
 
     var newTimeMiliseconds = new Date().getTime() - this.startDateTime.getTime() - DisplayService.timeTillFirstNote;
     var newTimeSeconds = (newTimeMiliseconds / 1000);
+    // var newTimeSeconds = +((window as any).a ?? '0');
 
     if (this.onCurrentTimeSecondsChange.value != newTimeSeconds) {
       this.onCurrentTimeSecondsChange.next(newTimeSeconds);

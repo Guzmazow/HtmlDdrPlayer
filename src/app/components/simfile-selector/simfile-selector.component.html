@@ -190,11 +190,27 @@
                                 </tr>
                                 <tr>
                                     <td>bpms</td>
-                                    <td>{{ selectedSimfile.bpms }}</td>
+                                    <td>
+                                        <pre>{{ selectedSimfile.bpms | json }}</pre>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>bpmsTime</td>
+                                    <td>
+                                        <pre>{{ selectedSimfile.bpmsTime | json }}</pre>
+                                    </td>
                                 </tr>
                                 <tr>
                                     <td>stops</td>
-                                    <td>{{ selectedSimfile.stops }}</td>
+                                    <td>
+                                        <pre>{{ selectedSimfile.stops | json }}</pre>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>stopsTime</td>
+                                    <td>
+                                        <pre>{{ selectedSimfile.stopsTime | json }}</pre>
+                                    </td>
                                 </tr>
                                 <tr>
                                     <td>tickCount</td>

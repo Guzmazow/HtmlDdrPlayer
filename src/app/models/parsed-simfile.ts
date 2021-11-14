@@ -94,7 +94,7 @@ export class ParsedSimfile {
     }
 
     this.stops = this.parseStops(this.rawMetaData.get("STOPS") ?? "");
-    this.stopsTime = this.stops.map(x => { return { time: this.getElapsedTime(0, x.beat, false), stopDuration: x.stopDuration } })
+    this.stopsTime = this.stops.map(x => { return { time: this.getElapsedTime(0, x.beat), stopDuration: x.stopDuration } })
 
     this.tickCount = this.rawMetaData.get("TICKCOUNT") ?? "";
     this.bgChanges = this.rawMetaData.get("BGCHANGES") ?? "";
@@ -191,12 +191,22 @@ export class ParsedSimfile {
     return string.trim().replace(/\n/g, "");
   }
 
-  getElapsedTime(startBeat: number, endBeat: number, withStops = true) {
-    let currentBPMIndex: number = this.getStartBPMIndex(startBeat, this.bpms);
+  getElapsedBeats(toTime: number) {
+    let currentTime = 0;
+    let currentBeat = 0;
+    while (currentTime < toTime) {
+      currentTime = this.getElapsedTime(0, currentBeat);
+      currentBeat++;
+    }
+    return currentBeat;
+  }
+
+  getElapsedTime(startBeat: number, endBeat: number) {
+    let currentBPMIndex: number = this.getStartBPMIndex(startBeat);
     let earliestBeat: number = startBeat;
     let elapsedTime: number = this.stops == null ? 0 : this.stoppedTime(startBeat, endBeat, this.stops);
     do {
-      let nextBPMChange: number = this.getNextBPMChange(currentBPMIndex, this.bpms);
+      let nextBPMChange: number = this.getNextBPMChange(currentBPMIndex);
       let nextBeat: number = Math.min(endBeat, nextBPMChange);
       elapsedTime += (nextBeat - earliestBeat) / this.bpms[currentBPMIndex].bpm * 60;
       earliestBeat = nextBeat;
@@ -205,10 +215,10 @@ export class ParsedSimfile {
     return elapsedTime;
   }
 
-  getStartBPMIndex(startBeat: number, bpms: { beat: number, bpm: number }[]) {
+  getStartBPMIndex(startBeat: number) {
     let startBPMIndex = 0;
-    for (let i = 1; i < bpms.length; i++) {
-      if (bpms[i].beat < startBeat) {
+    for (let i = 1; i < this.bpms.length; i++) {
+      if (this.bpms[i].beat < startBeat) {
         startBPMIndex = i;
       }
     }
@@ -227,9 +237,9 @@ export class ParsedSimfile {
     return time;
   }
 
-  getNextBPMChange(currentBPMIndex: number, bpms: { beat: number, bpm: number }[]) {
-    if (currentBPMIndex + 1 < bpms.length) {
-      return bpms[currentBPMIndex + 1].beat;
+  getNextBPMChange(currentBPMIndex: number): number {
+    if (currentBPMIndex + 1 < this.bpms.length) {
+      return this.bpms[currentBPMIndex + 1].beat;
     }
     return Number.POSITIVE_INFINITY;
   }
@@ -241,7 +251,7 @@ export class ParsedSimfile {
     let bpmArray: [number, number][] = this.parseFloatEqualsFloatPattern(bpmString);
     let bpms: { beat: number; bpm: number }[] = [];
     for (let i = 0; i < bpmArray.length; i++) {
-      bpms.push({ beat: bpmArray[i][0], bpm: bpmArray[i][1] });
+      bpms.push({ beat: bpmArray[i][0], bpm: Math.abs(bpmArray[i][1]) });
     }
     return bpms;
   }

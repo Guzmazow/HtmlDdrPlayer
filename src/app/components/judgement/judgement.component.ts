@@ -1,4 +1,4 @@
-import { Component, ElementRef, HostListener, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { ChangeDetectorRef, Component, ElementRef, HostListener, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { Judgement, Direction, AllJudgements, Difficulty } from '@models/enums';
 import { DisplayService } from '@services/display.service';
 import { JudgementService } from '@services/judgement.service';
@@ -39,12 +39,17 @@ export class JudgementComponent implements OnInit, OnDestroy {
   constructor(
     private mediaService: MediaService, 
     private judgementService: JudgementService, 
-    public displayService: DisplayService
+    public displayService: DisplayService,
+    private changeDetectorRef: ChangeDetectorRef,
   ) {
     this.missLimitTime = judgementService.errorLimit;
   }
 
   ngOnInit(): void {
+    this.displayService.onCurrentTimeSecondsChange.pipe(takeUntil(this.destroyed$)).subscribe(time => {
+      this.changeDetectorRef.detectChanges();
+    });
+
     this.displayService.onGamePlayStateChange.pipe(takeUntil(this.destroyed$)).subscribe(started => {
       if(started){
         this.startTime = new Date();

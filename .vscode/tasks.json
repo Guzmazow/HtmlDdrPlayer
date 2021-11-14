@@ -11,6 +11,12 @@
 				"kind": "build",
 				"isDefault": true
 			}
+		},
+		{
+			"type": "shell",
+			"label": "node build inline data",
+			"command": "node .\\node_scripts\\inline-data.js",
+			"problemMatcher": []
 		}
 	]
 }
