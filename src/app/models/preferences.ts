@@ -8,8 +8,12 @@ export class Preferences {
         laneWidth: 700
     }
 
-    play: { xMod: number } = {
-        xMod: 4
+    play: { 
+        xMod: number,  
+        aMod: number | null
+    } = {
+        xMod: 4,
+        aMod: null
     }
 
     constructor(preferences?: Preferences){

@@ -29,12 +29,13 @@ export class ParsedSimfile {
   cdTitle: string;
   music: string;
   offset: number;
-  sampleStart: number = 0;
-  sampleLength: number = 0;
-  selectable: boolean = true;
+  sampleStart: number;
+  sampleLength: number;
+  selectable: boolean;
   listSort: string; //WTF is this
+  commonBPM: number;
   bpms: { beat: number; bpm: number; }[];
-  bpmsTime: { from: number; to: number | null; bpm: number; }[];
+  bpmsTime: { from: number; to: number; bpm: number; }[];
   bpmReadable: string;
   stops: { beat: number; stopDuration: number; }[];
   stopsTime: { time: number; stopDuration: number; }[];
@@ -80,21 +81,19 @@ export class ParsedSimfile {
     this.listSort = this.rawMetaData.get("LISTSORT") ?? "";
 
     this.bpms = this.parseBPMS(this.rawMetaData.get("BPMS") ?? "");
-    this.bpmsTime = this.bpms.map(x => { return { from: this.getElapsedTime(0, x.beat) - this.offset, to: null, bpm: x.bpm } })
-    for (let index = 0; index < this.bpmsTime.length - 1; index++) {
-      this.bpmsTime[index].to = this.bpmsTime[index + 1].from;
-    }
-    if (this.bpms.length == 1) {
-      this.bpmReadable = `Static ${this.bpms[0].bpm}`
-    } else {
-      this.bpmReadable = `Variable(${this.bpms.length}) ${Math.min(...this.bpms.map(x => x.bpm))} - ${Math.max(...this.bpms.map(x => x.bpm))}`
-    }
-    if (this.bpms.find(x => x.bpm < 0)) {
-      this.bpmReadable += " NegBPM!";
+
+    //NegBPM workaround #1
+    for (let index = 0; index < this.bpms.length; index++) {
+      const bpm = this.bpms[index];
+      if (bpm.bpm < 0) {
+        bpm.bpm = 0;
+        const nextBpm = this.bpms[index + 1]
+        if (nextBpm) nextBpm.beat += (nextBpm.beat - bpm.beat);
+      }
     }
 
     this.stops = this.parseStops(this.rawMetaData.get("STOPS") ?? "");
-    this.stopsTime = this.stops.map(x => { return { time: this.getElapsedTime(0, x.beat) - this.offset, stopDuration: x.stopDuration } })
+
 
     this.tickCount = this.rawMetaData.get("TICKCOUNT") ?? "";
     this.bgChanges = this.rawMetaData.get("BGCHANGES") ?? "";
@@ -120,6 +119,27 @@ export class ParsedSimfile {
       else if (a.difficulty < b.difficulty) return -1;
       else return 0;
     });
+
+
+    this.bpmsTime = this.bpms.map(x => { return { from: this.getElapsedTime(0, x.beat) - this.offset, to: 0, bpm: x.bpm } })
+    for (let index = 0; index < this.bpmsTime.length - 1; index++) {
+      this.bpmsTime[index].to = this.bpmsTime[index + 1].from;
+    }
+    this.bpmsTime[this.bpmsTime.length - 1].to = this.modes.reduce((prev, curr) => prev < curr.totalTime ? curr.totalTime : prev, 0); /* find max totaltime */
+    this.commonBPM = this.bpmsTime
+      .reduce<number[]>((prev, curr, index, arr) => { prev[curr.bpm] = (prev[curr.bpm] ?? 0) + curr.to - curr.from; return prev; }, []) /* group by bpm */
+      .reduce((prev, curr) => prev < curr ? curr : prev, 0); /* find max duration */
+
+    if (this.bpms.length == 1) {
+      this.bpmReadable = `Static ${this.bpms[0].bpm}`
+    } else {
+      this.bpmReadable = `Variable(${this.bpms.length}) ${Math.min(...this.bpms.map(x => x.bpm))} - ${Math.max(...this.bpms.map(x => x.bpm))}`
+    }
+    if (this.bpms.find(x => x.bpm < 0)) {
+      this.bpmReadable += " NegBPM!";
+    }
+    this.stopsTime = this.stops.map(x => { return { time: this.getElapsedTime(0, x.beat) - this.offset, stopDuration: x.stopDuration } })
+
 
     this.youtubeVideos = registryEntry.youtubeVideos;
     this.youtubeVideos.forEach(y => {
@@ -208,7 +228,11 @@ export class ParsedSimfile {
     do {
       let nextBPMChange: number = this.getNextBPMChange(currentBPMIndex);
       let nextBeat: number = Math.min(endBeat, nextBPMChange);
-      elapsedTime += (nextBeat - earliestBeat) / this.bpms[currentBPMIndex].bpm * 60;
+
+      // NegBPM workaround #2
+      elapsedTime += this.bpms[currentBPMIndex].bpm == 0 ? 0 : (nextBeat - earliestBeat) / this.bpms[currentBPMIndex].bpm * 60;
+      //elapsedTime += (nextBeat - earliestBeat) / this.bpms[currentBPMIndex].bpm * 60;
+
       earliestBeat = nextBeat;
       currentBPMIndex++;
     } while (earliestBeat < endBeat);
@@ -251,7 +275,7 @@ export class ParsedSimfile {
     let bpmArray: [number, number][] = this.parseFloatEqualsFloatPattern(bpmString);
     let bpms: { beat: number; bpm: number }[] = [];
     for (let i = 0; i < bpmArray.length; i++) {
-      bpms.push({ beat: bpmArray[i][0], bpm: Math.abs(bpmArray[i][1]) });
+      bpms.push({ beat: bpmArray[i][0], bpm: bpmArray[i][1] });
     }
     return bpms;
   }

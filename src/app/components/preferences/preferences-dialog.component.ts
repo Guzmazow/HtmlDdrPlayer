@@ -18,15 +18,17 @@ export class PreferencesDialogComponent {
       laneWidth: new FormControl(null),
     }),
     play: new FormGroup({
-      xMod: new FormControl(null)
+      xMod: new FormControl(null),
+      aMod: new FormControl(null)
     })
   });
 
   constructor(
     public dialogRef: MatDialogRef<PreferencesDialogComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: Preferences) { 
-      this.preferencesForm.patchValue(data);
-    }
+    @Inject(MAT_DIALOG_DATA) public data: Preferences
+  ) {
+    this.preferencesForm.patchValue(data);
+  }
 
   onNoClick(): void {
     this.dialogRef.close();

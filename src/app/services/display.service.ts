@@ -137,7 +137,12 @@ export class DisplayService {
       [fromTime, toTime] = [Math.min(toTime, fromTime), Math.max(toTime, fromTime)];
       for (const bpm of bpms) {
         if (this.is_overlapping(fromTime, toTime, bpm.from, (bpm.to ?? toTime))) {
-          distance += (isReversed ? -1 : 1) * this.overlap_amount(fromTime, toTime, bpm.from, (bpm.to ?? toTime)) * bpm.bpm * this.preferenceService.onPreferenceChange.value.play.xMod
+          distance +=
+            (isReversed ? -1 : 1) *
+            this.overlap_amount(fromTime, toTime, bpm.from, (bpm.to ?? toTime)) *
+            bpm.bpm *
+            this.preferenceService.onPreferenceChange.value.play.xMod *
+            ((this.preferenceService.onPreferenceChange.value.play.aMod ?? this.requestedGame?.parsedSimfile?.commonBPM ?? 0) / (this.requestedGame?.parsedSimfile?.commonBPM ?? 0))
         }
       }
     }
