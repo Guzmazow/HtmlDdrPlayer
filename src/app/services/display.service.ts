@@ -183,7 +183,7 @@ export class DisplayService {
       return;
     }
 
-    var newTimeMiliseconds = new Date().getTime() - this.startDateTime.getTime() - DisplayService.timeTillFirstNote;
+    var newTimeMiliseconds = new Date().getTime() - this.startDateTime.getTime() - ((this.requestedGame?.parsedSimfile?.offset ?? 0) * 1000) - DisplayService.timeTillFirstNote;
     var newTimeSeconds = (newTimeMiliseconds / 1000);
     // var newTimeSeconds = +((window as any).a ?? '0');
 

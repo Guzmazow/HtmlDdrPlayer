@@ -111,6 +111,23 @@ export class JudgementService {
         this.rollState.set(trackIndex, undefined);
         Log.debug("roll finished " + trackIndex)
       }
+
+      //Rogue/Stuck roll (if notes are too close)
+      for (const note of track.filter(x =>
+        !x.judged &&
+        x.startedJudging &&
+        x != this.rollState.get(trackIndex)?.note &&
+        x.type == NoteType.ROLL_HEAD && 
+        x.related &&
+        x.related.time < this.displayService.onCurrentTimeSecondsChange.value
+      )) {
+        this.onJudged.next({
+          judgement: Judgement.ROLLFINISHED,
+          precision: 0,
+          key: trackIndex
+        });
+      }
+
       let holdState = this.holdState.get(trackIndex)
       if (holdState && holdState.note.related && holdState.note.related.time < this.displayService.onCurrentTimeSecondsChange.value) {
         if (holdState.timer)
@@ -125,6 +142,21 @@ export class JudgementService {
         Log.debug("hold finished " + trackIndex)
       }
 
+      //Rogue/Stuck hold (if notes are too close)
+      for (const note of track.filter(x =>
+        !x.judged &&
+        x.startedJudging &&
+        x != this.rollState.get(trackIndex)?.note &&
+        x.type == NoteType.HOLD_HEAD && 
+        x.related &&
+        x.related.time < this.displayService.onCurrentTimeSecondsChange.value
+      )) {
+        this.onJudged.next({
+          judgement: Judgement.HOLDFINISHED,
+          precision: 0,
+          key: trackIndex
+        });
+      }
     }
   }
 

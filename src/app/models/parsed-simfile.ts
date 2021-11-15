@@ -80,7 +80,7 @@ export class ParsedSimfile {
     this.listSort = this.rawMetaData.get("LISTSORT") ?? "";
 
     this.bpms = this.parseBPMS(this.rawMetaData.get("BPMS") ?? "");
-    this.bpmsTime = this.bpms.map(x => { return { from: this.getElapsedTime(0, x.beat), to: null, bpm: x.bpm } })
+    this.bpmsTime = this.bpms.map(x => { return { from: this.getElapsedTime(0, x.beat) - this.offset, to: null, bpm: x.bpm } })
     for (let index = 0; index < this.bpmsTime.length - 1; index++) {
       this.bpmsTime[index].to = this.bpmsTime[index + 1].from;
     }
@@ -94,7 +94,7 @@ export class ParsedSimfile {
     }
 
     this.stops = this.parseStops(this.rawMetaData.get("STOPS") ?? "");
-    this.stopsTime = this.stops.map(x => { return { time: this.getElapsedTime(0, x.beat), stopDuration: x.stopDuration } })
+    this.stopsTime = this.stops.map(x => { return { time: this.getElapsedTime(0, x.beat) - this.offset, stopDuration: x.stopDuration } })
 
     this.tickCount = this.rawMetaData.get("TICKCOUNT") ?? "";
     this.bgChanges = this.rawMetaData.get("BGCHANGES") ?? "";
