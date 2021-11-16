@@ -121,6 +121,7 @@ export class JudgementService {
         x.related &&
         x.related.time < this.displayService.onCurrentTimeSecondsChange.value
       )) {
+        note.judged = true;
         this.onJudged.next({
           judgement: Judgement.ROLLFINISHED,
           precision: 0,
@@ -151,6 +152,7 @@ export class JudgementService {
         x.related &&
         x.related.time < this.displayService.onCurrentTimeSecondsChange.value
       )) {
+        note.judged = true;
         this.onJudged.next({
           judgement: Judgement.HOLDFINISHED,
           precision: 0,
