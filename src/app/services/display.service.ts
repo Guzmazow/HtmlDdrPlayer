@@ -172,7 +172,9 @@ export class DisplayService {
     this.endDateTime = new Date(
       this.startDateTime.getTime() + //start
       gameLengthSeconds * 1000 + //simfile duration
-      DisplayService.timeTillEndGameScreen + DisplayService.timeTillFirstNote //TODO:config
+      DisplayService.timeTillEndGameScreen + //TODO:config
+      DisplayService.timeTillFirstNote + //TODO:config
+      ((this.requestedGame?.parsedSimfile?.offset ?? 0) * 1000)
     );
     this.totalSeconds = (this.endDateTime.getTime() - this.startDateTime.getTime()) / 1000;
     this.onGamePlayStateChange.next(true);

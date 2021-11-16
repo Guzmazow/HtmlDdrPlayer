@@ -116,7 +116,7 @@ export class JudgementService {
       for (const note of track.filter(x =>
         !x.judged &&
         x.startedJudging &&
-        x != this.rollState.get(trackIndex)?.note &&
+        !rollState &&
         x.type == NoteType.ROLL_HEAD && 
         x.related &&
         x.related.time < this.displayService.onCurrentTimeSecondsChange.value
@@ -146,7 +146,7 @@ export class JudgementService {
       for (const note of track.filter(x =>
         !x.judged &&
         x.startedJudging &&
-        x != this.rollState.get(trackIndex)?.note &&
+        !holdState &&
         x.type == NoteType.HOLD_HEAD && 
         x.related &&
         x.related.time < this.displayService.onCurrentTimeSecondsChange.value
