@@ -19,7 +19,8 @@ export class PreferencesDialogComponent {
     }),
     play: new FormGroup({
       xMod: new FormControl(null),
-      aMod: new FormControl(null)
+      avgMod: new FormControl(null),
+      minMod: new FormControl(null),
     })
   });
 

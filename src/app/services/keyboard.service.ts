@@ -59,7 +59,7 @@ export class KeyboardService {
   ]);
 
   constructor() {
-    Log.debug('started listening keys');
+    Log.debug("KeyboardService", 'started listening keys');
     window.addEventListener('keyup', this.onKeyHandler.bind(this));
     window.addEventListener('keydown', this.onKeyHandler.bind(this));
     //this.displayService.onStart.subscribe(x => this.listenStarted = true);
@@ -72,7 +72,7 @@ export class KeyboardService {
     if (systemKey === undefined) return;
     let keyState = this.keyState.get(systemKey);
     if (isKeyDown != keyState) {
-      Log.debug(`KeyState change: ${event.code || event.key}, ${isKeyDown}`)
+      Log.debug("KeyboardService", `KeyState change: ${event.code || event.key}, ${isKeyDown}`)
       this.keyState.set(systemKey, isKeyDown);
       this.onPress.next({ key: systemKey, state: isKeyDown });
       if (isKeyDown) {

@@ -5,7 +5,7 @@ import { BehaviorSubject, first, Subject, takeWhile } from 'rxjs';
 import { SimfileLoaderService } from './simfile-loader.service';
 import { KeyboardService } from './keyboard.service';
 import { Key } from '@models/enums';
-import { Router } from '@angular/router';
+import { PreloadingStrategy, Router } from '@angular/router';
 import { Log } from './log.service';
 import { GameRequest } from '@models/game-request';
 import { Note } from '@models/note';
@@ -22,6 +22,7 @@ export class DisplayService {
   onGamePlayStateChange = new BehaviorSubject(false);
 
   requestedGame?: GameRequest;
+  configuredBpmsTime: { from: number; to: number; bpm: number; }[] = [];
   displayOptions: DisplayOptions = new DisplayOptions(0, 0);
 
   private startDateTime: Date = new Date();
@@ -33,11 +34,15 @@ export class DisplayService {
   lastframe: number = 0;
 
   private reset() {
+    this.requestedGame = undefined;
+    this.displayOptions = new DisplayOptions(0, 0);
     this.onCurrentTimeSecondsChange.next(0);
     this.onCurrentTimePercentageChange.next(0);
     this.onCurrentTimeSecondsChange.next(0);
     this.startDateTime = new Date();
     this.endDateTime = new Date();
+    this.configuredBpmsTime = [];
+    this.totalSeconds = 0;
   }
 
   constructor(
@@ -48,7 +53,7 @@ export class DisplayService {
   ) {
     Log.debug("DisplayService", "constructor")
     this.keyboardService.onLongPress.subscribe(key => {
-      Log.debug(`long pressed ${key}`);
+      Log.debug("DisplayService", `long pressed ${key}`);
       if (this.onGamePlayStateChange.value && (key == Key.CANCEL || key == Key.START || key == Key.SELECT)) {
         this.endGame();
       }
@@ -67,10 +72,36 @@ export class DisplayService {
   }
 
   requestGame(r: GameRequest) {
-    this.requestedGame = r;
     this.reset();
+    this.requestedGame = r;
+    const pref = this.preferenceService.onPreferenceChange.value;
+    const minBpm = Math.min(...r.parsedSimfile.bpmsTime.map(x => x.bpm).filter(x => x > 0));
+    const bpmLengths = r.parsedSimfile.bpmsTime
+      .reduce<{ [key: number]: number }>((prev, curr, index, arr) => { prev[curr.bpm] = (prev[curr.bpm] ?? 0) + curr.to - curr.from; return prev; }, {}); /* group by bpm */
+    
+    let maxBpmLength = 0;
+    let avgBpm = 0;
+    for (const currentBpm in bpmLengths) {
+      let currentBpmLength = bpmLengths[currentBpm];
+      if(currentBpmLength > maxBpmLength){
+        avgBpm = +currentBpm;
+        maxBpmLength = currentBpmLength;        
+      }
+    }
+
+    const minMod = pref.play.minMod ? pref.play.minMod / minBpm : 1;
+    const avgMod = pref.play.avgMod ? pref.play.avgMod / avgBpm : 1;
+    this.configuredBpmsTime = r.parsedSimfile.bpmsTime.map(x => {
+      var newX = Object.assign({}, x)
+      newX.bpm = newX.bpm * pref.play.xMod * minMod * avgMod;
+      return newX;
+    });
+    Log.debug("DisplayService", `Found bpms: Min ${minBpm}, Avg ${avgBpm}`, `Bpms are calculated as: bpm * ${pref.play.xMod} * ${minMod} * ${avgMod}`, `Configured BPMS with preferences`, pref.play);
+    Log.debug("DisplayService", "Original BPMS", r.parsedSimfile.bpmsTime);
+    Log.debug("DisplayService", "Modded BPMS", this.configuredBpmsTime);
+
     this.displayOptions = new DisplayOptions(
-      this.preferenceService.onPreferenceChange.value.display.laneWidth,  //Note lane horizontal stretch TODO:config
+      pref.display.laneWidth,  //Note lane horizontal stretch TODO:config
       r.parsedSimfileMode.tracks.length
     );
     this.mediaService.setYTVideo(this.requestedGame.youtubeVideo);
@@ -132,7 +163,7 @@ export class DisplayService {
 
     //BPM logic
     {
-      const bpms = this.requestedGame?.parsedSimfile.bpmsTime ?? [];
+      const bpms = this.configuredBpmsTime;
       const isReversed = toTime < fromTime;
       [fromTime, toTime] = [Math.min(toTime, fromTime), Math.max(toTime, fromTime)];
       for (const bpm of bpms) {
@@ -140,9 +171,7 @@ export class DisplayService {
           distance +=
             (isReversed ? -1 : 1) *
             this.overlap_amount(fromTime, toTime, bpm.from, (bpm.to ?? toTime)) *
-            bpm.bpm *
-            this.preferenceService.onPreferenceChange.value.play.xMod *
-            ((this.preferenceService.onPreferenceChange.value.play.aMod ?? this.requestedGame?.parsedSimfile?.commonBPM ?? 0) / (this.requestedGame?.parsedSimfile?.commonBPM ?? 0))
+            bpm.bpm
         }
       }
     }

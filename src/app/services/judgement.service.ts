@@ -109,7 +109,7 @@ export class JudgementService {
           key: trackIndex
         });
         this.rollState.set(trackIndex, undefined);
-        Log.debug("roll finished " + trackIndex)
+        Log.debug("JudgementService", "roll finished " + trackIndex)
       }
 
       //Rogue/Stuck roll (if notes are too close)
@@ -140,7 +140,7 @@ export class JudgementService {
           key: trackIndex
         });
         this.holdState.set(trackIndex, undefined);
-        Log.debug("hold finished " + trackIndex)
+        Log.debug("JudgementService", "hold finished " + trackIndex)
       }
 
       //Rogue/Stuck hold (if notes are too close)
@@ -222,9 +222,9 @@ export class JudgementService {
     let state = this.rollState.get(direction);
     if (state) {
       state.note.stateChangeTime = this.displayService.onCurrentTimeSecondsChange.value;
-      Log.debug("clearing timer " + state.timer)
+      Log.debug("JudgementService", "clearing timer " + state.timer)
       if (state.timer) {
-        Log.debug("clear timer " + state.timer)
+        Log.debug("JudgementService", "clear timer " + state.timer)
         clearTimeout(state.timer);
       }
       state.timer = setTimeout(() => {
@@ -236,7 +236,7 @@ export class JudgementService {
           precision: this.TimingWindowSecondsRoll,
           key: +direction
         });
-        Log.debug("roll failed " + direction)
+        Log.debug("JudgementService", "roll failed " + direction)
       }, this.TimingWindowSecondsRoll * 1000);
       //.log("set timer " + state.timer)
     }
@@ -263,7 +263,7 @@ export class JudgementService {
           precision: this.TimingWindowSecondsHold,
           key: +direction
         });
-        Log.debug("hold failed " + direction)
+        Log.debug("JudgementService", "hold failed " + direction)
       }, this.TimingWindowSecondsHold * 1000);
     }
   }

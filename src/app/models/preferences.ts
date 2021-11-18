@@ -10,10 +10,12 @@ export class Preferences {
 
     play: { 
         xMod: number,  
-        aMod: number | null
+        avgMod: number | null,
+        minMod: number | null,
     } = {
-        xMod: 4,
-        aMod: null
+        xMod: 1,
+        avgMod: null,
+        minMod: null,
     }
 
     constructor(preferences?: Preferences){

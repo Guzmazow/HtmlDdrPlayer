@@ -87,7 +87,7 @@ export class MediaService {
     this.rollCapInactive = await this.loadImage("/assets/Images/RollCapInactive.png");
     this.mineImage = await this.loadImage("/assets/Images/Mine.png");
     this.judgementImage = await this.loadImage("/assets/Images/Judgement.png");
-    Log.debug('MEDIA images loaded');
+    Log.debug("MediaService", 'images loaded');
   }
 
   setYTVideo(target: SimfileRegistryYoutubeInfo) {
@@ -146,7 +146,7 @@ export class MediaService {
         for (let judgement of AllJudgements) {
           this.judgementImageCache.set(judgement, this.adjustImage(this.judgementImage, null, 0, judgement * this.judgementImage.height / 6, this.judgementImage.width, this.judgementImage.height / 6).toDataURL());
         }
-        Log.debug('MEDIA images ready');
+        Log.debug("MediaService", 'MEDIA images ready');
         this.onMediaLoaded.next(true);
         resolve();
 

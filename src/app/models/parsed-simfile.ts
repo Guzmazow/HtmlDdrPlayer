@@ -33,7 +33,6 @@ export class ParsedSimfile {
   sampleLength: number;
   selectable: boolean;
   listSort: string; //WTF is this
-  commonBPM: number;
   bpms: { beat: number; bpm: number; }[];
   bpmsTime: { from: number; to: number; bpm: number; }[];
   bpmReadable: string;
@@ -126,9 +125,6 @@ export class ParsedSimfile {
       this.bpmsTime[index].to = this.bpmsTime[index + 1].from;
     }
     this.bpmsTime[this.bpmsTime.length - 1].to = this.modes.reduce((prev, curr) => prev < curr.totalTime ? curr.totalTime : prev, 0); /* find max totaltime */
-    this.commonBPM = this.bpmsTime
-      .reduce<number[]>((prev, curr, index, arr) => { prev[curr.bpm] = (prev[curr.bpm] ?? 0) + curr.to - curr.from; return prev; }, []) /* group by bpm */
-      .reduce((prev, curr) => prev < curr ? curr : prev, 0); /* find max duration */
 
     if (this.bpms.length == 1) {
       this.bpmReadable = `Static ${this.bpms[0].bpm}`
