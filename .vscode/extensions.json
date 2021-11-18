@@ -5,6 +5,7 @@
         "herrherrmann.angular-bootstrap",
         "msjsdiag.debugger-for-edge",
         "salbert.comment-ts",
-        "sibiraj-s.vscode-scss-formatter"
+        "sibiraj-s.vscode-scss-formatter",
+        "yzhang.markdown-all-in-one"
     ]
 }
