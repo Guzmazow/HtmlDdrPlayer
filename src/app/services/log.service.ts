@@ -6,7 +6,7 @@ export class Log {
 
 
   public static debug(...message: any) {
-    if (!environment.production /* TODO:config */)
+    //if (!environment.production /* TODO:config */)
       console.debug.apply(console, Array.prototype.slice.call(arguments));
   }
 
