@@ -18,29 +18,30 @@ import { MatListModule } from '@angular/material/list';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatInputModule } from '@angular/material/input';
 import { MatTableModule } from '@angular/material/table';
+import { MatSortModule } from '@angular/material/sort';
 import { MatRippleModule } from '@angular/material/core';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatBadgeModule } from '@angular/material/badge';
 
-
 import { DdrPlayerComponent } from '@components/ddr-player/ddr-player.component';
 import { NoteLaneComponent } from '@components/note-lane/note-lane.component';
 import { JudgementComponent } from '@components/judgement/judgement.component';
 import { ReceptorComponent } from '@components/receptor/receptor.component';
 import { NgxY2PlayerModule } from 'ngx-y2-player';
-import { SimfileSelectorComponent } from './components/simfile-selector/simfile-selector.component';
+import { SimfileSelectorComponent } from '@components/simfile-selector/simfile-selector.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { KeyboardService } from '@services/keyboard.service';
-import { YoutubeVideoComponent } from './components/youtube-video/youtube-video.component';
-import { SynchronizerComponent } from './components/synchronizer/synchronizer.component';
-import { SerialComponent } from './components/serial/serial.component';
-import { StepCounterComponent } from './components/step-counter/step-counter.component';
-import { PreferencesComponent } from './components/preferences/preferences.component';
-import { PreferencesDialogComponent } from './components/preferences/preferences-dialog.component';
-import { SelectableModesPipe } from './pipes/selectable-modes.pipe';
+import { YoutubeVideoComponent } from '@components/youtube-video/youtube-video.component';
+import { SynchronizerComponent } from '@components/synchronizer/synchronizer.component';
+import { SerialComponent } from '@components/serial/serial.component';
+import { StepCounterComponent } from '@components/step-counter/step-counter.component';
+import { PreferencesComponent } from '@components/preferences/preferences.component';
+import { PreferencesDialogComponent } from '@components/preferences/preferences-dialog.component';
+import { SelectableModesPipe } from '@pipes/selectable-modes.pipe';
 import { MediaService } from '@services/media.service';
+import { StepCounterHistoryDialogComponent } from '@components/step-counter/step-counter-history-dialog.component';
 
 
 @NgModule({
@@ -58,7 +59,8 @@ import { MediaService } from '@services/media.service';
     StepCounterComponent,
     PreferencesComponent,
     PreferencesDialogComponent,
-    SelectableModesPipe
+    SelectableModesPipe,
+    StepCounterHistoryDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -73,6 +75,7 @@ import { MediaService } from '@services/media.service';
     MatCardModule,
     MatExpansionModule,
     MatTableModule,
+    MatSortModule,
     MatRippleModule,
     MatDialogModule,
     NgxY2PlayerModule,

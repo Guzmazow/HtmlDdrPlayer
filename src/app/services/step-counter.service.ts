@@ -34,6 +34,10 @@ export class StepCounterService {
     });
   }
 
+  getHistory() {
+    return this.stepHistory;
+  }
+
   private reportSteps() {
     this.onStepChange.next({
       allTime: this.stepHistory[0] ?? 0,

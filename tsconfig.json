@@ -30,6 +30,9 @@
       "@services/*": [
         "src/app/services/*"
       ],
+      "@pipes/*": [
+        "src/app/pipes/*"
+      ],
       "@other/*": [
         "src/app/other/*"
       ]
