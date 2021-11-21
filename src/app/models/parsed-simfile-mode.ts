@@ -31,7 +31,7 @@ export class ParsedSimfileMode {
     constructor(simfile: ParsedSimfile, rawMode: Map<string, string>) {
         this.simfile = simfile;
 
-        let type = rawMode.get("type") ?? "";
+        const type = rawMode.get("type") ?? "";
         this.gameMode = GameMode[type.split('-')[0].toUpperCase() as keyof typeof GameMode] ?? GameMode.NONE;
         this.gameModeType = GameModeType[type.split('-')[1].toUpperCase() as keyof typeof GameModeType] ?? GameModeType.NONE;
         this.descAuthor = rawMode.get("desc/author") ?? "";
@@ -41,14 +41,15 @@ export class ParsedSimfileMode {
         this.rawNotes = rawMode.get("notes") ?? "";
 
         //PARSING
-        let measures = this.getMeasures(this.rawNotes.split("\n"));
-        let beatsAndLines = this.getBeatInfoByLine(measures);
+        const measures = this.getMeasures(this.rawNotes.split("\n"));
+        const beatsAndLines = this.getBeatInfoByLine(measures);
         //let cleanedBeatsAndLines = this.removeBlankLines(beatsAndLines);
         this.tracks = this.getTracksFromLines(this.getTimeInfoByLine(beatsAndLines));
 
         //STATS
-        let allNotes = this.tracks.reduce((prev, curr) => prev.concat(curr), []).sort((a, b) => a.time - b.time);
-        this.totalTime = allNotes[allNotes.length - 1].time;
+        const allNotes = this.tracks.reduce((prev, curr) => prev.concat(curr), []).sort((a, b) => a.time - b.time);
+        const lastNote = allNotes[allNotes.length - 1];
+        this.totalTime = lastNote.related?.time ?? lastNote.time;
         this.totalTimeDisplay = `${Math.floor(this.totalTime / 60)} minutes ${Math.round(this.totalTime % 60)} seconds`
         this.nps = (allNotes.filter(x =>
             x.type == NoteType.NORMAL ||
