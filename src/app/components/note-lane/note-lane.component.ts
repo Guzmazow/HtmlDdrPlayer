@@ -8,6 +8,7 @@ import { Subject } from 'rxjs';
 import { SimfileLoaderService } from '@services/simfile-loader.service';
 import { GameRequest } from '@models/game-request';
 import { Log } from '@services/log.service';
+import { JudgementService } from '@services/judgement.service';
 
 @Component({
   selector: 'app-note-lane',
@@ -22,7 +23,11 @@ export class NoteLaneComponent implements OnInit, OnDestroy {
   canvas!: HTMLCanvasElement;
   ctx!: CanvasRenderingContext2D;
 
-  constructor(private displayService: DisplayService, private mediaService: MediaService) { }
+  constructor(
+    private displayService: DisplayService,
+    private mediaService: MediaService,
+    private judgementService: JudgementService
+  ) { }
 
   ngOnInit(): void {
     if (!this.displayService.onGamePlayStateChange.value) {
@@ -89,7 +94,7 @@ export class NoteLaneComponent implements OnInit, OnDestroy {
       return;
     let x = this.displayService.getNoteX(note.trackIndex);
     let y = this.displayService.getNoteY(note.time);
-    let y2 = note.related ? this.displayService.getNoteY(note.related.time) : 0;
+    let y2 = note.related ? this.displayService.getNoteY(note.related.time - (note.type == NoteType.ROLL_HEAD ? this.judgementService.TimingWindowSecondsRoll : this.judgementService.TimingWindowSecondsRoll)) : 0;
     let direction = note.trackIndex % 4;
     //new NoteDisplay(x, y, note.type, trackNumber % 4).draw(this.displayService);
 
