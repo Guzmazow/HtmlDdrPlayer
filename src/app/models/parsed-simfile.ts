@@ -120,7 +120,7 @@ export class ParsedSimfile {
     });
 
 
-    this.bpmsTime = this.bpms.map(x => { return { from: this.getElapsedTime(0, x.beat) - this.offset, to: 0, bpm: x.bpm } })
+    this.bpmsTime = this.bpms.map(x => { return { from: this.getElapsedTime(0, x.beat, false) - this.offset, to: 0, bpm: x.bpm } })
     for (let index = 0; index < this.bpmsTime.length - 1; index++) {
       this.bpmsTime[index].to = this.bpmsTime[index + 1].from;
     }
@@ -217,10 +217,10 @@ export class ParsedSimfile {
     return currentBeat;
   }
 
-  getElapsedTime(startBeat: number, endBeat: number) {
+  getElapsedTime(startBeat: number, endBeat: number, withStops: boolean = true) {
     let currentBPMIndex: number = this.getStartBPMIndex(startBeat);
     let earliestBeat: number = startBeat;
-    let elapsedTime: number = this.stops == null ? 0 : this.stoppedTime(startBeat, endBeat, this.stops);
+    let elapsedTime: number = withStops ? (this.stops == null ? 0 : this.stoppedTime(startBeat, endBeat, this.stops)) : 0;
     do {
       let nextBPMChange: number = this.getNextBPMChange(currentBPMIndex);
       let nextBeat: number = Math.min(endBeat, nextBPMChange);

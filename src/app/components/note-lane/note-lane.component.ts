@@ -116,7 +116,7 @@ export class NoteLaneComponent implements OnInit, OnDestroy {
         }
 
         if (y2 > y + halfNoteSize) {
-          let isHoldActive = note.startedJudging && note.stateChangeTime == 0; //note.stateChangeTime + 0.01 < this.displayService.currentTime;
+          let isHoldActive = note.startedJudging && note.stateChangeTime == null; //note.stateChangeTime + 0.01 < this.displayService.currentTime;
           this.ctx.beginPath();
           let holdPattern = this.ctx.createPattern(isHoldActive ? this.mediaService.holdBodyActiveImageCache! : this.mediaService.holdBodyInactiveImageCache!, 'repeat-y')!;
           this.ctx.fillStyle = holdPattern
@@ -143,7 +143,7 @@ export class NoteLaneComponent implements OnInit, OnDestroy {
         }
 
         if (y2 > y + halfNoteSize) {
-          let isRollActive = note.stateChangeTime + 0.1 < this.displayService.onCurrentTimeSecondsChange.value;
+          let isRollActive = (note.stateChangeTime ?? 0) + 0.1 < this.displayService.onCurrentTimeSecondsChange.value;
           let rollPattern = this.ctx.createPattern(isRollActive ? this.mediaService.rollBodyActiveImageCache! : this.mediaService.rollBodyInactiveImageCache!, 'repeat-y')!;
           this.ctx.beginPath();
           this.ctx.fillStyle = rollPattern

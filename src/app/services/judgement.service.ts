@@ -32,8 +32,8 @@ export class JudgementService {
   TimingWindowSecondsMine = 0.075000
   TimingWindowSecondsRoll = 0.500000
 
-  rollState = new Map<Direction, { note: Note, timer?: ReturnType<typeof setTimeout> } | undefined>();
-  holdState = new Map<Direction, { note: Note, timer?: ReturnType<typeof setTimeout> } | undefined>();
+  rollState = new Map<Direction, { note: Note, timer?: ReturnType<typeof setTimeout>, lastHitSeconds: number | undefined } | undefined>();
+  holdState = new Map<Direction, { note: Note, timer?: ReturnType<typeof setTimeout>, lastReleaseSeconds: number | undefined } | undefined>();
 
   constructor(private displayService: DisplayService, private keyboardService: KeyboardService) {
     const judgeScale = 2;
@@ -99,43 +99,44 @@ export class JudgementService {
 
 
       let rollState = this.rollState.get(trackIndex)
-      if (rollState && rollState.note.related && rollState.note.related.time < this.displayService.onCurrentTimeSecondsChange.value) {
-        if (rollState.timer)
-          clearTimeout(rollState.timer);
-        rollState.note.judged = true;
-        this.onJudged.next({
-          judgement: Judgement.ROLLFINISHED,
-          precision: 0,
-          key: trackIndex
-        });
-        this.rollState.set(trackIndex, undefined);
-        Log.debug("JudgementService", "roll finished " + trackIndex)
-      }
+      // Moved to rearmRoll
+      // if (rollState && rollState.note.related && rollState.note.related.time < this.displayService.onCurrentTimeSecondsChange.value) {
+      //   if (rollState.timer)
+      //     clearTimeout(rollState.timer);
+      //   rollState.note.judged = true;
+      //   this.onJudged.next({
+      //     judgement: rollState?.note.judgement ?? Judgement.ROLLFINISHED,
+      //     precision: 0,
+      //     key: trackIndex
+      //   });
+      //   this.rollState.set(trackIndex, undefined);
+      //   Log.debug("JudgementService", "roll finished " + trackIndex)
+      // }
 
       //Rogue/Stuck roll (if notes are too close)
       for (const note of track.filter(x =>
         !x.judged &&
         x.startedJudging &&
         !rollState &&
-        x.type == NoteType.ROLL_HEAD && 
+        x.type == NoteType.ROLL_HEAD &&
         x.related &&
         x.related.time < this.displayService.onCurrentTimeSecondsChange.value
       )) {
         note.judged = true;
         this.onJudged.next({
-          judgement: Judgement.ROLLFINISHED,
+          judgement: note.judgement /* Judgement.ROLLFINISHED */,
           precision: 0,
           key: trackIndex
         });
       }
 
       let holdState = this.holdState.get(trackIndex)
-      if (holdState && holdState.note.related && holdState.note.related.time < this.displayService.onCurrentTimeSecondsChange.value) {
+      if (holdState && holdState.note.related && (holdState.note.related.time - (holdState.timer ? 0 : this.TimingWindowSecondsHold)) < this.displayService.onCurrentTimeSecondsChange.value) {
         if (holdState.timer)
           clearTimeout(holdState.timer);
         holdState.note.judged = true;
         this.onJudged.next({
-          judgement: Judgement.HOLDFINISHED,
+          judgement: holdState.note.judgement /* Judgement.HOLDFINISHED */,
           precision: 0,
           key: trackIndex
         });
@@ -148,13 +149,13 @@ export class JudgementService {
         !x.judged &&
         x.startedJudging &&
         !holdState &&
-        x.type == NoteType.HOLD_HEAD && 
+        x.type == NoteType.HOLD_HEAD &&
         x.related &&
         x.related.time < this.displayService.onCurrentTimeSecondsChange.value
       )) {
         note.judged = true;
         this.onJudged.next({
-          judgement: Judgement.HOLDFINISHED,
+          judgement: note.judgement /* Judgement.HOLDFINISHED */,
           precision: 0,
           key: trackIndex
         });
@@ -201,11 +202,11 @@ export class JudgementService {
           hit.precision = timeDifference;
           hit.judgement = judgement;
           if (hit.type == NoteType.ROLL_HEAD) {
-            this.rollState.set(+key, { note: hit, timer: undefined });
+            this.rollState.set(+key, { note: hit, timer: undefined, lastHitSeconds: undefined });
             this.rearmRoll(+key);
           }
           if (hit.type == NoteType.HOLD_HEAD) {
-            this.holdState.set(+key, { note: hit, timer: undefined });
+            this.holdState.set(+key, { note: hit, timer: undefined, lastReleaseSeconds: undefined });
           }
           this.onJudged.next({ judgement: judgement, precision: timeDifference, key: key });
         }
@@ -226,27 +227,42 @@ export class JudgementService {
       if (state.timer) {
         Log.debug("JudgementService", "clear timer " + state.timer)
         clearTimeout(state.timer);
+        state.timer = undefined;
       }
-      state.timer = setTimeout(() => {
-        if (state)
-          state.note.judged = true;
-        this.rollState.set(direction, undefined);
+
+      //was last roll
+      if (state.note.related && (state.note.related.time - this.TimingWindowSecondsRoll) < this.displayService.onCurrentTimeSecondsChange.value) {
+        state.note.judged = true;
         this.onJudged.next({
-          judgement: Judgement.ROLLFAILED,
-          precision: this.TimingWindowSecondsRoll,
+          judgement: state.note.judgement /* Judgement.ROLLFINISHED */,
+          precision: 0,
           key: +direction
         });
-        Log.debug("JudgementService", "roll failed " + direction)
-      }, this.TimingWindowSecondsRoll * 1000);
-      //.log("set timer " + state.timer)
+        this.rollState.set(direction, undefined);
+        Log.debug("JudgementService", "roll finished " + direction);
+      } else {
+        state.timer = setTimeout(() => {
+          if (state)
+            state.note.judged = true;
+          this.rollState.set(direction, undefined);
+          this.onJudged.next({
+            judgement: Judgement.MISS /* Judgement.ROLLFAILED */,
+            precision: this.TimingWindowSecondsRoll,
+            key: +direction
+          });
+          Log.debug("JudgementService", "roll failed " + direction);
+        }, this.TimingWindowSecondsRoll * 1000);
+        //.log("set timer " + state.timer)
+      }
     }
   }
 
   unarmHold(direction: Direction) {
     let state = this.holdState.get(direction);
     if (state && state.timer) {
-      state.note.stateChangeTime = 0;
+      state.note.stateChangeTime = null;
       clearTimeout(state.timer);
+      state.timer = undefined;
     }
   }
 
@@ -259,7 +275,7 @@ export class JudgementService {
           state.note.judged = true;
         this.holdState.set(direction, undefined);
         this.onJudged.next({
-          judgement: Judgement.HOLDFAILED,
+          judgement: Judgement.MISS /* Judgement.HOLDFAILED */,
           precision: this.TimingWindowSecondsHold,
           key: +direction
         });

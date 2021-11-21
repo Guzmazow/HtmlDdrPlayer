@@ -169,14 +169,15 @@ export class DisplayService {
       for (const bpm of bpms) {
         if (this.is_overlapping(fromTime, toTime, bpm.from, (bpm.to ?? toTime))) {
           distance +=
-            (isReversed ? -1 : 1) *
-            this.overlap_amount(fromTime, toTime, bpm.from, (bpm.to ?? toTime)) *
-            bpm.bpm
+            (isReversed ? -1 : 1)
+            * this.displayOptions.noteSize /* ~25px */
+            * this.overlap_amount(fromTime, toTime, bpm.from, (bpm.to ?? toTime)) /* seconds in current BPM */
+            * (bpm.bpm / 60) /* BPM -> BPS */;
         }
       }
     }
 
-    return Math.round(distance * 100) / 100;
+    return distance;
 
     // CMod
     // let timeDistance = toTime - fromTime;

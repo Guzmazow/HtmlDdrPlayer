@@ -5,9 +5,14 @@ export class Note {
     time: number;
     quantization: NoteQuantization;
     totalBeat: number;
+
+    /**
+     * @description Time when last time hold/roll turned active/inactive
+     * @values Null - Hold is held, Roll not stepped a single time
+     */
+    stateChangeTime: number | null = null;
+    
     startedJudging: boolean = false;
-    //Time when last time hold/roll turned active/inactive
-    stateChangeTime: number = 0;
     judged: boolean = false;
     judgement: Judgement = Judgement.NONE;
     precision: number | null = null;
@@ -27,7 +32,7 @@ export class Note {
 
     reset(){
         this.startedJudging = false;
-        this.stateChangeTime = 0;
+        this.stateChangeTime = null;
         this.judged = false;
         this.judgement = Judgement.NONE;
         this.precision = null;
