@@ -32,8 +32,8 @@ export class JudgementService {
   TimingWindowSecondsMine = 0.075000
   TimingWindowSecondsRoll = 0.500000
 
-  rollState = new Map<Direction, { note: Note, timer?: ReturnType<typeof setTimeout>, lastHitSeconds: number | undefined } | undefined>();
-  holdState = new Map<Direction, { note: Note, timer?: ReturnType<typeof setTimeout>, lastReleaseSeconds: number | undefined } | undefined>();
+  rollState = new Map<Direction, { note: Note, timer?: ReturnType<typeof setTimeout> } | undefined>();
+  holdState = new Map<Direction, { note: Note, timer?: ReturnType<typeof setTimeout> } | undefined>();
 
   constructor(private displayService: DisplayService, private keyboardService: KeyboardService) {
     const judgeScale = 2;
@@ -204,11 +204,11 @@ export class JudgementService {
           hit.precision = timeDifference;
           hit.judgement = judgement;
           if (hit.type == NoteType.ROLL_HEAD) {
-            this.rollState.set(+key, { note: hit, timer: undefined, lastHitSeconds: undefined });
+            this.rollState.set(+key, { note: hit, timer: undefined });
             this.rearmRoll(+key);
           }
           if (hit.type == NoteType.HOLD_HEAD) {
-            this.holdState.set(+key, { note: hit, timer: undefined, lastReleaseSeconds: undefined });
+            this.holdState.set(+key, { note: hit, timer: undefined });
           }
           this.onJudged.next({ judgement: judgement, precision: timeDifference, key: key });
         }
