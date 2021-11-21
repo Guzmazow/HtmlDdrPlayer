@@ -47,7 +47,7 @@ export class ParsedSimfileMode {
         this.tracks = this.getTracksFromLines(this.getTimeInfoByLine(beatsAndLines));
 
         //STATS
-        const allNotes = this.tracks.reduce((prev, curr) => prev.concat(curr), []).sort((a, b) => a.time - b.time);
+        const allNotes = this.tracks.reduce((prev, curr) => prev.concat(curr), []).sort((a, b) => (a.related?.time ?? a.time) - (b.related?.time ?? b.time));
         const lastNote = allNotes[allNotes.length - 1];
         this.totalTime = lastNote.related?.time ?? lastNote.time;
         this.totalTimeDisplay = `${Math.floor(this.totalTime / 60)} minutes ${Math.round(this.totalTime % 60)} seconds`
