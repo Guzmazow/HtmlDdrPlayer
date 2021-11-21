@@ -244,6 +244,8 @@ export class JudgementService {
         Log.debug("JudgementService", "roll finished " + direction);
       } else {
         state.timer = setTimeout(() => {
+          if (state?.note.judged)
+            return;
           if (state)
             state.note.judged = true;
           this.rollState.set(direction, undefined);
@@ -273,6 +275,8 @@ export class JudgementService {
     if (state) {
       state.note.stateChangeTime = this.displayService.onCurrentTimeSecondsChange.value;
       state.timer = setTimeout(() => {
+        if (state?.note.judged)
+          return;
         if (state)
           state.note.judged = true;
         this.holdState.set(direction, undefined);
