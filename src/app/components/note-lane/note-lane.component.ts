@@ -26,7 +26,7 @@ export class NoteLaneComponent implements OnInit, OnDestroy {
   constructor(
     private displayService: DisplayService,
     private mediaService: MediaService,
-    private judgementService: JudgementService
+    // private judgementService: JudgementService,
   ) { }
 
   ngOnInit(): void {
@@ -94,7 +94,7 @@ export class NoteLaneComponent implements OnInit, OnDestroy {
       return;
     let x = this.displayService.getNoteX(note.trackIndex);
     let y = this.displayService.getNoteY(note.time);
-    let y2 = note.related ? this.displayService.getNoteY(note.related.time - (note.type == NoteType.ROLL_HEAD ? this.judgementService.TimingWindowSecondsRoll : this.judgementService.TimingWindowSecondsHold)) : 0;
+    let y2 = note.related ? this.displayService.getNoteY(note.related.time/* - (note.type == NoteType.ROLL_HEAD ? this.judgementService.TimingWindowSecondsRoll : this.judgementService.TimingWindowSecondsHold)*/) : 0;
     let direction = note.trackIndex % 4;
     //new NoteDisplay(x, y, note.type, trackNumber % 4).draw(this.displayService);
 
