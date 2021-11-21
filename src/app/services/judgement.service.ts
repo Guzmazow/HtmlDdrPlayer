@@ -128,10 +128,11 @@ export class JudgementService {
           precision: 0,
           key: trackIndex
         });
+        Log.debug("JudgementService", "rogue roll ", note)
       }
 
       let holdState = this.holdState.get(trackIndex)
-      if (holdState && holdState.note.related && (holdState.note.related.time - (holdState.timer ? 0 : this.TimingWindowSecondsHold)) < this.displayService.onCurrentTimeSecondsChange.value) {
+      if (holdState && holdState.note.related && (holdState.note.related.time - this.TimingWindowSecondsHold) < this.displayService.onCurrentTimeSecondsChange.value) {
         if (holdState.timer)
           clearTimeout(holdState.timer);
         holdState.note.judged = true;
@@ -159,6 +160,7 @@ export class JudgementService {
           precision: 0,
           key: trackIndex
         });
+        Log.debug("JudgementService", "rogue hold ", note)
       }
     }
   }
