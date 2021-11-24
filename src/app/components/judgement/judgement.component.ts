@@ -1,5 +1,5 @@
 import { ChangeDetectorRef, Component, ElementRef, HostListener, OnDestroy, OnInit, ViewChild } from '@angular/core';
-import { Judgement, Direction, AllJudgements, Difficulty } from '@models/enums';
+import { Judgement, Direction, AllJudgements, Difficulty, SuccessfullStepJudgements } from '@models/enums';
 import { DisplayService } from '@services/display.service';
 import { JudgementService } from '@services/judgement.service';
 import { MediaService } from '@services/media.service';
@@ -18,7 +18,7 @@ export class JudgementComponent implements OnInit, OnDestroy {
   get timeElapsed() {
     var dif = this.startTime.getTime() - new Date().getTime();
     var Seconds_from_T1_to_T2 = dif / 1000;
-    return Math.abs(Seconds_from_T1_to_T2);    
+    return Math.abs(Seconds_from_T1_to_T2);
   }
 
   destroyed$ = new Subject<void>();
@@ -37,8 +37,8 @@ export class JudgementComponent implements OnInit, OnDestroy {
 
 
   constructor(
-    private mediaService: MediaService, 
-    private judgementService: JudgementService, 
+    private mediaService: MediaService,
+    private judgementService: JudgementService,
     public displayService: DisplayService,
     private changeDetectorRef: ChangeDetectorRef,
   ) {
@@ -51,7 +51,7 @@ export class JudgementComponent implements OnInit, OnDestroy {
     });
 
     this.displayService.onGamePlayStateChange.pipe(takeUntil(this.destroyed$)).subscribe(started => {
-      if(started){
+      if (started) {
         this.startTime = new Date();
       }
     });
@@ -96,21 +96,25 @@ export class JudgementComponent implements OnInit, OnDestroy {
       let currentCount = this.judgementCounts.get(judgementContext.judgement) ?? 0;
       this.judgementCounts.set(judgementContext.judgement, currentCount + 1)
       let currentPrecision = this.precisionSums.get(judgementContext.judgement) ?? 0;
-      this.precisionSums.set(judgementContext.judgement, currentPrecision + Math.abs(judgementContext.precision))
+      this.precisionSums.set(judgementContext.judgement, currentPrecision + Math.abs(judgementContext.precision ?? 0))
 
       let currentNoneCount = this.judgementCounts.get(Judgement.ALL) ?? 0;
       this.judgementCounts.set(Judgement.ALL, currentNoneCount + 1)
       let currentNonePrecision = this.precisionSums.get(Judgement.ALL) ?? 0;
-      this.precisionSums.set(Judgement.ALL, currentNonePrecision + Math.abs(judgementContext.precision))
+      this.precisionSums.set(Judgement.ALL, currentNonePrecision + Math.abs(judgementContext.precision ?? 0))
 
-      if (this.mediaLoaded && AllJudgements.indexOf(judgementContext.judgement) > -1) {
+      if (this.mediaLoaded) {
         //judgement
-        this.lastJudgementImageDataUrl = this.mediaService.judgementImageCache.get(judgementContext.judgement) ?? "";
+        let visibleJudgement = judgementContext.judgement;
+        if (AllJudgements.indexOf(judgementContext.judgement) == -1) {
+          visibleJudgement = SuccessfullStepJudgements.indexOf(judgementContext.judgement) > -1 ? Judgement.MARVELOUS : Judgement.MISS;
+        }
+        this.lastJudgementImageDataUrl = this.mediaService.judgementImageCache.get(visibleJudgement) ?? "";
       }
 
       //judgement precision
-      this.lastPrecision = Math.abs(judgementContext.precision);
-      this.lastPrecisionNegative = judgementContext.precision < 0
+      this.lastPrecision = Math.abs(judgementContext.precision ?? 0);
+      this.lastPrecisionNegative = (judgementContext.precision ?? 0) < 0
 
 
     });

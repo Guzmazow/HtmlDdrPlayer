@@ -1,10 +1,11 @@
-import { Judgement, NoteQuantization, NoteType } from './enums';
+import { Direction, Judgement, NoteQuantization, NoteType } from './enums';
 
 export class Note {
     type: NoteType;
     time: number;
     quantization: NoteQuantization;
     totalBeat: number;
+    direction: Direction;
 
     /**
      * @description Time when last time hold/roll turned active/inactive
@@ -21,7 +22,8 @@ export class Note {
     mineDisplayRotationOffset = Math.round(Math.random()*1000);
     trackIndex: number;
 
-    constructor(type: NoteType, time: number, quantization: NoteQuantization, totalBeat: number, related: Note | undefined, trackIndex: number) {
+    constructor(direction: Direction, type: NoteType, time: number, quantization: NoteQuantization, totalBeat: number, related: Note | undefined, trackIndex: number) {
+        this.direction = direction;
         this.type = type;
         this.time = time;
         this.quantization = quantization;

@@ -186,7 +186,7 @@ export class ParsedSimfileMode {
             for (let i = 0; i < line.lineInfo.length; i++) {
                 let simfileNoteType = <SimfileNoteType>line.lineInfo.charAt(i);
                 if (simfileNoteType != SimfileNoteType.EMPTY) {
-                    let newNote = new Note(NoteType.NONE, line.time, line.quantization, line.totalBeat, undefined, i);
+                    let newNote = new Note(i, NoteType.NONE, line.time, line.quantization, line.totalBeat, undefined, i);
                     if (simfileNoteType == SimfileNoteType.TAIL) {
                         // let bodyNotes: Note[] = [];
                         // for (let reversedIndex = tracks[i].length - 1; reversedIndex >= 0; reversedIndex--) {

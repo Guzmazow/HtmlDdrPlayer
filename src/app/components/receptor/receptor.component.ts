@@ -81,7 +81,7 @@ export class ReceptorComponent implements OnInit {
         }
       } else {
         if (AllJudgements.indexOf(judged.judgement) > -1)
-          this.receptorGlowVisibilityFramesLeft.set(judged.key, { judgemnet: judged.judgement, framesLeft: 20 })
+          this.receptorGlowVisibilityFramesLeft.set(+judged.direction, { judgemnet: judged.judgement, framesLeft: 20 })
       }
     });
   }
