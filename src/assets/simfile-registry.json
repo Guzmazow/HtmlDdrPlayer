@@ -1,13 +1,13 @@
-[   {
+[
+    {
         "title": "Testing",
         "location": "Testing",
-        "simfiles":[
+        "simfiles": [
             {
                 "filename": "Testing BPM Stops.sm",
                 "youtubeVideos": [
                     {
-                        "id": "pHvP71rwYAc",
-                        "skips": []
+                        "id": "pHvP71rwYAc"
                     }
                 ]
             },
@@ -15,8 +15,7 @@
                 "filename": "Testing BPM.sm",
                 "youtubeVideos": [
                     {
-                        "id": "pHvP71rwYAc",
-                        "skips": []
+                        "id": "pHvP71rwYAc"
                     }
                 ]
             },
@@ -24,8 +23,7 @@
                 "filename": "Testing NegBPM Stops.sm",
                 "youtubeVideos": [
                     {
-                        "id": "pHvP71rwYAc",
-                        "skips": []
+                        "id": "pHvP71rwYAc"
                     }
                 ]
             },
@@ -33,8 +31,7 @@
                 "filename": "Testing Stops.sm",
                 "youtubeVideos": [
                     {
-                        "id": "pHvP71rwYAc",
-                        "skips": []
+                        "id": "pHvP71rwYAc"
                     }
                 ]
             }
@@ -49,8 +46,7 @@
                 "youtubeVideos": [
                     {
                         "id": "SC0zj9gaEPs",
-                        "offset": 0.1,
-                        "skips": []
+                        "offset": 0.1
                     }
                 ]
             },
@@ -59,8 +55,7 @@
                 "youtubeVideos": [
                     {
                         "id": "89XlgYsu1Kg",
-                        "offset": 0.1,
-                        "skips": []
+                        "offset": 0.1
                     }
                 ]
             },
@@ -83,8 +78,7 @@
                 "youtubeVideos": [
                     {
                         "id": "uwwU55zBYlQ",
-                        "offset": 0.4,
-                        "skips": []
+                        "offset": 0.4
                     }
                 ]
             },
@@ -93,8 +87,7 @@
                 "youtubeVideos": [
                     {
                         "id": "e7VK3pne8N4",
-                        "offset": 0.1,
-                        "skips": []
+                        "offset": 0.1
                     }
                 ]
             },
@@ -130,8 +123,7 @@
                 "filename": "All I Want For Christmas (Nightcore Mix).sm",
                 "youtubeVideos": [
                     {
-                        "id": "hVTKJPNr35k",
-                        "skips": []
+                        "id": "hVTKJPNr35k"
                     }
                 ]
             },
@@ -196,8 +188,7 @@
                 "youtubeVideos": [
                     {
                         "id": "DLYwwtPA49w",
-                        "offset": 0.3,
-                        "skips": []
+                        "offset": 0.3
                     }
                 ]
             },
@@ -234,8 +225,7 @@
                 "youtubeVideos": [
                     {
                         "id": "97dwYLnbW4E",
-                        "offset": 0.15,
-                        "skips": []
+                        "offset": 0.15
                     }
                 ]
             },
@@ -243,8 +233,7 @@
                 "filename": "Black Apple.sm",
                 "youtubeVideos": [
                     {
-                        "id": "LAbadzhTVsM",
-                        "skips": []
+                        "id": "LAbadzhTVsM"
                     }
                 ]
             },
@@ -267,8 +256,7 @@
                 "youtubeVideos": [
                     {
                         "id": "RV0uFMZiM48",
-                        "offset": 1.2,
-                        "skips": []
+                        "offset": 1.2
                     }
                 ]
             },
@@ -277,8 +265,7 @@
                 "youtubeVideos": [
                     {
                         "id": "8jSuFBfyXlw",
-                        "offset": 1,
-                        "skips": []
+                        "offset": 1
                     }
                 ]
             },
@@ -286,8 +273,7 @@
                 "filename": "Break It Down.sm",
                 "youtubeVideos": [
                     {
-                        "id": "vpYCsYuMCCg",
-                        "skips": []
+                        "id": "vpYCsYuMCCg"
                     }
                 ]
             },
@@ -421,8 +407,7 @@
                 "filename": "Christmas Memories.sm",
                 "youtubeVideos": [
                     {
-                        "id": "5JvfUKFvov4",
-                        "skips": []
+                        "id": "5JvfUKFvov4"
                     }
                 ]
             },
@@ -445,8 +430,7 @@
                 "youtubeVideos": [
                     {
                         "id": "3JAZuc4_eXM",
-                        "offset": 0.1,
-                        "skips": []
+                        "offset": 0.1
                     }
                 ]
             },
@@ -483,8 +467,7 @@
                 "youtubeVideos": [
                     {
                         "id": "Q5FyKlgizAY",
-                        "offset": 0.08,
-                        "skips": []
+                        "offset": 0.08
                     }
                 ]
             },
@@ -493,8 +476,7 @@
                 "youtubeVideos": [
                     {
                         "id": "mOYZaiDZ7BM",
-                        "offset": 0.03,
-                        "skips": []
+                        "offset": 0.03
                     }
                 ]
             },
@@ -588,8 +570,7 @@
                 "youtubeVideos": [
                     {
                         "id": "0Q94mEs-1NM",
-                        "offset": 6.3,
-                        "skips": []
+                        "offset": 6.3
                     }
                 ]
             },
@@ -597,8 +578,7 @@
                 "filename": "Discotheque.sm",
                 "youtubeVideos": [
                     {
-                        "id": "FHojVhh6k40",
-                        "skips": []
+                        "id": "FHojVhh6k40"
                     }
                 ]
             },
@@ -621,8 +601,7 @@
                 "filename": "Dolphin and Broadcast.sm",
                 "youtubeVideos": [
                     {
-                        "id": "hbB0OIDx2go",
-                        "skips": []
+                        "id": "hbB0OIDx2go"
                     }
                 ]
             },
@@ -631,8 +610,7 @@
                 "youtubeVideos": [
                     {
                         "id": "6SCQyBcHeDg",
-                        "offset": 0.07,
-                        "skips": []
+                        "offset": 0.07
                     }
                 ]
             },
@@ -640,9 +618,8 @@
                 "filename": "Electric Love.sm",
                 "youtubeVideos": [
                     {
-                        "id": "ogm0olcsh0c",
-                        "offset": 0.13,
-                        "skips": []
+                        "id": "rpfVs0ScRJo",
+                        "offset": 0.1
                     }
                 ]
             },
@@ -665,8 +642,7 @@
                 "youtubeVideos": [
                     {
                         "id": "Dwlsq2xl3sI",
-                        "offset": 0.1,
-                        "skips": []
+                        "offset": 0.1
                     }
                 ]
             },
@@ -674,8 +650,7 @@
                 "filename": "Fear.sm",
                 "youtubeVideos": [
                     {
-                        "id": "4-mKu-KQ8tI",
-                        "skips": []
+                        "id": "4-mKu-KQ8tI"
                     }
                 ]
             },
@@ -683,8 +658,7 @@
                 "filename": "Festival of Ghost 2.sm",
                 "youtubeVideos": [
                     {
-                        "id": "618UczNmpp4",
-                        "skips": []
+                        "id": "618UczNmpp4"
                     }
                 ]
             },
@@ -693,8 +667,7 @@
                 "youtubeVideos": [
                     {
                         "id": "6amn4tQOA00",
-                        "offset": 4.5,
-                        "skips": []
+                        "offset": 4.5
                     }
                 ]
             },
@@ -717,8 +690,7 @@
                 "youtubeVideos": [
                     {
                         "id": "e2XXTzYm0-s",
-                        "offset": 0.35,
-                        "skips": []
+                        "offset": 0.35
                     }
                 ]
             },
@@ -726,8 +698,7 @@
                 "filename": "Freely Tomorrow.sm",
                 "youtubeVideos": [
                     {
-                        "id": "KmvydnVTriE",
-                        "skips": []
+                        "id": "KmvydnVTriE"
                     }
                 ]
             },
@@ -736,8 +707,7 @@
                 "youtubeVideos": [
                     {
                         "id": "9kQ2GtvDV3s",
-                        "offset": 0.06,
-                        "skips": []
+                        "offset": 0.06
                     }
                 ]
             },
@@ -746,8 +716,7 @@
                 "youtubeVideos": [
                     {
                         "id": "vlKAVFZaSIA",
-                        "offset": 0.06,
-                        "skips": []
+                        "offset": 0.06
                     }
                 ]
             },
@@ -812,8 +781,7 @@
                 "youtubeVideos": [
                     {
                         "id": "afXl2o82mmA",
-                        "offset": 0.6,
-                        "skips": []
+                        "offset": 0.6
                     }
                 ]
             },
@@ -822,8 +790,7 @@
                 "youtubeVideos": [
                     {
                         "id": "MXjzojgWHCc",
-                        "offset": 1.1,
-                        "skips": []
+                        "offset": 1.1
                     }
                 ]
             },
@@ -860,8 +827,7 @@
                 "filename": "Heart-Pounding Flight.sm",
                 "youtubeVideos": [
                     {
-                        "id": "cOh3xriUotw",
-                        "skips": []
+                        "id": "cOh3xriUotw"
                     }
                 ]
             },
@@ -883,8 +849,7 @@
                 "filename": "Hot Pot.sm",
                 "youtubeVideos": [
                     {
-                        "id": "Tj8PfN4yVM4",
-                        "skips": []
+                        "id": "Tj8PfN4yVM4"
                     }
                 ]
             },
@@ -893,8 +858,7 @@
                 "youtubeVideos": [
                     {
                         "id": "SuI1g911ens",
-                        "offset": 0.05,
-                        "skips": []
+                        "offset": 0.05
                     }
                 ]
             },
@@ -902,8 +866,7 @@
                 "filename": "Hyadain no Kakakata Kataomoi -English Dub-.sm",
                 "youtubeVideos": [
                     {
-                        "id": "IGtfDaMmLUs",
-                        "skips": []
+                        "id": "IGtfDaMmLUs"
                     }
                 ]
             },
@@ -911,13 +874,7 @@
                 "filename": "Hyakka Ryouran.sm",
                 "youtubeVideos": [
                     {
-                        "id": "vSmzuqFFkXc",
-                        "skips": [
-                            {
-                                "from": 0,
-                                "to": 2.1
-                            }
-                        ]
+                        "id": "Y65OmeSVVCM"
                     }
                 ]
             },
@@ -972,8 +929,7 @@
                 "youtubeVideos": [
                     {
                         "id": "Acxj37_OPeg",
-                        "offset": 1.3,
-                        "skips": []
+                        "offset": 1.3
                     }
                 ]
             },
@@ -982,8 +938,7 @@
                 "youtubeVideos": [
                     {
                         "id": "yxRZ6InS2FI",
-                        "offset": 0.1,
-                        "skips": []
+                        "offset": 0.1
                     }
                 ]
             },
@@ -991,8 +946,7 @@
                 "filename": "Ko-Ki-Ku-Kuru-Kuru-Kure-Ko!.sm",
                 "youtubeVideos": [
                     {
-                        "id": "yWOeZz6T3Qo",
-                        "skips": []
+                        "id": "yWOeZz6T3Qo"
                     }
                 ]
             },
@@ -1000,8 +954,7 @@
                 "filename": "Koisuru Fortune Cookie.sm",
                 "youtubeVideos": [
                     {
-                        "id": "8wXPSxuO1xw",
-                        "skips": []
+                        "id": "8wXPSxuO1xw"
                     }
                 ]
             },
@@ -1010,8 +963,7 @@
                 "youtubeVideos": [
                     {
                         "id": "K908exWpSco",
-                        "offset": 0.15,
-                        "skips": []
+                        "offset": 0.15
                     }
                 ]
             },
@@ -1020,8 +972,7 @@
                 "youtubeVideos": [
                     {
                         "id": "7jJjjXajr3E",
-                        "offset": 0.4,
-                        "skips": []
+                        "offset": 0.4
                     }
                 ]
             },
@@ -1030,8 +981,7 @@
                 "youtubeVideos": [
                     {
                         "id": "yy1NsG7Dg3Y",
-                        "offset": 0.7,
-                        "skips": []
+                        "offset": 0.7
                     }
                 ]
             },
@@ -1040,8 +990,7 @@
                 "youtubeVideos": [
                     {
                         "id": "wAbwhVOwJQw",
-                        "offset": 0.08,
-                        "skips": []
+                        "offset": 0.08
                     }
                 ]
             },
@@ -1049,8 +998,7 @@
                 "filename": "Live Again.sm",
                 "youtubeVideos": [
                     {
-                        "id": "h-LOlueKCtk",
-                        "skips": []
+                        "id": "h-LOlueKCtk"
                     }
                 ]
             },
@@ -1073,8 +1021,7 @@
                 "youtubeVideos": [
                     {
                         "id": "BefoEnOBIvc",
-                        "offset": 2.2,
-                        "skips": []
+                        "offset": 2.2
                     }
                 ]
             },
@@ -1097,13 +1044,11 @@
                 "youtubeVideos": [
                     {
                         "id": "fVLDpb0G6Fc",
-                        "offset": 1.3,
-                        "skips": []
+                        "offset": 1.3
                     },
                     {
                         "id": "1pDM6fQUfJs",
-                        "offset": 0.95,
-                        "skips": []
+                        "offset": 0.95
                     }
                 ]
             },
@@ -1112,8 +1057,7 @@
                 "youtubeVideos": [
                     {
                         "id": "0FCvzsVlXpQ",
-                        "offset": 0.15,
-                        "skips": []
+                        "offset": 0.15
                     }
                 ]
             },
@@ -1121,8 +1065,7 @@
                 "filename": "MJG Recruitment Song.sm",
                 "youtubeVideos": [
                     {
-                        "id": "Gkvut0tbGHA",
-                        "skips": []
+                        "id": "Gkvut0tbGHA"
                     }
                 ]
             },
@@ -1131,8 +1074,7 @@
                 "youtubeVideos": [
                     {
                         "id": "keAy8uVjTv8",
-                        "offset": 0.5,
-                        "skips": []
+                        "offset": 0.5
                     }
                 ]
             },
@@ -1140,8 +1082,7 @@
                 "filename": "Motteke Sailor Fuku -Metabo Taisaku Mix-.sm",
                 "youtubeVideos": [
                     {
-                        "id": "jchEY6u7QwE",
-                        "skips": []
+                        "id": "jchEY6u7QwE"
                     }
                 ]
             },
@@ -1178,8 +1119,7 @@
                 "youtubeVideos": [
                     {
                         "id": "iCNfYjZ26ow",
-                        "offset": 0.1,
-                        "skips": []
+                        "offset": 0.1
                     }
                 ]
             },
@@ -1187,8 +1127,7 @@
                 "filename": "Nanairo Nadeshiko.sm",
                 "youtubeVideos": [
                     {
-                        "id": "Ud7nRsrgnl0",
-                        "skips": []
+                        "id": "Ud7nRsrgnl0"
                     }
                 ]
             },
@@ -1210,8 +1149,7 @@
                 "filename": "Never Gonna Give You Up.sm",
                 "youtubeVideos": [
                     {
-                        "id": "dQw4w9WgXcQ",
-                        "skips": []
+                        "id": "dQw4w9WgXcQ"
                     }
                 ]
             },
@@ -1220,8 +1158,7 @@
                 "youtubeVideos": [
                     {
                         "id": "vQHVGXdcqEQ",
-                        "offset": 0.1,
-                        "skips": []
+                        "offset": 0.1
                     }
                 ]
             },
@@ -1229,13 +1166,8 @@
                 "filename": "Oath Sign.sm",
                 "youtubeVideos": [
                     {
-                        "id": "_Mv-3V3MaDE",
-                        "skips": [
-                            {
-                                "from": 0,
-                                "to": 0.3
-                            }
-                        ]
+                        "id": "GiOJEjWeShI",
+                        "offset": 0.25
                     }
                 ]
             },
@@ -1243,8 +1175,7 @@
                 "filename": "Overall.sm",
                 "youtubeVideos": [
                     {
-                        "id": "zVMgr4eJL7A",
-                        "skips": []
+                        "id": "zVMgr4eJL7A"
                     }
                 ]
             },
@@ -1252,8 +1183,7 @@
                 "filename": "Passionate Starmine.sm",
                 "youtubeVideos": [
                     {
-                        "id": "OWtQYNfXCV8",
-                        "skips": []
+                        "id": "OWtQYNfXCV8"
                     }
                 ]
             },
@@ -1262,8 +1192,7 @@
                 "youtubeVideos": [
                     {
                         "id": "fxyBXiNRaWs",
-                        "offset": 0.04,
-                        "skips": []
+                        "offset": 0.04
                     }
                 ]
             },
@@ -1286,9 +1215,7 @@
                 "filename": "Peter Pan.sm",
                 "youtubeVideos": [
                     {
-                        "id": "Y2Azs3koMvE",
-                        "offset": 0.1,
-                        "skips": []
+                        "id": "HHGAGGK4Xno"
                     }
                 ]
             },
@@ -1324,8 +1251,7 @@
                 "filename": "Princess Bride -Rock Mix-.sm",
                 "youtubeVideos": [
                     {
-                        "id": "_PFG0cDHwdo",
-                        "skips": []
+                        "id": "_PFG0cDHwdo"
                     }
                 ]
             },
@@ -1347,8 +1273,7 @@
                 "filename": "Pure Pure Heart.sm",
                 "youtubeVideos": [
                     {
-                        "id": "-UxNx0eRZ-0",
-                        "skips": []
+                        "id": "-UxNx0eRZ-0"
                     }
                 ]
             },
@@ -1357,8 +1282,7 @@
                 "youtubeVideos": [
                     {
                         "id": "vG56Gt5plWA",
-                        "offset": 0.12,
-                        "skips": []
+                        "offset": 0.12
                     }
                 ]
             },
@@ -1380,8 +1304,7 @@
                 "filename": "Ready Steady Go! (Afterglow Cover).sm",
                 "youtubeVideos": [
                     {
-                        "id": "KvS6pJp7CJU",
-                        "skips": []
+                        "id": "KvS6pJp7CJU"
                     }
                 ]
             },
@@ -1417,8 +1340,7 @@
                 "filename": "Recommended Spell.sm",
                 "youtubeVideos": [
                     {
-                        "id": "_UUwDOwf_sU",
-                        "skips": []
+                        "id": "_UUwDOwf_sU"
                     }
                 ]
             },
@@ -1426,8 +1348,7 @@
                 "filename": "Requiem of the Angels with Broken Wings.sm",
                 "youtubeVideos": [
                     {
-                        "id": "7e87pF4QC6k",
-                        "skips": []
+                        "id": "7e87pF4QC6k"
                     }
                 ]
             },
@@ -1436,8 +1357,7 @@
                 "youtubeVideos": [
                     {
                         "id": "tdjNcgdnRyk",
-                        "offset": 0.3,
-                        "skips": []
+                        "offset": 0.3
                     }
                 ]
             },
@@ -1446,8 +1366,7 @@
                 "youtubeVideos": [
                     {
                         "id": "pFgUluV_00s",
-                        "offset": 0.1,
-                        "skips": []
+                        "offset": 0.1
                     }
                 ]
             },
@@ -1456,13 +1375,11 @@
                 "youtubeVideos": [
                     {
                         "id": "xMQLi3FStiU",
-                        "offset": 0.15,
-                        "skips": []
+                        "offset": 0.15
                     },
                     {
                         "id": "Mqps4anhz0Q",
-                        "offset": 1.15,
-                        "skips": []
+                        "offset": 1.15
                     }
                 ]
             },
@@ -1470,8 +1387,7 @@
                 "filename": "Sentimental Generation.sm",
                 "youtubeVideos": [
                     {
-                        "id": "SSJ7RBvchlw",
-                        "skips": []
+                        "id": "SSJ7RBvchlw"
                     }
                 ]
             },
@@ -1480,8 +1396,7 @@
                 "youtubeVideos": [
                     {
                         "id": "gW2u1UQMut0",
-                        "offset": 0.05,
-                        "skips": []
+                        "offset": 0.05
                     }
                 ]
             },
@@ -1489,8 +1404,7 @@
                 "filename": "Shiguang Tuya.sm",
                 "youtubeVideos": [
                     {
-                        "id": "5Yrgm0VqFKg",
-                        "skips": []
+                        "id": "5Yrgm0VqFKg"
                     }
                 ]
             },
@@ -1499,8 +1413,7 @@
                 "youtubeVideos": [
                     {
                         "id": "RrsGNMMghKM",
-                        "offset": 0.1,
-                        "skips": []
+                        "offset": 0.1
                     }
                 ]
             },
@@ -1509,8 +1422,7 @@
                 "youtubeVideos": [
                     {
                         "id": "OQU-HH6t034",
-                        "offset": 0.1,
-                        "skips": []
+                        "offset": 0.1
                     }
                 ]
             },
@@ -1532,8 +1444,7 @@
                 "filename": "Star Driver.sm",
                 "youtubeVideos": [
                     {
-                        "id": "HRNdFHe6cKU",
-                        "skips": []
+                        "id": "HRNdFHe6cKU"
                     }
                 ]
             },
@@ -1541,8 +1452,7 @@
                 "filename": "Star Sphere Poems.sm",
                 "youtubeVideos": [
                     {
-                        "id": "9IrR7fAV5jc",
-                        "skips": []
+                        "id": "9IrR7fAV5jc"
                     }
                 ]
             },
@@ -1565,8 +1475,7 @@
                 "youtubeVideos": [
                     {
                         "id": "S1W93_J3MH8",
-                        "offset": 0.05,
-                        "skips": []
+                        "offset": 0.05
                     }
                 ]
             },
@@ -1575,8 +1484,7 @@
                 "youtubeVideos": [
                     {
                         "id": "zhwJAZlAoI4",
-                        "offset": 0.08,
-                        "skips": []
+                        "offset": 0.08
                     }
                 ]
             },
@@ -1613,8 +1521,7 @@
                 "youtubeVideos": [
                     {
                         "id": "AclHnprntqY",
-                        "offset": 0.4,
-                        "skips": []
+                        "offset": 0.4
                     }
                 ]
             },
@@ -1622,8 +1529,7 @@
                 "filename": "Sweet Dream.sm",
                 "youtubeVideos": [
                     {
-                        "id": "arwHkPWRqak",
-                        "skips": []
+                        "id": "arwHkPWRqak"
                     }
                 ]
             },
@@ -1659,9 +1565,7 @@
                 "filename": "Talk 2 U.sm",
                 "youtubeVideos": [
                     {
-                        "id": "mHl-BnviucE",
-                        "offset": 0.45,
-                        "skips": []
+                        "id": "2bhOMyEFGBw"
                     }
                 ]
             },
@@ -1670,8 +1574,7 @@
                 "youtubeVideos": [
                     {
                         "id": "za0dHqdOPcg",
-                        "offset": 0.1,
-                        "skips": []
+                        "offset": 0.1
                     }
                 ]
             },
@@ -1693,9 +1596,7 @@
                 "filename": "Timeline.sm",
                 "youtubeVideos": [
                     {
-                        "id": "cc5ztSgji4Y",
-                        "offset": 0.1,
-                        "skips": []
+                        "id": "PvEYhqYuHXY"
                     }
                 ]
             },
@@ -1731,8 +1632,7 @@
                 "filename": "U Can Stop.sm",
                 "youtubeVideos": [
                     {
-                        "id": "95kbymaMb9A",
-                        "skips": []
+                        "id": "95kbymaMb9A"
                     }
                 ]
             },
@@ -1819,8 +1719,7 @@
                 "filename": "Yume to Tsuki.sm",
                 "youtubeVideos": [
                     {
-                        "id": "2E0sZBdWD0Q",
-                        "skips": []
+                        "id": "2E0sZBdWD0Q"
                     }
                 ]
             }
@@ -1866,6 +1765,9 @@
                 "filename": "Communication.sm",
                 "youtubeVideos": [
                     {
+                        "id": "1pvh-MGteGo"
+                    },
+                    {
                         "id": "0VApn2Y_IDE",
                         "skips": [
                             {
@@ -1894,8 +1796,7 @@
                 "filename": "DANCE (MSTRKRFT Remix).sm",
                 "youtubeVideos": [
                     {
-                        "id": "0B-gC3O5kLA",
-                        "skips": []
+                        "id": "0B-gC3O5kLA"
                     }
                 ]
             },
@@ -1903,8 +1804,7 @@
                 "filename": "Different World.sm",
                 "youtubeVideos": [
                     {
-                        "id": "1fpPTmAOdlA",
-                        "skips": []
+                        "id": "1fpPTmAOdlA"
                     }
                 ]
             },
@@ -1973,6 +1873,9 @@
             {
                 "filename": "Insert Coin (Feat. Jeong Mun).sm",
                 "youtubeVideos": [
+                    {
+                        "id": "Jb1YAPwQb8A"
+                    },
                     {
                         "id": "DzvKpHPZlC8",
                         "skips": [
@@ -2099,8 +2002,7 @@
                 "filename": "Automagic.sm",
                 "youtubeVideos": [
                     {
-                        "id": "4OqH6azVqn4",
-                        "skips": []
+                        "id": "4OqH6azVqn4"
                     }
                 ]
             },
@@ -2108,8 +2010,7 @@
                 "filename": "Bitch Clap.sm",
                 "youtubeVideos": [
                     {
-                        "id": "Bz7rppcU4WA",
-                        "skips": []
+                        "id": "Bz7rppcU4WA"
                     }
                 ]
             },
@@ -2117,8 +2018,7 @@
                 "filename": "Call Me Maybe (Remix).sm",
                 "youtubeVideos": [
                     {
-                        "id": "LXNrEHqpqnU",
-                        "skips": []
+                        "id": "LXNrEHqpqnU"
                     }
                 ]
             },
@@ -2126,8 +2026,7 @@
                 "filename": "Crazy.sm",
                 "youtubeVideos": [
                     {
-                        "id": "6RyhaUzlVcU",
-                        "skips": []
+                        "id": "6RyhaUzlVcU"
                     }
                 ]
             },
@@ -2135,8 +2034,7 @@
                 "filename": "Deal With It.sm",
                 "youtubeVideos": [
                     {
-                        "id": "q9miPLjxvUQ",
-                        "skips": []
+                        "id": "q9miPLjxvUQ"
                     }
                 ]
             },
@@ -2144,8 +2042,7 @@
                 "filename": "Girls.sm",
                 "youtubeVideos": [
                     {
-                        "id": "0OWkw0v1XDg",
-                        "skips": []
+                        "id": "0OWkw0v1XDg"
                     }
                 ]
             },
@@ -2153,8 +2050,7 @@
                 "filename": "Goodbye (2012 Mix).sm",
                 "youtubeVideos": [
                     {
-                        "id": "yQdVCOv5SP0",
-                        "skips": []
+                        "id": "yQdVCOv5SP0"
                     }
                 ]
             },
@@ -2162,8 +2058,7 @@
                 "filename": "Lightspeed (Remix).sm",
                 "youtubeVideos": [
                     {
-                        "id": "0gqObxNggpg",
-                        "skips": []
+                        "id": "0gqObxNggpg"
                     }
                 ]
             },
@@ -2171,8 +2066,7 @@
                 "filename": "Pain Game.sm",
                 "youtubeVideos": [
                     {
-                        "id": "5jJh8qx4iHI",
-                        "skips": []
+                        "id": "5jJh8qx4iHI"
                     }
                 ]
             },
@@ -2180,8 +2074,7 @@
                 "filename": "Peacock.sm",
                 "youtubeVideos": [
                     {
-                        "id": "B1D77iLqK0I",
-                        "skips": []
+                        "id": "B1D77iLqK0I"
                     }
                 ]
             },
@@ -2189,8 +2082,7 @@
                 "filename": "Trap.sm",
                 "youtubeVideos": [
                     {
-                        "id": "VQDZA-h2N9Y",
-                        "skips": []
+                        "id": "VQDZA-h2N9Y"
                     }
                 ]
             },
@@ -2229,16 +2121,6 @@
                                 "to": 0.01
                             }
                         ]
-                    },
-                    {
-                        "id": "F5OJPUXJvHk",
-                        "offset": 0.08,
-                        "skips": [
-                            {
-                                "from": 72,
-                                "to": 213.5
-                            }
-                        ]
                     }
                 ]
             },
@@ -2255,11 +2137,11 @@
                 "filename": "again.sm",
                 "youtubeVideos": [
                     {
-                        "id": "X59yPeVk_70",
+                        "id": "Tcx2X_zAquE",
                         "skips": [
                             {
                                 "from": 0,
-                                "to": 0.2
+                                "to": 1
                             }
                         ]
                     }
@@ -2382,8 +2264,7 @@
                 "filename": "Chaining Intention.sm",
                 "youtubeVideos": [
                     {
-                        "id": "GOwN_qvlYUg",
-                        "skips": []
+                        "id": "GOwN_qvlYUg"
                     }
                 ]
             },
@@ -2527,15 +2408,6 @@
             {
                 "filename": "Flyers.sm",
                 "youtubeVideos": [
-                    {
-                        "id": "OgPWakn5b0c",
-                        "skips": [
-                            {
-                                "from": 0,
-                                "to": 0.42
-                            }
-                        ]
-                    },
                     {
                         "id": "Ca5Tf5BDSYI"
                     }
@@ -2726,20 +2598,6 @@
                     {
                         "id": "od5pOw6y2a0",
                         "offset": 0.7
-                    }
-                ]
-            },
-            {
-                "filename": "KABANERI OF THE IRON FORTRESS.sm",
-                "youtubeVideos": [
-                    {
-                        "id": "rbE0g6OV7RI",
-                        "skips": [
-                            {
-                                "from": 0,
-                                "to": 0.52
-                            }
-                        ]
                     }
                 ]
             },
@@ -3064,15 +2922,8 @@
             },
             {
                 "filename": "Rising Hope.sm",
-                "youtubeVideos": [
-                    {
-                        "id": "RmIyTzutud4",
-                        "offset": 0.1
-                    },
-                    {
-                        "id": "fKTkzCNDSRw"
-                    }
-                ]
+                "status": "Needs YT alternative",
+                "youtubeVideos": []
             },
             {
                 "filename": "Sen no Tsubasa.sm",
@@ -3281,8 +3132,7 @@
                 "filename": "Bambous.sm",
                 "youtubeVideos": [
                     {
-                        "id": "utXGM_aosXI",
-                        "skips": []
+                        "id": "utXGM_aosXI"
                     }
                 ]
             },
@@ -3290,8 +3140,7 @@
                 "filename": "D.A.N.C.E..sm",
                 "youtubeVideos": [
                     {
-                        "id": "VQpXH7c2nQE",
-                        "skips": []
+                        "id": "VQpXH7c2nQE"
                     }
                 ]
             },
@@ -3340,8 +3189,7 @@
                 "filename": "Dustup.sm",
                 "youtubeVideos": [
                     {
-                        "id": "n_p3WWGz4Jo",
-                        "skips": []
+                        "id": "n_p3WWGz4Jo"
                     }
                 ]
             },
@@ -3368,8 +3216,7 @@
                 "youtubeVideos": [
                     {
                         "id": "cXabZ_-QPb0",
-                        "offset": 0.94,
-                        "skips": []
+                        "offset": 0.94
                     }
                 ]
             },
@@ -3405,8 +3252,7 @@
                 "filename": "Jump Up, Super Star!.sm",
                 "youtubeVideos": [
                     {
-                        "id": "1bZtCt_Siro",
-                        "skips": []
+                        "id": "1bZtCt_Siro"
                     }
                 ]
             },
@@ -3414,8 +3260,7 @@
                 "filename": "Movin' Too Fast.sm",
                 "youtubeVideos": [
                     {
-                        "id": "9Xaz6JOLy_4",
-                        "skips": []
+                        "id": "9Xaz6JOLy_4"
                     }
                 ]
             },
@@ -3531,8 +3376,7 @@
                 "filename": "Free Race.sm",
                 "youtubeVideos": [
                     {
-                        "id": "dbtH1qpc91c",
-                        "skips": []
+                        "id": "Z9PLTtQICeQ"
                     }
                 ]
             },
@@ -3541,8 +3385,7 @@
                 "youtubeVideos": [
                     {
                         "id": "wEOFMHgkHzI",
-                        "offset": 0.12,
-                        "skips": []
+                        "offset": 0.12
                     }
                 ]
             },
@@ -3564,8 +3407,7 @@
                 "filename": "Here to Stay.sm",
                 "youtubeVideos": [
                     {
-                        "id": "zqxcmjO9iP4",
-                        "skips": []
+                        "id": "zqxcmjO9iP4"
                     }
                 ]
             },
@@ -3587,8 +3429,7 @@
                 "filename": "Martyr.sm",
                 "youtubeVideos": [
                     {
-                        "id": "ETTPLtbCUa4",
-                        "skips": []
+                        "id": "ETTPLtbCUa4"
                     }
                 ]
             },
@@ -3596,8 +3437,7 @@
                 "filename": "Red Roses.sm",
                 "youtubeVideos": [
                     {
-                        "id": "IXtsY7QnIdY",
-                        "skips": []
+                        "id": "IXtsY7QnIdY"
                     }
                 ]
             },
@@ -3605,8 +3445,7 @@
                 "filename": "Sneakman.sm",
                 "youtubeVideos": [
                     {
-                        "id": "mZxGDKpXUpc",
-                        "skips": []
+                        "id": "mZxGDKpXUpc"
                     }
                 ]
             },
@@ -3614,8 +3453,7 @@
                 "filename": "Synthesizers.sm",
                 "youtubeVideos": [
                     {
-                        "id": "BuWcGJ6BQH4",
-                        "skips": []
+                        "id": "BuWcGJ6BQH4"
                     }
                 ]
             }
@@ -3713,8 +3551,7 @@
                 "filename": "Bad 4 My Health.sm",
                 "youtubeVideos": [
                     {
-                        "id": "IoOKHrCFOMI",
-                        "skips": []
+                        "id": "IoOKHrCFOMI"
                     }
                 ]
             },
@@ -3722,8 +3559,7 @@
                 "filename": "Bad Pyromaniacs.sm",
                 "youtubeVideos": [
                     {
-                        "id": "sW_dmjqjhpQ",
-                        "skips": []
+                        "id": "sW_dmjqjhpQ"
                     }
                 ]
             },
@@ -3731,8 +3567,7 @@
                 "filename": "Death by Robot.sm",
                 "youtubeVideos": [
                     {
-                        "id": "Ok6UxkB-V_k",
-                        "skips": []
+                        "id": "Ok6UxkB-V_k"
                     }
                 ]
             },
@@ -3787,8 +3622,7 @@
                 "filename": "funky.sm",
                 "youtubeVideos": [
                     {
-                        "id": "CmQzg9WCi_0",
-                        "skips": []
+                        "id": "CmQzg9WCi_0"
                     }
                 ]
             },
@@ -3810,8 +3644,7 @@
                 "filename": "Louder Than Words.sm",
                 "youtubeVideos": [
                     {
-                        "id": "-KlyoofajZk",
-                        "skips": []
+                        "id": "-KlyoofajZk"
                     }
                 ]
             },
@@ -3819,8 +3652,7 @@
                 "filename": "Nothing to Say.sm",
                 "youtubeVideos": [
                     {
-                        "id": "jhP2Uyq1nGQ",
-                        "skips": []
+                        "id": "jhP2Uyq1nGQ"
                     }
                 ]
             },
@@ -3828,8 +3660,7 @@
                 "filename": "On The Rocks.sm",
                 "youtubeVideos": [
                     {
-                        "id": "g3B6KRcd9KQ",
-                        "skips": []
+                        "id": "g3B6KRcd9KQ"
                     }
                 ]
             },
@@ -3855,8 +3686,7 @@
                 "filename": "Our Xenopittan.sm",
                 "youtubeVideos": [
                     {
-                        "id": "ulWbm1mIDks",
-                        "skips": []
+                        "id": "ulWbm1mIDks"
                     }
                 ]
             },
@@ -3864,8 +3694,7 @@
                 "filename": "Papa Gonzales.sm",
                 "youtubeVideos": [
                     {
-                        "id": "ZKg6V0rijTM",
-                        "skips": []
+                        "id": "ZKg6V0rijTM"
                     }
                 ]
             },
@@ -3873,8 +3702,7 @@
                 "filename": "propane.sm",
                 "youtubeVideos": [
                     {
-                        "id": "KrqyCIWQTFY",
-                        "skips": []
+                        "id": "KrqyCIWQTFY"
                     }
                 ]
             },
@@ -3896,8 +3724,7 @@
                 "filename": "Splinter.sm",
                 "youtubeVideos": [
                     {
-                        "id": "PBHCqkPxhnE",
-                        "skips": []
+                        "id": "PBHCqkPxhnE"
                     }
                 ]
             },
@@ -3905,8 +3732,7 @@
                 "filename": "Swamp Thing.sm",
                 "youtubeVideos": [
                     {
-                        "id": "2Q-Mb77LieU",
-                        "skips": []
+                        "id": "2Q-Mb77LieU"
                     }
                 ]
             },
@@ -3914,8 +3740,7 @@
                 "filename": "Swing Break.sm",
                 "youtubeVideos": [
                     {
-                        "id": "EOUx07XyALs",
-                        "skips": []
+                        "id": "EOUx07XyALs"
                     }
                 ]
             },
@@ -3923,8 +3748,7 @@
                 "filename": "The Horror.sm",
                 "youtubeVideos": [
                     {
-                        "id": "y_nDGG8_aC0",
-                        "skips": []
+                        "id": "y_nDGG8_aC0"
                     }
                 ]
             },
@@ -3968,8 +3792,7 @@
                 "filename": "Whiskers.sm",
                 "youtubeVideos": [
                     {
-                        "id": "sA0nnjHGxv4",
-                        "skips": []
+                        "id": "sA0nnjHGxv4"
                     }
                 ]
             },
@@ -3977,8 +3800,7 @@
                 "filename": "Zoan Zound.sm",
                 "youtubeVideos": [
                     {
-                        "id": "5HTSSXHjxKA",
-                        "skips": []
+                        "id": "5HTSSXHjxKA"
                     }
                 ]
             }
@@ -4162,8 +3984,7 @@
                 "filename": "A Happy Death.sm",
                 "youtubeVideos": [
                     {
-                        "id": "cFGVife-1y4",
-                        "skips": []
+                        "id": "cFGVife-1y4"
                     }
                 ]
             },
@@ -4171,8 +3992,7 @@
                 "filename": "A Rendezvous With Sleep Paralysis.sm",
                 "youtubeVideos": [
                     {
-                        "id": "9kABQMhOT2o",
-                        "skips": []
+                        "id": "9kABQMhOT2o"
                     }
                 ]
             },
@@ -4346,8 +4166,7 @@
                 "filename": "batlmoon.sm",
                 "youtubeVideos": [
                     {
-                        "id": "nhzjZJJlWTg",
-                        "skips": []
+                        "id": "nhzjZJJlWTg"
                     }
                 ]
             },
@@ -4355,8 +4174,7 @@
                 "filename": "Beside & Besides.sm",
                 "youtubeVideos": [
                     {
-                        "id": "aJcxLEMyAow",
-                        "skips": []
+                        "id": "aJcxLEMyAow"
                     }
                 ]
             },
@@ -4401,8 +4219,7 @@
                 "filename": "Burenai Eye de (Winter Version).sm",
                 "youtubeVideos": [
                     {
-                        "id": "wmdICpXIECU",
-                        "skips": []
+                        "id": "wmdICpXIECU"
                     }
                 ]
             },
@@ -4492,8 +4309,7 @@
                 "filename": "Chaining Intention.sm",
                 "youtubeVideos": [
                     {
-                        "id": "GOwN_qvlYUg",
-                        "skips": []
+                        "id": "GOwN_qvlYUg"
                     }
                 ]
             },
@@ -4645,8 +4461,7 @@
                 "filename": "Dependence Intension.sm",
                 "youtubeVideos": [
                     {
-                        "id": "56OcqV-4q5I",
-                        "skips": []                        
+                        "id": "56OcqV-4q5I"
                     }
                 ]
             },
@@ -4772,8 +4587,7 @@
                 "filename": "Fantasy World Repair Girl.sm",
                 "youtubeVideos": [
                     {
-                        "id": "O2Unm3rmuXQ",
-                        "skips": []
+                        "id": "O2Unm3rmuXQ"
                     }
                 ]
             },
@@ -4829,8 +4643,7 @@
                 "filename": "Girls' Rebellion.sm",
                 "youtubeVideos": [
                     {
-                        "id": "ls_CmBx3vbY",
-                        "skips": []
+                        "id": "ls_CmBx3vbY"
                     }
                 ]
             },
@@ -4856,8 +4669,7 @@
                 "filename": "Happy Synthesizer (4sk Remix).sm",
                 "youtubeVideos": [
                     {
-                        "id": "IGIK8eZ-SEI",
-                        "skips": []
+                        "id": "IGIK8eZ-SEI"
                     }
                 ]
             },
@@ -4897,8 +4709,7 @@
                 "filename": "Highsense Nonsense.sm",
                 "youtubeVideos": [
                     {
-                        "id": "KsMO4G3LZUQ",
-                        "skips": []
+                        "id": "KsMO4G3LZUQ"
                     }
                 ]
             },
@@ -4906,8 +4717,7 @@
                 "filename": "Hope for Azure Sky.sm",
                 "youtubeVideos": [
                     {
-                        "id": "SYsy8rRqNyk",
-                        "skips": []
+                        "id": "SYsy8rRqNyk"
                     }
                 ]
             },
@@ -5332,8 +5142,7 @@
                 "filename": "Noisy Lover's Soul.sm",
                 "youtubeVideos": [
                     {
-                        "id": "S5k_F4UJ9uI",
-                        "skips": []
+                        "id": "S5k_F4UJ9uI"
                     }
                 ]
             },
@@ -5553,17 +5362,7 @@
                 "filename": "ROKI.sm",
                 "youtubeVideos": [
                     {
-                        "id": "mXzzzqc5cZM",
-                        "skips": [
-                            {
-                                "from": 0,
-                                "to": 1.7
-                            },
-                            {
-                                "from": 72.5,
-                                "to": 193.8
-                            }
-                        ]
+                        "id": "lRtPkGBCEOw"
                     }
                 ]
             },
@@ -5683,8 +5482,7 @@
                 "filename": "Bocchi Koufukuron.sm",
                 "youtubeVideos": [
                     {
-                        "id": "HzBxijERrJE",
-                        "skips": []
+                        "id": "HzBxijERrJE"
                     }
                 ]
             },
@@ -5767,8 +5565,7 @@
                 "filename": "Tell Your Donk.sm",
                 "youtubeVideos": [
                     {
-                        "id": "IaaSfCmC324",
-                        "skips": []
+                        "id": "IaaSfCmC324"
                     }
                 ]
             },
@@ -5816,8 +5613,7 @@
                 "filename": "Totetatetoteta!.sm",
                 "youtubeVideos": [
                     {
-                        "id": "scE66JKzkIM",
-                        "skips": []
+                        "id": "scE66JKzkIM"
                     }
                 ]
             },
@@ -5843,8 +5639,7 @@
                 "filename": "Ubaware.sm",
                 "youtubeVideos": [
                     {
-                        "id": "GXtVHRnolPU",
-                        "skips": []
+                        "id": "GXtVHRnolPU"
                     }
                 ]
             },
