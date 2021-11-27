@@ -22,7 +22,23 @@ export enum NoteQuantization {
 export const AllNoteQuantizations = [NoteQuantization.Q4, NoteQuantization.Q8, NoteQuantization.Q16, NoteQuantization.Q32, NoteQuantization.Q64, NoteQuantization.Q128, NoteQuantization.Q256, NoteQuantization.Q512];
 export const BadNoteQuantizations = [NoteQuantization.Q12, NoteQuantization.Q24, NoteQuantization.Q48, NoteQuantization.Q96, NoteQuantization.Q192, NoteQuantization.Q384];
 
-
+export const NoteQuantizationTitle: {[key in NoteQuantization]: string} = {
+    [-1]: "None",
+    4: "N",
+    8: "H",
+    12: "3rd",
+    16: "4th",
+    24: "6th",
+    32: "8th",
+    48: "12th",
+    64: "16th",
+    96: "24th",
+    128: "32nd",
+    192: "48th",
+    256: "64th",
+    384: "96th",
+    512: "128th"
+}
 
 export enum SimfileNoteType {
     EMPTY = "0",

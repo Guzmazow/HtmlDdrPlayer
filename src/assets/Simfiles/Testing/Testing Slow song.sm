@@ -1,0 +1,60 @@
+#TITLE:Test Slow song;
+#SUBTITLE:;
+#ARTIST:Guz;
+#TITLETRANSLIT:;
+#SUBTITLETRANSLIT:;
+#ARTISTTRANSLIT:;
+#GENRE:;
+#CREDIT:Guz;
+#MUSIC:audio.ogg;
+#BANNER:bn.png;
+#BACKGROUND:bg.png;
+#CDTITLE:cdtitle.png;
+#SAMPLESTART:11.100;
+#SAMPLELENGTH:12.000;
+#SELECTABLE:YES;
+#OFFSET:0.000;
+#BPMS:0.000=216.000
+,4.000=108.000
+,8.000=54.000
+,12.000=27.000
+,16.000=13.500
+;
+#STOPS:;
+#DISPLAYBPM:*;
+#BGCHANGES:0.000=video.avi=1.000=0=0=0=StretchNoLoop====,
+99999.000=-nosongbg-=1.000=0=0=0=StretchNoLoop====
+;
+#FGCHANGES:;
+//--------------- dance-single - Guz ----------------
+#NOTES:
+     dance-single:
+     Guz:
+     Medium:
+     4:
+     0.315,0.302,0.035,0.132,0:
+1000
+1000
+1000
+1000
+,
+1100
+1000
+1000
+1000
+,
+1010
+1000
+1000
+1000
+,
+1001
+1000
+1000
+1000
+,
+1111
+0000
+0000
+0000
+;

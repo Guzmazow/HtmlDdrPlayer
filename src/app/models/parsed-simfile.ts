@@ -45,6 +45,7 @@ export class ParsedSimfile {
   bpmReadable: string;
   stops: { beat: number; stopDuration: number; }[];
   stopsTime: { time: number; stopDuration: number; }[];
+  stopsReadable: string;
   tickCount: string; //Probably relaease hold counter configuration for very short holds... otherwise no idea
   bgChanges: string;
   keySounds: string; //Never seen this in use
@@ -141,7 +142,12 @@ export class ParsedSimfile {
     if (this.bpms.find(x => x.bpm < 0)) {
       this.bpmReadable += " NegBPM!";
     }
-    this.stopsTime = this.stops.map(x => { return { time: this.getElapsedTime(0, x.beat, ElapsedTimeType.STOPS) - this.offset, stopDuration: x.stopDuration } })
+    this.stopsTime = this.stops.map(x => { return { time: this.getElapsedTime(0, x.beat, ElapsedTimeType.STOPS) - this.offset, stopDuration: x.stopDuration } });
+    if(this.stops.length){
+      this.stopsReadable = `(${this.stops.length}) ${Math.min(...this.stops.map(x => x.stopDuration))} - ${Math.max(...this.stops.map(x => x.stopDuration))}`
+    }else{
+      this.stopsReadable = "None";
+    }
 
     for (const mode of this.modes) 
       for(const track of mode.tracks)

@@ -1,4 +1,4 @@
-import { AllNoteQuantizations, BadNoteQuantizations, Difficulty, GameMode, GameModeType as GameModeType, NoteQuantization, NoteType, SimfileNoteType } from "./enums"
+import { AllNoteQuantizations, BadNoteQuantizations, Difficulty, GameMode, GameModeType as GameModeType, NoteQuantization, NoteQuantizationTitle, NoteType, SimfileNoteType } from "./enums"
 import { Note } from "./note";
 import { ParsedSimfile } from "./parsed-simfile";
 
@@ -24,6 +24,7 @@ export class ParsedSimfileMode {
     mineCount: number = 0;
 
     stats: string;
+    quantizationCountReadable: string;
     scores?: number[];
     displayScores?: string;
     bestScore?: string;
@@ -64,8 +65,14 @@ export class ParsedSimfileMode {
                 case NoteType.MINE: this.mineCount++; break;
             }
         }
-
-        this.stats = `N:${this.noteCount} R:${this.rollCount} H:${this.holdCount}\nT:${this.totalTime.toFixed(2)} NPS: ${this.nps.toFixed(2)}`
+        const quantizations: string[] = [];
+        for (const quantization of AllNoteQuantizations) {
+            const count = allNotes.filter(x => x.quantization == quantization).length;
+            if (count)
+                quantizations.push(`${NoteQuantizationTitle[quantization]}:${count}`);
+        }
+        this.quantizationCountReadable = quantizations.join("; ");
+        this.stats = `N:${this.noteCount} R:${this.rollCount} H:${this.holdCount}\nT:${this.totalTime.toFixed(2)} NPS: ${this.nps.toFixed(2)}`;
     }
 
     resetJudgement() {
