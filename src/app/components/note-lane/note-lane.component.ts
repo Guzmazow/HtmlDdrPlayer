@@ -189,9 +189,9 @@ export class NoteLaneComponent implements OnInit, OnDestroy {
         Log.debug("NoteLaneComponent", `Missing renderer info for type ${note.type}`, note);
         break;
     }
-
+    this.ctx.restore();
+    
     //timing debug
-    // this.ctx.restore();
     // this.ctx.save();
     // this.ctx.font = `20px Consolas`;
     // this.ctx.fillStyle = "white";
