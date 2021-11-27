@@ -35,6 +35,10 @@ export class JudgementService {
   rollState = new Map<Direction, { note: Note, timer?: ReturnType<typeof setTimeout> } | undefined>();
   holdState = new Map<Direction, { note: Note, timer?: ReturnType<typeof setTimeout> } | undefined>();
 
+  get currentTime() {
+    return this.displayService.onCurrentTimeWithStopsSecondsChange.value;
+  }
+
   constructor(private displayService: DisplayService, private keyboardService: KeyboardService) {
     const judgeScale = 2;
     let judgePrecision = new Map<number, Judgement>();
@@ -47,7 +51,7 @@ export class JudgementService {
     this.judgePrecision = judgePrecision;
     this.keyboardService.onPress.subscribe(x => this.judgePress(x.key, x.state));
     this.displayService.onGamePlayStateChange.subscribe(playing => { this.gameInProgress = playing; });
-    this.displayService.onCurrentTimeSecondsChange.subscribe(() => this.passiveJudge());
+    this.displayService.onCurrentTimeWithStopsSecondsChange.subscribe(() => this.passiveJudge());
 
   }
 
@@ -58,7 +62,7 @@ export class JudgementService {
       let unhittable = track.filter(x =>
         (x.type == NoteType.NORMAL || x.type == NoteType.ROLL_HEAD || x.type == NoteType.HOLD_HEAD) &&
         !x.judged && !x.startedJudging &&
-        x.time < (this.displayService.onCurrentTimeSecondsChange.value - this.errorLimit))
+        x.time < (this.currentTime - this.errorLimit))
       for (let missNote of unhittable) {
         missNote.judged = true;
         missNote.judgement = Judgement.MISS;
@@ -69,7 +73,7 @@ export class JudgementService {
       let unhittableMines = track.filter(x =>
         (x.type == NoteType.MINE) &&
         !x.judged &&
-        x.time < (this.displayService.onCurrentTimeSecondsChange.value - this.errorLimit))
+        x.time < (this.currentTime - this.errorLimit))
       for (let missMine of unhittableMines) {
         missMine.judged = true;
         missMine.judgement = Judgement.MINEMISS;
@@ -78,20 +82,20 @@ export class JudgementService {
       let hittableMines = track.filter(x =>
         x.type == NoteType.MINE &&
         !x.judged &&
-        (this.displayService.onCurrentTimeSecondsChange.value + this.TimingWindowSecondsMine) > x.time && x.time > (this.displayService.onCurrentTimeSecondsChange.value - this.TimingWindowSecondsMine)
+        (this.currentTime + this.TimingWindowSecondsMine) > x.time && x.time > (this.currentTime - this.TimingWindowSecondsMine)
       )
       for (let mineNote of hittableMines) {
         if (this.keyboardService.keyState.get(trackIndex)) {
           mineNote.judged = true;
           mineNote.judgement = Judgement.MINEHIT;
-          mineNote.precision = mineNote.time - this.displayService.onCurrentTimeSecondsChange.value;
+          mineNote.precision = mineNote.time - this.currentTime;
           this.onJudged.next(mineNote);
         }
       }
 
 
       const rollState = this.rollState.get(trackIndex)
-      if (rollState && rollState.note.related && rollState.note.related.time < this.displayService.onCurrentTimeSecondsChange.value) {
+      if (rollState && rollState.note.related && rollState.note.related.time < this.currentTime) {
         const rollNote = rollState.note;
         if (rollState.timer)
           clearTimeout(rollState.timer);
@@ -109,7 +113,7 @@ export class JudgementService {
       //   !rollState &&
       //   x.type == NoteType.ROLL_HEAD &&
       //   x.related &&
-      //   x.related.time < this.displayService.onCurrentTimeSecondsChange.value
+      //   x.related.time < this.currentTime
       // )) {
       //   note.judged = true;
       //   this.onJudged.next({
@@ -121,7 +125,7 @@ export class JudgementService {
       // }
 
       const holdState = this.holdState.get(trackIndex)
-      if (holdState && holdState.note.related && (holdState.note.related.time /*- (holdState.timer ? 0 : this.TimingWindowSecondsHold)*/) < this.displayService.onCurrentTimeSecondsChange.value) {
+      if (holdState && holdState.note.related && (holdState.note.related.time /*- (holdState.timer ? 0 : this.TimingWindowSecondsHold)*/) < this.currentTime) {
         const holdNote = holdState.note;
         if (holdState.timer)
           clearTimeout(holdState.timer);
@@ -139,7 +143,7 @@ export class JudgementService {
       //   !holdState &&
       //   x.type == NoteType.HOLD_HEAD &&
       //   x.related &&
-      //   x.related.time < this.displayService.onCurrentTimeSecondsChange.value
+      //   x.related.time < this.currentTime
       // )) {
       //   note.judged = true;
       //   this.onJudged.next({
@@ -173,12 +177,12 @@ export class JudgementService {
         let hittable = track.filter(x =>
           (x.type == NoteType.NORMAL || x.type == NoteType.ROLL_HEAD || x.type == NoteType.HOLD_HEAD) &&
           !x.judged && !x.startedJudging &&
-          (this.displayService.onCurrentTimeSecondsChange.value + this.errorLimit) > x.time && x.time > (this.displayService.onCurrentTimeSecondsChange.value - this.errorLimit)
+          (this.currentTime + this.errorLimit) > x.time && x.time > (this.currentTime - this.errorLimit)
         )
         if (hittable.length) {
           hittable.sort(x => x.time);
           let hit = hittable[0];
-          let timeDifference = hit.time - this.displayService.onCurrentTimeSecondsChange.value;
+          let timeDifference = hit.time - this.currentTime;
           let timeModule = Math.abs(timeDifference);
           let judgePrecisionKeys = Array.from(this.judgePrecision.keys());
           let precisionKey = judgePrecisionKeys[judgePrecisionKeys.slice(1).findIndex(x => x > timeModule)]
@@ -220,7 +224,7 @@ export class JudgementService {
   rearmRoll(direction: Direction) {
     let state = this.rollState.get(direction);
     if (state) {
-      state.note.stateChangeTime = this.displayService.onCurrentTimeSecondsChange.value;
+      state.note.stateChangeTime = this.currentTime;
       Log.debug("JudgementService", "clearing timer " + state.timer)
       if (state.timer) {
         Log.debug("JudgementService", "clear timer " + state.timer)
@@ -229,7 +233,7 @@ export class JudgementService {
       }
 
       // //done by passive judge
-      // if (state.note.related && state.note.related.time < this.displayService.onCurrentTimeSecondsChange.value) {
+      // if (state.note.related && state.note.related.time < this.currentTime) {
       //   state.note.judged = true;
       //   this.onJudged.next({
       //     judgement: state.note.judgement /* Judgement.ROLLFINISHED */,
@@ -268,7 +272,7 @@ export class JudgementService {
   armHold(direction: Direction) {
     let state = this.holdState.get(direction);
     if (state) {
-      state.note.stateChangeTime = this.displayService.onCurrentTimeSecondsChange.value;
+      state.note.stateChangeTime = this.currentTime;
       state.timer = setTimeout(() => {
         // if (state?.note.judged)
         //   return;

@@ -10,6 +10,7 @@ import { Log } from './log.service';
 import { GameRequest } from '@models/game-request';
 import { Note } from '@models/note';
 import { PreferenceService } from './preference.service';
+import { is_overlapping, overlap_amount } from '@other/math';
 
 
 @Injectable({
@@ -18,6 +19,7 @@ import { PreferenceService } from './preference.service';
 export class DisplayService {
 
   onCurrentTimeSecondsChange = new BehaviorSubject<number>(0);
+  onCurrentTimeWithStopsSecondsChange = new BehaviorSubject<number>(0);
   onCurrentTimePercentageChange = new BehaviorSubject<number>(0);
   onGamePlayStateChange = new BehaviorSubject(false);
 
@@ -78,14 +80,14 @@ export class DisplayService {
     const minBpm = Math.min(...r.parsedSimfile.bpmsTime.map(x => x.bpm).filter(x => x > 0));
     const bpmLengths = r.parsedSimfile.bpmsTime
       .reduce<{ [key: number]: number }>((prev, curr, index, arr) => { prev[curr.bpm] = (prev[curr.bpm] ?? 0) + curr.to - curr.from; return prev; }, {}); /* group by bpm */
-    
+
     let maxBpmLength = 0;
     let avgBpm = 0;
     for (const currentBpm in bpmLengths) {
       let currentBpmLength = bpmLengths[currentBpm];
-      if(currentBpmLength > maxBpmLength){
+      if (currentBpmLength > maxBpmLength) {
         avgBpm = +currentBpm;
-        maxBpmLength = currentBpmLength;        
+        maxBpmLength = currentBpmLength;
       }
     }
 
@@ -118,48 +120,39 @@ export class DisplayService {
     return Math.round(this.displayOptions.noteSpacingSize + trackNumber * this.displayOptions.trackSize);
   }
 
-  /**
-   * @description Checks overlap borrowed from https://stackoverflow.com/a/12888920/15874691
-   */
-  is_overlapping(x1: number, x2: number, y1: number, y2: number) {
-    return Math.max(x1, y1) <= Math.min(x2, y2)
-  }
 
-  /**
-   * @description Checks overlap borrowed from https://stackoverflow.com/a/12888920/15874691 comment
-   */
-  overlap_amount(x1: number, x2: number, y1: number, y2: number) {
-    return Math.min(x2, y2) - Math.max(x1, y1)
-  }
 
   getNoteY(noteTime: number) {
     let distance = this.displayOptions.noteTopPadding;
-    let fromTime = this.onCurrentTimeSecondsChange.value;
+    let fromTime = this.onCurrentTimeWithStopsSecondsChange.value;
     let toTime = noteTime;
 
-    //STOP logic
-    {
-      let toTimeWithStops = toTime;
-      let fromTimeWithStops = fromTime;
-      const stops = this.requestedGame?.parsedSimfile.stopsTime ?? [];
-      let prevStops = 0;
-      for (const stop of stops) {
-        const endOfStop = stop.time + stop.stopDuration;
-        if (this.is_overlapping(0, toTime, endOfStop, endOfStop)) {
-          toTimeWithStops -= stop.stopDuration;
-        }
-        if (this.is_overlapping(fromTime, fromTime, stop.time, endOfStop)) {
-          fromTimeWithStops = stop.time - prevStops;
-        } else {
-          if (this.is_overlapping(0, fromTime, endOfStop, endOfStop)) {
-            fromTimeWithStops -= stop.stopDuration;
-          }
-        }
-        prevStops += stop.stopDuration;
-      }
-      toTime = toTimeWithStops;
-      fromTime = fromTimeWithStops;
-    }
+    //STOP logic moved to parsedsimfile
+    //if (this.requestedGame) {
+      //fromTime = this.requestedGame.parsedSimfile.applyStopsToLaneTime(fromTime);
+      // toTime = this.requestedGame.parsedSimfile.applyStopsToNoteTime(toTime);
+
+      // let toTimeWithStops = toTime;
+      // let fromTimeWithStops = fromTime;
+      // const stops = this.requestedGame?.parsedSimfile.stopsTime ?? [];
+      // let prevStops = 0;
+      // for (const stop of stops) {
+      //   const endOfStop = stop.time + stop.stopDuration;
+      //   if (is_overlapping(0, toTime, endOfStop, endOfStop)) {
+      //     toTimeWithStops -= stop.stopDuration;
+      //   }
+      //   if (is_overlapping(fromTime, fromTime, stop.time, endOfStop)) {
+      //     fromTimeWithStops = stop.time - prevStops;
+      //   } else {
+      //     if (is_overlapping(0, fromTime, endOfStop, endOfStop)) {
+      //       fromTimeWithStops -= stop.stopDuration;
+      //     }
+      //   }
+      //   prevStops += stop.stopDuration;
+      // }
+      // toTime = toTimeWithStops;
+      // fromTime = fromTimeWithStops;
+    //}
 
     //BPM logic
     {
@@ -167,11 +160,11 @@ export class DisplayService {
       const isReversed = toTime < fromTime;
       [fromTime, toTime] = [Math.min(toTime, fromTime), Math.max(toTime, fromTime)];
       for (const bpm of bpms) {
-        if (this.is_overlapping(fromTime, toTime, bpm.from, (bpm.to ?? toTime))) {
+        if (is_overlapping(fromTime, toTime, bpm.from, (bpm.to ?? toTime))) {
           distance +=
             (isReversed ? -1 : 1)
-            * this.displayOptions.noteSize /* ~25px */
-            * this.overlap_amount(fromTime, toTime, bpm.from, (bpm.to ?? toTime)) /* seconds in current BPM */
+            * this.displayOptions.noteSize /* Size of one beat ~25px */
+            * overlap_amount(fromTime, toTime, bpm.from, (bpm.to ?? toTime)) /* seconds in current BPM */
             * (bpm.bpm / 60) /* BPM -> BPS */;
         }
       }
@@ -226,6 +219,8 @@ export class DisplayService {
 
     if (this.onCurrentTimeSecondsChange.value != newTimeSeconds) {
       this.onCurrentTimeSecondsChange.next(newTimeSeconds);
+      if(this.requestedGame)
+        this.onCurrentTimeWithStopsSecondsChange.next(this.requestedGame.parsedSimfile.applyStopsToLaneTime(newTimeSeconds))
       if (this.totalSeconds > 0) {
         this.onCurrentTimePercentageChange.next(newTimeSeconds / this.totalSeconds * 100);
       }

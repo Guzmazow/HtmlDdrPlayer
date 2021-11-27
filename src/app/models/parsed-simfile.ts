@@ -5,6 +5,13 @@ import { ParsedSimfileMode } from "./parsed-simfile-mode";
 import { SimfileRegistryEntry } from "./simfile-registry-entry";
 import { SimfileRegistryYoutubeInfo } from "./simfile-registry-youtube-info";
 import { b64_to_utf8 } from '@other/storage';
+import { is_overlapping } from "@other/math";
+
+enum ElapsedTimeType {
+  NOTE = 0,
+  BPM = 1,
+  STOPS = 2
+}
 
 export class ParsedSimfile {
   folder: ParsedSimfileFolder;
@@ -100,8 +107,8 @@ export class ParsedSimfile {
     this.attacks = this.rawMetaData.get("ATTACKS") ?? "";
 
     this.rawModes = this.getModesInfoAsStrings(simfileContent);
-    for (let rawMode of this.rawModes) {
-      let mode = new ParsedSimfileMode(this, rawMode);
+    for (const rawMode of this.rawModes) {
+      const mode = new ParsedSimfileMode(this, rawMode);
       if (mode.gameMode == GameMode.DANCE && mode.gameModeType == GameModeType.SINGLE) {
         this.modes.push(mode);
       }
@@ -120,7 +127,7 @@ export class ParsedSimfile {
     });
 
 
-    this.bpmsTime = this.bpms.map(x => { return { from: this.getElapsedTime(0, x.beat, false) - this.offset, to: 0, bpm: x.bpm } })
+    this.bpmsTime = this.bpms.map(x => { return { from: this.getElapsedTime(0, x.beat, ElapsedTimeType.BPM) - this.offset, to: 0, bpm: x.bpm } })
     for (let index = 0; index < this.bpmsTime.length - 1; index++) {
       this.bpmsTime[index].to = this.bpmsTime[index + 1].from;
     }
@@ -134,8 +141,13 @@ export class ParsedSimfile {
     if (this.bpms.find(x => x.bpm < 0)) {
       this.bpmReadable += " NegBPM!";
     }
-    this.stopsTime = this.stops.map(x => { return { time: this.getElapsedTime(0, x.beat) - this.offset, stopDuration: x.stopDuration } })
+    this.stopsTime = this.stops.map(x => { return { time: this.getElapsedTime(0, x.beat, ElapsedTimeType.STOPS) - this.offset, stopDuration: x.stopDuration } })
 
+    for (const mode of this.modes) 
+      for(const track of mode.tracks)
+        for(const note of track)
+          note.time = this.applyStopsToNoteTime(note.time);
+    
 
     this.youtubeVideos = registryEntry.youtubeVideos;
     this.youtubeVideos.forEach(y => {
@@ -217,10 +229,10 @@ export class ParsedSimfile {
     return currentBeat;
   }
 
-  getElapsedTime(startBeat: number, endBeat: number, withStops: boolean = true) {
+  getElapsedTime(startBeat: number, endBeat: number, type: ElapsedTimeType = ElapsedTimeType.NOTE) {
     let currentBPMIndex: number = this.getStartBPMIndex(startBeat);
     let earliestBeat: number = startBeat;
-    let elapsedTime: number = withStops ? (this.stops == null ? 0 : this.stoppedTime(startBeat, endBeat, this.stops)) : 0;
+    let elapsedTime: number = (type == ElapsedTimeType.BPM) ? 0 : this.stoppedTime(startBeat, endBeat);
     do {
       let nextBPMChange: number = this.getNextBPMChange(currentBPMIndex);
       let nextBeat: number = Math.min(endBeat, nextBPMChange);
@@ -232,6 +244,7 @@ export class ParsedSimfile {
       earliestBeat = nextBeat;
       currentBPMIndex++;
     } while (earliestBeat < endBeat);
+
     return elapsedTime;
   }
 
@@ -246,12 +259,12 @@ export class ParsedSimfile {
   }
 
   // does NOT snap to nearest 1/192nd of beat
-  stoppedTime(startBeat: number, endBeat: number, stops: { beat: number, stopDuration: number }[]) {
+  stoppedTime(startBeat: number, endBeat: number) {
     let time = 0;
-    for (let i = 0; i < stops.length; i++) {
-      let stopBeat = stops[i].beat;
+    for (let i = 0; i < this.stops.length; i++) {
+      let stopBeat = this.stops[i].beat;
       if (startBeat <= stopBeat && stopBeat < endBeat) {
-        time += stops[i].stopDuration;
+        time += this.stops[i].stopDuration;
       }
     }
     return time;
@@ -295,5 +308,33 @@ export class ParsedSimfile {
       array.push([parseFloat(stringArray[i][0]), parseFloat(stringArray[i][1])]);
     }
     return array;
+  }
+
+  applyStopsToNoteTime(noteTime: number) {
+    let noteTimeWithStops = noteTime;
+    for (const stop of this.stopsTime) {
+      const endOfStop = stop.time + stop.stopDuration;
+      if (is_overlapping(0, noteTime, endOfStop, endOfStop)) {
+        noteTimeWithStops -= stop.stopDuration;
+      }
+    }
+    return noteTimeWithStops;
+  }
+
+  applyStopsToLaneTime(laneTime: number) {
+    let fromTimeWithStops = laneTime;
+    let prevStops = 0;
+    for (const stop of this.stopsTime) {
+      const endOfStop = stop.time + stop.stopDuration;
+      if (is_overlapping(laneTime, laneTime, stop.time, endOfStop)) {
+        fromTimeWithStops = stop.time - prevStops;
+      } else {
+        if (is_overlapping(0, laneTime, endOfStop, endOfStop)) {
+          fromTimeWithStops -= stop.stopDuration;
+        }
+      }
+      prevStops += stop.stopDuration;
+    }
+    return fromTimeWithStops;
   }
 }

@@ -92,17 +92,19 @@ export class NoteLaneComponent implements OnInit, OnDestroy {
   drawNote(note: Note) {
     if (note.judged)
       return;
-    let x = this.displayService.getNoteX(note.trackIndex);
+    const x = this.displayService.getNoteX(note.trackIndex);
     let y = this.displayService.getNoteY(note.time);
-    let y2 = note.related ? this.displayService.getNoteY(note.related.time/* - (note.type == NoteType.ROLL_HEAD ? this.judgementService.TimingWindowSecondsRoll : this.judgementService.TimingWindowSecondsHold)*/) : 0;
-    let direction = note.trackIndex % 4;
+    const y2 = note.related ? this.displayService.getNoteY(note.related.time/* - (note.type == NoteType.ROLL_HEAD ? this.judgementService.TimingWindowSecondsRoll : this.judgementService.TimingWindowSecondsHold)*/) : 0;
+    const direction = note.trackIndex % 4;
     //new NoteDisplay(x, y, note.type, trackNumber % 4).draw(this.displayService);
+
+    const noteSize = this.displayService.displayOptions.noteSize;
+    const halfNoteSize = Math.round(noteSize * 0.5);
+    const ninthNoteSize = Math.round(noteSize * 0.9);
 
     this.ctx.save();
     this.ctx.fillStyle = "black";
-    let noteSize = this.displayService.displayOptions.noteSize;
-    let halfNoteSize = Math.round(noteSize * 0.5);
-    let ninthNoteSize = Math.round(noteSize * 0.9);
+
     switch (note.type) {
       case NoteType.NORMAL:
         //this.ctx.fillStyle = "white";
@@ -187,7 +189,15 @@ export class NoteLaneComponent implements OnInit, OnDestroy {
         Log.debug("NoteLaneComponent", `Missing renderer info for type ${note.type}`, note);
         break;
     }
-    this.ctx.restore();
+
+    //timing debug
+    // this.ctx.restore();
+    // this.ctx.save();
+    // this.ctx.font = `20px Consolas`;
+    // this.ctx.fillStyle = "white";
+    // this.ctx.fillText((this.displayService.onCurrentTimeSecondsChange.value - note.time).toFixed(2), x, y);
+    // this.ctx.fillText((this.displayService.onCurrentTimeWithStopsSecondsChange.value - note.time).toFixed(2), x, y + 22);
+    // this.ctx.restore();
   }
 
   // getFirstAndLastNotes(leastTime: number, greatestTime: number, track: Note[]) {

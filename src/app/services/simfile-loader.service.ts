@@ -23,7 +23,9 @@ export class SimfileLoaderService {
     this.http.get<SimfileRegistryFolder[]>("/assets/simfile-registry-with-data.json", { responseType: "json" }).subscribe(registry => {
       this.parsedSimfileFolders = new Map<string, ParsedSimfileFolder>(registry.map(folder => [folder.location, new ParsedSimfileFolder(folder)]));
       this.parsedSimfilesLoaded.next(true);
+      Log.debug("SimfileLoaderService", "simfiles loaded");
 
+    // first version of loading, load one by one
     //   forkJoin(
     //     Array.from(this.simfileRegistryFolders.values()).map(folder =>
     //       forkJoin(
