@@ -22,7 +22,7 @@ export enum NoteQuantization {
 export const AllNoteQuantizations = [NoteQuantization.Q4, NoteQuantization.Q8, NoteQuantization.Q16, NoteQuantization.Q32, NoteQuantization.Q64, NoteQuantization.Q128, NoteQuantization.Q256, NoteQuantization.Q512];
 export const BadNoteQuantizations = [NoteQuantization.Q12, NoteQuantization.Q24, NoteQuantization.Q48, NoteQuantization.Q96, NoteQuantization.Q192, NoteQuantization.Q384];
 
-export const NoteQuantizationTitle: {[key in NoteQuantization]: string} = {
+export const NoteQuantizationTitle: { [key in NoteQuantization]: string } = {
     [-1]: "None",
     4: "N",
     8: "H",
@@ -46,7 +46,11 @@ export enum SimfileNoteType {
     HOLD_HEAD = "2",
     TAIL = "3",
     ROLL_HEAD = "4",
-    MINE = "M"
+    MINE = "M",
+    LIFT = "L",
+    KEYSOUND = "K",
+    FAKE = "F"
+
 }
 
 export enum NoteType {
@@ -60,8 +64,22 @@ export enum NoteType {
     //ROLL_BODY = 6,
     ROLL_TAIL = 7,
     MINE = 8,
+    LIFT = 9,
+    KEYSOUND = 10,
+    FAKE = 11
 }
 
+export const NoteTypeMap: { [key in SimfileNoteType]: NoteType } = {
+    0: NoteType.EMPTY,
+    1: NoteType.NORMAL,
+    2: NoteType.HOLD_HEAD,
+    3: NoteType.HOLD_TAIL | NoteType.ROLL_TAIL,
+    4: NoteType.ROLL_HEAD,
+    M: NoteType.MINE,
+    L: NoteType.LIFT,
+    K: NoteType.KEYSOUND,
+    F: NoteType.FAKE
+}
 
 export enum Key {
     TEST = -2,

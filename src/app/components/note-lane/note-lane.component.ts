@@ -185,12 +185,12 @@ export class NoteLaneComponent implements OnInit, OnDestroy {
         this.ctx.strokeRect(x, y, noteSize, noteSize);
         this.ctx.font = `${noteSize}px Arial`;
         this.ctx.textAlign = "center";
-        this.ctx.fillText("?", x + halfNoteSize, y + ninthNoteSize, noteSize);
+        this.ctx.fillText(NoteType[note.type].charAt(0), x + halfNoteSize, y + ninthNoteSize, noteSize);
         Log.debug("NoteLaneComponent", `Missing renderer info for type ${note.type}`, note);
         break;
     }
     this.ctx.restore();
-    
+
     //timing debug
     // this.ctx.save();
     // this.ctx.font = `20px Consolas`;

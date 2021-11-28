@@ -1,4 +1,4 @@
-import { AllNoteQuantizations, BadNoteQuantizations, Difficulty, GameMode, GameModeType as GameModeType, NoteQuantization, NoteQuantizationTitle, NoteType, SimfileNoteType } from "./enums"
+import { AllNoteQuantizations, BadNoteQuantizations, Difficulty, GameMode, GameModeType as GameModeType, NoteQuantization, NoteQuantizationTitle, NoteType, NoteTypeMap, SimfileNoteType } from "./enums"
 import { Note } from "./note";
 import { ParsedSimfile } from "./parsed-simfile";
 
@@ -214,13 +214,7 @@ export class ParsedSimfileMode {
                         newNote.related.related = newNote;
                         newNote.type = newNote.related.type == NoteType.HOLD_HEAD ? NoteType.HOLD_TAIL : NoteType.ROLL_TAIL
                     } else {
-                        switch (simfileNoteType) {
-                            //case SimfileNoteType.EMPTY: type = NoteType.EMPTY; break;
-                            case SimfileNoteType.NORMAL: newNote.type = NoteType.NORMAL; break;
-                            case SimfileNoteType.HOLD_HEAD: newNote.type = NoteType.HOLD_HEAD; break;
-                            case SimfileNoteType.ROLL_HEAD: newNote.type = NoteType.ROLL_HEAD; break;
-                            case SimfileNoteType.MINE: newNote.type = NoteType.MINE; break;
-                        }
+                        newNote.type = NoteTypeMap[simfileNoteType];
                     }
                     tracks[i].push(newNote);
                 }

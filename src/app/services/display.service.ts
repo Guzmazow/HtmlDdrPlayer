@@ -163,7 +163,7 @@ export class DisplayService {
         if (is_overlapping(fromTime, toTime, bpm.from, (bpm.to ?? toTime))) {
           distance +=
             (isReversed ? -1 : 1)
-            * (this.displayOptions.noteSize * 2) /* don't overlay until half beat */
+            * this.displayOptions.noteSize /* XMod 1 starts overlaying normal notes at 60bpm */
             * overlap_amount(fromTime, toTime, bpm.from, (bpm.to ?? toTime)) /* seconds in current BPM */
             * (bpm.bpm / 60) /* BPM -> BPS */;
         }
