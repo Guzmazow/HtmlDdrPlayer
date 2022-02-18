@@ -5,12 +5,14 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "type": "edge",
+            "name": "Launch Edge",
             "request": "launch",
-            "name": "Launch Edge against localhost",
+            "type": "pwa-msedge",
             "url": "http://localhost:4200",
             "webRoot": "${workspaceFolder}",
-            "runtimeArgs": ["--profile-directory=Default"],
+            "runtimeArgs": [
+                "--profile-directory=Default"
+            ],
             "userDataDir": false
         }
     ]
