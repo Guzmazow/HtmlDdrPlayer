@@ -1,5 +1,5 @@
 import { EventEmitter, Injectable } from '@angular/core';
-import { AllDirections, AllJudgements, AllNoteQuantizations, Direction, Judgement, NoteQuantization } from '@models/enums';
+import { AllDirections, AllJudgements, Direction, Judgement, NoteQuantization, AllNoteQuantizations } from '@models/enums';
 import { SimfileRegistryYoutubeInfo } from '@models/simfile-registry-youtube-info';
 import { BehaviorSubject, forkJoin } from 'rxjs';
 import { Log } from './log.service';

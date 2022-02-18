@@ -1,51 +1,5 @@
 [
     {
-        "title": "Testing",
-        "location": "Testing",
-        "simfiles": [
-            {
-                "filename": "Testing BPM Stops.sm",
-                "youtubeVideos": [
-                    {
-                        "id": "pHvP71rwYAc"
-                    }
-                ]
-            },
-            {
-                "filename": "Testing BPM.sm",
-                "youtubeVideos": [
-                    {
-                        "id": "pHvP71rwYAc"
-                    }
-                ]
-            },
-            {
-                "filename": "Testing NegBPM Stops.sm",
-                "youtubeVideos": [
-                    {
-                        "id": "pHvP71rwYAc"
-                    }
-                ]
-            },
-            {
-                "filename": "Testing Slow song.sm",
-                "youtubeVideos": [
-                    {
-                        "id": "pHvP71rwYAc"
-                    }
-                ]
-            },
-            {
-                "filename": "Testing Stops.sm",
-                "youtubeVideos": [
-                    {
-                        "id": "pHvP71rwYAc"
-                    }
-                ]
-            }
-        ]
-    },
-    {
         "title": "Ace Of Arrows",
         "location": "Ace Of Arrows",
         "simfiles": [
@@ -5870,6 +5824,60 @@
                                 "to": 154
                             }
                         ]
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "title": "Testing",
+        "location": "Testing",
+        "simfiles": [
+            {
+                "filename": "Testing BPM Stops.sm",
+                "youtubeVideos": [
+                    {
+                        "id": "pHvP71rwYAc"
+                    }
+                ]
+            },
+            {
+                "filename": "Testing BPM.sm",
+                "youtubeVideos": [
+                    {
+                        "id": "pHvP71rwYAc"
+                    }
+                ]
+            },
+            {
+                "filename": "Testing NegBPM Stops.sm",
+                "youtubeVideos": [
+                    {
+                        "id": "pHvP71rwYAc"
+                    }
+                ]
+            },
+            {
+                "filename": "Testing Slow song.sm",
+                "youtubeVideos": [
+                    {
+                        "id": "pHvP71rwYAc"
+                    }
+                ]
+            },
+            {
+                "filename": "Testing Stops.sm",
+                "youtubeVideos": [
+                    {
+                        "id": "pHvP71rwYAc"
+                    }
+                ]
+            },
+            {
+                "filename": "Testing Quantization.sm",
+                "youtubeVideos": [
+                    {
+                        "id": "pHvP71rwYAc"
                     }
                 ]
             }

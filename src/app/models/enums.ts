@@ -19,8 +19,42 @@ export enum NoteQuantization {
 }
 
 //Only the ones that can't be divided by 3
-export const AllNoteQuantizations = [NoteQuantization.Q4, NoteQuantization.Q8, NoteQuantization.Q16, NoteQuantization.Q32, NoteQuantization.Q64, NoteQuantization.Q128, NoteQuantization.Q256, NoteQuantization.Q512];
-export const BadNoteQuantizations = [NoteQuantization.Q12, NoteQuantization.Q24, NoteQuantization.Q48, NoteQuantization.Q96, NoteQuantization.Q192, NoteQuantization.Q384];
+export const GoodNoteQuantizations = [
+    NoteQuantization.Q4, 
+    NoteQuantization.Q8, 
+    NoteQuantization.Q16, 
+    NoteQuantization.Q32, 
+    NoteQuantization.Q64, 
+    NoteQuantization.Q128, 
+    NoteQuantization.Q256, 
+    NoteQuantization.Q512
+];
+
+export const BadNoteQuantizations = [
+    NoteQuantization.Q12, 
+    NoteQuantization.Q24, 
+    NoteQuantization.Q48, 
+    NoteQuantization.Q96, 
+    NoteQuantization.Q192, 
+    NoteQuantization.Q384
+];
+
+export const AllNoteQuantizations = [
+    NoteQuantization.Q4, 
+    NoteQuantization.Q8, 
+    NoteQuantization.Q12, 
+    NoteQuantization.Q16, 
+    NoteQuantization.Q24, 
+    NoteQuantization.Q32, 
+    NoteQuantization.Q48, 
+    NoteQuantization.Q64, 
+    NoteQuantization.Q96, 
+    NoteQuantization.Q128, 
+    NoteQuantization.Q192, 
+    NoteQuantization.Q256, 
+    NoteQuantization.Q384,
+    NoteQuantization.Q512
+];
 
 export const NoteQuantizationTitle: { [key in NoteQuantization]: string } = {
     [-1]: "None",
