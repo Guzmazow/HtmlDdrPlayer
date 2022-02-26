@@ -9,7 +9,7 @@
     "noImplicitReturns": true,
     "noFallthroughCasesInSwitch": true,
     "sourceMap": true,
-    "declaration": false,
+    //"declaration": false,
     "downlevelIteration": true,
     "experimentalDecorators": true,
     "moduleResolution": "node",
@@ -20,6 +20,7 @@
       "es2018",
       "dom"
     ],
+    "typeRoots": [ "./src/types"],
     "paths": {
       "@models/*": [
         "src/app/models/*"

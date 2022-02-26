@@ -3,7 +3,7 @@ import { Difficulty, GameMode, GameModeType, NoteType } from "./enums";
 import { ParsedSimfileFolder } from "./parsed-folder";
 import { ParsedSimfileMode } from "./parsed-simfile-mode";
 import { SimfileRegistryEntry } from "./simfile-registry-entry";
-import { SimfileRegistryYoutubeInfo } from "./simfile-registry-youtube-info";
+import { SimfileRegistryDailyMotionInfo, SimfileRegistryYoutubeInfo } from "./simfile-registry-video-info";
 import { b64_to_utf8 } from '@other/storage';
 import { is_overlapping } from "@other/math";
 
@@ -20,6 +20,7 @@ export class ParsedSimfile {
   filename: string;
   status?: string;
   youtubeVideos: SimfileRegistryYoutubeInfo[];
+  dailyMotionVideos: SimfileRegistryDailyMotionInfo[];
 
   loaded: boolean = false;
   title: string;
@@ -155,7 +156,7 @@ export class ParsedSimfile {
           note.time = this.applyStopsToNoteTime(note.time);
     
 
-    this.youtubeVideos = registryEntry.youtubeVideos;
+    this.youtubeVideos = registryEntry.youtubeVideos || [];
     this.youtubeVideos.forEach(y => {
       y.offset = y.offset ?? 0;
       y.skips = y.skips?.map(x => ({ from: x.from, to: x.to, skipped: false })) ?? [];
@@ -176,6 +177,11 @@ export class ParsedSimfile {
 
         // aspectRatio: (3 / 4), // you can set ratio of aspect ratio to auto resize with
       }
+    });
+
+    this.dailyMotionVideos = registryEntry.dailyMotionVideos || [];
+    this.dailyMotionVideos.forEach((video)=>{
+      video.iFrameUrl = `https://www.dailymotion.com/embed/video/${video.id}?queue-autoplay-next=0&queue-enable=0&sharing-enable=0&start=${this.sampleStart}`;
     });
     this.loaded = true;
   }

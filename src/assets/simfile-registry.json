@@ -2749,8 +2749,13 @@
             },
             {
                 "filename": "Orange.sm",
-                "status": "Needs YT alternative",
-                "youtubeVideos": []
+                "youtubeVideos": [],
+                "dailyMotionVideos": [
+                    {
+                        "id": "x88bg1",
+                        "offset": 13.707
+                    }
+                ]
             },
             {
                 "filename": "Outgrow.sm",
@@ -4213,8 +4218,11 @@
             },
             {
                 "filename": "bwiw2b.sm",
-                "status": "Needs YT alternative",
-                "youtubeVideos": []
+                "dailyMotionVideos": [
+                    {
+                        "id": "k27Dt9lZ3QAcHaxGjEP"
+                    }
+                ]
             },
             {
                 "filename": "Carnival.sm",

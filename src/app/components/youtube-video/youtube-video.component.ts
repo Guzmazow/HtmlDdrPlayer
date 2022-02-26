@@ -1,5 +1,5 @@
 import { Component, Input, OnDestroy, OnInit, QueryList, ViewChildren } from '@angular/core';
-import { SimfileRegistryYoutubeInfo } from '@models/simfile-registry-youtube-info';
+import { SimfileRegistryYoutubeInfo } from '@models/simfile-registry-video-info';
 import { DisplayService } from '@services/display.service';
 import { Log } from '@services/log.service';
 import { MediaService } from '@services/media.service';
@@ -53,7 +53,9 @@ export class YoutubeVideoComponent implements OnDestroy {
       this.videosReady = 0;
       this.youtubeVideoInfo.skips.forEach(x => { x.skipped = false });
     });
+
     this.displayService.onCurrentTimeSecondsChange.pipe(takeUntil(this.destroyed$)).subscribe(displaySeconds => {
+      if (!this.youtubeVideoInfo?.id) return;
       if (this.videosReady != this.youtubeVideoInfo.skips.length || this.syncing) return;
       //Math.round((this.currentPlayerTimeSeconds - this.skipedPlayTimeSecondsUntilNow /*+ (this.gameRequest.parsedSimfile.offset ?? 0) simfile parsing applies this*/ + (this.gameRequest.youtubeVideo.offset ?? 0)) * 1000) / 1000;
       var preYtSeconds = displaySeconds;

@@ -4,6 +4,7 @@ import { HomeComponent } from '@components/home/home.component';
 import { DdrPlayerComponent } from '@components/ddr-player/ddr-player.component';
 import { SimfileSelectorComponent } from '@components/simfile-selector/simfile-selector.component';
 import { SynchronizerComponent } from '@components/synchronizer/synchronizer.component';
+import { SimfileGeneratorComponent } from '@components/simfile-generator/simfile-generator/simfile-generator.component';
 
 const routes: Routes = [
   {
@@ -16,6 +17,9 @@ const routes: Routes = [
       },
       {
         path: 'ddr-player', component: DdrPlayerComponent
+      },
+      {
+        path: 'simfile-generator', component: SimfileGeneratorComponent
       }
     ]
   }

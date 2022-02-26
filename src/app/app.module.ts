@@ -42,6 +42,9 @@ import { PreferencesDialogComponent } from '@components/preferences/preferences-
 import { SelectableModesPipe } from '@pipes/selectable-modes.pipe';
 import { MediaService } from '@services/media.service';
 import { StepCounterHistoryDialogComponent } from '@components/step-counter/step-counter-history-dialog.component';
+import { SimfileGeneratorComponent } from './components/simfile-generator/simfile-generator/simfile-generator.component';
+import { DailymotionVideoComponent } from './components/dailymotion-video/dailymotion-video/dailymotion-video.component';
+import { SafePipe } from '@pipes/safe.pipe.';
 
 
 @NgModule({
@@ -60,7 +63,10 @@ import { StepCounterHistoryDialogComponent } from '@components/step-counter/step
     PreferencesComponent,
     PreferencesDialogComponent,
     SelectableModesPipe,
-    StepCounterHistoryDialogComponent
+    SafePipe,
+    StepCounterHistoryDialogComponent,
+    SimfileGeneratorComponent,
+    DailymotionVideoComponent
   ],
   imports: [
     BrowserModule,

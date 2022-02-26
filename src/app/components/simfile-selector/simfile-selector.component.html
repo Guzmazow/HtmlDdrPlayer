@@ -88,7 +88,7 @@
                             </mat-card-actions>
                         </mat-card>
                     </div>
-                    <mat-tab-group animationDuration="0ms" (selectedTabChange)="onVideoSelected($event)">
+                    <mat-tab-group animationDuration="0ms" (selectedTabChange)="onYTVideoSelected($event)">
                         <mat-tab [label]="registryVideo.id" style="height: 300px;"
                             *ngFor="let registryVideo of selectedSimfile.youtubeVideos">
                             <ng-template matTabContent>
@@ -101,7 +101,20 @@
                             </ng-template>
                         </mat-tab>
                     </mat-tab-group>
-
+                    <mat-tab-group animationDuration="0ms" (selectedTabChange)="onDMVideoSelected($event)">
+                        <mat-tab [label]="registryVideo.id" style="height: 300px;"
+                            *ngFor="let registryVideo of selectedSimfile.dailyMotionVideos">
+                            <ng-template matTabContent>
+                                <div style="height: 100%; width: 750px;" #videoContainer>                           
+                                    <iframe frameborder="0" width="750" height="422" 
+                                        [src]="registryVideo.iFrameUrl + (this.firstVideoStopped ? '&autoplay=1' : '')  | safe: 'resourceUrl'"
+                                        allowfullscreen 
+                                        allow="autoplay">
+                                    </iframe>
+                                </div>
+                            </ng-template>
+                        </mat-tab>
+                    </mat-tab-group>
                     <ng-template #infoDialog>
                         <h1 mat-dialog-title>Simfile INFO</h1>
                         <mat-dialog-content>
@@ -236,6 +249,14 @@
                                     </td>
                                     <td>
                                         <pre>{{ selectedSimfile.youtubeVideos | json }}</pre>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        dailymotion Videos
+                                    </td>
+                                    <td>
+                                        <pre>{{ selectedSimfile.dailyMotionVideos | json }}</pre>
                                     </td>
                                 </tr>
                             </table>

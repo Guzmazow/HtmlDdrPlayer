@@ -10,7 +10,7 @@ import { GameRequest } from '@models/game-request';
 import { KeyboardService } from '@services/keyboard.service';
 import { LocalStorage } from '../../other/storage';
 import { MatDrawerContainer } from '@angular/material/sidenav';
-import { SimfileRegistryYoutubeInfo } from '@models/simfile-registry-youtube-info';
+import { SimfileRegistryDailyMotionInfo, SimfileRegistryYoutubeInfo } from '@models/simfile-registry-video-info';
 import { takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs';
 import { Log } from '@services/log.service';
@@ -38,7 +38,8 @@ export class SimfileSelectorComponent implements OnInit, OnDestroy {
   simfilesInSelectedFolder: ParsedSimfile[] = [];
   selectedSimfile?: ParsedSimfile;
   selectedSimfileMode?: ParsedSimfileMode;
-  selectedVideo?: SimfileRegistryYoutubeInfo;
+  selectedYTVideo?: SimfileRegistryYoutubeInfo;
+  selectedDMVideo?: SimfileRegistryDailyMotionInfo;
 
 
   @ViewChild("simfileSelect") simfileSelect?: MatSelectionList;
@@ -185,7 +186,8 @@ export class SimfileSelectorComponent implements OnInit, OnDestroy {
     this.lastSelectedSimfileLocation = this.selectedSimfile.smFileLocation;
 
 
-    this.selectedVideo = undefined;
+    this.selectedYTVideo = undefined;
+    this.selectedDMVideo = undefined;
     //select last selected difficulty orelse closest orelse last
     const modes = this.selectableModes();
     this.selectSimfileMode(modes.find(x => x.difficulty == this.lastSelectedSimfileDifficulty) ?? modes[this.lastSelectedSimfileDifficultyIndex - 1] ?? modes[modes.length - 1], false);
@@ -195,6 +197,7 @@ export class SimfileSelectorComponent implements OnInit, OnDestroy {
     if (ev.options.length > 0) {
       this.selectSimfile(ev.options[0].value);
     }
+    this.firstVideoStopped = true;;
   }
 
   selectSimfileMode(parsedSimfileMode: ParsedSimfileMode, changeLastValues = true) {
@@ -205,14 +208,17 @@ export class SimfileSelectorComponent implements OnInit, OnDestroy {
     }
   }
 
-  onVideoSelected(ev: MatTabChangeEvent) {
-    this.selectedVideo = this.selectedSimfile?.youtubeVideos[ev.index];
+  onYTVideoSelected(ev: MatTabChangeEvent) {
+    this.selectedYTVideo = this.selectedSimfile?.youtubeVideos[ev.index];
+  }
+
+  onDMVideoSelected(ev: MatTabChangeEvent) {
+    this.selectedDMVideo = this.selectedSimfile?.dailyMotionVideos[ev.index];
   }
 
   onVideoReady(ev: YT.PlayerEvent) {
     ev.target.setVolume(25);
     if (!this.firstVideoStopped) {
-      this.firstVideoStopped = true;
       ev.target.stopVideo();
     }
   };
@@ -220,9 +226,11 @@ export class SimfileSelectorComponent implements OnInit, OnDestroy {
   playSelectedMode() {
     if (!this.selectedSimfileFolder || !this.selectedSimfile || !this.selectedSimfileMode)
       return;
-    if (!this.selectedVideo)
-      this.selectedVideo = this.selectedSimfile.youtubeVideos[0];
-    this.simfileLoaderService.requestGame(new GameRequest(this.selectedSimfileFolder, this.selectedSimfile, this.selectedSimfileMode, this.selectedVideo));
+    if (!this.selectedYTVideo)
+      this.selectedYTVideo = this.selectedSimfile.youtubeVideos[0];
+    if (!this.selectedDMVideo)
+      this.selectedDMVideo = this.selectedSimfile.dailyMotionVideos[0];
+    this.simfileLoaderService.requestGame(new GameRequest(this.selectedSimfileFolder, this.selectedSimfile, this.selectedSimfileMode, this.selectedYTVideo, this.selectedDMVideo));
   }
 
   getCompareWith() {

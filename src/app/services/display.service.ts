@@ -106,7 +106,11 @@ export class DisplayService {
       pref.display.laneWidth,  //Note lane horizontal stretch TODO:config
       r.parsedSimfileMode.tracks.length
     );
-    this.mediaService.setYTVideo(this.requestedGame.youtubeVideo);
+
+
+      this.mediaService.setYTVideo(this.requestedGame.youtubeVideo);
+      this.mediaService.setDMVideo(this.requestedGame.dailyMotionVideo);    
+    
     this.mediaService.prepareMedia(this.displayOptions.noteSize).then(() => {
       this.startGame(r.parsedSimfileMode.totalTime);
     });

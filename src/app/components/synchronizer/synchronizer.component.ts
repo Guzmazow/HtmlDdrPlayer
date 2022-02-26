@@ -3,7 +3,7 @@ import { FormArray, FormControl, FormGroup } from '@angular/forms';
 import { MatTabChangeEvent } from '@angular/material/tabs';
 import { ActivatedRoute } from '@angular/router';
 import { ParsedSimfile } from '@models/parsed-simfile';
-import { SimfileRegistryYoutubeInfo } from '@models/simfile-registry-youtube-info';
+import { SimfileRegistryYoutubeInfo } from '@models/simfile-registry-video-info';
 import { Log } from '@services/log.service';
 import { SimfileLoaderService } from '@services/simfile-loader.service';
 import { NgxY2PlayerComponent, NgxY2PlayerOptions } from 'ngx-y2-player';

@@ -1,6 +1,6 @@
 import { EventEmitter, Injectable } from '@angular/core';
 import { AllDirections, AllJudgements, Direction, Judgement, NoteQuantization, AllNoteQuantizations } from '@models/enums';
-import { SimfileRegistryYoutubeInfo } from '@models/simfile-registry-youtube-info';
+import { SimfileRegistryDailyMotionInfo, SimfileRegistryYoutubeInfo } from '@models/simfile-registry-video-info';
 import { BehaviorSubject, forkJoin } from 'rxjs';
 import { Log } from './log.service';
 
@@ -11,6 +11,7 @@ export class MediaService {
 
   onMediaLoaded = new BehaviorSubject(false);
   onYTVideoLoaded = new BehaviorSubject<SimfileRegistryYoutubeInfo | null>(null);
+  onDMVideoLoaded = new BehaviorSubject<SimfileRegistryDailyMotionInfo | null>(null);
 
   arrowImageCache = new Map<Direction, Map<NoteQuantization, HTMLCanvasElement>>([
     [Direction.LEFT, new Map<NoteQuantization, HTMLCanvasElement>()],
@@ -92,6 +93,10 @@ export class MediaService {
 
   setYTVideo(target: SimfileRegistryYoutubeInfo) {
     this.onYTVideoLoaded.next(target);
+  }
+
+  setDMVideo(target: SimfileRegistryDailyMotionInfo) {
+    this.onDMVideoLoaded.next(target);
   }
 
   prepareMedia(noteSize: number): Promise<void> {
