@@ -2432,8 +2432,11 @@
             },
             {
                 "filename": "Gunjou Survival.sm",
-                "status": "Needs YT alternative",
-                "youtubeVideos": []
+                "dailyMotionVideos": [
+                    {
+                        "id": "x2x7142"
+                    }
+                ]
             },
             {
                 "filename": "Guren no Yumiya.sm",
@@ -2878,8 +2881,11 @@
             },
             {
                 "filename": "Rising Hope.sm",
-                "status": "Needs YT alternative",
-                "youtubeVideos": []
+                "dailyMotionVideos": [
+                    {
+                        "id": "x3o3gr5"
+                    }
+                ]
             },
             {
                 "filename": "Sen no Tsubasa.sm",
@@ -3043,15 +3049,6 @@
                 "dailyMotionVideos": [
                     {
                         "id": "k51CXo2oIrJmUpxGrH5"
-                    }
-                ]
-            },
-            {
-                "filename": "V.I.P.sm",
-                "youtubeVideos": [
-                    {
-                        "id": "M8JuOhB7-U0",
-                        "offset": 3.18
                     }
                 ]
             },
