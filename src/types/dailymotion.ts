@@ -20,7 +20,7 @@ export interface DailymotionPlayer {
     getState: () => Promise<DailymotionPlayerState>;
     loadContent: (data: { video: String, playlist: String, startTime: Number }) => void;
     off: (event: string, listener: ((state: any) => any)) => void;
-    on: (event: string, listener: ((state: any) => any), once?: Boolean) => void;
+    on: (event: string, listener: ((state: any) => any), options?: { once?: boolean }) => void;
     pause: () => void;
     play: () => void;
     seek: (to: number) => void;
@@ -139,8 +139,8 @@ export interface dailymotion {
         VIDEO_PROGRESS: "progress"
         VIDEO_QUALITIESREADY: "qualitiesavailable"
         VIDEO_QUALITYCHANGE: "qualitychange"
-        VIDEO_SEEKEND: "seeking"
-        VIDEO_SEEKSTART: "seeked"
+        VIDEO_SEEKEND: "seeked"
+        VIDEO_SEEKSTART: "seeking"
         VIDEO_START: "video_start"
         VIDEO_SUBTITLESCHANGE: "subtitlechange"
         VIDEO_SUBTITLESREADY: "subtitlesavailable"

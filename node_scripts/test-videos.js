@@ -9,7 +9,7 @@ async function doit() {
     const folders = JSON.parse(fs.readFileSync('src/assets/simfile-registry.json', 'utf8'));
     for (const folder of folders) {
         for (const file of folder.simfiles) {
-            for (const youtubeVideo of file.youtubeVideos) {
+            for (const youtubeVideo of file.youtubeVideos || []) {
                 results.push(await fetch(`http://i3.ytimg.com/vi/${youtubeVideo.id}/default.jpg`, { method: "Get" })
                     .then((response) => response.buffer())
                     .then((buffer) => {

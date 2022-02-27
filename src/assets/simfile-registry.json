@@ -353,15 +353,10 @@
             },
             {
                 "filename": "Christmas For You!.sm",
-                "youtubeVideos": [
+                "dailyMotionVideos": [
                     {
-                        "id": "m5tYO4Tskdk",
-                        "skips": [
-                            {
-                                "from": 0,
-                                "to": 30.4
-                            }
-                        ]
+                        "id": "k1Isrbsin344ZAxGpQO",
+                        "offset": -13.495
                     }
                 ]
             },
@@ -414,13 +409,7 @@
                 "filename": "Connect.sm",
                 "youtubeVideos": [
                     {
-                        "id": "OrgpX-_bFqM",
-                        "skips": [
-                            {
-                                "from": 0,
-                                "to": 0.16
-                            }
-                        ]
+                        "id": "lvmiSEobJ-M"
                     }
                 ]
             },
@@ -2099,7 +2088,7 @@
                 "filename": "again.sm",
                 "youtubeVideos": [
                     {
-                        "id": "Tcx2X_zAquE",
+                        "id": "ShEAiFqkY0E",
                         "skips": [
                             {
                                 "from": 0,
@@ -2280,7 +2269,7 @@
                 "filename": "CORE PRIDE.sm",
                 "youtubeVideos": [
                     {
-                        "id": "80-W822k6Vw",
+                        "id": "D1SPcHF9T80",
                         "offset": 7.95
                     }
                 ]
@@ -2753,7 +2742,7 @@
                 "dailyMotionVideos": [
                     {
                         "id": "x88bg1",
-                        "offset": 13.707
+                        "offset": 14
                     }
                 ]
             },
@@ -3051,10 +3040,9 @@
             },
             {
                 "filename": "Unlimited Sky.sm",
-                "youtubeVideos": [
+                "dailyMotionVideos": [
                     {
-                        "id": "10n1ZJGx7A0",
-                        "offset": 4.86
+                        "id": "k51CXo2oIrJmUpxGrH5"
                     }
                 ]
             },
