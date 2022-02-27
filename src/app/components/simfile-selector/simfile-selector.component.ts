@@ -182,6 +182,7 @@ export class SimfileSelectorComponent implements OnInit, OnDestroy {
   }
 
   selectSimfile(parsedSimfile: ParsedSimfile) {
+    this.firstVideoStopped = true;;
     this.selectedSimfile = parsedSimfile;
     this.lastSelectedSimfileLocation = this.selectedSimfile.smFileLocation;
 
@@ -196,8 +197,7 @@ export class SimfileSelectorComponent implements OnInit, OnDestroy {
   onSimfileSelectionChange(ev: MatSelectionListChange) {
     if (ev.options.length > 0) {
       this.selectSimfile(ev.options[0].value);
-    }
-    this.firstVideoStopped = true;;
+    }    
   }
 
   selectSimfileMode(parsedSimfileMode: ParsedSimfileMode, changeLastValues = true) {
