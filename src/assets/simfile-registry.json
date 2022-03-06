@@ -3255,6 +3255,14 @@
                         ]
                     }
                 ]
+            },
+            {
+                "filename": "sweetheart.sm",
+                "youtubeVideos": [
+                    {
+                        "id": "kS-letTvu9k"
+                    }
+                ]
             }
         ]
     },
@@ -5817,6 +5825,20 @@
                                 "to": 154
                             }
                         ]
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "title": "Guz",
+        "location": "Guz",
+        "simfiles": [
+            {
+                "filename": "Silver Scrapes.sm",
+                "youtubeVideos": [
+                    {
+                        "id": "v1Vnk9LdftI"
                     }
                 ]
             }
