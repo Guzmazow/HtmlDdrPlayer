@@ -5841,6 +5841,25 @@
                         "id": "v1Vnk9LdftI"
                     }
                 ]
+            },
+			{
+                "filename": "Happy.sm",
+                "youtubeVideos": [
+                    {
+                        "id": "tvY7Nw1i6Kw",
+                        "offset": 19.85,
+						"skips": [
+                            {
+                                "from": 0,
+                                "to": 19.85
+                            },
+                            {
+                                "from": 96,
+                                "to": 214
+                            }
+                        ]
+                    }
+                ]
             }
         ]
     },
