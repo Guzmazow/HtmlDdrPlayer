@@ -4493,6 +4493,19 @@
                                 "to": 94.89
                             }
                         ]
+                    },
+                    {
+                        "id": "xyyi9hcnq80",
+                        "skips": [
+                            {
+                                "from": 0,
+                                "to": 2.1
+                            },
+                            {
+                                "from": 77.4,
+                                "to": 91.2
+                            }
+                        ]
                     }
                 ]
             },
@@ -5842,13 +5855,13 @@
                     }
                 ]
             },
-			{
+            {
                 "filename": "Happy.sm",
                 "youtubeVideos": [
                     {
                         "id": "tvY7Nw1i6Kw",
                         "offset": 19.85,
-						"skips": [
+                        "skips": [
                             {
                                 "from": 0,
                                 "to": 19.85
