@@ -15,9 +15,10 @@ export class ParsedSimfileMode {
 
     tracks: Note[][] = [];
 
-    totalTime: number = 0;
+    totalTime: number;
+    totalNoteTime: number; //Does not include time before first note and after last note
     totalTimeDisplay: string;
-    nps: number = 0;
+    nps: number;
     rollCount: number = 0;
     holdCount: number = 0;
     noteCount: number = 0;
@@ -50,13 +51,15 @@ export class ParsedSimfileMode {
         //STATS
         const allNotes = this.tracks.reduce((prev, curr) => prev.concat(curr), []).sort((a, b) => (a.related?.time ?? a.time) - (b.related?.time ?? b.time));
         const lastNote = allNotes[allNotes.length - 1];
+        const firstNote = allNotes[0];
         this.totalTime = lastNote.related?.time ?? lastNote.time;
+        this.totalNoteTime = (lastNote.related?.time ?? lastNote.time) - firstNote.time;
         this.totalTimeDisplay = `${Math.floor(this.totalTime / 60)} minutes ${Math.round(this.totalTime % 60)} seconds`
         this.nps = (allNotes.filter(x =>
             x.type == NoteType.NORMAL ||
             x.type == NoteType.HOLD_HEAD ||
             x.type == NoteType.ROLL_HEAD
-        ).length / this.totalTime);
+        ).length / this.totalNoteTime);
         for (let note of allNotes) {
             switch (note.type) {
                 case NoteType.ROLL_HEAD: this.rollCount++; break;
