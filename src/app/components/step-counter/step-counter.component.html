@@ -1,11 +1,4 @@
 <button mat-raised-button (click)="openHistory()">
     <mat-icon svgIcon="footsteps-icon"></mat-icon>
-    All
-    <span class="inline-badge">{{stepsAllTime}}</span>
-</button>
-
-<button mat-raised-button (click)="openHistory()">
-    <mat-icon svgIcon="footsteps-icon"></mat-icon>
-    Today
-    <span class="inline-badge">{{stepsToday}}</span>
+    <span class="inline-badge">{{stepsToday}} / {{stepsAllTime}}</span>
 </button>
