@@ -1,8 +1,10 @@
 import { Injectable } from '@angular/core';
 import { Direction, Key } from '@models/enums';
+import { Preferences } from '@models/preferences';
 import { Subject } from 'rxjs';
 import { DisplayService } from './display.service';
 import { Log } from './log.service';
+import { PreferenceService } from './preference.service';
 
 @Injectable({
   providedIn: 'root'
@@ -14,20 +16,8 @@ export class KeyboardService {
   onPress = new Subject<{ key: Key, state: boolean }>();
   onLongPress = new Subject<Key>();
 
-  keyMap = new Map<string, Key>([
-    ["ArrowLeft", Key.LEFT],
-    ["ArrowDown", Key.DOWN],
-    ["ArrowUp", Key.UP],
-    ["ArrowRight", Key.RIGHT],
-    ["KeyA", Key.SECONDLEFT],
-    ["KeyS", Key.SECONDDOWN],
-    ["KeyW", Key.SECONDUP],
-    ["KeyD", Key.SECONDRIGHT],
-    ["Space", Key.START],
-    ["Enter", Key.SELECT],
-    ["Escape", Key.CANCEL],
-    ["KeyT", Key.TEST]
-  ]);
+  //overrriden at start of game from preferences
+  keyMap = new Map<string, Key>();
 
   //setTimeout handles
   keyLongPressState = new Map<Key, ReturnType<typeof setTimeout> | null>([
@@ -58,18 +48,36 @@ export class KeyboardService {
     [Key.CANCEL, false]
   ]);
 
-  constructor() {
+  constructor(preferenceService: PreferenceService) {
+    preferenceService.onPreferenceChange.subscribe(pref => this.configure(pref));
+
     Log.debug("KeyboardService", 'started listening keys');
     window.addEventListener('keyup', this.onKeyHandler.bind(this));
     window.addEventListener('keydown', this.onKeyHandler.bind(this));
     //this.displayService.onStart.subscribe(x => this.listenStarted = true);
   }
 
-  onKeyHandler(event: KeyboardEvent) {
+  configure(preferences: Preferences) {
+    this.keyMap.clear();
+    this.keyMap.set(preferences.controls.left, Key.LEFT);
+    this.keyMap.set(preferences.controls.down, Key.DOWN);
+    this.keyMap.set(preferences.controls.up, Key.UP);
+    this.keyMap.set(preferences.controls.right, Key.RIGHT);
+    // this.keyMap.set("KeyA", Key.SECONDLEFT);
+    // this.keyMap.set("KeyS", Key.SECONDDOWN);
+    // this.keyMap.set("KeyW", Key.SECONDUP);
+    // this.keyMap.set("KeyD", Key.SECONDRIGHT);
+    this.keyMap.set(preferences.controls.start, Key.START);
+    this.keyMap.set(preferences.controls.select, Key.SELECT);
+    this.keyMap.set(preferences.controls.cancel, Key.CANCEL);
+    this.keyMap.set(preferences.controls.test, Key.TEST);
+  }
+
+  onKeyHandler(event: KeyboardEvent): boolean {
     //if (!this.listenStarted) return;
     let isKeyDown = event.type == 'keydown';
     let systemKey = this.keyMap.get(event.code || event.key);
-    if (systemKey === undefined) return;
+    if (systemKey === undefined) return true;
     let keyState = this.keyState.get(systemKey);
     if (isKeyDown != keyState) {
       Log.debug("KeyboardService", `KeyState change: ${event.code || event.key}, ${isKeyDown}`)
@@ -85,5 +93,8 @@ export class KeyboardService {
         if (timerHandle) clearTimeout(timerHandle);
       }
     }
+
+    if(event.preventDefault) event.preventDefault();
+    return false;
   }
 }
