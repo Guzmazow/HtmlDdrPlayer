@@ -1,6 +1,6 @@
 {
   "name": "html-ddr-player",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "scripts": {
     "ng": "ng",
     "start": "set NODE_OPTIONS=--openssl-legacy-provider && ng serve --host 0.0.0.0",
@@ -11,16 +11,16 @@
   },
   "private": true,
   "dependencies": {
-    "@angular/animations": "~12.2.11",
+    "@angular/animations": "~13.4.0",
     "@angular/cdk": "~12.2.11",
-    "@angular/common": "~12.2.11",
-    "@angular/compiler": "~12.2.11",
-    "@angular/core": "~12.2.11",
-    "@angular/forms": "~12.2.11",
+    "@angular/common": "~13.4.0",
+    "@angular/compiler": "~13.4.0",
+    "@angular/core": "~13.4.0",
+    "@angular/forms": "~13.4.0",
     "@angular/material": "~12.2.11",
-    "@angular/platform-browser": "~12.2.11",
-    "@angular/platform-browser-dynamic": "~12.2.11",
-    "@angular/router": "~12.2.11",
+    "@angular/platform-browser": "~13.4.0",
+    "@angular/platform-browser-dynamic": "~13.4.0",
+    "@angular/router": "~13.4.0",
     "@mediapipe/tasks-audio": "^0.1.0-alpha-8",
     "@tensorflow/tfjs": "^4.4.0",
     "byte-base64": "^1.1.0",
@@ -31,16 +31,16 @@
     "zone.js": "~0.11.3"
   },
   "devDependencies": {
-    "@angular-devkit/build-angular": "~12.2.11",
-    "@angular/cli": "~12.2.11",
-    "@angular/compiler-cli": "~12.2.11",
+    "@angular-devkit/build-angular": "~13.3.11",
+    "@angular/cli": "~13.3.11",
+    "@angular/compiler-cli": "~13.4.0",
     "@types/dom-serial": "^1.0.2",
     "@types/jasmine": "~4.0.0",
     "@types/node": "~12.11.1",
     "codelyzer": "^6.0.2",
     "node-fetch": "^2.0.0",
     "ts-node": "~10.4.0",
-    "typescript": "~4.3.0",
+    "typescript": "~4.6.4",
     "webpack-bundle-analyzer": "^4.5.0"
   }
 }
