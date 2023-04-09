@@ -1,0 +1,13 @@
+<div #zoomviewContainer class="zoomview-container"></div>
+<div #overviewContainer class="overview-container"></div>
+
+<div>
+  <button type="button" class="btn btn-primary" (click)="zoomIn()">Zoom In</button>&nbsp;
+  <button type="button" class="btn btn-primary" (click)="zoomOut()">Zoom Out</button>&nbsp;
+  <button type="button" class="btn btn-primary" (click)="addSegment()">Add Segment</button>&nbsp;
+  <button type="button" class="btn btn-primary" (click)="addPoint()">Add Point</button>&nbsp;
+  <button type="button" class="btn btn-primary" (click)="logMarkers()">Log Segments/Points</button>
+</div>
+
+<segments-list [segments]="this.peaks?.segments?.getSegments() || []"></segments-list>
+<points-list [points]="this.peaks?.points?.getPoints() || []"></points-list>

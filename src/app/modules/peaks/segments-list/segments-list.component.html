@@ -1,0 +1,20 @@
+<h3>Segments</h3>
+
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th scope="col">ID</th>
+      <th scope="col">Start Time</th>
+      <th scope="col">End Time</th>
+      <th scope="col">Label</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let segment of segments">
+      <td>{{ segment.id }}</td>
+      <td>{{ segment.startTime }}</td>
+      <td>{{ segment.endTime }}</td>
+      <td>{{ segment.labelText }}</td>
+    </tr>
+  </tbody>
+</table>

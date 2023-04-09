@@ -42,9 +42,10 @@ import { PreferencesDialogComponent } from '@components/preferences/preferences-
 import { SelectableModesPipe } from '@pipes/selectable-modes.pipe';
 import { MediaService } from '@services/media.service';
 import { StepCounterHistoryDialogComponent } from '@components/step-counter/step-counter-history-dialog.component';
-import { SimfileGeneratorComponent } from './components/simfile-generator/simfile-generator/simfile-generator.component';
+import { SimfileGeneratorComponent } from './components/simfile-generator/simfile-generator.component';
 import { DailymotionVideoComponent } from './components/dailymotion-video/dailymotion-video/dailymotion-video.component';
 import { SafePipe } from '@pipes/safe.pipe.';
+import { PeakModule } from './modules/peaks/peak.module';
 
 
 @NgModule({
@@ -91,7 +92,8 @@ import { SafePipe } from '@pipes/safe.pipe.';
     MatSnackBarModule,
     MatProgressBarModule,
     ReactiveFormsModule,
-    MatBadgeModule
+    MatBadgeModule,
+    PeakModule,
   ],
   providers: [KeyboardService, MediaService],
   bootstrap: [AppComponent]

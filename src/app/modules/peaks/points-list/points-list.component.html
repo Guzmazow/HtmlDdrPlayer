@@ -1,0 +1,18 @@
+<h3>Points</h3>
+
+<table class="table table-striped">
+  <thead>
+    <tr>
+        <th scope="col">ID</th>
+        <th scope="col">Time</th>
+        <th scope="col">Label</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let point of points">
+      <td>{{ point.id }}</td>
+      <td>{{ point.time }}</td>
+      <td>{{ point.labelText }}</td>
+    </tr>
+  </tbody>
+</table>

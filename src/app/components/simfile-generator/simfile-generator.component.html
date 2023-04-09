@@ -1,14 +1,33 @@
+
+
+<audio #audio controls="controls"></audio>
+<br>
 <button mat-raised-button (click)="fileInput.click()">File</button>
 <input hidden type="file" accept="audio/*" #fileInput (change)="audioSelected($event)" />
+
+
+<ng-container *ngIf="pulse">
+    Sig: {{pulse.significantPeaks.length}}
+    All: {{pulse.extrapolatedPeaks.length}}
+    Beat {{pulse.beat | json}}
+</ng-container>
+
+<br>
 
 <mat-form-field appearance="fill">
     <mat-label>Peak threshold</mat-label>
     <input matInput type="number" step="0.01" value="0.98" (input)="checkPeaks($event)">
 </mat-form-field>
-
+<!-- 
 <h1>Peaks: {{audioPeakCount}}</h1>
 <h1>Main tempo: <b>{{audioTempo}}</b></h1>
 <h1>Tempo counts:</h1>
 <pre>{{audioTempoCount | json}}</pre>
-<!-- <h1>Tempo intervals:</h1>
-<pre>{{audioTempoInterval | json}}</pre> -->
+<h1>Tempo intervals:</h1>
+<pre>{{audioTempoInterval | json}}</pre>
+<br>
+<h1>Tempo peaks:</h1>
+<pre>{{audioPeaks | json}}</pre>
+<br> -->
+<waveform-view #peak *ngIf="afterViewInit"></waveform-view>
+<br>
