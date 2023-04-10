@@ -10,7 +10,7 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v2.7
     #  with:
     #    token: ${{ secrets.PAGES_PAT }}
     - name: Cache node modules
@@ -34,7 +34,7 @@ jobs:
         source: dist/HtmlDdrPlayer/index.html
         target: dist/HtmlDdrPlayer/404.html
     - name: GitHub Pages
-      uses: crazy-max/ghaction-github-pages@v2.5.0
+      uses: crazy-max/ghaction-github-pages@v3.1.0
       with:
         repo: Guzmazow/Guzmazow.github.io
         target_branch: master
