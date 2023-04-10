@@ -181,28 +181,28 @@ export class SimfileGeneratorComponent implements AfterViewInit {
       });
 
       Promise.all([peaksPromise, pulsePromise, tempoPromise, classPromise]).then(() => {
-        // if (this.pulse) {
-        //   for (const point of this.pulse.significantPeaks) {
-        //     this.peakComponent?.peaks?.points?.add({
-        //       time: point / 1000,
-        //       color: 'yellow'
-        //     });
-        //   }
+        if (this.pulse) {
+          for (const point of this.pulse.significantPeaks) {
+            this.peakComponent?.peaks?.points?.add({
+              time: point / 1000,
+              color: 'yellow'
+            });
+          }
 
-        //   for (const point of this.pulse.extrapolatedPeaks) {
-        //     this.peakComponent?.peaks?.points?.add({
-        //       time: point / 1000,
-        //       color: 'purple'
-        //     });
-        //   }
-        // }
+          for (const point of this.pulse.extrapolatedPeaks) {
+            this.peakComponent?.peaks?.points?.add({
+              time: point / 1000,
+              color: 'purple'
+            });
+          }
+        }
 
-        // for (const point of this.audioPeaks) {
-        //   this.peakComponent?.peaks?.points?.add({
-        //     time: point / this.audioSampleRate,
-        //     color: 'green'
-        //   });
-        // }
+        for (const point of this.audioPeaks) {
+          this.peakComponent?.peaks?.points?.add({
+            time: point / this.audioSampleRate,
+            color: 'green'
+          });
+        }
 
         let bit = false;
         for (let index = 0; index < classResults.length; index++) {
