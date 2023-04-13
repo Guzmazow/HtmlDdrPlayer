@@ -44,8 +44,10 @@ import { MediaService } from '@services/media.service';
 import { StepCounterHistoryDialogComponent } from '@components/step-counter/step-counter-history-dialog.component';
 import { SimfileGeneratorComponent } from './components/simfile-generator/simfile-generator.component';
 import { DailymotionVideoComponent } from './components/dailymotion-video/dailymotion-video/dailymotion-video.component';
+import { MatCheckboxModule } from '@angular/material/checkbox'
 import { SafePipe } from '@pipes/safe.pipe.';
 import { PeakModule } from './modules/peaks/peak.module';
+import { DatabaseService } from '@services/database.service';
 
 
 @NgModule({
@@ -70,6 +72,7 @@ import { PeakModule } from './modules/peaks/peak.module';
     DailymotionVideoComponent
   ],
   imports: [
+    FormsModule,
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
@@ -85,6 +88,7 @@ import { PeakModule } from './modules/peaks/peak.module';
     MatSortModule,
     MatRippleModule,
     MatDialogModule,
+    MatCheckboxModule,
     NgxY2PlayerModule,
     MatListModule,
     MatTabsModule,
@@ -95,7 +99,7 @@ import { PeakModule } from './modules/peaks/peak.module';
     MatBadgeModule,
     PeakModule,
   ],
-  providers: [KeyboardService, MediaService],
+  providers: [KeyboardService, MediaService, DatabaseService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
