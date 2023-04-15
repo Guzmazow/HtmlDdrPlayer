@@ -1,6 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
+import { MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { AllDirectionFlags, DirectionFlag } from '@models/enums';
+import { firstValueFrom } from 'rxjs';
 import 'web-serial-polyfill';
 
 @Component({
@@ -26,7 +28,7 @@ export class SerialComponent implements OnInit {
     // [DirectionFlag.CANCEL, "Escape"],
   ]);
 
-  constructor(private snackBar: MatSnackBar) { }
+  constructor(private snackBar: MatSnackBar, public dialog: MatDialog) { }
 
   ngOnInit(): void {
     navigator.usb.getDevices().then(devices => {
@@ -91,8 +93,14 @@ export class SerialComponent implements OnInit {
         await device.open();
         if (device.opened) {
           clearInterval(intervalHandle);
-          await device.selectConfiguration(1);
-          await device.claimInterface(0);
+          const dialog = this.dialog.open(SerialConfigDialog, {
+            data: {
+              device: device
+            } as SerialConfigData,
+          });
+          var result = await firstValueFrom(dialog.afterClosed());         
+          await device.selectConfiguration(result.config);
+          await device.claimInterface(result.iface);
         } else {
           this.snackBar.open(`Failed to open USB`, 'Ok', {
             duration: 500
@@ -100,7 +108,7 @@ export class SerialComponent implements OnInit {
         }
       } catch (error) {
         clearInterval(intervalHandle);
-        this.snackBar.open(`Failed to open USB with error ${JSON.stringify(error)}` , 'Ok', {
+        this.snackBar.open(`Failed to open USB with error ${JSON.stringify(error)}`, 'Ok', {
           duration: 20000
         });
       }
@@ -115,7 +123,7 @@ export class SerialComponent implements OnInit {
       if (port.readable) {
         clearInterval(intervalHandle);
         this.listenToPort(port);
-      }else {
+      } else {
         this.snackBar.open(`Failed to open serial`, 'Ok', {
           duration: 500
         });
@@ -125,3 +133,15 @@ export class SerialComponent implements OnInit {
 
 }
 
+interface SerialConfigData {
+  device: USBDevice
+}
+
+@Component({
+  selector: 'serial-config-dialog',
+  templateUrl: 'serial-config-dialog.html',
+})
+export class SerialConfigDialog {
+  selectedValue = { config: 0, iface: 0 };
+  constructor(@Inject(MAT_DIALOG_DATA) public data: SerialConfigData) { }
+}

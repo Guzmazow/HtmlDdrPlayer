@@ -35,7 +35,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { KeyboardService } from '@services/keyboard.service';
 import { YoutubeVideoComponent } from '@components/youtube-video/youtube-video.component';
 import { SynchronizerComponent } from '@components/synchronizer/synchronizer.component';
-import { SerialComponent } from '@components/serial/serial.component';
+import { SerialComponent, SerialConfigDialog } from '@components/serial/serial.component';
 import { StepCounterComponent } from '@components/step-counter/step-counter.component';
 import { PreferencesComponent } from '@components/preferences/preferences.component';
 import { PreferencesDialogComponent } from '@components/preferences/preferences-dialog.component';
@@ -48,6 +48,7 @@ import { MatCheckboxModule } from '@angular/material/checkbox'
 import { SafePipe } from '@pipes/safe.pipe.';
 import { PeakModule } from './modules/peaks/peak.module';
 import { DatabaseService } from '@services/database.service';
+import { MatSelectModule } from '@angular/material/select';
 
 
 @NgModule({
@@ -62,6 +63,7 @@ import { DatabaseService } from '@services/database.service';
     YoutubeVideoComponent,
     SynchronizerComponent,
     SerialComponent,
+    SerialConfigDialog,
     StepCounterComponent,
     PreferencesComponent,
     PreferencesDialogComponent,
@@ -98,6 +100,7 @@ import { DatabaseService } from '@services/database.service';
     ReactiveFormsModule,
     MatBadgeModule,
     PeakModule,
+    MatSelectModule
   ],
   providers: [KeyboardService, MediaService, DatabaseService],
   bootstrap: [AppComponent]
