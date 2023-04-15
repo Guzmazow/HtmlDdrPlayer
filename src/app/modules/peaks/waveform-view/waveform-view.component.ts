@@ -29,6 +29,10 @@ import { Log } from '@services/log.service';
 })
 export class WaveformViewComponent implements AfterViewInit {
   @Input() selectedAudioContext?: MyAudioContext;
+  @Input() points?: Point[];
+  @Input() segments?: Segment[];
+  @Input() audioElem?: HTMLElement;
+
   @Output() segmentsEmitter = new EventEmitter<Segment[]>();
   @Output() pointsEmitter = new EventEmitter<Point[]>();
 
@@ -37,9 +41,10 @@ export class WaveformViewComponent implements AfterViewInit {
 
   peaks?: PeaksInstance;
   init: boolean = false;
+  show: boolean = false;
 
   ngAfterViewInit(): void {
-    if (this.selectedAudioContext)
+    if (this.selectedAudioContext || this.audioElem)
       this.initPeaks();
   }
 
@@ -47,7 +52,7 @@ export class WaveformViewComponent implements AfterViewInit {
     if (this.init)
       return;
 
-    if (this.selectedAudioContext) {
+    if (this.selectedAudioContext || this.audioElem) {
       this.init = true;
 
 
@@ -55,6 +60,7 @@ export class WaveformViewComponent implements AfterViewInit {
       // var source = this.selectedAudioContext.createMediaElementSource(audioEl);
       // source.connect(this.selectedAudioContext.destination)
       // const audioContext = new AudioContext();
+      console.log(`PeaksLoaded Audio:${(this.audioElem as HTMLAudioElement)?.src ?? "None"} Points:${this.points?.length??0}, Segments:${this.segments?.length??0}`)
       const options: PeaksOptions = {
         zoomview: {
           container: this.zoomview.nativeElement
@@ -62,7 +68,7 @@ export class WaveformViewComponent implements AfterViewInit {
         overview: {
           container: this.overview.nativeElement
         },
-        mediaElement: this.selectedAudioContext?.audioElem,
+        mediaElement: this.audioElem ?? this.selectedAudioContext?.audioElem,
         keyboard: true,
         createSegmentMarker: createSegmentMarker,
         createSegmentLabel: createSegmentLabel,
@@ -70,7 +76,9 @@ export class WaveformViewComponent implements AfterViewInit {
         zoomLevels: [32, 64, 128, 256, 512, 1024, 2048, 4096],
         webAudio: {
           audioContext: new AudioContext()
-        }
+        },
+        points: this.points,
+        segments: this.segments
       };
 
       Peaks.init(options, (err, peaks) => {
@@ -83,6 +91,7 @@ export class WaveformViewComponent implements AfterViewInit {
         this.peaks?.zoom?.setZoom(3);
         if(this.selectedAudioContext?.loaded) this.selectedAudioContext.loaded();
         this.onPeaksReady();
+        console.log(`PeaksLoaded Points:${this.points?.length??0}, Segments:${this.segments?.length??0}`)
       });
     }
   }

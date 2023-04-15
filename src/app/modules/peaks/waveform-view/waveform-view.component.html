@@ -7,7 +7,8 @@
   <button type="button" class="btn btn-primary" (click)="addSegment()">Add Segment</button>&nbsp;
   <button type="button" class="btn btn-primary" (click)="addPoint()">Add Point</button>&nbsp;
   <button type="button" class="btn btn-primary" (click)="logMarkers()">Log Segments/Points</button>
+  <button type="button" class="btn btn-primary" (click)="show=!show">Toggle Segments/Points</button>
 </div>
 
-<segments-list [segments]="this.peaks?.segments?.getSegments() || []"></segments-list>
-<points-list [points]="this.peaks?.points?.getPoints() || []"></points-list>
+<segments-list *ngIf="show" [segments]="this.peaks?.segments?.getSegments() || []"></segments-list>
+<points-list *ngIf="show" [points]="this.peaks?.points?.getPoints() || []"></points-list>

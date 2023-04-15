@@ -1,3 +1,5 @@
+import { ResultForPeak } from "./result-for-peak";
+
 export interface ClassResult {
     timestampMs: number,
     classifications: {
@@ -8,4 +10,6 @@ export interface ClassResult {
     }[]
   };
 
-  export interface ClassResults extends Array<ClassResult> {};
+  export interface ClassResults extends ResultForPeak{
+    data: ClassResult[]
+  };

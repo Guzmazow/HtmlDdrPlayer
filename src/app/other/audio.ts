@@ -1,6 +1,21 @@
+import { ResultForPeak } from "@models/result-for-peak";
 
+export function loadTempo(byteBuffer: ArrayBuffer, peakThreshhold: number): Promise<ProcessCallback> {
+    return new Promise((resolve, reject) => {
+      tempoDetect(byteBuffer, peakThreshhold, (result) => {
+        //   this.dataCache = result.data;
+        //   this.audioTempo = result.audioTempo;
+        //   this.audioTempoCount = result.audioTempoCount;
+        //   this.audioTempoInterval = result.audioTempoInterval;
+        //   this.audioPeakCount = result.audioPeaks.length,
+        //   this.audioPeaks = result.audioPeaks;
+        //   this.audioSampleRate = result.audioSampleRate;
+        resolve(result);
+      });
+    });
+  }
 
-export function tempoDetect(arrayBuffer: ArrayBuffer, callback: (result: ProcessCallback)=>void) {
+export function tempoDetect(arrayBuffer: ArrayBuffer, peakThreshhold: number, callback: (result: ProcessCallback) => void) {
     var context = new (window.AudioContext || (<any>window).webkitAudioContext)();
     context.decodeAudioData(arrayBuffer, (buffer) => {
         var offlineContext = new OfflineAudioContext(1, buffer.length, buffer.sampleRate);
@@ -13,7 +28,7 @@ export function tempoDetect(arrayBuffer: ArrayBuffer, callback: (result: Process
         source.start(0);
         offlineContext.startRendering();
         offlineContext.oncomplete = (e) => {
-            callback(process(e, buffer.sampleRate));
+            callback(process(e, peakThreshhold, buffer.sampleRate));
         };
     });
 };
@@ -26,7 +41,7 @@ export function checkPeaks(value: number, data: Float32Array,) {
     return peaks;
 }
 
-export interface ProcessCallback {
+export interface ProcessCallback extends ResultForPeak {
     data: Float32Array,
     audioPeaks: number[],
     audioTempo: number,
@@ -36,26 +51,35 @@ export interface ProcessCallback {
 }
 
 
-function process(e: OfflineAudioCompletionEvent, sampleRate: number): ProcessCallback {
+function process(e: OfflineAudioCompletionEvent, peakThreshhold: number, sampleRate: number): ProcessCallback {
     var filteredBuffer = e.renderedBuffer;
     //If you want to analyze both channels, use the other channel later
     var data = filteredBuffer.getChannelData(0);
     var max = arrayMax(data);
     var min = arrayMin(data);
-    var threshold = min + (max - min) * 0.98;
+    var threshold = min + (max - min) * peakThreshhold;
     var peaks = getPeaksAtThreshold(data, threshold);
     var intervalCounts = countIntervalsBetweenNearbyPeaks(peaks);
     var tempoCounts = groupNeighborsByTempo(intervalCounts);
     tempoCounts.sort((a, b) => {
         return b.count - a.count;
     });
+
+    console.log('Audio complete');
     return {
         data: data,
         audioPeaks: peaks,
         audioTempo: tempoCounts[0]?.tempo ?? 0,
         audioTempoCount: tempoCounts,
         audioTempoInterval: intervalCounts,
-        audioSampleRate: sampleRate
+        audioSampleRate: sampleRate,
+        title: "Tempo result",
+        index: 3,
+        points: peaks.map(peak => ({
+            time: peak / sampleRate,
+            color: 'green',
+            update: ()=>{}
+        }))
     }
 }
 

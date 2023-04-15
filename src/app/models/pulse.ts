@@ -1,3 +1,5 @@
+import { Point, Segment } from "peaks.js";
+import { ResultForPeak } from "./result-for-peak";
 
 interface PulseOptions {
     onComplete(event: OfflineAudioCompletionEvent): void;
@@ -6,7 +8,19 @@ interface PulseOptions {
     audioData: ArrayBuffer;
 }
 
-export class Pulse {
+export function loadPulse(byteBuffer: ArrayBuffer): Promise<Pulse> {
+    return new Promise((resolve, reject) => {
+      const pulse = new Pulse({
+        onComplete: () => {
+          console.info("SimfileGenerator", 'Pulse done');
+          resolve(pulse);
+        },
+        audioData: byteBuffer
+      });
+    });
+  }
+
+export class Pulse implements ResultForPeak {
 
     options: PulseOptions;
     audioContext = this._getAudioContext();
@@ -21,7 +35,13 @@ export class Pulse {
         // init options
         this.options = { ...this.getDefaultOptions(), ...options };
         this._process(this.options.audioData);
-    };
+    }
+
+    points: Point[] = [];
+    segments?: Segment[];
+    title: string = "Pulse results";
+    index: number = 0;
+    ;
 
     /**
      * @method Pulse#_getAudioContext
@@ -99,7 +119,25 @@ export class Pulse {
             this.getSignificantPeaks(event);
             this.getBeat();
             this.getExtrapolatedPeaks(event);
+
+            for (const point of this.significantPeaks) {
+                this.points.push({
+                    time: point / 1000,
+                    color: 'yellow',
+                    update: () => { }
+                });
+            }
+
+            for (const point of this.extrapolatedPeaks) {
+                this.points.push({
+                    time: point / 1000,
+                    color: 'purple',
+                    update: () => { }
+                });
+            }
+
             // give a user callback
+            console.log("Pulse complete");
             this.options.onComplete(event);
         };
 
