@@ -17,14 +17,20 @@
     "importHelpers": true,
     "target": "es2015",
     "module": "es2020",
-    "types": [      
-      "jasmine"
+    "types": [
+      "jasmine",
+      "dom-serial",
+      "w3c-web-usb",
+      "long"
     ],
     "lib": [
       "es2018",
       "dom"
     ],
-    "typeRoots": [ "./src/types"],
+    "typeRoots": [
+      "./src/types",
+      "./node_modules/@types"
+    ],
     "paths": {
       "@models/*": [
         "src/app/models/*"

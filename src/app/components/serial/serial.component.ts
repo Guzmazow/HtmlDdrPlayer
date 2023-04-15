@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { AllDirectionFlags, DirectionFlag } from '@models/enums';
+import 'web-serial-polyfill';
 
 @Component({
   selector: 'app-serial',
@@ -28,19 +29,25 @@ export class SerialComponent implements OnInit {
   constructor(private snackBar: MatSnackBar) { }
 
   ngOnInit(): void {
+    // navigator.usb.getDevices().then(devices => {
+    //   if (devices.length == 0) return;
+    //   this.connectToPort2(devices[0]);
+    // });
     navigator.serial.getPorts().then(ports => {
       if (ports.length == 0) return;
       this.connectToPort(ports[0])
     });
   }
 
+  // async toggleSerial2() {
+  //   let port = await navigator.usb.requestDevice();
+  //   await this.connectToPort2(port);
+  // }
 
 
   async toggleSerial() {
     let port = await navigator.serial.requestPort();
     this.connectToPort(port);
-
-
   }
 
   async listenToPort(port: SerialPort) {
@@ -78,14 +85,29 @@ export class SerialComponent implements OnInit {
     }
   }
 
+  // async connectToPort2(device: USBDevice) {
+  //   var intervalHandle = setInterval(async () => {
+  //     await device.open();
+  //     if (device.opened) {
+  //       await device.selectConfiguration(1);
+  //       await device.claimInterface(0);
+  //     }
+  //   }, 100);
+  // }
+
+
   connectToPort(port: SerialPort) {
     port.open({ baudRate: 9600 });
     var intervalHandle = setInterval(() => {
       if (port.readable) {
         clearInterval(intervalHandle);
         this.listenToPort(port);
+      }else {
+        this.snackBar.open(`Failed to open serial`, 'Ok', {
+          duration: 500
+        });
       }
-    }, 100);
+    }, 500);
   }
 
 }
