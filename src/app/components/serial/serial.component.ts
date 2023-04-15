@@ -29,20 +29,20 @@ export class SerialComponent implements OnInit {
   constructor(private snackBar: MatSnackBar) { }
 
   ngOnInit(): void {
-    // navigator.usb.getDevices().then(devices => {
-    //   if (devices.length == 0) return;
-    //   this.connectToPort2(devices[0]);
-    // });
+    navigator.usb.getDevices().then(devices => {
+      if (devices.length == 0) return;
+      this.connectToUSB(devices[0]);
+    });
     navigator.serial.getPorts().then(ports => {
       if (ports.length == 0) return;
       this.connectToPort(ports[0])
     });
   }
 
-  // async toggleSerial2() {
-  //   let port = await navigator.usb.requestDevice();
-  //   await this.connectToPort2(port);
-  // }
+  async toggleUSB() {
+    let port = await navigator.usb.requestDevice({ filters: [] });
+    await this.connectToUSB(port);
+  }
 
 
   async toggleSerial() {
@@ -85,15 +85,28 @@ export class SerialComponent implements OnInit {
     }
   }
 
-  // async connectToPort2(device: USBDevice) {
-  //   var intervalHandle = setInterval(async () => {
-  //     await device.open();
-  //     if (device.opened) {
-  //       await device.selectConfiguration(1);
-  //       await device.claimInterface(0);
-  //     }
-  //   }, 100);
-  // }
+  async connectToUSB(device: USBDevice) {
+    var intervalHandle = setInterval(async () => {
+      try {
+        await device.open();
+        if (device.opened) {
+          clearInterval(intervalHandle);
+          await device.selectConfiguration(1);
+          await device.claimInterface(0);
+        } else {
+          this.snackBar.open(`Failed to open USB`, 'Ok', {
+            duration: 500
+          });
+        }
+      } catch (error) {
+        clearInterval(intervalHandle);
+        this.snackBar.open(`Failed to open USB with error ${JSON.stringify(error)}` , 'Ok', {
+          duration: 20000
+        });
+      }
+
+    }, 100);
+  }
 
 
   connectToPort(port: SerialPort) {
