@@ -1,14 +1,19 @@
 <h1 mat-dialog-title>Interface selection</h1>
 <div mat-dialog-content>
-  <mat-form-field appearance="fill">
-    <mat-label>Best interface</mat-label>
-    <mat-select [(ngModel)]="selectedValue" name="food">
-    <ng-container *ngFor="let config of data.device.configurations">
-        <mat-option *ngFor="let interface of config.interfaces" [value]="{ config: config.configurationValue, iface: interface.interfaceNumber }">
-            {{config.configurationName ?? config.configurationValue}} - {{interface.interfaceNumber}}
-            </mat-option>
-    </ng-container>
-    </mat-select>
-  </mat-form-field>
-  <button mat-button [mat-dialog-close]="selectedValue">Ok</button>
+    <mat-form-field appearance="fill">
+        <mat-label>Best interface</mat-label>
+        <mat-select [(ngModel)]="selectedValue" name="food">
+            <ng-container *ngFor="let config of data.device.configurations">
+                <ng-container *ngFor="let interface of config.interfaces">
+                    <mat-option *ngFor="let endpoint of interface.alternate.endpoints"
+                        [value]="{ config: config.configurationValue, iface: interface.interfaceNumber, endpoint: endpoint.endpointNumber }">
+                        config {{config.configurationName ?? config.configurationValue}} -
+                        iface {{interface.interfaceNumber}} -
+                        {{endpoint.direction}}put {{interface.interfaceNumber}}
+                    </mat-option>
+                </ng-container>
+            </ng-container>
+        </mat-select>
+    </mat-form-field>
+    <button mat-button [mat-dialog-close]="selectedValue">Ok</button>
 </div>

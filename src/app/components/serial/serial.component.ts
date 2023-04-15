@@ -79,11 +79,46 @@ export class SerialComponent implements OnInit {
             }
           }
         }
-
-
-
       }
+    }
+  }
 
+  async listenToUSB(device: USBDevice, endpoint: number) {
+    this.snackBar.open(`USB port opened`, 'Ok', {
+      duration: 3000
+    });
+    while (true) {
+      const data = await device.transferIn(endpoint, 2);
+      switch (data.status) {
+        case "ok":
+          if (data.data) {
+            const value = new Uint8Array(data.data?.buffer);
+            for (let index = 0; index < value.length; index++) {
+              let nextInt = value[index];
+              // console.log(nextInt);      
+              for (let flag of AllDirectionFlags) {
+                if ((nextInt & flag) === flag) {
+                  // console.log(DirectionFlag[flag]);
+                  this.keyState.set(flag, true)
+                  window.dispatchEvent(new KeyboardEvent('keydown', { key: this.keyMap.get(flag) }));
+                } else {
+                  if (this.keyState.get(flag) || false) {
+                    this.keyState.set(flag, false)
+                    window.dispatchEvent(new KeyboardEvent('keyup', { key: this.keyMap.get(flag) }));
+                  }
+                }
+              }
+            }
+          }
+          break;
+        case "stall":
+        case "babble":
+        default:
+          this.snackBar.open(`USB responed with status ${data.status}`);
+          if (data.status == "stall")
+            device.clearHalt('in', endpoint);
+          break;
+      }
     }
   }
 
@@ -98,9 +133,10 @@ export class SerialComponent implements OnInit {
               device: device
             } as SerialConfigData,
           });
-          var result = await firstValueFrom(dialog.afterClosed());         
+          var result = await firstValueFrom(dialog.afterClosed());
           await device.selectConfiguration(result.config);
           await device.claimInterface(result.iface);
+          this.listenToUSB(device, result.endpoint);
         } else {
           this.snackBar.open(`Failed to open USB`, 'Ok', {
             duration: 500
@@ -142,6 +178,19 @@ interface SerialConfigData {
   templateUrl: 'serial-config-dialog.html',
 })
 export class SerialConfigDialog {
-  selectedValue = { config: 0, iface: 0 };
-  constructor(@Inject(MAT_DIALOG_DATA) public data: SerialConfigData) { }
+  selectedValue: { config: number, iface: number, endpoint: number } = { config: 0, iface: 0, endpoint: 0 };
+  constructor(@Inject(MAT_DIALOG_DATA) public data: SerialConfigData) {
+    data.device.configurations.forEach(a => {
+      a.interfaces.forEach(b => {
+        b.alternate.endpoints.forEach(c => {
+          this.selectedValue = {
+            config: a.configurationValue,
+            iface: b.interfaceNumber,
+            endpoint: c.endpointNumber
+          };
+        });
+      })
+    });
+  }
 }
+
