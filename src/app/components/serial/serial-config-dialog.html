@@ -9,7 +9,7 @@
                         [value]="{ config: config.configurationValue, iface: interface.interfaceNumber, endpoint: endpoint.endpointNumber }">
                         config {{config.configurationName ?? config.configurationValue}} -
                         iface {{interface.interfaceNumber}} -
-                        {{endpoint.direction}}put {{interface.interfaceNumber}}
+                        {{endpoint.direction}}put {{endpoint.endpointNumber}}
                     </mat-option>
                 </ng-container>
             </ng-container>

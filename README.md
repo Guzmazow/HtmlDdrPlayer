@@ -14,6 +14,7 @@
     |:-----:|:--:|:----:|:----:|:-----:|:-----:|:------:|:------------:|
     |  key  | UP | DOWN | LEFT | RIGHT | START | SELECT |      N/A     |
     | value |  1 |   2  |   4  |   8   |   16  |   32   |  64 .. 32768 |
+- As of 2023-04-16 this works on mobile
 
 ---
 
@@ -47,7 +48,17 @@
   - Vocaloid Project Pad Pack - https://search.stepmaniaonline.net/packs/Vocaloid+Project+Pad+Pack
   - Other - various other singles are included in seperate folder
   
-- As of this writing all music/videos are stored in youtube
+- As of this writing almost all (2 songs from dailymotion) music/videos are stored in youtube
   - Missing songs were uploaded unlisted to my channel
   - Videos are played using https://www.npmjs.com/package/ngx-y2-player
     - Which in turn utilizes https://developers.google.com/youtube/iframe_api_reference
+
+- WIP Audio segmentation, classification for simfile generation
+  - tensorflow.js aka yamnet audio classication for mobile
+  - peaks.js - BBC licence, strange licence, remove later
+  - pulse.js stolen and rewriten to typescript
+  - @mediapipe/tasks-audio - remove package as tensorflow is better
+
+- WIP Serial on mobile
+  - Tried https://github.com/google/web-serial-polyfill, partially working, ~~stolen~~copied locally and fixed
+  

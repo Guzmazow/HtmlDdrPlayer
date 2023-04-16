@@ -1,6 +1,6 @@
-<button mat-raised-button (click)=toggleSerial()>
+<button *ngIf="!noSerial" mat-raised-button (click)=toggleSerial()>
    <mat-icon>developer_board</mat-icon> Connect to serial 
 </button>
-<button mat-raised-button (click)=toggleUSB()>
+<button *ngIf="!noUsb" mat-raised-button (click)=toggleSerial2()>
    <mat-icon>usb</mat-icon> Connect to usb?
 </button>
